@@ -14,8 +14,13 @@ ext {
   junitVersion = '5.9.2'
 }
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+java {
+  sourceCompatibility = JavaVersion.VERSION_1_8
+  targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+//sourceCompatibility = '1.8'
+//targetCompatibility = '1.8'
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
@@ -26,8 +31,8 @@ dependencies {
 
   testImplementation('javax.servlet:javax.servlet-api:4.0.1')
 
-  testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+  testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 
   // https://mvnrepository.com/artifact/org.springframework/spring-core
   implementation 'org.springframework:spring-core:5.3.27'
@@ -67,8 +72,9 @@ dependencies {
   implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
   implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
 
-  // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-  implementation 'org.slf4j:slf4j-api:2.0.13'
+//  // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+//  implementation 'org.slf4j:slf4j-api:2.0.13'
+  implementation 'org.slf4j:slf4j-api:1.7.36'
 
   // https://mvnrepository.com/artifact/org.mybatis/mybatis
   implementation 'org.mybatis:mybatis:3.5.7'
