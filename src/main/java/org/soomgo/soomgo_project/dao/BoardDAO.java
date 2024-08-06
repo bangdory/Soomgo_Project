@@ -4,7 +4,6 @@ import org.soomgo.soomgo_project.domain.BoardDTO;
 import org.soomgo.soomgo_project.mappers.BoardMapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 
 @Repository
 public class BoardDAO {
@@ -16,7 +15,6 @@ public class BoardDAO {
     }
 
     public BoardDTO getBoard(){
-        System.out.println("BoardDAO : " + boardMapper.getBoard().toString());
         return boardMapper.getBoard();
     }
 
