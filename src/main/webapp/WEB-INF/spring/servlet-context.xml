@@ -5,11 +5,6 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-<!--    <context:component-scan base-package="org.soomgo.soomgo_project.controller"/>-->
-
-<!--    <mvc:annotation-driven/>-->
-
-
     <!-- 컨트롤러가 어떤 방식으로 찾아갈 지 설정하는 Handler Mapping 설정, URI -->
 
     <!-- VIEW Resolver -> VIEW 를 찾아갈 때 어떻게 찾아갈지 설정-->
@@ -19,7 +14,8 @@
     </bean>
 
     <!-- 파일 업로드를 위한 MVC 설정-->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/><!--톰캣 web.xml 설정을 이용-->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/><!--톰캣 web.xml 설정을 이용-->
 
     <context:component-scan base-package="org.soomgo.soomgo_project.controller"/>
     <!-- 이렇게 지정해야 이 패키지 안에 controller 가 스프링에 Bean 으로 등록됨 -->
@@ -31,6 +27,4 @@
 <!--    &lt;!&ndash; 일반적으로는 resources 경로로 들어오는데 이렇게 들어오면 static 폴더에 있는 내용을 서비스 할것이다 &ndash;&gt;-->
 <!--    <mvc:resources mapping="/resources/**" location="classpath:/static/"/> &lt;!&ndash; 마지막에 / 넣을 것 &ndash;&gt;-->
 <!--    <mvc:resources mapping="/files/**" location="file:///C:/upload/"/> &lt;!&ndash; files 라는 이름으로 시작하고 뒤에 파일 이름을 주면 뒤의 폴더의 내용을 서비스 함&ndash;&gt;-->
-
-
 </beans>
