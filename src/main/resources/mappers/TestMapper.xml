@@ -9,4 +9,8 @@
         select now()
     </select>
 
+    <select id="getBoard">
+        select * from testboard
+    </select>
+
 </mapper>
