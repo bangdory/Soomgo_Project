@@ -4,7 +4,9 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.soomgo.soomgo_project.mappers.TestMapper">
-    <select id="getTest" resultType="TestVO">
-        SELECT * FROM testboard
+
+    <select id="getTime2" resultType="String">
+        select now()
     </select>
+
 </mapper>
