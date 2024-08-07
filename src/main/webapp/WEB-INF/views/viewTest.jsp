@@ -8,11 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title></title>
 </head>
 <body>
     <div>
-        <h2>테스트중입니다.</h2>
+        <h2>abc</h2>
     </div>
 </body>
 </html>
