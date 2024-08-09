@@ -7,15 +7,11 @@
 
     <!-- 사용자 이메일과 비밀번호로 사용자 정보 조회 -->
     <select id="findByEmailAndPassword" parameterType="map" resultType="org.soomgo.soomgo_project.domain.UserDTO">
-        SELECT *
-        FROM user
-        WHERE user_email = #{email}
-        AND user_password = #{password}
+        SELECT * FROM user WHERE user_email = #{email} AND user_password = #{password}
     </select>
 
-    <!-- 사용자 정보를 삽입 -->
-    <insert id="insertUser" parameterType="org.soomgo.soomgo_project.domain.UserDTO">
-        INSERT INTO user (user_email, user_password, user_name, user_phonenum, user_type, create_at, user_sex)
-        VALUES (#{user_email}, #{user_password}, #{user_name}, #{user_phonenum}, #{user_type}, #{create_at}, #{user_sex})
-    </insert>
+    <select id="findUserProfileByUserNum" parameterType="int" resultType="org.soomgo.soomgo_project.domain.UserProfileDTO">
+    SELECT user_nickname FROM user_profile WHERE user_num = #{user_num}
+    </select>
+
 </mapper>
