@@ -25,8 +25,11 @@
         select * from request where id > 0 order by id desc
     </select>
 
-    <select id="readRequest" parameterType="GosuDTO" resultType="RequestLIST">
+    <select id="readRequest" parameterType="GosuDTO" resultType="RequestDTO">
         SELECT * from request r INNER JOIN gTest g ON r.region = #{region} AND r.type = #{type} where g.id = #{id} order by regDate desc
-        LIMIT 10
+    </select>
+
+    <select id="findGosu" parameterType="String" resultType="GosuDTO">
+        select * from gTest where id = #{id}
     </select>
 </mapper>

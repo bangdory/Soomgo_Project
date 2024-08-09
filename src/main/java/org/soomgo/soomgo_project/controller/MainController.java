@@ -2,6 +2,7 @@ package org.soomgo.soomgo_project.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.soomgo.soomgo_project.domain.GosuDTO;
 import org.soomgo.soomgo_project.domain.RequestDTO;
 import org.soomgo.soomgo_project.service.RequestService;
 import org.springframework.stereotype.Controller;
@@ -38,13 +39,13 @@ public class MainController {
     @GetMapping("/read/{id}")
     // @PathVariable 은 값이 계속 바뀜 -> void 로 리턴할 수 없음
     public String read(
-            @PathVariable(name = "id") int id, // {} 로 묶은 것을 변수로
+            @PathVariable(name = "id") String id, // {} 로 묶은 것을 변수로
             Model model
     ) {
-        log.info("id : " + id);
-        RequestDTO requestDTO = requestService.get(id);
-        log.info(requestDTO);
-        model.addAttribute("dto", requestDTO);
+        GosuDTO gosu = requestService.findGosu(id);
+        List<RequestDTO> requestDTOS = requestService.readRequest(gosu);
+        model.addAttribute("gosu", gosu);
+        model.addAttribute("lists", requestDTOS);
         return "/request/read";
     }
 

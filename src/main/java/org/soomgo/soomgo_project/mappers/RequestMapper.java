@@ -15,5 +15,7 @@ public interface RequestMapper {
 
     RequestDTO select(int id);
 
-    RequestList readRequest(GosuDTO gosuDTO);
+    List<RequestDTO> readRequest(GosuDTO gosuDTO);
+
+    GosuDTO findGosu(String id);
 }

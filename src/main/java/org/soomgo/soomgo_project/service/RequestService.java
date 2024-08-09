@@ -2,6 +2,7 @@ package org.soomgo.soomgo_project.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.soomgo.soomgo_project.domain.GosuDTO;
 import org.soomgo.soomgo_project.domain.RequestDTO;
 import org.soomgo.soomgo_project.mappers.RequestMapper;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class RequestService {
 
     // Mapper 만 바라볼 것!!
     private final RequestMapper requestMapper; // 처음부터 만들어져야 함, 생성자 정의
+
     public int register(RequestDTO requestDTO) {
         log.info("==========================" + requestDTO);
 
@@ -32,6 +34,14 @@ public class RequestService {
 
     public RequestDTO get(int id) {
         return requestMapper.select(id);
+    }
+
+    public List<RequestDTO> readRequest(GosuDTO gosuDTO) {
+        return requestMapper.readRequest(gosuDTO);
+    }
+
+    public GosuDTO findGosu(String id) {
+        return requestMapper.findGosu(id);
     }
 
     public boolean remove(int id) {

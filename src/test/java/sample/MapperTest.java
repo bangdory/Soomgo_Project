@@ -55,10 +55,16 @@ public class MapperTest {
     @Test
     public void testReadRequest() {
         GosuDTO gosuDTO = new GosuDTO();
-        gosuDTO.setId("고수1");
-        gosuDTO.setType("type3");
-        gosuDTO.setRegion("광주");
-        RequestList requestList = requestMapper.readRequest(gosuDTO);
-        log.info(requestList.toString());
+        gosuDTO.setId("고수3");
+        gosuDTO.setType("type1");
+        gosuDTO.setRegion("대전");
+        List<RequestDTO> requestDTOS = requestMapper.readRequest(gosuDTO);
+        log.info(requestDTOS);
+    }
+
+    @Test
+    public void findGosu() {
+        GosuDTO gosuID = requestMapper.findGosu("고수4");
+        log.info(gosuID);
     }
 }
