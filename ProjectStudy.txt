@@ -58,3 +58,11 @@ select * from reqsend;
 고수의 분야 -> 견적서 type FK
 
 -- 0809 GitHub 통합
+
+-- DB 의 개수만큼 DTO 를 설계해야 하는가?
+-- 견적서 register 시
+    GET 방식으로 register.jsp 화면 구현할 때
+    1. 고객정보, 견적 분야 (type) 받아서 넘어가도록
+    -> 서비스 분야 선택 시 Ajax 처리로 sort 선택 후 해당 type 검색, 데이터 넘기기
+    2. type 마다 다른 질문사항 구현
+    3. territory 는 페이지에 hidden 으로 구현해 뒀다가 onclick 이벤트로 div 안에 innerHTML 로 추가해보기
