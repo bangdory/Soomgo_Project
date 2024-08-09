@@ -30,3 +30,4 @@ CREATE TABLE request
 # alter table reqsend modify cr BOOLEAN default null;
 select *
 from request;
+

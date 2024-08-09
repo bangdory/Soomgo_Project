@@ -12,5 +12,5 @@ FROM territory
 WHERE id IN (
     SELECT id
     FROM territory
-    WHERE state = '강원특별자치도'
+    WHERE state = '충청북도'
 ) AND district IS NOT NULL;

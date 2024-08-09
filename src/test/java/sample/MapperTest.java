@@ -78,5 +78,8 @@ public class MapperTest {
     public void findCategory() {
         List<String> category = requestMapper.findType("디자인외주");
         log.info(category);
+        for (String s : category) {
+            log.info(s);
+        }
     }
 }

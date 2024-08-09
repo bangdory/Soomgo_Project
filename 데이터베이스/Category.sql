@@ -59,7 +59,7 @@ FROM category
 WHERE CategoryName IN (
     SELECT CategoryName
     FROM category
-    WHERE Id = (
+    WHERE P_Id = (
         SELECT Id
         FROM category
         WHERE CategoryName = '디자인외주'
