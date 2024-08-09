@@ -2,8 +2,10 @@ package org.soomgo.soomgo_project.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.soomgo.soomgo_project.domain.CategoryDTO;
 import org.soomgo.soomgo_project.domain.GosuDTO;
 import org.soomgo.soomgo_project.domain.RequestDTO;
+import org.soomgo.soomgo_project.domain.TerritoryDTO;
 import org.soomgo.soomgo_project.mappers.RequestMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +44,14 @@ public class RequestService {
 
     public GosuDTO findGosu(String id) {
         return requestMapper.findGosu(id);
+    }
+
+    public List<TerritoryDTO> findTerritory(String id) {
+        return requestMapper.findTerritory(id);
+    }
+
+    public List<String> findCategory(String type) {
+        return requestMapper.findType(type);
     }
 
     public boolean remove(int id) {

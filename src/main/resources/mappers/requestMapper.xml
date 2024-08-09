@@ -32,4 +32,23 @@
     <select id="findGosu" parameterType="String" resultType="GosuDTO">
         select * from gTest where id = #{id}
     </select>
+
+    <select id="findTerritory" parameterType="String" resultType="TerritoryDTO">
+        select district from territory where state = #{state}
+    </select>
+
+    <select id="findType" resultType="String" parameterType="String">
+        SELECT CategoryName
+        FROM category
+        WHERE CategoryName IN (
+        SELECT CategoryName
+        FROM category
+        WHERE Id = (
+        SELECT Id
+        FROM category
+        WHERE CategoryName = #{type}
+        )
+        AND P_Id IS NOT NULL
+        )
+    </select>
 </mapper>

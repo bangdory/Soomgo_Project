@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.soomgo.soomgo_project.domain.GosuDTO;
 import org.soomgo.soomgo_project.domain.RequestDTO;
-import org.soomgo.soomgo_project.domain.RequestList;
+import org.soomgo.soomgo_project.domain.TerritoryDTO;
 import org.soomgo.soomgo_project.mappers.RequestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -66,5 +66,17 @@ public class MapperTest {
     public void findGosu() {
         GosuDTO gosuID = requestMapper.findGosu("고수4");
         log.info(gosuID);
+    }
+
+    @Test
+    public void findTerritory() {
+        List<TerritoryDTO> list = requestMapper.findTerritory("서울특별시");
+        log.info(list);
+    }
+
+    @Test
+    public void findCategory() {
+        List<String> category = requestMapper.findType("디자인외주");
+        log.info(category);
     }
 }

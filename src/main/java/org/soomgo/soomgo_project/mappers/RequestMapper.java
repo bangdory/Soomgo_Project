@@ -1,9 +1,7 @@
 package org.soomgo.soomgo_project.mappers;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.soomgo.soomgo_project.domain.GosuDTO;
-import org.soomgo.soomgo_project.domain.RequestDTO;
-import org.soomgo.soomgo_project.domain.RequestList;
+import org.soomgo.soomgo_project.domain.*;
 
 import java.util.List;
 
@@ -18,4 +16,8 @@ public interface RequestMapper {
     List<RequestDTO> readRequest(GosuDTO gosuDTO);
 
     GosuDTO findGosu(String id);
+
+    List<TerritoryDTO> findTerritory(String state);
+
+    List<String> findType(String type);
 }

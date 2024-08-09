@@ -2,8 +2,10 @@ package org.soomgo.soomgo_project.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.soomgo.soomgo_project.domain.CategoryDTO;
 import org.soomgo.soomgo_project.domain.GosuDTO;
 import org.soomgo.soomgo_project.domain.RequestDTO;
+import org.soomgo.soomgo_project.domain.TerritoryDTO;
 import org.soomgo.soomgo_project.service.RequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,23 +52,42 @@ public class MainController {
     }
 
     // 견적 등록하는 화면
-    @GetMapping("/register")
-    public void register() {
+    @GetMapping("/register/")
+    public void register(
+            Model model
+    ) {
+        List<String> category = requestService.findCategory("디자인외주");
+        model.addAttribute("c", category);
     }
 
-    // 견적 등록 처리하는 POST
+    /*
+
+        // 견적 등록 처리하는 POST
+        @PostMapping("/register")
+        // Redirection 용 String!!
+        public String registerPost(
+                RequestDTO requestDTO,
+                RedirectAttributes rttr
+        ) {
+            log.info("requestDTO : " + requestDTO);
+            int id = requestService.register(requestDTO);
+            rttr.addFlashAttribute("result", id);
+            // 몇번 견적서가 등록되었는지 -> result 라는 이름, id 번 견적서
+            rttr.addFlashAttribute("dto", requestDTO);
+            log.info("requestDTO : " + requestDTO);
+            return "redirect:/request/list";
+        }
+    */
+
+    // 견적 등록 처리하는 POST + 지역
     @PostMapping("/register")
-    // Redirection 용 String!!
     public String registerPost(
             RequestDTO requestDTO,
             RedirectAttributes rttr
     ) {
-        log.info("requestDTO : " + requestDTO);
-        int id = requestService.register(requestDTO);
-        rttr.addFlashAttribute("result", id);
-        // 몇번 견적서가 등록되었는지 -> result 라는 이름, id 번 견적서
         rttr.addFlashAttribute("dto", requestDTO);
         log.info("requestDTO : " + requestDTO);
+        requestService.register(requestDTO);
         return "redirect:/request/list";
     }
 /*

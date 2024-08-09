@@ -36,13 +36,11 @@
             </select>
         </div>
         <div>
-            <label for="type" class="form-label mt-4">견적 요청</label>
+            <label for="type" class="form-label mt-4">항목을 선택하세요</label>
             <select name="type" class="form-select" id="type">
-                <option value="웹 앱 기획">웹 앱 기획</option>
-                <option value="type 2">type 2</option>
-                <option value="type 3">type 3</option>
-                <option value="type 4">type 4</option>
-                <option value="type 5">type 5</option>
+                <c:forEach var="category" items="${c}">
+                    <option>${category}</option>
+                </c:forEach>
             </select>
         </div>
         <div>
@@ -95,16 +93,6 @@
                     저녁</label>
             </div>
             <input type="hidden" id="timeField" name="time" value="">
-        </div>
-        <div>
-            <label for="region" class="form-label mt-4">지역을 선택하세요</label>
-            <select name="region" class="form-select" id="region">
-                <option>서울</option>
-                <option>대전</option>
-                <option>광주</option>
-                <option>대구</option>
-                <option>부산</option>
-            </select>
         </div>
         <div>
             <label for="ref" class="form-label mt-4">기타 사항</label>
