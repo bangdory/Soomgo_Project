@@ -7,10 +7,11 @@
 
 
     <context:component-scan base-package="org.soomgo.soomgo_project"/>
+    <context:component-scan base-package="org.soomgo.soomgo_project.service"/>
 
     <bean name="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/soomgodb"/>
         <property name="username" value="root"/>
         <property name="password" value="1234"/>
     </bean>
@@ -22,8 +23,9 @@
     <bean class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
-        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+        <property name="mapperLocations" value="classpath:mappers/*"/>
     </bean>
 
     <mybatis-spring:scan base-package="org.soomgo.soomgo_project.mappers"/>
+
 </beans>

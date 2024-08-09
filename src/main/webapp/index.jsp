@@ -7,14 +7,11 @@
 <body>
 <h1><%= "Hello World!" %></h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
-
-  <h1>깃허브 테스트용 수정 사항</h1>
-  <h2>깃허브 테스트용 수정 사항</h2>
-  <h3>깃허브 테스트용 수정 사항</h3>
-  <h4>Develop branch test 111!</h4>
-  <h4>Develop branch test 111!</h4>
-
+  <p>길누리 : <a href="/request">/request 경로 이동</a></p>
+  <p>곽지영 : <a href="/community">/ 경로 이동</a></p>
+  <p>박범수 : <a href="/category/">/ 경로 이동</a></p>
+  <p>정해원 : <a href="#">/ 경로 이동</a></p>
+  <p>윤 청 : <a href="#">/ 경로 이동</a></p>
 
 </body>
 </html>
