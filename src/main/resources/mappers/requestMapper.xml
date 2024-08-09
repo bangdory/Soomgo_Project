@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mapping 설정은 root-context 에서 mybatis property 추가할 것-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.soomgo.soomgo_project.mappers.RequestMapper">
+    <insert id="insert" parameterType="RequestDTO">
+        <selectKey order="AFTER" keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        <!--insert into test (writer, ref)
+        values (#{writer}, #{ref})-->
+        insert into request (writer, regDate, sort, type, sub, file1, file2, cr, amount, addService, result, day, time, age, sex, fav, place, date, region, ref)
+        values (#{writer}, #{regDate}, #{sort}, #{type}, #{sub}, #{file1}, #{file2}, #{cr}, #{amount}, #{addService}, #{result}, #{day}, #{time}, #{age},
+        #{sex}, #{fav}, #{place}, #{date}, #{region}, #{ref})
+    </insert>
+
+    <select id="select" resultType="RequestDTO">
+<!--        select * from test where id = #{id}-->
+        select * from request where id = #{id}
+    </select>
+
+    <select id="getList" resultType="RequestDTO">
+<!--        select * from test where id > 0 order by id desc-->
+        select * from request where id > 0 order by id desc
+    </select>
+
+    <select id="readRequest" parameterType="GosuDTO" resultType="RequestLIST">
+        SELECT * from request r INNER JOIN gTest g ON r.region = #{region} AND r.type = #{type} where g.id = #{id} order by regDate desc
+        LIMIT 10
+    </select>
+</mapper>
