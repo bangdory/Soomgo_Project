@@ -56,3 +56,5 @@ select * from reqsend;
 고수 db -> 고수 고유번호, 지역, 분야
 각 유저의 지역 -> 견적서 region FK
 고수의 분야 -> 견적서 type FK
+
+-- 0809 GitHub 통합
