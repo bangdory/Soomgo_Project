@@ -70,7 +70,7 @@ public class MapperTest {
 
     @Test
     public void findTerritory() {
-        List<TerritoryDTO> list = requestMapper.findTerritory("서울특별시");
+        List<TerritoryDTO> list = requestMapper.findTerritory("강원특별자치도");
         log.info(list);
     }
 

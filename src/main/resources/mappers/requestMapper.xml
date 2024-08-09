@@ -33,8 +33,14 @@
         select * from gTest where id = #{id}
     </select>
 
-    <select id="findTerritory" parameterType="String" resultType="TerritoryDTO">
-        select district from territory where state = #{state}
+    <select id="findTerritory" resultType="TerritoryDTO">
+        SELECT district
+        FROM territory
+        WHERE id IN (
+        SELECT id
+        FROM territory
+        WHERE state = #{state}
+        ) AND district IS NOT NULL;
     </select>
 
     <select id="findType" resultType="String" parameterType="String">

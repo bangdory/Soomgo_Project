@@ -9,10 +9,7 @@ import org.soomgo.soomgo_project.domain.TerritoryDTO;
 import org.soomgo.soomgo_project.service.RequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -51,8 +48,20 @@ public class MainController {
         return "/request/read";
     }
 
+
+
+    /*
+    @GetMapping("/register")
+    @ResponseBody
+    public List<TerritoryDTO> categoryListAjax(@RequestParam("id") String territory) {
+        return requestService.findTerritory(territory);
+    }
+*/
+
+
     // 견적 등록하는 화면
     @GetMapping("/register/")
+    @ResponseBody
     public void register(
             Model model
     ) {
@@ -108,4 +117,5 @@ public class MainController {
         return "/request/read";
     }
 */
+
 }
