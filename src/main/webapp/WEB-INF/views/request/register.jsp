@@ -168,6 +168,8 @@
         });
     });
 </script>
+<%--
+
 <body>
 <div>
     <div class="territoryContainer">
@@ -195,4 +197,6 @@
     </div>
 </div>
 </body>
+--%>
+
 </html>

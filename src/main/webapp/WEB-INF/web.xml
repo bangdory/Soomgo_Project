@@ -34,7 +34,7 @@
         </multipart-config>
     </servlet>
 
-    <servlet-mapping>
+    <servlet-mapping><!-- "/" 로 들어오면 appServlet 을 실행한다-->
         <servlet-name>appServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>

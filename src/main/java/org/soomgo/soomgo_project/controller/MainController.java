@@ -60,11 +60,12 @@ public class MainController {
 
 
     // 견적 등록하는 화면
-    @GetMapping("/register/")
-    @ResponseBody
+    @GetMapping("/register")
+//    @ResponseBody
     public void register(
             Model model
     ) {
+        log.info("register GET 시작");
         List<String> category = requestService.findCategory("디자인외주");
         model.addAttribute("c", category);
     }
