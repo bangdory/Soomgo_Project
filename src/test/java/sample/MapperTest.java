@@ -3,6 +3,7 @@ package sample;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.soomgo.soomgo_project.domain.CategoryDTO;
 import org.soomgo.soomgo_project.domain.GosuDTO;
 import org.soomgo.soomgo_project.domain.RequestDTO;
 import org.soomgo.soomgo_project.domain.TerritoryDTO;
@@ -70,16 +71,22 @@ public class MapperTest {
 
     @Test
     public void findTerritory() {
-        List<TerritoryDTO> list = requestMapper.findTerritory("강원특별자치도");
+        List<TerritoryDTO> list = requestMapper.findTerritoryByState("강원특별자치도");
         log.info(list);
     }
 
     @Test
     public void findCategory() {
-        List<String> category = requestMapper.findType("디자인외주");
+        List<CategoryDTO> category = requestMapper.findType("디자인외주");
         log.info(category);
-        for (String s : category) {
+        for (CategoryDTO s : category) {
             log.info(s);
         }
+    }
+
+    @Test
+    public void findAllCategory() {
+        List<String> allCategory = requestMapper.findAllCategory();
+        log.info(allCategory);
     }
 }

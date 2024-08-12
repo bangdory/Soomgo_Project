@@ -67,3 +67,6 @@ WHERE CategoryName IN (
     AND P_Id IS NOT NULL
 )
 ;
+
+use soomgodb;
+SELECT CategoryName from category where P_Id is null order by id;

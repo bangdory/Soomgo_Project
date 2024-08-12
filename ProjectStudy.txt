@@ -70,3 +70,54 @@ select * from reqsend;
 -- 견적서 read 시
     견적서 리스트 별 번호를 매기고 그 번호 div 에 따라 답장, 삭제 기능 구현
     지역 입력 시 option 태그 내 value 값 생성 -> 동적으로 받아서 db 저장 구현할 것
+
+
+-- 견적서 register GetMapping 에 Ajax 처리로 지역 하위 카테고리 가져오기
+코드 분석
+
+
+document.addEventListener('DOMContentLoaded', function () {
+// 페이지가 완전히 로드 된 후 실행 -> HTML 요소 준비
+        // stateSelect가 변경될 때마다 AJAX 요청을 보내는 코드
+        document.getElementById('stateSelect').addEventListener('change', function (event) {
+        // stateSelect 에서 선택을 변경할 때 마다 이 이벤트리스너가 실행되도록
+
+            // 선택된 state 값을 가져오기
+            var state = this.value;
+            // stateSelect 에서 새로운 값을 선택하면 this.value 를 통해 state 에 저장, Ajax 요청의 쿼리 파라미터로 사용
+            // DOM 에서의 this 는 선택된 요소 -> 여기서는 #stateSelect
+
+            // AJAX 요청
+            fetch('/request/register/territories?state=' + state)
+            // 서버에 Ajax 요청을 보내고 선택된 state 변수 값을 쿼리 파라미터로 전송, 응답을 받을때까지 기다리고 성공하면 Response 객체 반환
+            // getTerritoriesByState 에서 ResponseBody 로  var state 를 던짐
+                .then(response => response.json())
+                // 컨트롤러의 requestService.findTerritory(state) 응답(리턴)은 JSON 형식으로 변환, data 변수에 저장
+                // data 변수는 객체, 배열 등으로 구성될 수 있음
+                .then(data => {
+                    // districtSelect 업데이트
+                    var district = document.getElementById('districtSelect');
+                    district.innerHTML = ''; // 내부 <option> 요소 지우기
+
+                    // 새로운 데이터를 추가
+                    data.forEach(item => {
+                    // 변수 data 는 컨트롤러에서 getTerritoriesByState 에서 ResponseBody 로 쓰인 변수, 결과 값을
+                    // 서버에서 받은 데이터 배열 순회
+                        var listItem = document.createElement('option');
+                        // 순회하며 <option> 요소 생성
+                        listItem.textContent = item.district;
+                        listItem.value = item.district;
+                        // <option> 요소의 텍스트 설정
+
+                        // <select> 요소에 <option> 요소 추가
+                        district.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+비동기 처리는 네트워크 요청과 응답 처리중 인터페이스가 멈추지 않도록 함
+fetch() 메서드와 .json() 메서드는 Promise 라는것을 반환하는데 비동기 순서관리, 에러처리를 할 수 있음
+
+/request/category 에서 보내는 RequestDTO 의 sort, type 이 URI 에 전부 노출되어 있음
+URI 창 GET 파라미터 감추기

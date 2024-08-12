@@ -59,6 +59,7 @@ public class MainController {
     }
 */
 
+/*
 
     // 견적 등록하는 화면
     @GetMapping("/register")
@@ -75,14 +76,52 @@ public class MainController {
         model.addAttribute("allStates", allStates);
 //        model.addAttribute("t", territory);
     }
-
-/*
-    @GetMapping("/states")
-    @ResponseBody
-    public List<String> getAllStates() {
-        return requestService.findAllStates();
-    }
 */
+
+
+    // 카테고리 고르는 화면
+    @GetMapping("/category")
+    public void categoryList(Model model) {
+        List<String> categoryList = requestService.findAllCategory();
+        model.addAttribute("list", categoryList);
+    }
+
+    // 카테고리 Ajax
+    @GetMapping("/category/list")
+    @ResponseBody
+    public List<CategoryDTO> categoryListAjax(@RequestParam String type) {
+        return requestService.findCategory(type);
+    }
+
+    // 카테고리 Post 후 Redirect
+    @PostMapping("/category")
+    public String categorySelect(
+            // @RequestParam 은 NAME 속성임!! -> HTML 태그에서 name 값 찾아옴, 오타 주의
+            @RequestParam("categorySelect") String sort,
+            @RequestParam("categoryName") String type,
+            Model model) {
+        model.addAttribute("sort", sort);
+        model.addAttribute("type", type);
+        log.info("타입 전달 : " + sort + ", " + type);
+        return "redirect:/request/register";
+    }
+
+    // 견적 등록하는 화면
+    @GetMapping("/register")
+//    @ResponseBody
+    public void register(
+            @RequestParam("sort") String sort, @RequestParam("type") String type,
+            Model model
+    ) {
+        log.info("register GET 시작");
+        model.addAttribute("sort", sort);
+        model.addAttribute("type", type);
+        List<String> allStates = requestService.findAllStates();
+        log.info(allStates.toString());
+        model.addAttribute("allStates", allStates);
+    }
+
+
     @GetMapping("/register/territories")
     @ResponseBody
     public List<TerritoryDTO> getTerritoriesByState(@RequestParam String state) {

@@ -33,6 +33,11 @@
         select * from gTest where id = #{id}
     </select>
 
+    <select id="findAllStates" resultType="string">
+        SELECT DISTINCT state
+        FROM territory;
+    </select>
+
     <select id="findTerritoryByState" parameterType="String" resultType="TerritoryDTO">
         <!--SELECT district
         FROM territory
@@ -50,23 +55,11 @@
         ) AND district IS NOT NULL;
     </select>
 
-    <select id="findTerritory" resultType="TerritoryDTO">
-        SELECT no, id, state, district
-        FROM territory
-        WHERE id IN (
-        SELECT id
-        FROM territory
-        WHERE id = #{id}
-        ) AND district IS NOT NULL;
+    <select id="findAllCategory" resultType="String">
+        SELECT CategoryName from category where P_Id is null order by id
     </select>
-
-    <select id="findAllStates" resultType="string">
-        SELECT DISTINCT state
-        FROM territory;
-    </select>
-
-    <select id="findType" resultType="String" parameterType="String">
-        SELECT CategoryName
+    <select id="findType" resultType="CategoryDTO" parameterType="String">
+        SELECT CategoryNum, Id, P_Id, CategoryName
         FROM category
         WHERE CategoryName IN (
         SELECT CategoryName

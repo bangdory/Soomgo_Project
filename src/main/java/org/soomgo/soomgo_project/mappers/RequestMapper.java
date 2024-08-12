@@ -21,7 +21,7 @@ public interface RequestMapper {
 
     List<TerritoryDTO> findTerritoryByState(String state);
 
-//    List<TerritoryDTO> findTerritory();
+    List<CategoryDTO> findType(String type);
 
-    List<String> findType(String type);
+    List<String> findAllCategory();
 }

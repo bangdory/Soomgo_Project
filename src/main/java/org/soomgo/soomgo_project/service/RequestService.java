@@ -54,7 +54,11 @@ public class RequestService {
         return requestMapper.findTerritoryByState(state);
     }
 
-    public List<String> findCategory(String type) {
+    public List<String> findAllCategory() {
+        return requestMapper.findAllCategory();
+    }
+
+    public List<CategoryDTO> findCategory(String type) {
         return requestMapper.findType(type);
     }
 
