@@ -46,8 +46,12 @@ public class RequestService {
         return requestMapper.findGosu(id);
     }
 
-    public List<TerritoryDTO> findTerritory(String id) {
-        return requestMapper.findTerritory(id);
+    public List<String> findAllStates() {
+        return requestMapper.findAllStates();
+    }
+
+    public List<TerritoryDTO> findTerritory(String state) {
+        return requestMapper.findTerritoryByState(state);
     }
 
     public List<String> findCategory(String type) {

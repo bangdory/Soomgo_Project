@@ -35,6 +35,9 @@ public class RequestDTO {
     private String date;
     private String region;
     private String ref;
+    private String price;
+    private String replierRef;
+    private String replierFile;
 
     public RequestDTO() {
         this.regDate = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);

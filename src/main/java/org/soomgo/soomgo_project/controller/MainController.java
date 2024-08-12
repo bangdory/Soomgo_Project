@@ -7,6 +7,7 @@ import org.soomgo.soomgo_project.domain.GosuDTO;
 import org.soomgo.soomgo_project.domain.RequestDTO;
 import org.soomgo.soomgo_project.domain.TerritoryDTO;
 import org.soomgo.soomgo_project.service.RequestService;
+import org.soomgo.soomgo_project.service.TerritoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -66,10 +67,27 @@ public class MainController {
             Model model
     ) {
         log.info("register GET 시작");
-        List<String> category = requestService.findCategory("디자인외주");
+        List<String> category = requestService.findCategory("개발외주");
+        List<String> allStates = requestService.findAllStates();
+        log.info(allStates.toString());
+//        List<TerritoryDTO> territory = requestService.findTerritory("서울특별시");
         model.addAttribute("c", category);
+        model.addAttribute("allStates", allStates);
+//        model.addAttribute("t", territory);
     }
 
+/*
+    @GetMapping("/states")
+    @ResponseBody
+    public List<String> getAllStates() {
+        return requestService.findAllStates();
+    }
+*/
+    @GetMapping("/register/territories")
+    @ResponseBody
+    public List<TerritoryDTO> getTerritoriesByState(@RequestParam String state) {
+        return requestService.findTerritory(state);
+    }
     /*
 
         // 견적 등록 처리하는 POST

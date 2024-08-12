@@ -94,6 +94,47 @@
             </div>
             <input type="hidden" id="timeField" name="time" value="">
         </div>
+        <%--<div>
+            <label for="type" class="form-label mt-4">지역을 선택하세요</label>
+            <select name="region" class="form-select" id="region">
+                <c:forEach var="ter" items="${t}">
+                    <option>${ter.district}</option>
+                </c:forEach>
+            </select>
+        </div>--%>
+
+
+        <%--<div>
+            <label for="stateSelect">State:</label>
+            <select id="stateSelect">
+                <option value="">Select State</option>
+                <!-- State options will be populated dynamically -->
+            </select>
+        </div>
+        <div>
+            <label for="districtSelect">District:</label>
+            <select id="districtSelect">
+                <option value="">Select District</option>
+                <!-- District options will be populated dynamically based on selected state -->
+            </select>
+        </div>--%>
+        <div>
+            <label for="stateSelect">State:</label>
+            <select id="stateSelect">
+                <option value="">Select State</option>
+                <c:forEach var="state" items="${allStates}">
+                    <option class="selectState" value="${state}">${state}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div>
+            <label for="districtSelect">District:</label>
+            <select id="districtSelect">
+                <option name="region" id="district">Select District</option>
+            </select>
+        </div>
+
+
         <div>
             <label for="ref" class="form-label mt-4">기타 사항</label>
             <textarea name="ref" class="form-control" id="ref" rows="3" placeholder="서비스 설명을 적어주세요"></textarea>
@@ -115,58 +156,146 @@
         updateField('date', 'dateField');
         updateField('time', 'timeField');
     }
-</script>
-
-</html>
 
 
---------------
-<html>
-<head>
-    <title>Title</title>
-    <style>
 
-    </style>
-</head>
-<script>
     document.addEventListener('DOMContentLoaded', function () {
-        // .category-link 요소에 클릭 이벤트 리스너 추가
-        document.querySelectorAll('#category-list-1 a').forEach(function (link) {
-            link.addEventListener('click', function (event) {
-                event.preventDefault(); // 기본 링크 동작 방지
+        // stateSelect가 변경될 때마다 AJAX 요청을 보내는 코드
+        document.getElementById('stateSelect').addEventListener('change', function (event) {
+            // 선택된 state 값을 가져오기
+            var state = this.value;
+            console.log(state);
 
-                // 클릭된 링크의 data-id 값 가져오기
-                var id = this.getAttribute('data-id');
+            // AJAX 요청
+            fetch('/request/register/territories?state=' + state)
+                .then(response => response.json())
+                .then(data => {
+                    // list2를 업데이트
+                    var district = document.getElementById('districtSelect');
+                    district.innerHTML = ''; // 기존 내용을 지우기
 
-                // AJAX 요청
-                fetch('/category/list/ajax?id=' + id)
-                    .then(response => response.json())
-                    .then(data => {
-                        // list2를 업데이트
-                        var list2 = document.getElementById('category-list-2');
-                        list2.innerHTML = ''; // 기존 내용을 지우기
+                    // 새로운 데이터를 추가
+                    data.forEach(item => {
+                        console.log(item.state);
+                        // <option> 요소 생성
+                        var listItem = document.createElement('option');
+                        // <option> 요소의 텍스트 설정
+                        listItem.textContent = item.district;
 
-                        // 새로운 데이터를 추가
-                        data.forEach(item => {
-                            // <li> 요소 생성
-                            var listItem = document.createElement('li');
-                            // <a> 요소 생성
-                            var link = document.createElement('a');
-                            // <a> 요소의 href 값 기본값 지정
-                            link.href = '#'; // 링크 기본 URL 설정
-                            link.textContent = item.categoryName; // 링크 텍스트 설정
-
-                            // <li> 요소에 <a> 요소 추가
-                            listItem.appendChild(link);
-
-                            // <ul> 요소에 <li> 요소 추가
-                            list2.appendChild(listItem);
-                        });
-                    })
-                    .catch(error => console.error('Error:', error));
-            });
+                        // <select> 요소에 <option> 요소 추가
+                        district.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
         });
+
+        // // .category-link 요소에 클릭 이벤트 리스너 추가
+        // document.querySelectorAll('.selectState').forEach(function (link) {
+        //     link.addEventListener('change', function (event) {
+        //
+        //         // 클릭된 링크의 data-id 값 가져오기
+        //         var state = this.getAttribute('data-value');
+        //
+        //         // AJAX 요청
+        //         fetch('/register/territories?state=' + state)
+        //             .then(response => response.json())
+        //             .then(data => {
+        //                 // list2를 업데이트
+        //                 var district = document.getElementById('districtSelect');
+        //                 district.innerHTML = ''; // 기존 내용을 지우기
+        //
+        //                 // 새로운 데이터를 추가
+        //                 data.forEach(item => {
+        //                     // <option> 요소 생성
+        //                     var listItem = document.createElement('option');
+        //                     // <a> 요소의 href 값 기본값 지정
+        //                     listItem.innerHTML = item.state;
+        //
+        //                     // <li> 요소에 <a> 요소 추가
+        //                     district.appendChild(listItem);
+        //
+        //                 });
+        //             })
+        //             .catch(error => console.error('Error:', error));
+        //     });
+        // });
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <%-- -------------- --%>
+
+    /*function fetchStates() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/states', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var states = JSON.parse(xhr.responseText);
+                    var stateSelect = document.getElementById('stateSelect');
+                    stateSelect.innerHTML = '<option value="">Select State</option>'; // Clear existing options
+                    states.forEach(function(state) {
+                        var option = document.createElement('option');
+                        option.value = state;
+                        option.textContent = state;
+                        stateSelect.appendChild(option);
+                    });
+                } else {
+                    alert('Error fetching states');
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    function fetchTerritories() {
+        var stateSelect = document.getElementById('stateSelect');
+        var selectedState = stateSelect.value;
+        var districtSelect = document.getElementById('districtSelect');
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/territories?state=' + encodeURIComponent(selectedState), true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var territories = JSON.parse(xhr.responseText);
+                    districtSelect.innerHTML = '<option value="">Select District</option>'; // Clear existing options
+                    territories.forEach(function(territory) {
+                        var option = document.createElement('option');
+                        option.value = territory.district;
+                        option.textContent = territory.district;
+                        districtSelect.appendChild(option);
+                    });
+                } else {
+                    alert('Error fetching data');
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    window.onload = function() {
+        fetchStates();
+        var stateSelect = document.getElementById('stateSelect');
+        stateSelect.addEventListener('change', fetchTerritories);
+    };*/
 </script>
 <%--
 

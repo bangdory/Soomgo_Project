@@ -66,3 +66,7 @@ select * from reqsend;
     -> 서비스 분야 선택 시 Ajax 처리로 sort 선택 후 해당 type 검색, 데이터 넘기기
     2. type 마다 다른 질문사항 구현
     3. territory 는 페이지에 hidden 으로 구현해 뒀다가 onclick 이벤트로 div 안에 innerHTML 로 추가해보기
+
+-- 견적서 read 시
+    견적서 리스트 별 번호를 매기고 그 번호 div 에 따라 답장, 삭제 기능 구현
+    지역 입력 시 option 태그 내 value 값 생성 -> 동적으로 받아서 db 저장 구현할 것

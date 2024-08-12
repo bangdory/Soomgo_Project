@@ -17,7 +17,11 @@ public interface RequestMapper {
 
     GosuDTO findGosu(String id);
 
-    List<TerritoryDTO> findTerritory(String state);
+    List<String> findAllStates();
+
+    List<TerritoryDTO> findTerritoryByState(String state);
+
+//    List<TerritoryDTO> findTerritory();
 
     List<String> findType(String type);
 }
