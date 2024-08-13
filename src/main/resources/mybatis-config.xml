@@ -4,6 +4,6 @@
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <package name="org.soomgo.soomgo_project.requestDomain"/>
+        <package name="org.soomgo.soomgo_project.domain.request"/>
     </typeAliases>
 </configuration>

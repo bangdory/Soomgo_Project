@@ -11,7 +11,7 @@
             </div>
             <%-- 견적 요청 --%>
             <div>
-                <a href="#">견적 요청</a>
+                <a href="${pageContext.request.contextPath}/request/category">견적 요청</a>
             </div>
             <%-- 고수 찾기 --%>
             <div>
