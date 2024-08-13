@@ -11,7 +11,13 @@
     </select>
 
     <select id="findUserProfileByUserNum" parameterType="int" resultType="org.soomgo.soomgo_project.domain.UserProfileDTO">
-    SELECT user_nickname FROM user_profile WHERE user_num = #{user_num}
+        SELECT * FROM user_profile WHERE user_num = #{user_num}
     </select>
 
+
+    <update id="updateUserProfile" parameterType="org.soomgo.soomgo_project.domain.UserProfileDTO">
+        UPDATE user_profile
+        SET user_nickname = #{user_nickname}
+        WHERE user_num = #{user_num}
+    </update>
 </mapper>

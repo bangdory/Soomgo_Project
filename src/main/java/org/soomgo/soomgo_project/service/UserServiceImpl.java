@@ -25,4 +25,9 @@ public class UserServiceImpl implements UserService {
     public UserProfileDTO getUserProfileByUserNum(int user_num) {
         return userMapper.findUserProfileByUserNum(user_num);
     }
+    @Override
+    public void updateUserProfile(UserProfileDTO userProfileDTO) {
+        userMapper.updateUserProfile(userProfileDTO);
+    }
+
 }

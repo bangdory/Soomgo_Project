@@ -15,6 +15,9 @@
 </header>
 <div class="container">
     <main>
+        <c:if test="${not empty errorMessage}">
+            <div class="error-message">${errorMessage}</div>
+        </c:if>
         <form action="<c:url value='/login' />" method="post">
             <label for="email">이메일:</label>
             <input type="email" id="email" name="email" required><br><br>

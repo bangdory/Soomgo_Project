@@ -13,26 +13,22 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <h1>사용자 페이지</h1>
-        <nav>
-            <ul>
-                <li><a href="<c:url value='/requestsent' />">보낸 견적</a></li>
-                <!-- 다른 메뉴들 -->
-            </ul>
-        </nav>
-    </header>
+
     <main>
         <div class="profile-card">
             <div class="profile-header">
                 <img src="<c:url value='/images/profile-placeholder.png' />" alt="Profile Picture" class="profile-picture">
-                <h2>이름 :${user.user_name}</h2>
-            </div>
-            <div class="profile-details">
-                <p><strong>닉네임:</strong> ${userProfile.user_nickname}</p>
-                <p><strong>이메일:</strong> ${user.user_email}</p>
 
             </div>
+            <div class="profile-details">
+                <p><strong>닉네임:</strong> ${userprofile.user_nickname}</p>
+                <p><strong>이메일:</strong> ${user.user_email}</p>
+
+
+            </div>
+            <a href="<c:url value='/userpage/account_info' />">내 계정 정보</a>
+
+            <a href="/logout">로그아웃</a>
         </div>
     </main>
 </div>

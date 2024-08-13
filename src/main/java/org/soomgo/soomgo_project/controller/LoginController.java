@@ -27,8 +27,8 @@ public class LoginController {
         UserDTO user = userService.getUserByEmailAndPassword(email, password);
         if (user != null) {
             session.setAttribute("user", user);
-            UserProfileDTO userProfile = userService.getUserProfileByUserNum(user.getUser_num());
-            session.setAttribute("userProfile", userProfile); // 사용자 프로필 정보를 세션에 저장
+            UserProfileDTO userprofile = userService.getUserProfileByUserNum(user.getUser_num());
+            session.setAttribute("userprofile", userprofile); // 사용자 프로필 정보를 세션에 저장
             return "redirect:/userpage"; // 로그인 후 사용자 페이지로 리디렉션
         } else {
             model.addAttribute("errorMessage", "이메일 또는 비밀번호가 잘못되었습니다.");

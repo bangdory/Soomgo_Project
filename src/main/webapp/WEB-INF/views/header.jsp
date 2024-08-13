@@ -12,7 +12,6 @@
 <body>
 <header>
     <div class="header-container">
-        <h1><a href="<c:url value='/' />">홈페이지 로고</a></h1>
-
+        <img src="<c:url value='/WEB-INF/images/logo.jpeg' />" alt="Example Image" />
     </div>
 </header>
