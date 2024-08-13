@@ -6,7 +6,7 @@
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout/>
         </Console>
-        <File name="file" fileName="./logs/file/sample.log" append="false">
+        <File name="file" fileName="./logs/file/requestSample.log" append="false">
             <PatternLayout pattern="%d %5p [%c] %m%n"/>
         </File>
     </Appenders>

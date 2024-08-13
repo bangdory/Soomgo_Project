@@ -1,9 +1,9 @@
-package org.soomgo.soomgo_project.controller;
+package org.soomgo.soomgo_project.requestController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.soomgo.soomgo_project.domain.RequestDTO;
-import org.soomgo.soomgo_project.service.RequestService;
+import org.soomgo.soomgo_project.requestDomain.RequestDTO;
+import org.soomgo.soomgo_project.requestService.RequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

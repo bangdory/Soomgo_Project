@@ -1,7 +1,7 @@
-package org.soomgo.soomgo_project.mappers;
+package org.soomgo.soomgo_project.requestMappers;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.soomgo.soomgo_project.domain.*;
+import org.soomgo.soomgo_project.requestDomain.*;
 
 import java.util.List;
 

@@ -1,13 +1,12 @@
-package org.soomgo.soomgo_project.controller;
+package org.soomgo.soomgo_project.requestController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.soomgo.soomgo_project.domain.CategoryDTO;
-import org.soomgo.soomgo_project.domain.GosuDTO;
-import org.soomgo.soomgo_project.domain.RequestDTO;
-import org.soomgo.soomgo_project.domain.TerritoryDTO;
-import org.soomgo.soomgo_project.service.RequestService;
-import org.soomgo.soomgo_project.service.TerritoryService;
+import org.soomgo.soomgo_project.requestDomain.CategoryDTO;
+import org.soomgo.soomgo_project.requestDomain.GosuDTO;
+import org.soomgo.soomgo_project.requestDomain.RequestDTO;
+import org.soomgo.soomgo_project.requestDomain.TerritoryDTO;
+import org.soomgo.soomgo_project.requestService.RequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,7 @@ import java.util.List;
 @Log4j2
 @RequiredArgsConstructor // 의존성 주입
 @RequestMapping("/request")
-public class MainController {
+public class RequestController {
     private final RequestService requestService;
 
     // list
