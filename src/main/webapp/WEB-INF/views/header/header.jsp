@@ -15,7 +15,7 @@
             </div>
             <%-- 고수 찾기 --%>
             <div>
-                <a href="#">고수 찾기</a>
+                <a href="${pageContext.request.contextPath}/gosu/gosuFind">고수 찾기</a>
             </div>
             <%-- 마켓 --%>
             <div>
