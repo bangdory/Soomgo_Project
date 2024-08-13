@@ -1,13 +1,13 @@
-package sample;
+package requestSample;
 
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.soomgo.soomgo_project.domain.CategoryDTO;
-import org.soomgo.soomgo_project.domain.GosuDTO;
-import org.soomgo.soomgo_project.domain.RequestDTO;
-import org.soomgo.soomgo_project.domain.TerritoryDTO;
-import org.soomgo.soomgo_project.mappers.RequestMapper;
+import org.soomgo.soomgo_project.requestDomain.CategoryDTO;
+import org.soomgo.soomgo_project.requestDomain.GosuDTO;
+import org.soomgo.soomgo_project.requestDomain.RequestDTO;
+import org.soomgo.soomgo_project.requestDomain.TerritoryDTO;
+import org.soomgo.soomgo_project.requestMappers.RequestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;

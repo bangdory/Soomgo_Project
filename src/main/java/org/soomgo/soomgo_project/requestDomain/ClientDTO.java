@@ -1,11 +1,10 @@
-package org.soomgo.soomgo_project.domain;
+package org.soomgo.soomgo_project.requestDomain;
 
 import lombok.Data;
 
 @Data
-public class GosuDTO {
+public class ClientDTO {
     private int num;
     private String id;
     private String region;
-    private String type;
 }

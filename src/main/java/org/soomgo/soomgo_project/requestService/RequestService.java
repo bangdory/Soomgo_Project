@@ -1,12 +1,12 @@
-package org.soomgo.soomgo_project.service;
+package org.soomgo.soomgo_project.requestService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.soomgo.soomgo_project.domain.CategoryDTO;
-import org.soomgo.soomgo_project.domain.GosuDTO;
-import org.soomgo.soomgo_project.domain.RequestDTO;
-import org.soomgo.soomgo_project.domain.TerritoryDTO;
-import org.soomgo.soomgo_project.mappers.RequestMapper;
+import org.soomgo.soomgo_project.requestDomain.CategoryDTO;
+import org.soomgo.soomgo_project.requestDomain.GosuDTO;
+import org.soomgo.soomgo_project.requestDomain.RequestDTO;
+import org.soomgo.soomgo_project.requestDomain.TerritoryDTO;
+import org.soomgo.soomgo_project.requestMappers.RequestMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
