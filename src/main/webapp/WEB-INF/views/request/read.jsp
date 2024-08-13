@@ -148,10 +148,14 @@ ${gosu}
             <td>${list.ref}</td>
         </tr>
     </c:if>
+    <div class="requestAnswer">
+        <button type="submit" class="btn btn-primary">견적 답장하기</button>
+        <button type="submit" class="btn btn-warning">견적 지우기</button>
+    </div>
     <hr>
     <hr>
     </c:forEach>
 </table>
-
 </body>
+
 </html>
