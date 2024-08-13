@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.soomgo.soomgo_project.mappers.expert.ExpertMapper">
+    <select id="getExpertList" resultType="org.soomgo.soomgo_project.domain.expert.ExpertDTO">
+        SELECT expert_num, user_num, category_num, experience_years, education, rating FROM expert
+    </select>
+</mapper>

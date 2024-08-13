@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
 
-    <!-- Appender, Layout 설정 -->
+    <!-- Appender 설정 -->
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout/>
+            <PatternLayout pattern="%d{ISO8601} %-5level %logger{36} - %msg%n">
+                <Charset>UTF-8</Charset>
+            </PatternLayout>
         </Console>
+
         <File name="file" fileName="./logs/file/sample.log" append="false">
-            <PatternLayout pattern="%d %5p [%c] %m%n"/>
+            <PatternLayout pattern="%d{ISO8601} %-5level %logger{36} - %msg%n">
+                <Charset>UTF-8</Charset>
+            </PatternLayout>
         </File>
     </Appenders>
 
+    <!-- Logger 설정 -->
+    <!-- Log4JDBC 의 라이브러리 개발이 너무 옛날이라 요즘에는 직접 로그로 찍을 수 있도록 함 -->
     <Loggers>
+        <Logger name="com.zaxxer" level="INFO" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
         <Logger name="org.soomgo" level="DEBUG" additivity="false">
             <AppenderRef ref="console"/>
         </Logger>
-        <Logger name="javax.sql" level="DEBUG" additivity="false">
-            <AppenderRef ref="console"/>
-        </Logger>
+<!--        <Logger name="org.springframework.security" level="TRACE" additivity="false">-->
+<!--            <AppenderRef ref="console"/>-->
+<!--        </Logger>-->
         <Root level="INFO">
             <AppenderRef ref="console"/>
         </Root>

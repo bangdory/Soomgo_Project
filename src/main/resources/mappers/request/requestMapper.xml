@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mapping 설정은 root-context 에서 mybatis property 추가할 것-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.soomgo.soomgo_project.mappers.request.RequestMapper">
+    <insert id="insert" parameterType="RequestDTO">
+        <selectKey order="AFTER" keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        <!--insert into test (writer, ref)
+        values (#{writer}, #{ref})-->
+        insert into request (writer, regDate, sort, type, sub, file1, file2, cr, amount, addService, result, day, time, age, sex, fav, place, date, region, ref)
+        values (#{writer}, #{regDate}, #{sort}, #{type}, #{sub}, #{file1}, #{file2}, #{cr}, #{amount}, #{addService}, #{result}, #{day}, #{time}, #{age},
+        #{sex}, #{fav}, #{place}, #{date}, #{region}, #{ref})
+    </insert>
+
+    <select id="select" resultType="RequestDTO">
+<!--        select * from test where id = #{id}-->
+        select * from request where id = #{id}
+    </select>
+
+    <select id="getList" resultType="RequestDTO">
+<!--        select * from test where id > 0 order by id desc-->
+        select * from request where id > 0 order by id desc
+    </select>
+
+    <select id="readRequest" parameterType="GosuDTO" resultType="RequestDTO">
+        SELECT * from request r INNER JOIN gTest g ON r.region = #{region} AND r.type = #{type} where g.id = #{id} order by regDate desc
+    </select>
+
+    <select id="findGosu" parameterType="String" resultType="GosuDTO">
+        select * from gTest where id = #{id}
+    </select>
+
+    <select id="findAllStates" resultType="string">
+        SELECT DISTINCT state
+        FROM territory;
+    </select>
+
+    <select id="findTerritoryByState" parameterType="String" resultType="TerritoryDTO">
+        <!--SELECT district
+        FROM territory
+        WHERE id IN (
+        SELECT id
+        FROM territory
+        WHERE state = #{state}
+        ) AND district IS NOT NULL;-->
+        SELECT no, id, state, district
+        FROM territory
+        WHERE id IN (
+        SELECT id
+        FROM territory
+        WHERE state = #{state}
+        ) AND district IS NOT NULL;
+    </select>
+
+    <select id="findAllCategory" resultType="String">
+        SELECT CategoryName from category where P_Id is null order by id
+    </select>
+    <select id="findType" resultType="CategoryDTO" parameterType="String">
+        SELECT CategoryNum, Id, P_Id, CategoryName
+        FROM category
+        WHERE CategoryName IN (
+        SELECT CategoryName
+        FROM category
+        WHERE P_Id = (
+        SELECT Id
+        FROM category
+        WHERE CategoryName = #{type}
+        )
+        AND P_Id IS NOT NULL
+        )
+    </select>
+</mapper>
