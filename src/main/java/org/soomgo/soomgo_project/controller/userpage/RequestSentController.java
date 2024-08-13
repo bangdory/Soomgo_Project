@@ -1,4 +1,4 @@
-package org.soomgo.soomgo_project.controller;
+package org.soomgo.soomgo_project.controller.userpage;
 
 import org.soomgo.soomgo_project.domain.userpage.UserDTO;
 import org.soomgo.soomgo_project.domain.userpage.requestDTO;
