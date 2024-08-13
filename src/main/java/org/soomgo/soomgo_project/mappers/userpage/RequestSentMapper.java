@@ -1,8 +1,8 @@
-package org.soomgo.soomgo_project.mappers;
+package org.soomgo.soomgo_project.mappers.userpage;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.soomgo.soomgo_project.domain.requestDTO;
+import org.soomgo.soomgo_project.domain.userpage.requestDTO;
 
 import java.util.List;
 

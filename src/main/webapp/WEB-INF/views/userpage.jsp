@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="header.jsp" %>
+<%@ include file="header/header.jsp"%>
 <!-- 페이지 내용 -->
 
 <!DOCTYPE html>
@@ -9,11 +9,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>사용자 페이지</title>
-    <link rel="stylesheet" href="<c:url value='/css/styles.css' />">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/styles.css">
 </head>
 <body>
-<div class="container">
 
+<div class="container">
     <main>
         <div class="profile-card">
             <div class="profile-header">
@@ -26,12 +26,12 @@
 
 
             </div>
-            <a href="<c:url value='/userpage/account_info' />">내 계정 정보</a>
-
+            <a href="<c:url value='/userpage/account_info' />">프로필 수정</a>
+            <a href="/requestsent">견적 보기</a>
             <a href="/logout">로그아웃</a>
         </div>
     </main>
 </div>
 </body>
-<%@ include file="footer.jsp" %>
+
 </html>

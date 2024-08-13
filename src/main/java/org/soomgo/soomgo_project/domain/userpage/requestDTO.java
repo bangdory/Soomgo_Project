@@ -1,8 +1,7 @@
-package org.soomgo.soomgo_project.domain;
+package org.soomgo.soomgo_project.domain.userpage;
 
 
 import lombok.Data;
-import org.springframework.scripting.bsh.BshScriptUtils;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package org.soomgo.soomgo_project.domain;
+package org.soomgo.soomgo_project.domain.userpage;
 
 import lombok.Data;
 import java.time.LocalDateTime;

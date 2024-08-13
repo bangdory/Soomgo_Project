@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="header.jsp" %>
+<%@ include file="header/header.jsp"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>계정 정보</title>
-    <link rel="stylesheet" href="<c:url value='/css/styles.css' />">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/styles.css">
     <style>
 
         .popup {
@@ -46,16 +46,13 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <h1>계정 정보</h1>
-    </header>
     <main>
         <div class="profile-card">
             <div class="profile-details">
                 <p><strong>${userprofile.user_nickname}</strong> </p>
                 <p><strong>${user.user_email}</strong> </p>
             </div>
-            <button onclick="showModal()">닉네임 수정</button>
+            <button onclick="showModal() ">닉네임 수정</button>
             <a href="/logout">로그아웃</a>
         </div>
     </main>
@@ -95,6 +92,7 @@
 
     function closePopup() {
         document.getElementById('successPopup').classList.remove('active');
+        location.reload();
     }
 
     document.getElementById('nicknameForm').addEventListener('submit', function(e) {

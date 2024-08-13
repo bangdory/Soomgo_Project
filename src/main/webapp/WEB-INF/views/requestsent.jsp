@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="header.jsp" %>
+<%@ include file="header/header.jsp"%>
 <!-- 페이지 내용 -->
 
 
@@ -10,13 +10,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마이페이지 - 보낸 요청</title>
-    <link rel="stylesheet" href="<c:url value='/css/styles.css' />">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/styles.css">
 </head>
 <body>
 <div class="container">
-    <header class="header">
-        <h1>내가 보낸 요청 목록</h1>
-    </header>
     <div class="requests">
         <c:forEach var="request" items="${requests}">
             <div class="request-item">
@@ -29,5 +26,5 @@
     </div>
 </div>
 </body>
-<%@ include file="footer.jsp" %>
+
 </html>

@@ -1,7 +1,7 @@
-package org.soomgo.soomgo_project.service;
+package org.soomgo.soomgo_project.service.userpage;
 
-import org.soomgo.soomgo_project.domain.requestDTO;
-import org.soomgo.soomgo_project.mappers.RequestSentMapper;
+import org.soomgo.soomgo_project.domain.userpage.requestDTO;
+import org.soomgo.soomgo_project.mappers.userpage.RequestSentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

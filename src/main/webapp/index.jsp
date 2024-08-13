@@ -2,19 +2,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
   <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Hello World!" %></h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
-
-  <h1>깃허브 테스트용 수정 사항</h1>
-  <h2>깃허브 테스트용 수정 사항</h2>
-  <h3>깃허브 테스트용 수정 사항</h3>
-  <h4>Develop branch test 111!</h4>
-  <h4>Develop branch test 111!</h4>
-
-
+<main>
+  <%@include file="WEB-INF/views/header/header.jsp"%>
+<h1>Index</h1>
+</main>
 </body>
 </html>

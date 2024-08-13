@@ -1,6 +1,6 @@
-package org.soomgo.soomgo_project.service;
+package org.soomgo.soomgo_project.service.userpage;
 
-import org.soomgo.soomgo_project.domain.requestDTO;
+import org.soomgo.soomgo_project.domain.userpage.requestDTO;
 
 import java.util.List;
 

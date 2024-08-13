@@ -1,9 +1,9 @@
-package org.soomgo.soomgo_project.mappers;
+package org.soomgo.soomgo_project.mappers.userpage;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.soomgo.soomgo_project.domain.UserDTO;
-import org.soomgo.soomgo_project.domain.UserProfileDTO;
+import org.soomgo.soomgo_project.domain.userpage.UserDTO;
+import org.soomgo.soomgo_project.domain.userpage.UserProfileDTO;
 
 @Mapper
 public interface UserMapper {

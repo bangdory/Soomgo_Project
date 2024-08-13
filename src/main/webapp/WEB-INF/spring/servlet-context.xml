@@ -27,7 +27,6 @@
     <!-- MVC 설정을 위한 세팅 -->
     <mvc:annotation-driven/>
     <!--css설정-->
-    <mvc:resources mapping="/css/**" location="/static/css/"/>
 
 <!--    &lt;!&ndash; Board View 파일을 읽을 수 있도록 경로 매칭 &ndash;&gt;-->
 <!--    &lt;!&ndash; 일반적으로는 resources 경로로 들어오는데 이렇게 들어오면 static 폴더에 있는 내용을 서비스 할것이다 &ndash;&gt;-->
