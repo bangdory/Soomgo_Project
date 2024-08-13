@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
 
-    <!-- Appender, Layout 설정 -->
+    <!-- Appender 설정 -->
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout/>
+            <PatternLayout pattern="%d{ISO8601} %-5level %logger{36} - %msg%n">
+                <Charset>UTF-8</Charset>
+            </PatternLayout>
         </Console>
+
         <File name="file" fileName="./logs/file/sample.log" append="false">
-            <PatternLayout pattern="%d %5p [%c] %m%n"/>
+            <PatternLayout pattern="%d{ISO8601} %-5level %logger{36} - %msg%n">
+                <Charset>UTF-8</Charset>
+            </PatternLayout>
         </File>
     </Appenders>
 

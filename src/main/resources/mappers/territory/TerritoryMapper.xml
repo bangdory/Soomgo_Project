@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.soomgo.soomgo_project.mappers.territory.TerritoryMapper">
+    <select id="getTerritory" resultType="org.soomgo.soomgo_project.domain.territory.TerritoryDTO">
+        SELECT no, id, state, district
+        FROM territory
+        WHERE no IN (
+        SELECT MIN(no)
+        FROM territory
+        GROUP BY id
+        )
+    </select>
+
+    <select id="getTerritoryId" parameterType="int" resultType="org.soomgo.soomgo_project.domain.territory.TerritoryDTO">
+        SELECT * FROM territory
+        WHERE id = #{id} AND district IS NOT NULL
+    </select>
+</mapper>
