@@ -3,10 +3,7 @@ package requestSample;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.soomgo.soomgo_project.domain.request.CategoryDTO;
-import org.soomgo.soomgo_project.domain.request.GosuDTO;
-import org.soomgo.soomgo_project.domain.request.RequestDTO;
-import org.soomgo.soomgo_project.domain.request.TerritoryDTO;
+import org.soomgo.soomgo_project.domain.request.*;
 import org.soomgo.soomgo_project.mappers.request.RequestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -88,5 +85,17 @@ public class MapperTest {
     public void findAllCategory() {
         List<String> allCategory = requestMapper.findAllCategory();
         log.info(allCategory);
+    }
+
+    @Test
+    public void updateRequest() {
+        UpdateRequestDTO updateRequestDTO = new UpdateRequestDTO();
+        updateRequestDTO.setGosuId("고수2");
+        updateRequestDTO.setPrice(5000);
+        updateRequestDTO.setReplyRef("어쩌구저쩌구");
+        updateRequestDTO.setId(3);
+        int update = requestMapper.update(updateRequestDTO);
+        log.info(updateRequestDTO);
+        log.info(update);
     }
 }

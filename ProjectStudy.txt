@@ -126,3 +126,13 @@ URI 창 GET 파라미터 감추기
 견적서 read 페이지에서 다른 곳으로 redirect 될 때 견적서 id 를 들고 갈 수 있게
 modify 실행 시, 견적서 list 에 보이는 데이터는 readonly, 고수 id, 제시금액, 고수 ref 저장 후 견적서 객체 저장으로
 고객은 자신이 보낸 견적서를 다시 읽어올 수 있도록 myPage 나 myRequest 에서 페이지 구현
+
+-- request 테이블에 고수가 답장하면서 사용할 금액, 설명, 파일 컬럼 추가
+견적서에 답변이 달려 replier 항목이 null 이 아니라면 read 로 리다이렉트 후 보여지게 할 것
+replier 항목이 고수의 id 와 일치할 경우 견적 답변 버튼 제한
+
+-- 0814 해야할 일
+1. 견적서 답변 시 DB 에는 들어가지만 read.jsp 에서 list.replier 처리하지 못하는 문제 해결
+2. list.replier 출력 후 gosu.id 와 비교하지 못하는 문제 해결
+3. POST 처리 후 Redirect 되지 않는 문제 해결
+4. category 선택 후 URI 에 데이터 노출되는 문제 해결

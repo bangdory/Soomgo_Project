@@ -31,3 +31,24 @@ CREATE TABLE request
 select *
 from request;
 
+-- 0814 추가
+/*use soomgodb;
+
+update request
+set replier = '고수1'
+where id = 3;
+
+alter table request
+    add column (replyPrice varchar(50), replyRef varchar(1000), replyFile varchar(2000));
+
+UPDATE request
+SET replyPrice = 5000,
+    replyRef = '어쩌구 저쩌구 견적 답변',
+    replyFile = ''
+WHERE id = 3;
+
+ALTER TABLE request
+    CHANGE COLUMN replyPrice price varchar(50),
+    CHANGE COLUMN replyRef replierRef VARCHAR(1000),
+    CHANGE COLUMN replyFile replierFile VARCHAR(2000);*/
+

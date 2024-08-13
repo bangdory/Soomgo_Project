@@ -2,10 +2,7 @@ package org.soomgo.soomgo_project.service.request;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.soomgo.soomgo_project.domain.request.CategoryDTO;
-import org.soomgo.soomgo_project.domain.request.GosuDTO;
-import org.soomgo.soomgo_project.domain.request.RequestDTO;
-import org.soomgo.soomgo_project.domain.request.TerritoryDTO;
+import org.soomgo.soomgo_project.domain.request.*;
 import org.soomgo.soomgo_project.mappers.request.RequestMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +31,7 @@ public class RequestService {
         return requestMapper.getList();
     }
 
-    public RequestDTO get(int id) {
+    public RequestDTO getRequest(int id) {
         return requestMapper.select(id);
     }
 
@@ -60,6 +57,11 @@ public class RequestService {
 
     public List<CategoryDTO> findCategory(String type) {
         return requestMapper.findType(type);
+    }
+
+    public boolean modify(UpdateRequestDTO updateRequestDTO) {
+        int updateCount = requestMapper.update(updateRequestDTO);
+        return updateCount == 1;
     }
 
     public boolean remove(int id) {

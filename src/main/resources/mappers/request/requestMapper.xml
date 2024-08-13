@@ -10,23 +10,26 @@
         </selectKey>
         <!--insert into test (writer, ref)
         values (#{writer}, #{ref})-->
-        insert into request (writer, regDate, sort, type, sub, file1, file2, cr, amount, addService, result, day, time, age, sex, fav, place, date, region, ref)
-        values (#{writer}, #{regDate}, #{sort}, #{type}, #{sub}, #{file1}, #{file2}, #{cr}, #{amount}, #{addService}, #{result}, #{day}, #{time}, #{age},
+        insert into request (writer, regDate, sort, type, sub, file1, file2, cr, amount, addService, result, day, time,
+        age, sex, fav, place, date, region, ref)
+        values (#{writer}, #{regDate}, #{sort}, #{type}, #{sub}, #{file1}, #{file2}, #{cr}, #{amount}, #{addService},
+        #{result}, #{day}, #{time}, #{age},
         #{sex}, #{fav}, #{place}, #{date}, #{region}, #{ref})
     </insert>
 
     <select id="select" resultType="RequestDTO">
-<!--        select * from test where id = #{id}-->
+        <!--        select * from test where id = #{id}-->
         select * from request where id = #{id}
     </select>
 
     <select id="getList" resultType="RequestDTO">
-<!--        select * from test where id > 0 order by id desc-->
+        <!--        select * from test where id > 0 order by id desc-->
         select * from request where id > 0 order by id desc
     </select>
 
     <select id="readRequest" parameterType="GosuDTO" resultType="RequestDTO">
-        SELECT * from request r INNER JOIN gTest g ON r.region = #{region} AND r.type = #{type} where g.id = #{id} order by regDate desc
+        SELECT * from request r INNER JOIN gTest g ON r.region = #{region} AND r.type = #{type} where g.id = #{id} order
+        by regDate desc
     </select>
 
     <select id="findGosu" parameterType="String" resultType="GosuDTO">
@@ -72,4 +75,13 @@
         AND P_Id IS NOT NULL
         )
     </select>
+
+    <update id="update">
+        update request
+        set replier = #{gosuId},
+        price = #{price},
+        replierRef = #{replyRef},
+        replierFile = #{replyFile}
+        where id = #{id};
+    </update>
 </mapper>

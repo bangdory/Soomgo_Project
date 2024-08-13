@@ -1,10 +1,7 @@
 package org.soomgo.soomgo_project.mappers.request;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.soomgo.soomgo_project.domain.request.CategoryDTO;
-import org.soomgo.soomgo_project.domain.request.GosuDTO;
-import org.soomgo.soomgo_project.domain.request.RequestDTO;
-import org.soomgo.soomgo_project.domain.request.TerritoryDTO;
+import org.soomgo.soomgo_project.domain.request.*;
 
 import java.util.List;
 
@@ -27,4 +24,6 @@ public interface RequestMapper {
     List<CategoryDTO> findType(String type);
 
     List<String> findAllCategory();
+
+    int update(UpdateRequestDTO updateRequestDTO);
 }
