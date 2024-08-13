@@ -1,6 +1,25 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet">
 <header class="header-first-container">
+    <script>
+        function toggleDropdown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // 클릭 시 드롭다운 외부를 클릭하면 닫히도록 설정
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
     <div class="header-second-container">
         <div class="header-third-container-1">
             <%-- 로고 --%>
@@ -26,6 +45,38 @@
                 <a href="#">커뮤니티</a>
             </div>
         </div>
+
+<%--
+        <c:choose>
+            <c:when test="${empty user}">
+                <div class="dropdown">
+                    <button onclick="toggleDropdown()" class="dropbtn">내 프로필</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <h2>${userprofile.user_nickname}</h2>
+                        <a href="/userpage">마이페이지</a>
+                        <a href="#settings">설정</a>
+                        <a href="/logout">로그아웃</a>
+                    </div>
+                </div>
+            </c:when>
+            <c:otherwise>
+
+                <div class="header-third-container-2">
+                    <div>
+                        <a href="/login">로그인</a>
+                    </div>
+                    <div>
+                        <a href="#">회원가입</a>
+                    </div>
+                    <div>
+                        <a href="#">고수가입</a>
+                    </div>
+                </div>
+
+            </c:otherwise>
+        </c:choose>
+          --%>
+
         <div class="header-third-container-2">
             <div>
                 <a href="#">로그인</a>
@@ -37,5 +88,6 @@
                 <a href="#">고수가입</a>
             </div>
         </div>
+
     </div>
 </header>

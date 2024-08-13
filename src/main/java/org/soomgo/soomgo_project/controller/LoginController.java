@@ -1,9 +1,10 @@
 package org.soomgo.soomgo_project.controller;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.userpage.UserDTO;
 import org.soomgo.soomgo_project.domain.userpage.UserProfileDTO;
 import org.soomgo.soomgo_project.service.userpage.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,18 +14,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequiredArgsConstructor
+@Log4j2
 public class LoginController {
 
     private final UserService userService;
 
-    @Autowired
-    public LoginController(UserService userService) {
-        this.userService = userService;
-    }
+
 
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
         UserDTO user = userService.getUserByEmailAndPassword(email, password);
+        log.info(user.toString());
+        log.info(user.toString());
+        log.info(user.toString());
+        log.info(user.toString());
 
         if (user != null) {
             session.setAttribute("user", user);

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="header/header.jsp"%>
+<%@ include file="/WEB-INF/views/header/header.jsp" %>
 <!-- 페이지 내용 -->
 
 
@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마이페이지 - 보낸 요청</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/styles.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/userpage/styles.css">
 </head>
 <body>
 <div class="container">

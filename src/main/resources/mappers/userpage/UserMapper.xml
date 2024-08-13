@@ -6,7 +6,7 @@
 <mapper namespace="org.soomgo.soomgo_project.mappers.userpage.UserMapper">
 
     <!-- 사용자 이메일과 비밀번호로 사용자 정보 조회 -->
-    <select id="findByEmailAndPassword" parameterType="map" resultType="org.soomgo.soomgo_project.domain.userpage.UserDTO">
+    <select id="findByEmailAndPassword" parameterType="string" resultType="org.soomgo.soomgo_project.domain.userpage.UserDTO">
         SELECT * FROM user WHERE user_email = #{email} AND user_password = #{password}
     </select>
 

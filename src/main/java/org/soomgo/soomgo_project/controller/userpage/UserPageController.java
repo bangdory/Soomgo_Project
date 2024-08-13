@@ -35,7 +35,7 @@ public class UserPageController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("userprofile",userprofile);
-            return "userpage"; // 사용자 페이지로 이동
+            return "userpage/userpage"; // 사용자 페이지로 이동
         }
         return "redirect:/login"; // 사용자 정보가 없으면 로그인 페이지로 리디렉션
     }
@@ -48,7 +48,7 @@ public class UserPageController {
             model.addAttribute("user", user);
             model.addAttribute("userprofile",userprofile);
 
-            return "account_info";
+            return "userpage/account_info";
         }
 
         return "redirect:/login";
@@ -75,7 +75,7 @@ public class UserPageController {
                 }
             }
 
-            return "account_info"; // 페이지 리로드 시 successMessage를 사용
+            return "userpage/account_info"; // 페이지 리로드 시 successMessage를 사용
         }
         return "redirect:/login";
     }
