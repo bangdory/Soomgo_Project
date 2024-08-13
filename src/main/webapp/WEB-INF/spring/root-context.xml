@@ -27,7 +27,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <!-- classpath 는 resources 경로를 가르킴, 그 하위의 mappers 폴더 내 모든 xml 파일은 mybatis 에서 쓰는 xml 파일이다-->
-        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+        <property name="mapperLocations" value="classpath:mappers/**/*.xml"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
