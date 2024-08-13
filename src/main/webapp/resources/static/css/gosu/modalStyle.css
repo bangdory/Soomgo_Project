@@ -1,5 +1,6 @@
 /* 모달 배경 */
-#modal-base-container{
+#service-modal-base-container,
+#place-modal-base-container {
     display: none; /* 기본적으로 숨김 */
     position: fixed; /* 화면에 고정 */
     top: 0;
@@ -14,12 +15,17 @@
 /* 모달 내용 */
 .modal-content {
     background: #fff; /* 흰색 배경 */
-    margin: 15% auto; /* 중앙 정렬, 상단 여백 */
     padding: 20px;
     border-radius: 5px; /* 둥근 모서리 */
     width: 80%; /* 너비 조절 */
     max-width: 500px; /* 최대 너비 */
+    max-height: 80vh; /* 최대 높이 80% 뷰포트 높이 */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    position: absolute; /* 절대 위치 설정 */
+    top: 50%; /* 화면의 50% 위치 */
+    left: 50%; /* 화면의 50% 위치 */
+    transform: translate(-50%, -50%); /* 중앙으로 이동 */
+    overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤 */
 }
 
 /* 모달 항목 */
@@ -37,4 +43,9 @@
 .service-modal-item:hover,
 .place-modal-item:hover {
     background: #e9ecef; /* 마우스 오버 시 배경색 변경 */
+}
+
+span {
+    display: block;
+    text-align: center;
 }
