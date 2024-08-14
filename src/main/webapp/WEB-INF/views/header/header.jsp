@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet">
 <header class="header-first-container">
     <div class="header-second-container">
@@ -23,7 +23,7 @@
             </div>
             <%-- 커뮤니티 --%>
             <div>
-                <a href="communiyt/listAll">커뮤니티</a>
+                <a href="community/listAll">커뮤니티</a>
             </div>
         </div>
         <div class="header-third-container-2">
