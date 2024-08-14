@@ -23,7 +23,7 @@
             </div>
             <%-- 커뮤니티 --%>
             <div>
-                <a href="#">커뮤니티</a>
+                <a href="communiyt/listAll">커뮤니티</a>
             </div>
         </div>
         <div class="header-third-container-2">
