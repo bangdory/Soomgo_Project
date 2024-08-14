@@ -51,12 +51,21 @@ public class MapperTest {
     }
 
     @Test
-    public void testReadRequest() {
+    public void readReceivedRequestByGosuId() {
         GosuDTO gosuDTO = new GosuDTO();
-        gosuDTO.setId("고수3");
-        gosuDTO.setType("type1");
-        gosuDTO.setRegion("대전");
-        List<RequestDTO> requestDTOS = requestMapper.readRequest(gosuDTO);
+        gosuDTO.setId("고수9");
+        gosuDTO.setType("웹개발");
+        gosuDTO.setRegion("용산구");
+        List<RequestDTO> requestDTOS = requestMapper.readReceivedRequestByGosuId(gosuDTO);
+        log.info(requestDTOS);
+    }
+    @Test
+    public void testAnsweredRequestList() {
+        GosuDTO gosuDTO = new GosuDTO();
+        gosuDTO.setId("고수9");
+        gosuDTO.setType("웹개발");
+        gosuDTO.setRegion("용산구");
+        List<RequestDTO> requestDTOS = requestMapper.answeredRequest(gosuDTO);
         log.info(requestDTOS);
     }
 
@@ -98,4 +107,16 @@ public class MapperTest {
         log.info(updateRequestDTO);
         log.info(update);
     }
+
+//    @Test
+//    public void testAnswerRequest() {
+//        AnswerRequestDTO a = new AnswerRequestDTO();
+//        a.setRequestNo(17);
+//        a.setType("앱개발");
+//        a.setGosuId("고수");
+//        a.setPrice("50000");
+//        a.setRef("이런 서비스를 제공합니다");
+//        requestMapper.answerRequest(a);
+//        log.info(a);
+//    }
 }

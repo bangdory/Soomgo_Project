@@ -4,11 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.request.*;
 import org.soomgo.soomgo_project.service.request.RequestService;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class RequestController {
     }
 
     // 견적 read, modify
-    @GetMapping("/{job}/{id}")
+    /*@GetMapping("/{job}/{id}")
     // @PathVariable 은 값이 계속 바뀜 -> void 로 리턴할 수 없음
     public String read(
             @PathVariable(name = "job") String job,
@@ -48,6 +48,25 @@ public class RequestController {
         model.addAttribute("gosu", gosu);
         model.addAttribute("lists", requestDTOS);
         return "/request/" + job;
+    }*/
+
+    @GetMapping("/read/{gosuId}")
+    // @PathVariable 은 값이 계속 바뀜 -> void 로 리턴할 수 없음
+    public String read(
+            @PathVariable(name = "gosuId") String gosuId, // {} 로 묶은 것을 변수로
+            Model model
+    ) {
+        log.info("gosuId read : " + gosuId);
+        GosuDTO gosu = requestService.findGosu(gosuId);
+        log.info("gosuDTO read : " + gosu);
+        List<RequestDTO> receivedRequests = requestService.readReceivedRequests(gosu);
+        List<RequestDTO> answeredRequests = requestService.readAnsweredRequests(gosu);
+
+        log.info("answered 찾은 값: {}", answeredRequests);
+        model.addAttribute("gosu", gosu);
+        model.addAttribute("answered", answeredRequests);
+        model.addAttribute("received", receivedRequests);
+        return "/request/read";
     }
 
     @GetMapping("/answer/{id}")
@@ -75,7 +94,13 @@ public class RequestController {
         requestService.modify(updateRequestDTO);
         RequestDTO request = requestService.getRequest(updateRequestDTO.getId());
         rttr.addFlashAttribute("result", request);
-        return "redirect:/request/read/" + updateRequestDTO.getGosuId();
+//        rttr.addFlashAttribute("id", updateRequestDTO.getId());
+        // 인코딩된 URI
+        String encodedUri = UriComponentsBuilder.fromPath("{gosuId}")
+                .buildAndExpand(updateRequestDTO.getGosuId())
+                .encode()
+                .toUriString();
+        return "redirect:/request/read/"+ encodedUri;
     }
 
     // 카테고리 고르는 화면

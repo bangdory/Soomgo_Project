@@ -15,6 +15,7 @@ public class RequestDTO {
     */
     private int id;
     private String writer;
+    private String replier;
     private LocalDateTime regDate;
     private String sort;
     private String type;

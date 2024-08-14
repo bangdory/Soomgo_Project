@@ -13,7 +13,11 @@ public interface RequestMapper {
 
     RequestDTO select(int id);
 
-    List<RequestDTO> readRequest(GosuDTO gosuDTO);
+    List<RequestDTO> readReceivedRequestByGosuId(GosuDTO gosuDTO);
+
+    List<RequestDTO> answeredRequest(GosuDTO gosuDTO);
+
+    RequestDTO answerRequest(AnswerRequestDTO answerRequestDTO);
 
     GosuDTO findGosu(String id);
 

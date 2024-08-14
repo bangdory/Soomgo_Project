@@ -27,9 +27,35 @@
         select * from request where id > 0 order by id desc
     </select>
 
-    <select id="readRequest" parameterType="GosuDTO" resultType="RequestDTO">
-        SELECT * from request r INNER JOIN gTest g ON r.region = #{region} AND r.type = #{type} where g.id = #{id} order
-        by regDate desc
+    <select id="readReceivedRequestByGosuId" parameterType="GosuDTO" resultType="RequestDTO">
+        SELECT r.*
+        FROM request r
+        INNER JOIN gtest g ON r.region = g.region
+        AND r.type = g.type
+        where g.id = #{id}
+        ORDER BY r.regDate DESC
+    </select>
+
+    <select id="answeredRequest" parameterType="GosuDTO" resultType="RequestDTO">
+<!--        SELECT * from request r INNER JOIN gTest g ON r.region = #{region} AND r.type = #{type} AND r.replier = #{id}-->
+<!--        where g.id = #{id} order by regDate desc-->
+
+        SELECT r.*
+        FROM request r
+        INNER JOIN gtest g ON r.replier = g.id
+        AND r.region = g.region
+        AND r.type = g.type
+        where g.id = #{id}
+        ORDER BY r.regDate DESC;
+    </select>
+
+    <select id="answerRequest" parameterType="AnswerRequestDTO" resultType="AnswerRequestDTO">
+        INSERT INTO AnswerRequest (RequestNo, type, GosuId, price, ref, file)
+        SELECT r.id, r.type, g.id, #{price}, #{ref},${file}
+        FROM request r
+        INNER JOIN gtest g
+        WHERE r.id = #{RequestNo}
+        AND g.id = #{GosuId};
     </select>
 
     <select id="findGosu" parameterType="String" resultType="GosuDTO">

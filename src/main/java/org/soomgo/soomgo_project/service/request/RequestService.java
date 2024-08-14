@@ -35,8 +35,13 @@ public class RequestService {
         return requestMapper.select(id);
     }
 
-    public List<RequestDTO> readRequest(GosuDTO gosuDTO) {
-        return requestMapper.readRequest(gosuDTO);
+    public List<RequestDTO> readReceivedRequests(GosuDTO gosuDTO) {
+        return requestMapper.readReceivedRequestByGosuId(gosuDTO);
+    }
+
+
+    public List<RequestDTO> readAnsweredRequests(GosuDTO gosuDTO) {
+        return requestMapper.answeredRequest(gosuDTO);
     }
 
     public GosuDTO findGosu(String id) {
