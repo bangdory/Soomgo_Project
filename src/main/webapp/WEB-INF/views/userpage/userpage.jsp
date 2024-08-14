@@ -17,8 +17,11 @@
     <main>
         <div class="profile-card">
             <div class="profile-header">
-                <img src="<c:url value='/images/profile-placeholder.png' />" alt="Profile Picture" class="profile-picture">
 
+              <%--이미지 들어갈거
+
+               <img src="<c:url value='/images/profile-placeholder.png' />" alt="Profile Picture" class="profile-picture">
+--%>
             </div>
             <div class="profile-details">
                 <p><strong>닉네임:</strong> ${userprofile.user_nickname}</p>
