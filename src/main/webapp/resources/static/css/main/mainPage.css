@@ -1,0 +1,142 @@
+html, body, main {
+    font: bold 14px "Roboto", sans-serif;
+}
+
+.main-center-page-container {
+    height: calc(100% - 120px);
+    margin-top: 100px;
+    width: 100%;
+    box-sizing: border-box; /* 패딩과 테두리를 요소의 총 너비와 높이에 포함 */
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    text-align: center;
+}
+
+.main-center-page {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box; /* 패딩과 테두리를 요소의 총 너비와 높이에 포함 */
+    padding:30px;
+}
+
+.main-center-keyword {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.centerRadiusDarkgray {
+    background-color: #F2F2F2;
+    align-items: center;  /* 수직 중앙 정렬 */
+    height: 50px;
+    width: 500px;
+    margin: auto;
+    border-radius: 7px;
+    display: flex;
+}
+
+.input-soomgo {
+    height: 40px;
+    width: 400px;
+    background-color: #F2F2F2;
+    border: none;
+    color: white;
+    margin: auto;
+}
+
+.input-soomgo::placeholder {
+    color: darkgray;
+    font: bold 14px "Roboto", sans-serif;
+}
+
+.input-soomgo-span {
+    margin-left: 20px; /* 스팬과 입력 필드 사이의 간격 조정 */
+}
+
+.padding-item {
+    padding-top: 50px;
+}
+
+.right-align{
+    display: flex;
+    justify-content: center; /* 항목들을 오른쪽으로 정렬 */
+    list-style-type: none; /* 기본 점 제거 */
+}
+
+.right-align li {
+    margin: 0 auto; /* 항목들 간의 간격 조정 */
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: column; /* 아이콘과 텍스트를 수직으로 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+}
+
+.icon-size {
+    font-size: 30px; /* 아이콘 크기 설정 */
+    width: 100%; /* 박스의 너비에 맞추기 */
+    height: 100%; /* 박스의 높이에 맞추기 */
+    display: flex; /* Flexbox로 아이콘을 박스 중앙에 배치 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+}
+.icon-container p {
+    margin: 8px 0 0 0; /* 텍스트와 아이콘 간의 간격 조정 */
+}
+
+.hidden-expert-keyword {
+    text-align: left;
+}
+
+.expert-img{
+    width: 35px;
+    height: 35px;
+}
+
+.hidden-expert-list {
+    display: flex;          /* Flexbox 레이아웃 사용 */
+    justify-content: space-between; /* 좌우 끝으로 아이템 정렬 */
+    align-items: center;    /* 수직 중앙 정렬 (필요에 따라 조정) */
+    width: 100%;            /* 컨테이너의 너비 설정 */
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
+    gap: 10px;
+}
+
+.expert-alink {
+    width: 45%;
+    height: 200px;
+    text-decoration: none;  /* 링크의 기본 텍스트 장식 제거 */
+    color: inherit;         /* 링크의 색상 상속 */
+    padding: 8px 22px;     /* 링크에 패딩 추가 (필요에 따라 조정) */
+    border: 1px solid #ccc; /* 링크에 테두리 추가 (디버깅용) */
+    border-radius: 4px;     /* 링크에 모서리 둥글게 설정 (선택 사항) */
+    background-color: #F2F2F2;
+}
+
+.expert-align {
+    display: flex;
+    align-items: center;
+    border-bottom: black;
+}
+
+.expert-profile {
+    margin-left: 30px;
+    text-align: left;
+}
+
+.expert-align-container {
+    margin: 0 auto;
+}
+
+.hidden-expert-list-content {
+    display: flex;
+    text-align: left;
+}
+
+.expert-align-content {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: black solid 1px;
+}

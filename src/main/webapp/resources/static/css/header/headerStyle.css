@@ -1,49 +1,54 @@
 /* 전체 페이지의 기본 여백 제거 */
 
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Noto Sans KR, Malgun Gothic, -apple-system, Segoe UI, Roboto, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #323232;
+/* 페이지 내용이 헤더 아래에서 시작되도록 하기 위한 여백 */
+main {
+    padding-left: 15%;
+    padding-right: 15%;
+    width: 100%; /* 전체 너비 100% */
+    height: 100%;
+    box-sizing: border-box; /* 패딩과 테두리를 요소의 총 너비와 높이에 포함 */
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+}
+
+header {
+
 }
 
 /* 헤더 스타일링 */
 .header-first-container {
     position: fixed; /* 헤더를 고정 */
-    top: 0;          /* 페이지 상단에 위치 */
-    left: 0;         /* 페이지의 왼쪽에 위치 */
-    width: 100%;     /* 페이지의 전체 너비를 차지 */
+    top: 0; /* 페이지 상단에 위치 */
+    left: 0; /* 페이지의 왼쪽에 위치 */
+    width: 100%; /* 페이지의 전체 너비를 차지 */
     background-color: #fff; /* 배경색을 흰색으로 설정 (필요에 따라 변경) */
-    z-index: 1000;   /* 다른 요소들 위에 배치 */
+    z-index: 1000; /* 다른 요소들 위에 배치 */
     box-sizing: border-box; /* 패딩과 테두리를 요소의 총 너비와 높이에 포함 */
-    padding: 0 15%;  /* 좌우 여백 추가 */
-    height: 60px;     /* 헤더의 고정 높이 설정 (필요에 따라 조정) */
+    height: 100px; /* 헤더의 고정 높이 설정 (필요에 따라 조정) */
 }
 
 /* 헤더의 내부 컨테이너 스타일링 */
 .header-second-container {
-    display: flex;          /* 내부 요소를 가로로 정렬 */
-    align-items: center;    /* 세로로 가운데 정렬 */
+    display: flex; /* 내부 요소를 가로로 정렬 */
+    align-items: center; /* 세로로 가운데 정렬 */
     justify-content: space-between; /* 요소 간의 공간을 고르게 배치 */
-    padding: 10px 0;        /* 상하 여백 설정 */
-    width: 100%;            /* 페이지의 전체 너비를 차지 */
+    padding: 10px 0; /* 상하 여백 설정 */
+    width: 100%; /* 페이지의 전체 너비를 차지 */
     box-sizing: border-box; /* 패딩과 테두리를 요소의 총 너비와 높이에 포함 */
 }
 
 /* 좌측에 위치할 요소 스타일링 */
 .header-third-container-1 {
-    display: flex;          /* 내부 요소를 가로로 정렬 */
-    align-items: center;    /* 세로로 가운데 정렬 */
+    display: flex; /* 내부 요소를 가로로 정렬 */
+    align-items: center; /* 세로로 가운데 정렬 */
 }
 
 /* 우측에 위치할 요소 스타일링 */
 .header-third-container-2 {
-    display: flex;          /* 내부 요소를 가로로 정렬 */
-    align-items: center;    /* 세로로 가운데 정렬 */
+    display: flex; /* 내부 요소를 가로로 정렬 */
+    align-items: center; /* 세로로 가운데 정렬 */
 }
 
 /* 헤더의 각 부분 스타일링 */
@@ -55,16 +60,128 @@ body {
 .header-third-container-1 a,
 .header-third-container-2 a {
     text-decoration: none; /* 밑줄 제거 */
-    color: #333;           /* 글자 색상 설정 (필요에 따라 조정) */
-    margin: 0 15px;       /* 링크 사이에 여백 추가 (필요에 따라 조정) */
+    color: #333; /* 글자 색상 설정 (필요에 따라 조정) */
+    margin: 0 15px; /* 링크 사이에 여백 추가 (필요에 따라 조정) */
 }
 
-/* 페이지 내용이 헤더 아래에서 시작되도록 하기 위한 여백 */
-main {
-    padding-top: 60px; /* 헤더의 높이에 맞게 여백 설정 */
-    padding-left: 15%; /* 헤더와 동일한 좌측 여백 */
-    padding-right: 15%; /* 헤더와 동일한 우측 여백 */
-    box-sizing: border-box; /* 패딩과 테두리를 요소의 총 너비와 높이에 포함 */
-    max-width: 70%; /* 헤더와 동일한 너비 유지 */
-    margin: 0 auto; /* 중앙 정렬 */
+.header-categoryTap-div {
+    display: none;
+    padding-left: 20px;
+}
+
+.header-link-div {
+    display: block;
+}
+
+.font-large {
+    font-size: 2rem;
+}
+
+.header-tap {
+
+}
+
+/* header modal style */
+/* 전체 배경 */
+#modal-overlay {
+    border: 1px solid black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(128, 128, 128, 0.5); /* 회색 배경 */
+    display: none;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 1000; /* 모달이 가장 위에 보이도록 */
+}
+
+/* 모달창 스타일 */
+#header-modal-main-container {
+    width: 600px;
+    height: 100%;
+    background-color: #fff; /* 모달창 배경색 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    position: relative;
+    padding-top: 100px;
+}
+
+#header-modal-sub-container {
+    text-align: left;
+    padding-left: 10%;
+}
+
+#header-modal-link-container {
+    padding-bottom: 20px;
+}
+
+
+a {
+    color: #000; /* 기본 텍스트 색상 (검은색) */
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    font-weight: normal; /* 일반 텍스트와 동일한 두께 */
+    font-style: normal; /* 일반 텍스트와 동일한 스타일 */
+    cursor: auto; /* 마우스 커서 기본 상태로 설정 */
+}
+
+/* 링크에 호버 및 포커스 시 스타일 (선택 사항) */
+a:hover, a:focus {
+    color: #000; /* 기본 텍스트 색상 유지 */
+    text-decoration: none; /* 밑줄 유지 */
+}
+
+.header-modal-link-div {
+    padding-bottom: 10px;
+}
+
+/* 닫기 버튼 */
+#header-modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* 링크 컨테이너 */
+#header-modal-link-container {
+    margin-bottom: 10px;
+}
+
+#header-modal-link-div {
+    margin: 5px 0;
+}
+
+#header-modal-link-div a {
+    text-decoration: none;
+    color: #333;
+}
+
+#header-modal-link-div a:hover {
+    text-decoration: underline;
+}
+
+#index-center-main-keyword {
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+#main-keyword-container {
+    display: flex;
+}
+
+
+/* 화면 너비가 600px 이하일 때 스타일 변경 */
+@media (max-width: 1200px) {
+
+    .header-link-div {
+        display: none; /* 화면 너비가 600px 이하일 때 .header-link-div 숨기기 */
+    }
+
+    .header-categoryTap-div {
+        display: block; /* 화면 너비가 600px 이하일 때 .header-categoryTap-div 보이기 */
+    }
+
+
 }
