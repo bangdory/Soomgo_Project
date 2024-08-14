@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet">
 <header class="header-first-container">
     <script>
@@ -46,21 +46,9 @@
             </div>
         </div>
 
-<%--
+
         <c:choose>
             <c:when test="${empty user}">
-                <div class="dropdown">
-                    <button onclick="toggleDropdown()" class="dropbtn">내 프로필</button>
-                    <div id="myDropdown" class="dropdown-content">
-                        <h2>${userprofile.user_nickname}</h2>
-                        <a href="/userpage">마이페이지</a>
-                        <a href="#settings">설정</a>
-                        <a href="/logout">로그아웃</a>
-                    </div>
-                </div>
-            </c:when>
-            <c:otherwise>
-
                 <div class="header-third-container-2">
                     <div>
                         <a href="/login">로그인</a>
@@ -73,21 +61,23 @@
                     </div>
                 </div>
 
+                           </c:when>
+            <c:otherwise>
+                <div class="dropdown">
+                    <button onclick="toggleDropdown()" class="dropbtn">내 프로필</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <h2>${userprofile.user_nickname}</h2>
+                        <a href="/userpage">마이페이지</a>
+                        <a href="#settings">설정</a>
+                        <a href="/logout">로그아웃</a>
+                    </div>
+                </div>
+
+
             </c:otherwise>
         </c:choose>
-          --%>
 
-        <div class="header-third-container-2">
-            <div>
-                <a href="#">로그인</a>
-            </div>
-            <div>
-                <a href="#">회원가입</a>
-            </div>
-            <div>
-                <a href="#">고수가입</a>
-            </div>
-        </div>
+
 
     </div>
 </header>
