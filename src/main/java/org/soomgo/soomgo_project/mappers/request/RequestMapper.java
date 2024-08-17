@@ -17,7 +17,7 @@ public interface RequestMapper {
 
     List<RequestDTO> answeredRequest(GosuDTO gosuDTO);
 
-    RequestDTO answerRequest(AnswerRequestDTO answerRequestDTO);
+    int answerRequest(AnswerRequestDTO answerRequestDTO);
 
     GosuDTO findGosu(String id);
 

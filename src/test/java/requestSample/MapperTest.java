@@ -108,15 +108,16 @@ public class MapperTest {
         log.info(update);
     }
 
-//    @Test
-//    public void testAnswerRequest() {
-//        AnswerRequestDTO a = new AnswerRequestDTO();
-//        a.setRequestNo(17);
-//        a.setType("앱개발");
-//        a.setGosuId("고수");
-//        a.setPrice("50000");
-//        a.setRef("이런 서비스를 제공합니다");
-//        requestMapper.answerRequest(a);
-//        log.info(a);
-//    }
+    @Test
+    public void testAnswerRequest() {
+        AnswerRequestDTO a = new AnswerRequestDTO();
+        a.setPrice(50000);
+        a.setRef("테스트 서비스를 제공합니다");
+        a.setFile("");
+        a.setRequestNo(13);
+        a.setGosuId("고수4");
+//        a.setType("ERP개발");
+        requestMapper.answerRequest(a);
+        log.info(a);
+    }
 }

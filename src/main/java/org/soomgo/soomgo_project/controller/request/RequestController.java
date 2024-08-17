@@ -68,6 +68,7 @@ public class RequestController {
         model.addAttribute("received", receivedRequests);
         return "/request/read";
     }
+/*
 
     @GetMapping("/answer/{id}")
     public String answer(
@@ -102,6 +103,7 @@ public class RequestController {
                 .toUriString();
         return "redirect:/request/read/"+ encodedUri;
     }
+*/
 
     // 카테고리 고르는 화면
     @GetMapping("/category")

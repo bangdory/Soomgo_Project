@@ -49,14 +49,17 @@
         ORDER BY r.regDate DESC;
     </select>
 
-    <select id="answerRequest" parameterType="AnswerRequestDTO" resultType="AnswerRequestDTO">
+    <insert id="answerRequest" parameterType="AnswerRequestDTO">
+        <selectKey order="AFTER" keyProperty="no" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         INSERT INTO AnswerRequest (RequestNo, type, GosuId, price, ref, file)
-        SELECT r.id, r.type, g.id, #{price}, #{ref},${file}
+        SELECT r.id, r.type, g.id, #{price}, #{ref}, #{file}
         FROM request r
         INNER JOIN gtest g
-        WHERE r.id = #{RequestNo}
-        AND g.id = #{GosuId};
-    </select>
+        ON r.type = g.type
+        WHERE r.id = #{requestNo} AND g.id = #{gosuId};
+    </insert>
 
     <select id="findGosu" parameterType="String" resultType="GosuDTO">
         select * from gTest where id = #{id}

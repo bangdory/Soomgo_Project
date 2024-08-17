@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class AnswerRequestDTO {
     private int no;
-    private int RequestNo;
+    private int requestNo;
     private String type;
-    private String GosuId;
-    private String price;
+    private String gosuId;
+    private int price;
     private String ref;
     private String file;
 }
