@@ -3,6 +3,7 @@ package org.soomgo.soomgo_project.controller.request;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.request.*;
+import org.soomgo.soomgo_project.service.request.AnswerService;
 import org.soomgo.soomgo_project.service.request.RequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,18 +19,22 @@ import java.util.List;
 @RequestMapping("/request")
 public class RequestController {
     private final RequestService requestService;
+    private final AnswerService answerService;
 
     // list
-    @GetMapping("/list")
-    public void list(
+    @GetMapping("/list/{clientId}")
+    public String list(
+            @PathVariable(name = "clientId") String clientId,
             Model model // jsp 에 담기 위해!!
     ) {
-//        log.info("list==========");
+        List<RequestDTO> list = requestService.list(clientId);
+        log.info(list);
 
-        List<RequestDTO> list = requestService.list();
+
 //        log.info(list);
 
-        model.addAttribute("list", list);
+        model.addAttribute("lists", list);
+        return "/request/list";
     }
 
     // 견적 read, modify
@@ -56,13 +61,13 @@ public class RequestController {
             @PathVariable(name = "gosuId") String gosuId, // {} 로 묶은 것을 변수로
             Model model
     ) {
-        log.info("gosuId read : " + gosuId);
+//        log.info("gosuId read : " + gosuId);
         GosuDTO gosu = requestService.findGosu(gosuId);
-        log.info("gosuDTO read : " + gosu);
+//        log.info("gosuDTO read : " + gosu);
         List<RequestDTO> receivedRequests = requestService.readReceivedRequests(gosu);
         List<RequestDTO> answeredRequests = requestService.readAnsweredRequests(gosu);
 
-        log.info("answered 찾은 값: {}", answeredRequests);
+//        log.info("answered 찾은 값: {}", answeredRequests);
         model.addAttribute("gosu", gosu);
         model.addAttribute("answered", answeredRequests);
         model.addAttribute("received", receivedRequests);

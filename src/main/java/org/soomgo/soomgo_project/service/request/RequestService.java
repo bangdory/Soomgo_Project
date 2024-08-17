@@ -27,8 +27,8 @@ public class RequestService {
         return requestDTO.getId();
     }
 
-    public List<RequestDTO> list() {
-        return requestMapper.getList();
+    public List<RequestDTO> list(String clientID) {
+        return requestMapper.getListByClientId(clientID);
     }
 
     public RequestDTO getRequest(int id) {
@@ -64,10 +64,12 @@ public class RequestService {
         return requestMapper.findType(type);
     }
 
+/*
     public boolean modify(UpdateRequestDTO updateRequestDTO) {
         int updateCount = requestMapper.update(updateRequestDTO);
         return updateCount == 1;
     }
+*/
 
     public boolean remove(int id) {
         return true; // 08.06 -> 나중에 추가할 것

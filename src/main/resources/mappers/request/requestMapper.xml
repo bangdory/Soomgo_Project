@@ -22,9 +22,9 @@
         select * from request where id = #{id}
     </select>
 
-    <select id="getList" resultType="RequestDTO">
+    <select id="getListByClientId" parameterType="String" resultType="RequestDTO">
         <!--        select * from test where id > 0 order by id desc-->
-        select * from request where id > 0 order by id desc
+        select * from request where writer = #{clientId} AND id > 0 order by id desc
     </select>
 
     <select id="readReceivedRequestByGosuId" parameterType="GosuDTO" resultType="RequestDTO">
@@ -49,6 +49,7 @@
         ORDER BY r.regDate DESC;
     </select>
 
+    <!--
     <insert id="answerRequest" parameterType="AnswerRequestDTO">
         <selectKey order="AFTER" keyProperty="no" resultType="int">
             SELECT LAST_INSERT_ID()
@@ -60,6 +61,7 @@
         ON r.type = g.type
         WHERE r.id = #{requestNo} AND g.id = #{gosuId};
     </insert>
+    -->
 
     <select id="findGosu" parameterType="String" resultType="GosuDTO">
         select * from gTest where id = #{id}
@@ -105,7 +107,7 @@
         )
     </select>
 
-    <update id="update">
+    <update id="update"> <!-- 사용 안할 예정 -->
         update request
         set replier = #{gosuId},
         price = #{price},

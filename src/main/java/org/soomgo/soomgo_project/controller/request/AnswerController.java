@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.request.GosuDTO;
 import org.soomgo.soomgo_project.domain.request.RequestDTO;
 import org.soomgo.soomgo_project.domain.request.UpdateRequestDTO;
+import org.soomgo.soomgo_project.service.request.AnswerService;
 import org.soomgo.soomgo_project.service.request.RequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class AnswerController {
 
     private final RequestService requestService;
+    private final AnswerService answerService;
 
     @GetMapping("/answer/{id}")
     public String answer(
@@ -42,7 +44,7 @@ public class AnswerController {
     ) {
         log.info("업데이트 데이터 : " + updateRequestDTO);
         log.info("고수 id : " + updateRequestDTO.getGosuId());
-        requestService.modify(updateRequestDTO);
+        answerService.modify(updateRequestDTO);
         RequestDTO request = requestService.getRequest(updateRequestDTO.getId());
         rttr.addFlashAttribute("result", request);
 //        rttr.addFlashAttribute("id", updateRequestDTO.getId());

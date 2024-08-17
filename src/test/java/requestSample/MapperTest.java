@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.soomgo.soomgo_project.domain.request.*;
+import org.soomgo.soomgo_project.mappers.request.AnswerMapper;
 import org.soomgo.soomgo_project.mappers.request.RequestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,6 +20,8 @@ public class MapperTest {
 
     @Autowired(required = false)
     RequestMapper requestMapper;
+    @Autowired(required = false)
+    AnswerMapper answerMapper;
 
     @Test
     public void testMapper() {
@@ -47,7 +50,8 @@ public class MapperTest {
 
     @Test
     public void testList() {
-        requestMapper.getList().forEach(requestDTO -> log.info(requestDTO));
+        List<RequestDTO> list = requestMapper.getListByClientId("고객1");
+        log.info(list);
     }
 
     @Test
@@ -119,5 +123,23 @@ public class MapperTest {
 //        a.setType("ERP개발");
         requestMapper.answerRequest(a);
         log.info(a);
+    }
+
+    @Test
+    public void testAnswerRequestMapper() {
+        AnswerRequestDTO a = new AnswerRequestDTO();
+        a.setPrice(50000);
+        a.setRef("테스트 서비스를 제공합니다");
+        a.setFile("");
+        a.setRequestNo(13);
+        a.setGosuId("고수4");
+        answerMapper.answerRequest(a);
+        log.info(a);
+    }
+
+    @Test
+    public void readAnswerListTest() {
+        List<AnswerRequestDTO> list = answerMapper.answerList("지역3");
+        log.info(list);
     }
 }

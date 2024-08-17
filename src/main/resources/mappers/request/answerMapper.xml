@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mapping 설정은 root-context 에서 mybatis property 추가할 것-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.soomgo.soomgo_project.mappers.request.AnswerMapper">
+    <insert id="answerRequest" parameterType="AnswerRequestDTO">
+        <selectKey order="AFTER" keyProperty="no" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO AnswerRequest (RequestNo, type, GosuId, price, ref, file)
+        SELECT r.id, r.type, g.id, #{price}, #{ref}, #{file}
+        FROM request r
+        INNER JOIN gtest g
+        ON r.type = g.type
+        WHERE r.id = #{requestNo} AND g.id = #{gosuId};
+    </insert>
+
+    <select id="answerList" parameterType="String" resultType="AnswerRequestDTO">
+        select a.* from answerrequest a inner join request r on a.RequestNo = r.id where r.writer = #{clientId}
+    </select>
+</mapper>

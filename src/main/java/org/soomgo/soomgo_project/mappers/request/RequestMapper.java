@@ -7,27 +7,39 @@ import java.util.List;
 
 @Mapper
 public interface RequestMapper {
+    // 고객 요청서 등록
     int insert(RequestDTO requestDTO);
 
-    List<RequestDTO> getList();
+    // 고객이 보낸 요청서 리스트
+    List<RequestDTO> getListByClientId(String clientId);
 
+    //
     RequestDTO select(int id);
 
+    // 고수가 받은 요청서
     List<RequestDTO> readReceivedRequestByGosuId(GosuDTO gosuDTO);
 
+    // 고수가 답장한 견적서
     List<RequestDTO> answeredRequest(GosuDTO gosuDTO);
 
+    // 고수들이 만든 답장 리스트
     int answerRequest(AnswerRequestDTO answerRequestDTO);
 
+    // 고수 찾기
     GosuDTO findGosu(String id);
 
+    // 지역 찾기 (도시)
     List<String> findAllStates();
 
+    // 지역 찾기 (시,군,구)
     List<TerritoryDTO> findTerritoryByState(String state);
 
-    List<CategoryDTO> findType(String type);
-
+    // 서비스 카테고리
     List<String> findAllCategory();
 
+    // 서비스 종류
+    List<CategoryDTO> findType(String type);
+
+    // 요청서 상태 업데이트
     int update(UpdateRequestDTO updateRequestDTO);
 }
