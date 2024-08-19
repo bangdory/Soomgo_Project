@@ -102,7 +102,7 @@
     </div>
     <div class="right-column hidden" id="answerDetails">
         <h3>선택된 요청서의 답변</h3>
-        <div id="AnswerDetail"></div>
+<%--        <div id="AnswerDetail"></div>--%>
 <%--        <button id="backButton" class="btn btn-secondary hidden">뒤로가기</button>--%>
     </div>
 </div>
@@ -181,7 +181,7 @@
                         button.addEventListener('click', showDetail);
                     });
 
-                    function showDetail(event) {
+                    /*function showDetail(event) {
                         event.preventDefault(); // 버튼의 기본 동작 방지
 
                         const requestId = this.dataset.id;
@@ -199,7 +199,7 @@
                         answerDetails.appendChild(h3);
                         answerDetails.appendChild(h4);
                         answerDetails.appendChild(h5);
-                        answerDetails.appendChild(h55);
+                        answerDetails.appendChild(h55);*/
                 })
                 .catch(error => {
                     console.error("데이터를 가져오는 데 실패했습니다.", error);
