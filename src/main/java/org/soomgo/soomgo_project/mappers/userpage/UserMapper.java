@@ -7,7 +7,10 @@ import org.soomgo.soomgo_project.domain.userpage.UserProfileDTO;
 
 @Mapper
 public interface UserMapper {
+
     UserDTO findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
+
     UserProfileDTO findUserProfileByUserNum(@Param("user_num") int userNum);
+
     void updateUserProfile(UserProfileDTO userProfileDTO);
 }

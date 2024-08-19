@@ -9,7 +9,6 @@
     <title>계정 정보</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/userpage/styles.css">
     <style>
-
         .popup {
             display: none;
             position: fixed;
@@ -42,6 +41,38 @@
         .popup button:hover {
             background-color: #45a049;
         }
+        .modal {
+            display: none; /* 숨기기 */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4); /* 회색 투명 배경 */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>

@@ -25,10 +25,7 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
         UserDTO user = userService.getUserByEmailAndPassword(email, password);
-        log.info(user.toString());
-        log.info(user.toString());
-        log.info(user.toString());
-        log.info(user.toString());
+
 
         if (user != null) {
             session.setAttribute("user", user);

@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class requestDTO {
+public class RequestSentDTO {  // 첫 문자 대문자로 변경
     private int id;
     private String writer;
     private LocalDateTime regDate;
@@ -28,5 +28,5 @@ public class requestDTO {
     private String date;
     private String region;
     private String ref;
-
 }
+

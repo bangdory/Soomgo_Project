@@ -126,3 +126,13 @@ main {
 .show {
     display: block;
 }
+
+.header-login-container {
+    display: flex;          /* 내부 요소를 가로로 정렬 */
+    align-items: center;    /* 세로로 가운데 정렬 */
+}
+.header-login-container a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: #333;           /* 글자 색상 설정 (필요에 따라 조정) */
+    margin: 0 15px;       /* 링크 사이에 여백 추가 (필요에 따라 조정) */
+}

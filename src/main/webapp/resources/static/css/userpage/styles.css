@@ -1,25 +1,13 @@
 /* styles.css */
 
+
 body {
     margin : 0;
     padding: 0;
     font-family: Arial, sans-serif;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    position: fixed; /* 또는 absolute */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000; /* 헤더가 다른 요소 위에 있도록 함 */
-}
 
-header h1 {
-    margin: 0;
-}
 
 .container {
     padding-top: 60px; /* 헤더 높이만큼 패딩을 주어 본문이 헤더 아래로 오도록 함 */
@@ -29,47 +17,45 @@ main {
     padding: 20px;
 }
 
-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-}
-.modal {
-    display: none; /* 숨기기 */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* 회색 투명 배경 */
-}
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-}
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+/* 요청 항목 박스 스타일 */
+.requestContainer {
+    display: flex; /* Flexbox를 사용하여 자식 요소를 배치 */
+    flex-wrap: wrap; /* 요소가 넘칠 때 줄 바꿈 */
+    gap: 20px; /* 요소 간의 간격 */
+    justify-content: left; /* 요소를 중앙에 정렬 */
 }
 
-/* 드롭다운 */
+.request-item {
+    background-color: #ffffff; /* 배경 색상 (흰색) */
+    border: 1px solid #cccccc; /* 테두리 색상 (회색) */
+    border-radius: 5px; /* 테두리 둥글기 (5px) */
+    padding: 10px; /* 모든 방향의 내부 여백을 10px로 설정 */
+    padding-top: 5px; /* 위쪽 내부 여백을 5px로 줄임 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 (미세한 그림자) */
+    box-sizing: border-box; /* 테두리와 여백을 포함한 박스 모델 사용 */
+    width: calc(50% - 20px); /* 두 개의 요소가 한 줄에 나란히 배치되도록 너비 설정 (20px은 gap을 고려) */
+    max-width: 250px; /* 최대 너비를 설정 (400px) */
+    margin-bottom: 30px; /* 항목 간의 여백 (10px) */
+    margin-top: 20px; /* 아이템 박스의 위쪽 공백 (5px) */
+    margin-left: 10px; /* 왼쪽 여백을 10px로 설정 */
+    margin-right: 20px;
+}
+
+.userpage {
+
+
+    justify-content: center; /* 수평 가운데 정렬 */
+
+    height: 100vh; /* 컨테이너의 높이를 화면 높이로 설정 (필요에 따라 조정) */
+    text-align: center; /* 텍스트 가운데 정렬 (옵션) */
+}
+
+
+
+
+
+
+
+
+
 

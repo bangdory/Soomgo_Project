@@ -15,23 +15,29 @@
 
 <div class="container">
     <main>
-        <div class="profile-card">
-            <div class="profile-header">
+        <div class="userpage">
+            <h1>마이페이지</h1>
 
-              <%--이미지 들어갈거
 
-               <img src="<c:url value='/images/profile-placeholder.png' />" alt="Profile Picture" class="profile-picture">
---%>
+            <div class="sub-container">
+                <div class="profile-card">
+                    <div class="profile-header">
+
+                        <%--이미지 들어갈거
+                         <img src="<c:url value='/images/profile-placeholder.png' />" alt="Profile Picture" class="profile-picture">
+                         --%>
+                    </div>
+                    <div class="profile-details">
+                        <p><strong>닉네임:</strong> ${userprofile.user_nickname}</p>
+                        <p><strong>이메일:</strong> ${user.user_email}</p>
+
+
+                    </div>
+                    <a href="<c:url value='/userpage/account_info' />">프로필 수정</a>
+                    <a href="/requestsent">견적 보기</a>
+                    <a href="/logout">로그아웃</a>
+                </div>
             </div>
-            <div class="profile-details">
-                <p><strong>닉네임:</strong> ${userprofile.user_nickname}</p>
-                <p><strong>이메일:</strong> ${user.user_email}</p>
-
-
-            </div>
-            <a href="<c:url value='/userpage/account_info' />">프로필 수정</a>
-            <a href="/requestsent">견적 보기</a>
-            <a href="/logout">로그아웃</a>
         </div>
     </main>
 </div>

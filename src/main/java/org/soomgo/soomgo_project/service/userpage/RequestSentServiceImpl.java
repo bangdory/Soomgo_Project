@@ -1,24 +1,19 @@
 package org.soomgo.soomgo_project.service.userpage;
 
-import org.soomgo.soomgo_project.domain.userpage.requestDTO;
-import org.soomgo.soomgo_project.mappers.userpage.RequestSentMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.soomgo.soomgo_project.dao.userpage.RequestSentDAO;
+import org.soomgo.soomgo_project.domain.userpage.RequestSentDTO;  // 클래스 이름 변경
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class RequestSentServiceImpl implements RequestSentService {
 
-    private final RequestSentMapper requestMapper;
-
-    @Autowired
-    public RequestSentServiceImpl(RequestSentMapper requestMapper) {
-        this.requestMapper = requestMapper;
-    }
+    private final RequestSentDAO requestSentDAO;
 
     @Override
-    public List<requestDTO> getRequestsByUserEmail(String email) {
-        return requestMapper.getRequestsByUserEmail(email);
+    public List<RequestSentDTO> getRequestsByUserEmail(String email) {  // 반환 타입 변경
+        return requestSentDAO.getRequestsByUserEmail(email);
     }
 }
