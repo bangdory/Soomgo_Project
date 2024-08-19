@@ -47,7 +47,7 @@ public class AnswerController {
         answerService.modify(answerRequestDTO);
         RequestDTO request = requestService.getRequest(answerRequestDTO.getRequestId());
         answerService.answerRequest(answerRequestDTO);
-        rttr.addFlashAttribute("result", request);
+//        rttr.addFlashAttribute("result", request);
 //        rttr.addFlashAttribute("id", answerRequestDTO.getId());
         // 인코딩된 URI
         String encodedUri = UriComponentsBuilder.fromPath("{gosuId}")

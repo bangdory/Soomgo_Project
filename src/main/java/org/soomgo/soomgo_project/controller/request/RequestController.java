@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Collections;
 import java.util.List;
@@ -197,12 +198,19 @@ public class RequestController {
     // 견적 등록 처리하는 POST + 지역
     @PostMapping("/register")
     public String registerPost(
-            RequestDTO requestDTO,
+            @ModelAttribute RequestDTO requestDTO,
             RedirectAttributes rttr
     ) {
-        rttr.addFlashAttribute("dto", requestDTO);
-//        log.info("requestDTO : " + requestDTO);
+        log.info("-----------DTO----------" + requestDTO);
+//        rttr.addFlashAttribute("dto", requestDTO);
         requestService.register(requestDTO);
-        return "redirect:/request/list";
+        log.info("requestDTO 이름 : " + requestDTO.getWriter());
+        String encodedUri = UriComponentsBuilder.fromPath("{writer}")
+                .buildAndExpand(requestDTO.getWriter())
+                .encode()
+                .toUriString();
+        log.info("받은 고객 이름 : " + encodedUri);
+
+        return "redirect:/request/list/" + encodedUri;
     }
 }

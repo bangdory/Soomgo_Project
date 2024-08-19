@@ -76,6 +76,12 @@
         <c:forEach var="list" items="${lists}">
             <c:if test="${empty list.replier}">
                 <table border="1">
+                    <c:if test="${not empty list.id}">
+                        <tr>
+                            <th>ID</th>
+                            <td>${list.id}</td>
+                        </tr>
+                    </c:if>
                     <c:if test="${not empty list.type}">
                         <tr>
                             <th>Type</th>
@@ -94,8 +100,10 @@
             </c:if>
         </c:forEach>
     </div>
-    <div class="right-column" id="answerDetails">
+    <div class="right-column hidden" id="answerDetails">
         <h3>선택된 요청서의 답변</h3>
+        <div id="AnswerDetail"></div>
+<%--        <button id="backButton" class="btn btn-secondary hidden">뒤로가기</button>--%>
     </div>
 </div>
 </body>
@@ -136,14 +144,36 @@
                     const answerDetails = document.getElementById('answerDetails');
                     answerDetails.innerHTML = ''; // 기존 내용 삭제
                     data.forEach(answer => {
+
+                        const h3 = document.createElement('h3');
+                        h3.textContent = '선택된 요청서의 답변'
+
                         const h4 = document.createElement('h4');
-                        h4.textContent = `고수 ID: ` + answer.gosuId;
+                        h4.textContent = '고수 ID: ' + answer.gosuId;
 
                         const h5 = document.createElement('h5');
-                        h5.textContent = `서비스 금액: ` + answer.price;
+                        h5.textContent = '서비스 금액: ' + answer.price;
 
+                        const readButton = document.createElement('button');
+                        readButton.textContent = '견적 읽기';
+                        readButton.classList.add('btn', 'btn-info');
+                        readButton.dataset.id = answer.no
+                        readButton.addEventListener('click', function () {
+                            console.log(answer)
+                        })
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = '견적 지우기';
+                        deleteButton.classList.add('btn', 'btn-danger');
+                        deleteButton.dataset.id = answer.no
+                        deleteButton.addEventListener('click', function () {
+                            console.log(answer)
+                        })
+
+                        answerDetails.appendChild(h3);
                         answerDetails.appendChild(h4);
                         answerDetails.appendChild(h5);
+                        answerDetails.appendChild(readButton);
+                        answerDetails.appendChild(deleteButton);
                     });
                 })
                 .catch(error => {
