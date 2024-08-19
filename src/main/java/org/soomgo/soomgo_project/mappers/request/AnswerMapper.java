@@ -9,5 +9,5 @@ import java.util.List;
 public interface AnswerMapper {
     int answerRequest(AnswerRequestDTO answerRequestDTO);
 
-    List<AnswerRequestDTO> answerList(String clientId);
+    List<AnswerRequestDTO> answerList(int requestId);
 }

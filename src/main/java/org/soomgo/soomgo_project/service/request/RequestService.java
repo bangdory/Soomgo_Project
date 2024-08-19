@@ -31,8 +31,8 @@ public class RequestService {
         return requestMapper.getListByClientId(clientID);
     }
 
-    public RequestDTO getRequest(int id) {
-        return requestMapper.select(id);
+    public RequestDTO getRequest(int requestId) {
+        return requestMapper.select(requestId);
     }
 
     public List<RequestDTO> readReceivedRequests(GosuDTO gosuDTO) {

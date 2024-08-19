@@ -2,9 +2,9 @@ package org.soomgo.soomgo_project.controller.request;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.soomgo.soomgo_project.domain.request.AnswerRequestDTO;
 import org.soomgo.soomgo_project.domain.request.GosuDTO;
 import org.soomgo.soomgo_project.domain.request.RequestDTO;
-import org.soomgo.soomgo_project.domain.request.UpdateRequestDTO;
 import org.soomgo.soomgo_project.service.request.AnswerService;
 import org.soomgo.soomgo_project.service.request.RequestService;
 import org.springframework.stereotype.Controller;
@@ -39,18 +39,19 @@ public class AnswerController {
 
     @PostMapping("/answer")
     public String answerPost(
-            @ModelAttribute UpdateRequestDTO updateRequestDTO,
+            @ModelAttribute AnswerRequestDTO answerRequestDTO,
             RedirectAttributes rttr
     ) {
-        log.info("업데이트 데이터 : " + updateRequestDTO);
-        log.info("고수 id : " + updateRequestDTO.getGosuId());
-        answerService.modify(updateRequestDTO);
-        RequestDTO request = requestService.getRequest(updateRequestDTO.getId());
+        log.info("업데이트 데이터 : " + answerRequestDTO);
+        log.info("고수 id : " + answerRequestDTO.getGosuId());
+        answerService.modify(answerRequestDTO);
+        RequestDTO request = requestService.getRequest(answerRequestDTO.getRequestId());
+        answerService.answerRequest(answerRequestDTO);
         rttr.addFlashAttribute("result", request);
-//        rttr.addFlashAttribute("id", updateRequestDTO.getId());
+//        rttr.addFlashAttribute("id", answerRequestDTO.getId());
         // 인코딩된 URI
         String encodedUri = UriComponentsBuilder.fromPath("{gosuId}")
-                .buildAndExpand(updateRequestDTO.getGosuId())
+                .buildAndExpand(answerRequestDTO.getGosuId())
                 .encode()
                 .toUriString();
         return "redirect:/request/read/"+ encodedUri;

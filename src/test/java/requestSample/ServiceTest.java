@@ -18,6 +18,6 @@ public class ServiceTest {
 
     @Test
     public void testList() {
-        log.info(requestService.list());
+//        log.info(requestService.list());
     }
 }

@@ -49,19 +49,17 @@
         ORDER BY r.regDate DESC;
     </select>
 
-    <!--
     <insert id="answerRequest" parameterType="AnswerRequestDTO">
         <selectKey order="AFTER" keyProperty="no" resultType="int">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        INSERT INTO AnswerRequest (RequestNo, type, GosuId, price, ref, file)
+        INSERT INTO AnswerRequest (RequestId, type, GosuId, price, ref, file)
         SELECT r.id, r.type, g.id, #{price}, #{ref}, #{file}
         FROM request r
         INNER JOIN gtest g
         ON r.type = g.type
-        WHERE r.id = #{requestNo} AND g.id = #{gosuId};
+        WHERE r.id = #{requestId} AND g.id = #{gosuId};
     </insert>
-    -->
 
     <select id="findGosu" parameterType="String" resultType="GosuDTO">
         select * from gTest where id = #{id}
@@ -107,12 +105,9 @@
         )
     </select>
 
-    <update id="update"> <!-- 사용 안할 예정 -->
+    <update id="update" parameterType="AnswerRequestDTO"> <!-- 사용 안할 예정 -->
         update request
-        set replier = #{gosuId},
-        price = #{price},
-        replierRef = #{replyRef},
-        replierFile = #{replyFile}
-        where id = #{id};
+        set replier = #{gosuId}
+        where id = #{requestId}
     </update>
 </mapper>

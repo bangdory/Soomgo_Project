@@ -8,15 +8,15 @@
         <selectKey order="AFTER" keyProperty="no" resultType="int">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        INSERT INTO AnswerRequest (RequestNo, type, GosuId, price, ref, file)
+        INSERT INTO AnswerRequest (requestId, type, GosuId, price, ref, file)
         SELECT r.id, r.type, g.id, #{price}, #{ref}, #{file}
         FROM request r
         INNER JOIN gtest g
         ON r.type = g.type
-        WHERE r.id = #{requestNo} AND g.id = #{gosuId};
+        WHERE r.id = #{requestId} AND g.id = #{gosuId};
     </insert>
 
-    <select id="answerList" parameterType="String" resultType="AnswerRequestDTO">
-        select a.* from answerrequest a inner join request r on a.RequestNo = r.id where r.writer = #{clientId}
+    <select id="answerList" parameterType="int" resultType="AnswerRequestDTO">
+        select a.* from answerrequest a inner join request r on a.requestId = r.id where r.id = #{requestId}
     </select>
 </mapper>

@@ -8,5 +8,5 @@ public class UpdateRequestDTO {
     private int price;
     private String replyRef;
     private String replyFile;
-    private int id;
+    private int requestId;
 }

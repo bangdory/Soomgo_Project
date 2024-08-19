@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.request.*;
 import org.soomgo.soomgo_project.service.request.AnswerService;
 import org.soomgo.soomgo_project.service.request.RequestService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class RequestController {
             Model model // jsp 에 담기 위해!!
     ) {
         List<RequestDTO> list = requestService.list(clientId);
-        log.info(list);
+//        log.info(list);
 
 
 //        log.info(list);
@@ -36,6 +37,33 @@ public class RequestController {
         model.addAttribute("lists", list);
         return "/request/list";
     }
+
+    // Ajax 처리로 답변 읽기
+    @GetMapping("/answer-list")
+    public ResponseEntity<List<AnswerRequestDTO>> getAnswerList(@RequestParam int requestId) {
+        List<AnswerRequestDTO> answerList = answerService.readAnsweredList(requestId);
+        log.info(answerList);
+        return ResponseEntity.ok(answerList);
+    }
+
+
+    /*
+    // list
+    @GetMapping("/list/{clientId}")
+    public String list(
+            @PathVariable(name = "clientId") String clientId,
+            Model model // jsp 에 담기 위해!!
+    ) {
+        List<RequestDTO> list = requestService.list(clientId);
+//        log.info(list);
+
+
+//        log.info(list);
+
+        model.addAttribute("lists", list);
+        return "/request/list";
+    }
+    */
 
     // 견적 read, modify
     /*@GetMapping("/{job}/{id}")

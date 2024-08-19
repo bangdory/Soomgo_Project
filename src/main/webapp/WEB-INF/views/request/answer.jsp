@@ -14,8 +14,10 @@
 <body>
 <c:out value="${gosu.region} ${gosu.type}의 고수 ${gosu.id}님"/>
 <form action="/request/answer" method="post">
+    <input type="hidden" name="requestId" value="${request.id}">
+    <input type="hidden" name="type" value="${request.type}">
     <input type="hidden" name="gosuId" value="${gosu.id}">
-    <input type="hidden" name="id" value="${request.id}">
+<%--    <input type="hidden" name="answerDTO" value="${}"--%>
     <table border="1">
         <c:if test="${not empty request.id}">
             <tr>
@@ -156,11 +158,11 @@
     </div>
     <div>
         서비스 설명 :
-        <textarea rows="5" name="replyRef" class="form-control" placeholder="제공 서비스를 입력하세요"></textarea>
+        <textarea rows="5" name="ref" class="form-control" placeholder="제공 서비스를 입력하세요"></textarea>
     </div>
     <div>
         파일 및 기타 사항 :
-        <input type="text" name="replyFile" class="form-control">
+        <input type="text" name="file" class="form-control">
     </div>
     <button type="submit" value="견적 답변하기">견적 답변하기</button>
     <button type="reset" value="초기화">초기화</button>

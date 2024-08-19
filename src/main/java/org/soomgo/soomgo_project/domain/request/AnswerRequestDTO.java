@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AnswerRequestDTO {
     private int no;
-    private int requestNo;
+    private int requestId;
     private String type;
     private String gosuId;
     private int price;

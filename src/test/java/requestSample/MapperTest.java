@@ -102,13 +102,13 @@ public class MapperTest {
 
     @Test
     public void updateRequest() {
-        UpdateRequestDTO updateRequestDTO = new UpdateRequestDTO();
-        updateRequestDTO.setGosuId("고수2");
-        updateRequestDTO.setPrice(5000);
-        updateRequestDTO.setReplyRef("어쩌구저쩌구");
-        updateRequestDTO.setId(3);
-        int update = requestMapper.update(updateRequestDTO);
-        log.info(updateRequestDTO);
+        AnswerRequestDTO answerRequestDTO = new AnswerRequestDTO();
+        answerRequestDTO.setGosuId("고수2");
+        answerRequestDTO.setPrice(5000);
+        answerRequestDTO.setRef("어쩌구저쩌구");
+        answerRequestDTO.setRequestId(10);
+        int update = requestMapper.update(answerRequestDTO);
+        log.info(answerRequestDTO);
         log.info(update);
     }
 
@@ -118,7 +118,7 @@ public class MapperTest {
         a.setPrice(50000);
         a.setRef("테스트 서비스를 제공합니다");
         a.setFile("");
-        a.setRequestNo(13);
+        a.setRequestId(13);
         a.setGosuId("고수4");
 //        a.setType("ERP개발");
         requestMapper.answerRequest(a);
@@ -131,7 +131,7 @@ public class MapperTest {
         a.setPrice(50000);
         a.setRef("테스트 서비스를 제공합니다");
         a.setFile("");
-        a.setRequestNo(13);
+        a.setRequestId(13);
         a.setGosuId("고수4");
         answerMapper.answerRequest(a);
         log.info(a);
@@ -139,7 +139,7 @@ public class MapperTest {
 
     @Test
     public void readAnswerListTest() {
-        List<AnswerRequestDTO> list = answerMapper.answerList("지역3");
+        List<AnswerRequestDTO> list = answerMapper.answerList(1);
         log.info(list);
     }
 }
