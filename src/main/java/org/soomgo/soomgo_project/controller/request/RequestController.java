@@ -5,13 +5,14 @@ import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.request.*;
 import org.soomgo.soomgo_project.service.request.AnswerService;
 import org.soomgo.soomgo_project.service.request.RequestService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -41,9 +42,12 @@ public class RequestController {
     // Ajax 처리로 답변 읽기
     @GetMapping("/answer-list")
     public ResponseEntity<List<AnswerRequestDTO>> getAnswerList(@RequestParam int requestId) {
+        if (requestId <= 0) {
+            return ResponseEntity.badRequest().body(Collections.emptyList());
+        }
         List<AnswerRequestDTO> answerList = answerService.readAnsweredList(requestId);
-        log.info(answerList);
-        return ResponseEntity.ok(answerList);
+        log.info("받은 리스트 -> " + answerList);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(answerList);
     }
 
 
