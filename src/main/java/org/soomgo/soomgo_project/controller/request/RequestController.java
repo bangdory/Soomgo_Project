@@ -52,6 +52,9 @@ public class RequestController {
         List<RequestDTO> requestDTOS = requestService.readRequest(gosu);
         model.addAttribute("gosu", gosu);
         model.addAttribute("lists", requestDTOS);
+//        if (job.equals("read")) {
+//            return "/request/answer" + id;
+//        }
         return "/request/" + job;
     }*/
 

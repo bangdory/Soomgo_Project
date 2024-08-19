@@ -49,7 +49,6 @@
         ORDER BY r.regDate DESC;
     </select>
 
-    <!--
     <insert id="answerRequest" parameterType="AnswerRequestDTO">
         <selectKey order="AFTER" keyProperty="no" resultType="int">
             SELECT LAST_INSERT_ID()
@@ -61,7 +60,6 @@
         ON r.type = g.type
         WHERE r.id = #{requestNo} AND g.id = #{gosuId};
     </insert>
-    -->
 
     <select id="findGosu" parameterType="String" resultType="GosuDTO">
         select * from gTest where id = #{id}

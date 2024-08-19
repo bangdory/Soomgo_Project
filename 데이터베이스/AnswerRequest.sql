@@ -6,6 +6,7 @@ create table AnswerRequest
     GosuId    varchar(20) not null,
     price     varchar(50),
     ref       varchar(1000),
-    file      varchar(2000)
+    file      varchar(2000),
+    replyDate timestamp default now()
 )
 ;
