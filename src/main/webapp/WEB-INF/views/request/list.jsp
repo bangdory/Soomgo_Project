@@ -175,6 +175,31 @@
                         answerDetails.appendChild(readButton);
                         answerDetails.appendChild(deleteButton);
                     });
+
+                    document.querySelectorAll('.btn-info').forEach(button => {
+                        // 이벤트 핸들러를 직접 함수로 등록
+                        button.addEventListener('click', showDetail);
+                    });
+
+                    function showDetail(event) {
+                        event.preventDefault(); // 버튼의 기본 동작 방지
+
+                        const requestId = this.dataset.id;
+                        const h3 = document.createElement('h3');
+                        h3.textContent = '선택된 요청서의 답변'
+
+                        const h4 = document.createElement('h4');
+                        h4.textContent = '고수 ID: ' + answer.gosuId;
+
+                        const h5 = document.createElement('h5');
+                        h5.textContent = '서비스 금액: ' + answer.price;
+
+                        const h55 = document.createElement('h5');
+                        h55.textContent = '서비스 내용: ' + answer.ref;
+                        answerDetails.appendChild(h3);
+                        answerDetails.appendChild(h4);
+                        answerDetails.appendChild(h5);
+                        answerDetails.appendChild(h55);
                 })
                 .catch(error => {
                     console.error("데이터를 가져오는 데 실패했습니다.", error);
@@ -183,6 +208,104 @@
         }
     });
 </script>
+<%-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 모든 버튼에 대해 이벤트 핸들러를 한 번만 등록
+        document.querySelectorAll(".btn-primary").forEach(button => {
+            button.addEventListener('click', handleButtonClick);
+        });
+
+        function handleButtonClick(event) {
+            event.preventDefault(); // 버튼의 기본 동작 방지
+
+            const requestId = this.dataset.id; // 버튼에 설정된 데이터 속성에서 ID 가져오기
+
+            if (!requestId) {
+                return; // ID가 없으면 요청을 보내지 않습니다.
+            }
+
+            fetch('/request/answer-list?requestId=' + encodeURIComponent(requestId), {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json' // 응답을 JSON으로 처리하겠다는 요청
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // 서버 응답을 JSON으로 변환
+                })
+                .then(data => {
+                    const answerDetails = document.getElementById('answerDetails');
+                    answerDetails.innerHTML = ''; // 기존 내용 삭제
+
+                    data.forEach(answer => {
+                        const h4 = document.createElement('h4');
+                        h4.textContent = '고수 ID: ' + answer.gosuId;
+
+                        const h5 = document.createElement('h5');
+                        h5.textContent = '서비스 금액: ' + answer.price;
+
+                        const readButton = document.createElement('button');
+                        readButton.textContent = '견적 읽기';
+                        readButton.classList.add('btn', 'btn-info');
+                        readButton.dataset.id = answer.no;
+                        readButton.addEventListener('click', function () {
+                            showDetail(answer); // detail 함수 호출
+                        });
+
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = '견적 지우기';
+                        deleteButton.classList.add('btn', 'btn-danger');
+                        deleteButton.dataset.id = answer.no;
+
+                        answerDetails.appendChild(h4);
+                        answerDetails.appendChild(h5);
+                        answerDetails.appendChild(readButton);
+                        answerDetails.appendChild(deleteButton);
+                    });
+
+                    // Show right-column and backButton
+                    answerDetails.classList.remove('hidden');
+                    document.getElementById('backButton').classList.remove('hidden');
+                })
+                .catch(error => {
+                    console.error("데이터를 가져오는 데 실패했습니다.", error);
+                    document.getElementById('answerDetails').innerHTML = '<p>데이터를 가져오는 데 실패했습니다.</p>';
+                });
+        }
+
+        function showDetail(answer) {
+            const answerDetails = document.getElementById('answerDetails');
+            answerDetails.innerHTML = ''; // 기존 내용 삭제
+
+            const h3 = document.createElement('h3');
+            h3.textContent = '선택된 요청서의 답변';
+
+            const h4 = document.createElement('h4');
+            h4.textContent = '고수 ID: ' + answer.gosuId;
+
+            const h5 = document.createElement('h5');
+            h5.textContent = '서비스 금액: ' + answer.price;
+
+            const h55 = document.createElement('h5');
+            h55.textContent = '서비스 내용: ' + answer.ref;
+
+            answerDetails.appendChild(h3);
+            answerDetails.appendChild(h4);
+            answerDetails.appendChild(h5);
+            answerDetails.appendChild(h55);
+        }
+
+        document.getElementById('backButton').addEventListener('click', function () {
+            const answerDetails = document.getElementById('answerDetails');
+            answerDetails.innerHTML = '';
+            answerDetails.classList.add('hidden');
+            this.classList.add('hidden');
+        });
+    });
+</script>--%>
 <%--<script>
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll(".btn-primary").forEach(button => {
