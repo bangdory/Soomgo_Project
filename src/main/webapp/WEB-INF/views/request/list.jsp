@@ -61,14 +61,12 @@
                     </c:if>
                 </table>
                 <br>
-                <c:if test="${not empty list.replier}">
                     <div class="requestAnswer">
                         <button type="submit" class="btn btn-primary" data-id="${list.id}">받은 견적 읽기</button>
                         <form action="/request/delete/${receivedList.id}" method="post">
                             <button type="submit" class="btn btn-warning">견적 지우기</button>
                         </form>
                     </div>
-                </c:if>
             </c:if>
         </c:forEach>
         <hr>
@@ -90,13 +88,11 @@
                     </c:if>
                 </table>
                 <br>
-                <c:if test="${!list.replier}">
                     <div class="requestAnswer">
                         <form action="/request/delete/${receivedList.id}" method="post">
                             <button type="submit" class="btn btn-warning">견적 지우기</button>
                         </form>
                     </div>
-                </c:if>
             </c:if>
         </c:forEach>
     </div>
@@ -178,7 +174,15 @@
 
                     document.querySelectorAll('.btn-info').forEach(button => {
                         // 이벤트 핸들러를 직접 함수로 등록
-                        button.addEventListener('click', showDetail);
+                        button.addEventListener('click', function () {
+                            console.log('견적 읽기 버튼 클릭됨', this.dataset.id);
+                        });
+                    });
+
+                    document.querySelectorAll('.btn-danger').forEach(button => {
+                        button.addEventListener('click', function () {
+                            console.log('견적 지우기 버튼 클릭됨', this.dataset.id);
+                        });
                     });
 
                     /*function showDetail(event) {
