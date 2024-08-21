@@ -11,8 +11,8 @@
 <head>
     <title>내가 보낸 요청서</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .startTop {
+    <%--<style>
+        .requests {
             padding-top: 20px;
             padding-bottom: 20px;
         }
@@ -25,7 +25,7 @@
             display: none;
         }
 
-        .container {
+        .requestContainer {
             display: flex;
             margin-left: 20px;
         }
@@ -48,15 +48,214 @@
         .requestAnswer {
             margin-top: 10px;
         }
+    </style>--%>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .requestContainer {
+            padding-top: 60px; /* 헤더 높이만큼 패딩을 주어 본문이 헤더 아래로 오도록 함 */
+        }
+
+        main {
+            padding: 20px;
+        }
+
+
+
+        .request-item {
+            background-color: #ffffff; /* 배경 색상 (흰색) */
+            border: 1px solid #cccccc; /* 테두리 색상 (회색) */
+            border-radius: 5px; /* 테두리 둥글기 (5px) */
+            padding: 10px; /* 모든 방향의 내부 여백을 10px로 설정 */
+            box-sizing: border-box; /* 테두리와 여백을 포함한 박스 모델 사용 */
+            height: 180px; /* 고정 높이 설정 */
+            flex: 1 1 calc(25% - 20px); /* 너비를 25%로 설정 (간격을 고려) */
+            min-width: 250px;
+            max-width: 300px;
+            margin: 5px; /* 상하좌우 여백 추가 */
+        }
+
+        /* 기본 너비값 설정 */
+
+
+        .request-item p {
+            font-size: 13px;
+            color: #888888;
+            border: solid transparent;
+        }
+
+        .btn-primary {
+            background-color: mediumturquoise;
+            border: solid transparent;
+            border-radius: 5px;
+            width: 100%;
+            height: 30%;
+            cursor: pointer;
+            color: white;
+
+        }
+
+        .sort-date h3 {
+            margin: 0;
+            padding-top: 10px;
+            padding-left: 5px;
+        }
+
+        .sort-date p {
+            margin: 0;
+            padding-left: 3px;
+            padding-bottom: 10px;
+        }
+
+        .read-con {
+            padding-top: 5px;
+        }
+
+        .progress {
+            height: 10px;
+            width: 100%;
+
+        }
+
+        .progress-bar {
+            height: 10px;
+            width: 100%;
+            background-color: mediumturquoise;
+            border-radius: 5px;
+
+        }
+
+        .progress-tag {
+            display: flex;
+            justify-content: space-between; /* 요소들 사이의 공간을 균등하게 분배 */
+            width: 100%; /* 부모 항목의 너비에 맞춤 */
+            height: 10%; /* 부모 항목의 높이에 맞춤 */
+            /* 요소 간의 균등한 간격 설정 */
+            overflow: hidden; /* 넘치는 내용 숨김 */
+            padding-bottom: 20px;
+
+        }
+
+        .progress-tag p {
+            flex: 1; /* 각 p 요소가 남은 공간을 균등하게 채우도록 설정 */
+            margin: 0; /* 기본 여백 제거 */
+
+        }
+
+        .progress-tag-center {
+            text-align: center; /* 텍스트를 중앙 정렬 */
+        }
+
+        .progress-tag-left {
+            text-align: left; /* 텍스트를 중앙 정렬 */
+        }
+
+        .progress-tag-right {
+            text-align: right; /* 텍스트를 중앙 정렬 */
+        }
     </style>
 </head>
+<body>
+<%@include file="../header/header.jsp" %>
+<div class="container">
+
+    <div class="requests">
+        <h2>내 견적서</h2>
+
+        <%--<c:out value="${lists}"></c:out>--%>
+        <div class="requestContainer">
+            <h3>답장을 받은 요청서</h3>
+
+
+            <c:forEach var="list" items="${lists}">
+
+                <c:if test="${not empty list.replier}">
+                    <div class="request-item">
+                        <div class="sort-date">
+                            <h3>${list.sort}</h3> <%-- 카테고리 예)IT --%>
+                            <p><span class="regDate" data-date="${list.regDate}">${list.regDate}</span>
+                            </p> <%--언제 보냈는지--%>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar">
+                            </div>
+                        </div>
+                        <div class="progress-tag">
+                            <p class="progress-tag-left">견적요청</p>
+                            <p class="progress-tag-center">상담진행</p>
+                            <p class="progress-tag-right">거래완료</p>
+                        </div>
+                        <div class="read-con">
+                            <button class="btn-primary">자세히보기</button>
+                        </div>
+                    </div>
+                </c:if>
+            </c:forEach>
+            <h3>답장없음</h3>
+            <c:forEach var="list" items="${lists}">
+
+                <c:if test="${empty list.replier}">
+                    <div class="request-item">
+                        <div class="sort-date">
+                            <h3>${list.sort}</h3> <%-- 카테고리 예)IT --%>
+                            <p><span class="regDate" data-date="${list.regDate}">${list.regDate}</span>
+                            </p> <%--언제 보냈는지--%>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar">
+                            </div>
+                        </div>
+                        <div class="progress-tag">
+                            <p class="progress-tag-left">견적요청</p>
+                            <p class="progress-tag-center">상담진행</p>
+                            <p class="progress-tag-right">거래완료</p>
+                        </div>
+                        <div class="read-con">
+                            <button class="btn-primary">자세히보기</button>
+                        </div>
+                    </div>
+                </c:if>
+            </c:forEach>
+        </div>
+    </div>
+
+    <div class="right-column hidden" id="answerDetails">
+        <h3>선택된 요청서의 답변</h3>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade hidden" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="detailModalLabel">상세 견적</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-primary">답장하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<%--
 <body>
 <%@include file="../header/header.jsp" %>
 <main>
     <div class="startTop">
         <h2>내 견적서</h2>
     </div>
-    <%--<c:out value="${lists}"></c:out>--%>
+    &lt;%&ndash;<c:out value="${lists}"></c:out>&ndash;%&gt;
     <div class="container">
         <div class="left-column">
             <h3>답장을 받은 요청서</h3>
@@ -83,9 +282,9 @@
                     <div class="requestAnswer">
                         <button type="submit" class="btn btn-primary" id="readRequest" data-id="${list.id}">받은 견적 읽기
                         </button>
-<%--                        <form action="/request/delete/${receivedList.id}" method="post">--%>
+&lt;%&ndash;                        <form action="/request/delete/${receivedList.id}" method="post">&ndash;%&gt;
                             <button type="submit" class="btn btn-warning deleteRequest" id="${list.id}">요청 지우기</button>
-<%--                        </form>--%>
+&lt;%&ndash;                        </form>&ndash;%&gt;
                     </div>
                 </c:if>
             </c:forEach>
@@ -109,9 +308,9 @@
                     </table>
                     <br>
                     <div class="requestAnswer">
-<%--                        <form action="/request/delete/${receivedList.id}" method="post">--%>
+&lt;%&ndash;                        <form action="/request/delete/${receivedList.id}" method="post">&ndash;%&gt;
                             <button type="submit" class="btn btn-warning deleteRequest" id="${list.id}">요청 지우기</button>
-<%--                        </form>--%>
+&lt;%&ndash;                        </form>&ndash;%&gt;
                     </div>
                 </c:if>
             </c:forEach>
@@ -143,7 +342,7 @@
 
     </div>
 </main>
-</body>
+</body>--%>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
@@ -153,8 +352,18 @@
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const dateElements = document.querySelectorAll('.regDate');
+        dateElements.forEach(function (element) {
+            const dateString = element.getAttribute('data-date');
+            const formattedDate = moment(dateString).format('YY.MM.DD.');
+            // 마지막 `.` 제거
+            const cleanedDate = formattedDate.replace(/\.$/, '');
+            element.textContent = cleanedDate;
+        });
         document.querySelectorAll('.deleteRequest').forEach(button => {
             button.addEventListener('click', function () {
                 console.log('견적 지우기 버튼 클릭됨', this.id);

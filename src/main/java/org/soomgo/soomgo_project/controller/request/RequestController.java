@@ -24,6 +24,23 @@ public class RequestController {
     private final RequestService requestService;
     private final AnswerService answerService;
 
+    @GetMapping("/requestsent/{clientId}")
+    public String listRequests(
+            @PathVariable(name = "clientId") String clientId,
+            Model model // jsp 에 담기 위해!!
+    ) {
+        List<RequestDTO> list = requestService.list(clientId);
+//        log.info(list);
+
+
+//        log.info(list);
+
+        model.addAttribute("requests", list);
+        return "/request/requestsent";
+    }
+
+
+
     // list
     @GetMapping("/list/{clientId}")
     public String list(
