@@ -84,7 +84,6 @@
                 <p><strong>${user.user_email}</strong> </p>
             </div>
             <button onclick="showModal() ">닉네임 수정</button>
-            <a href="/logout">로그아웃</a>
         </div>
     </main>
 </div>

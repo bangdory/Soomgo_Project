@@ -31,7 +31,7 @@ public class LoginController {
             session.setAttribute("user", user);
             UserProfileDTO userprofile = userService.getUserProfileByUserNum(user.getUser_num());
             session.setAttribute("userprofile", userprofile); // 사용자 프로필 정보를 세션에 저장
-            return "redirect:/userpage"; // 로그인 후 사용자 페이지로 리디렉션
+            return "redirect:/"; // 로그인 후 사용자 페이지로 리디렉션
         } else {
             model.addAttribute("errorMessage", "이메일 또는 비밀번호가 잘못되었습니다.");
             return "/login"; // 로그인 실패 시 로그인 페이지로 돌아감

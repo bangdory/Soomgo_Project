@@ -6,9 +6,6 @@
 <html lang="ko">
 
 
-
-
-
 <body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/userpage/styles.css">
@@ -19,21 +16,37 @@
             <div class="requestContainer">
                 <c:forEach var="request" items="${requests}">
                     <div class="request-item">
+                        <div class="sort-date">
                         <h3>${request.sort}</h3>
                         <p><span class="regDate" data-date="${request.regDate}">${request.regDate}</span></p>
-                        <!-- 추가적인 요청 정보들을 여기에 표시 -->
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar">
+                            </div>
+                        </div>
+                        <div class="progress-tag">
+                            <p class="progress-tag-left">견적요청</p>
+                            <p class="progress-tag-center">상담진행</p>
+                            <p class="progress-tag-right">거래완료</p>
+                        </div>
+                        <div class="read-con">
+                            <button class="read-more">자세히보기</button>
+                        </div>
                     </div>
                 </c:forEach>
             </div>
-            <a href="/userpage">되돌아가기</a>
+
+        </div>
+        <div>
+            <h2>추천 서비스</h2>
         </div>
     </main>
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const dateElements = document.querySelectorAll('.regDate');
-        dateElements.forEach(function(element) {
+        dateElements.forEach(function (element) {
             const dateString = element.getAttribute('data-date');
             const formattedDate = moment(dateString).format('YY.MM.DD.');
             // 마지막 `.` 제거

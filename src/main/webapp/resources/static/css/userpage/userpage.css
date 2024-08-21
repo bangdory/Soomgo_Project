@@ -1,0 +1,39 @@
+
+body {
+    margin : 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+
+.container {
+    padding-top: 60px; /* 헤더 높이만큼 패딩을 주어 본문이 헤더 아래로 오도록 함 */
+}
+
+main {
+    padding: 20px;
+}
+
+.userpage {
+    width: 60%;
+    margin: 0 auto;
+
+}
+.profile-menu {
+    padding-top : 40px;
+}
+.profile-card {
+    padding-top : 20px;
+}
+.menu-title {
+    font-weight: bold;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.sub-menu {
+    padding: 10px;
+}

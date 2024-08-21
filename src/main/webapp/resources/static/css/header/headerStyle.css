@@ -70,7 +70,7 @@ main {
 }
 
 .dropbtn {
-    background-color: #ea2129;
+    background-color: #ea2129; /*이미지값* border radius*/
     color: white;
     padding: 16px;
     font-size: 16px;
