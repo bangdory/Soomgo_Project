@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet">
+
 <header class="header-first-container">
     <div class="header-second-container">
         <div class="header-third-container-1">
@@ -21,7 +21,7 @@
             </div>
             <%-- 고수 찾기 --%>
                 <div class="header-link-div">
-                <a href="${pageContext.request.contextPath}/gosu/gosuFind">고수 찾기</a>
+                <a href="${pageContext.request.contextPath}/expert/expertFind">고수 찾기</a>
             </div>
             <%-- 마켓 --%>
                 <div class="header-link-div">

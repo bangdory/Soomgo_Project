@@ -4,7 +4,76 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.soomgo.soomgo_project.mappers.expert.ExpertMapper">
-    <select id="getExpertList" resultType="org.soomgo.soomgo_project.domain.expert.ExpertDTO">
-        SELECT expert_num, user_num, category_num, experience_years, education, rating FROM expert
+
+    <resultMap id="expertResultMap" type="org.soomgo.soomgo_project.domain.expert.ExpertDTO">
+        <id property="expertNum" column="expert_num"/>
+        <result property="userNum" column="user_num"/>
+        <result property="categoryNum" column="category_num"/>
+        <result property="experienceYears" column="experience_years"/>
+        <result property="education" column="education"/>
+        <result property="img" column="img"/>
+        <result property="rating" column="rating"/>
+        <result property="region" column="region"/>
+    </resultMap>
+
+    <select id="getExpertList" resultMap="expertResultMap">
+        SELECT expert_num, user_num, category_num, experience_years, education, rating, region FROM expert
+        LIMIT 10
+    </select>
+
+    <select id="getExpertListStateDistrict" parameterType="map" resultMap="expertResultMap">
+        SELECT expert_num, user_num, category_num, experience_years, education, rating, region
+        FROM expert
+        <where>
+            <if test="category_num != null">
+                AND category_num = #{category_num}
+            </if>
+            <if test="region != null">
+                AND region = #{region}
+            </if>
+        </where>
+    </select>
+
+<!--    <select id="findExperts" resultType="org.soomgo.soomgo_project.domain.expert.ExpertDTO">-->
+<!--        SELECT * FROM experts-->
+<!--        WHERE 1 = 1-->
+<!--        AND-->
+<!--        <if test="categoryNum != null">-->
+<!--            category_num = #{categoryNum}-->
+<!--        </if>-->
+<!--        <if test="region != null">-->
+<!--            AND region = #{region}-->
+<!--        </if>-->
+<!--        LIMIT #{pageable.offset}, #{pageable.pageSize}-->
+<!--    </select>-->
+
+    <select id="findExperts" parameterType="map" resultMap="expertResultMap">
+        SELECT *
+        FROM expert
+        WHERE 1=1
+        <if test="categoryNum != null">
+            AND category_num = #{categoryNum}
+        </if>
+        <if test="region != null">
+            AND region = #{region}
+        </if>
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="countExperts" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM expert
+        WHERE 1=1
+        <if test="categoryNum != null">
+            AND category_num = #{categoryNum}
+        </if>
+        <if test="region != null">
+            AND region = #{region}
+        </if>
+    </select>
+
+    <select id="expertDetail" parameterType="int" resultMap="expertResultMap">
+        SELECT * FROM expert
+        WHERE expert_num = #{expertNum}
     </select>
 </mapper>
