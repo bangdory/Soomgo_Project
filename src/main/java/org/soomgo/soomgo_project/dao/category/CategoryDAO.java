@@ -25,4 +25,9 @@ public class CategoryDAO {
         return categoryMapper.getCategoryNotZero();
     }
 
+    public CategoryDTO getCategoryByName(String categoryName) {
+//    public int getCategoryByName(String categoryName) {
+        return categoryMapper.getCategoryByName(categoryName);
+    }
+
 }

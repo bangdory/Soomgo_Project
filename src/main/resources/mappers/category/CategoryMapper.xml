@@ -30,4 +30,10 @@
         WHERE P_Id = ${P_Id}
     </select>
 
+    <select id="getCategoryByName" parameterType="String" resultType="org.soomgo.soomgo_project.domain.category.CategoryDTO">
+<!--    <select id="getCategoryByName" parameterType="String" resultType="int">-->
+        SELECT CategoryNum FROM category
+        WHERE categoryName = #{categoryName}
+    </select>
+
 </mapper>

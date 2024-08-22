@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.category.CategoryDTO;
 import org.soomgo.soomgo_project.service.category.CategoryService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,5 +38,17 @@ public class CategoryController {
     @ResponseBody
     public List<CategoryDTO> categoryListAjax(@RequestParam("id") int id) {
         return categoryService.getCategoryId(id);
+    }
+
+    @GetMapping("/categoryNum")
+    @ResponseBody
+    public ResponseEntity<Integer> getCategoryNum(@RequestParam("categoryName") String categoryName) {
+        try {
+            int categoryNum = categoryService.getCategoryByName(categoryName);
+            return ResponseEntity.ok(categoryNum);
+        } catch (Exception e) {
+            log.error(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }

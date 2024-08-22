@@ -16,4 +16,7 @@ public interface CategoryMapper {
 
     List<CategoryDTO> getCategoryNotZero();
 
+    public CategoryDTO getCategoryByName(String categoryName);
+//    public int getCategoryByName(String categoryName);
+
 }
