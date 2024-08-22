@@ -24,23 +24,6 @@ public class RequestController {
     private final RequestService requestService;
     private final AnswerService answerService;
 
-    @GetMapping("/requestsent/{clientId}")
-    public String listRequests(
-            @PathVariable(name = "clientId") String clientId,
-            Model model // jsp 에 담기 위해!!
-    ) {
-        List<RequestDTO> list = requestService.list(clientId);
-//        log.info(list);
-
-
-//        log.info(list);
-
-        model.addAttribute("requests", list);
-        return "/request/requestsent";
-    }
-
-
-
     // list
     @GetMapping("/list/{clientId}")
     public String list(
@@ -55,6 +38,16 @@ public class RequestController {
 
         model.addAttribute("lists", list);
         return "/request/list";
+    }
+
+    @GetMapping("/request-detail")
+    public ResponseEntity<RequestDTO> requestDetail(@RequestParam int requestId) {
+        if (requestId <= 0) {
+            return ResponseEntity.badRequest().body((RequestDTO) Collections.emptyList());
+        }
+        RequestDTO request = requestService.getRequest(requestId);
+        log.info("상세 요청서 -> " + request);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(request);
     }
 
     // Ajax 처리로 답변 읽기
