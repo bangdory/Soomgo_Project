@@ -1,0 +1,153 @@
+/* 모달 배경 */
+#service-modal-base-container,
+#place-modal-base-container {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed; /* 화면에 고정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    overflow: auto; /* 모달 내용이 넘칠 경우 스크롤 */
+}
+
+/* 모달 내용 */
+.modal-content {
+    background: #fff; /* 흰색 배경 */
+    padding: 20px;
+    border-radius: 5px; /* 둥근 모서리 */
+    width: 80%; /* 너비 조절 */
+    height: 100%;
+    max-width: 500px; /* 최대 너비 */
+    max-height: 80vh; /* 최대 높이 80% 뷰포트 높이 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    position: absolute; /* 절대 위치 설정 */
+    top: 50%; /* 화면의 50% 위치 */
+    left: 50%; /* 화면의 50% 위치 */
+    transform: translate(-50%, -50%); /* 중앙으로 이동 */
+    overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤 */
+    text-align: left;
+}
+
+/* 모달 항목 */
+
+.service-modal-item {
+    height: 30px;
+    padding: 10px;
+    cursor: pointer; /* 클릭 가능한 아이콘 */
+    transition: background 0.3s ease; /* 배경색 전환 효과 */
+    border-bottom: 1px solid #aaa;
+}
+
+.place-modal-item {
+    height: 30px;
+    padding: 10px;
+    cursor: pointer; /* 클릭 가능한 아이콘 */
+    transition: background 0.3s ease; /* 배경색 전환 효과 */
+    border-bottom: 1px solid #aaa;
+}
+
+.service-modal-item:hover,
+.place-modal-item:hover {
+    background: #e9ecef; /* 마우스 오버 시 배경색 변경 */
+}
+
+span {
+    display: block;
+    text-align: center;
+}
+
+.close-service-modal {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+
+.bi-x {
+    font-size: 24px;
+}
+
+.bi-x:hover {
+    cursor: pointer;
+}
+
+.change-modal-container {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 50px;
+    font-size: 20px;
+}
+
+/* 기본 버튼 스타일을 제거 */
+.toggle-btn {
+    background: none; /* 배경 제거 */
+    border: none; /* 테두리 제거 */
+    padding: 0; /* 기본 패딩 제거 (선택 사항) */
+    margin: 0; /* 기본 마진 제거 (선택 사항) */
+    cursor: pointer; /* 포인터 커서 설정 (선택 사항) */
+    outline: none; /* 포커스 시 기본 아웃라인 제거 */
+    font: inherit; /* 상속된 폰트 스타일을 유지 (선택 사항) */
+}
+
+/* 버튼의 hover 상태 스타일 제거 */
+.toggle-btn:hover {
+    background: none; /* hover 시 배경 제거 */
+    border: none; /* hover 시 테두리 제거 */
+}
+
+/* 버튼의 focus 상태 스타일 제거 */
+.toggle-btn:focus {
+    outline: none; /* focus 시 아웃라인 제거 */
+}
+
+.toggle-btn i {
+    pointer-events: none; /* 아이콘의 클릭 이벤트를 비활성화 */
+}
+
+/*.place-modal-item {*/
+/*    display: flex;              !* Flexbox를 사용하여 아이템을 정렬합니다 *!*/
+/*    align-items: center;        !* 수직 중앙 정렬 *!*/
+/*    justify-content: center;*/
+/*    padding: 0.5rem;            !* 여백 추가 (선택 사항) *!*/
+/*}*/
+
+.place-modal-item {
+    display: flex;              /* Flexbox를 사용하여 자식 요소들을 정렬합니다 */
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    /*align-items: center;        !* 수직 중앙 정렬 *!*/
+    /*justify-content: center;    !* 수평 중앙 정렬 *!*/
+    /*position: relative;         !* 절대 위치로 버튼을 배치하기 위해 상대 위치 설정 *!*/
+    /*padding: 0.5rem;            !* 여백 추가 (선택 사항) *!*/
+}
+
+.toggle-btn-container {
+    position: absolute;         /* 절대 위치로 버튼을 우측에 배치 */
+    right: 0;                   /* 우측 정렬 */
+    top: 50%;                   /* 중앙 정렬 */
+    transform: translateY(-50%); /* 수직 중앙 정렬 */
+    padding-right: 15px;
+}
+
+.toggle-btn {
+    background: none;           /* 배경 제거 */
+    border: none;               /* 테두리 제거 */
+    cursor: pointer;            /* 포인터 커서로 변경 */
+}
+
+/*.toggle-btn {*/
+/*    background: none;       !* 배경 제거 *!*/
+/*    border: none;           !* 테두리 제거 *!*/
+/*    cursor: pointer;        !* 포인터 커서로 변경 *!*/
+/*    margin-left: 0.5rem;    !* 좌측 여백 추가 (선택 사항) *!*/
+/*}*/
+
+.toggle-btn i {
+    font-size: 12px;        /* 아이콘 크기 조절 (선택 사항) */
+}
+

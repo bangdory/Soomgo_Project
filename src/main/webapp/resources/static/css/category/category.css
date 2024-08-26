@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 100%;
+    height: calc(100% - 120px);
+    padding-top: 120px;
+}
+
+h1 {
+    text-align: left;
+}
+
+.category-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.category-left, .category-right {
+    width: 48%;
+}
+
+.category-left {
+    padding-left: 40px;
+}
+
+.category-right {
+    text-align: center;
+}
+
+ul#category-list-1,
+#category-list-2{
+    list-style-type: none; /* 기본 도트 제거 */
+    padding: 0;
+    margin: 0;
+}
+
+ul#category-list-1 li {
+    margin-bottom: 10px;
+}
+
+ul#category-list-1 a.category-link {
+    text-decoration: none;
+    color: #333;
+}

@@ -1,0 +1,218 @@
+/* 기본 스타일 설정 */
+html, body, main {
+    font: bold 14px "Roboto", sans-serif;
+}
+
+/* 중앙 페이지 컨테이너 스타일 */
+.main-center-page-container {
+    height: calc(100% - 120px);
+    margin-top: 100px;
+    width: 100%;
+    box-sizing: border-box; /* 패딩과 테두리를 요소의 총 너비와 높이에 포함 */
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    text-align: center;
+}
+
+/* 중앙 페이지 스타일 */
+.main-center-page {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box; /* 패딩과 테두리를 요소의 총 너비와 높이에 포함 */
+    padding: 30px;
+}
+
+/* 입력 필드 스타일 */
+.centerRadiusDarkgray {
+    background-color: #F2F2F2;
+    height: 50px;
+    width: 500px;
+    margin: auto;
+    border-radius: 7px;
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+}
+
+.input-soomgo {
+    height: 40px;
+    width: 400px;
+    background-color: #F2F2F2;
+    border: none;
+    color: white;
+    margin: auto;
+}
+
+.input-soomgo::placeholder {
+    color: darkgray;
+    font: bold 14px "Roboto", sans-serif;
+}
+
+.input-soomgo-span {
+    margin-left: 20px; /* 스팬과 입력 필드 사이의 간격 조정 */
+}
+
+/* 패딩 적용 */
+.padding-item {
+    padding-top: 50px;
+}
+
+/* 아이콘 및 텍스트 스타일 */
+.right-align {
+    display: flex;
+    justify-content: center; /* 항목들을 중앙으로 정렬 */
+    list-style-type: none; /* 기본 점 제거 */
+}
+
+.right-align li {
+    margin: 0 auto; /* 항목들 간의 간격 조정 */
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: column; /* 아이콘과 텍스트를 수직으로 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+}
+
+.icon-size {
+    font-size: 30px; /* 아이콘 크기 설정 */
+    display: flex; /* Flexbox로 아이콘을 박스 중앙에 배치 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+}
+
+.icon-container p {
+    margin: 8px 0 0 0; /* 텍스트와 아이콘 간의 간격 조정 */
+}
+
+/* 숨은 전문가 리스트 스타일 */
+.hidden-expert-keyword,
+.community-keyword {
+    text-align: left; /* 텍스트를 왼쪽으로 정렬 */
+}
+
+.expert-img {
+    width: 35px;
+    height: 35px;
+}
+
+.hidden-expert-list {
+    display: flex; /* Flexbox 레이아웃 사용 */
+    justify-content: space-between; /* 좌우 끝으로 아이템 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    width: 100%; /* 컨테이너의 너비 설정 */
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
+    gap: 10px; /* 아이템 사이 간격 */
+}
+
+.expert-alink {
+    width: 45%;
+    height: 200px;
+    text-decoration: none; /* 링크의 기본 텍스트 장식 제거 */
+    color: inherit; /* 링크의 색상 상속 */
+    padding: 8px 22px; /* 링크에 패딩 추가 */
+    border: 1px solid #ccc; /* 링크에 테두리 추가 */
+    border-radius: 4px; /* 링크에 모서리 둥글게 설정 */
+    background-color: #F2F2F2;
+}
+
+.expert-align {
+    display: flex;
+    align-items: center;
+}
+
+.expert-profile {
+    margin-left: 30px;
+    text-align: left;
+}
+
+.expert-align-container {
+    margin: 0 auto;
+}
+
+.hidden-expert-list-content {
+    display: flex;
+    text-align: left;
+}
+
+.expert-align-content {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid black; /* 상단 테두리 추가 */
+}
+
+/* 커뮤니티 섹션 스타일 */
+.community-sub-container {
+    display: flex; /* Flexbox 레이아웃 사용 */
+    justify-content: space-between; /* 좌우 끝으로 아이템 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    width: 100%; /* 컨테이너의 너비 설정 */
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
+    gap: 5px; /* 아이템 사이 간격 */
+    height: auto;
+}
+.community-left-section {
+    width: 60%;
+    height: 300px;
+    text-decoration: none; /* 링크의 기본 텍스트 장식 제거 */
+    color: inherit; /* 링크의 색상 상속 */
+    padding-top: 8px; /* 링크에 패딩 추가 */
+    text-align: left;
+}
+
+.community-left-item {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    /*border-bottom: 1px solid #ccc;*/
+    border: 1px solid black;
+    height: 80px;
+}
+
+.item-header {
+    padding-bottom: 10px;
+    color: #aaa;
+}
+
+.item-title {
+    color: black;
+}
+
+.item-content {
+    color: #bbb;
+}
+
+.community-right-section {
+    width: 45%;
+    height: 300px;
+    text-decoration: none; /* 링크의 기본 텍스트 장식 제거 */
+    color: inherit; /* 링크의 색상 상속 */
+    padding-top: 8px; /* 링크에 패딩 추가 */
+    text-align: left;
+
+}
+
+.community-item-content {
+    display: flex; /* Flexbox를 사용하여 레이아웃 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+}
+
+.community-right-item {
+    padding: 10px;
+    display: flex;
+    border: 1px solid black;
+    height: 131px;
+}
+
+.community-img {
+    width: 200px;
+    height: 125px;
+    object-fit: cover; /* 이미지 비율 유지 */
+    margin-right: 30px;
+    border: 1px solid black;
+}
+
+.community-text {
+    display: flex; /* Flexbox를 사용하여 텍스트 정렬 */
+    flex-direction: column; /* 텍스트를 수직으로 정렬 */
+    padding-bottom: 5px;
+}
