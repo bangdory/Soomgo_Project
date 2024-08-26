@@ -28,8 +28,8 @@
                 <a href="#">마켓</a>
             </div>
             <%-- 커뮤니티 --%>
-                <div class="header-link-div">
-                <a href="#">커뮤니티</a>
+            <div>
+                <a href="${pageContext.request.contextPath}/community/listAll">커뮤니티</a>
             </div>
         </div>
         <div class="header-third-container-2">

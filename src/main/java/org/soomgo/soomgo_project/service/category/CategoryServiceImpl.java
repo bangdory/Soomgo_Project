@@ -26,4 +26,14 @@ public class CategoryServiceImpl implements CategoryService{
     public List<CategoryDTO> getCategoryNotZero() {
         return categoryDAO.getCategoryNotZero();
     }
+
+    @Override
+    public int getCategoryByName(String categoryName) {
+        CategoryDTO categoryDTO = categoryDAO.getCategoryByName(categoryName);
+        if (categoryDTO != null) {
+            return categoryDTO.getCategoryNum();
+        }
+        throw new RuntimeException("Category not found for name: " + categoryName);
+
+    }
 }

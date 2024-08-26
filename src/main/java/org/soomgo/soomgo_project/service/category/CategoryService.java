@@ -14,4 +14,6 @@ public interface CategoryService {
 
     List<CategoryDTO> getCategoryNotZero();
 
+    int getCategoryByName(String categoryname);
+
 }
