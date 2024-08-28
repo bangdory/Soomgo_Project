@@ -74,9 +74,9 @@
         <div class="dropdown">
             <button onclick="toggleDropdown()" class="dropbtn">내 프로필</button>
             <div id="myDropdown" class="dropdown-content">
-                <h2>${userprofile.user_nickname}</h2>
+                <h2 id="headerNickname">${userprofile.user_nickname}</h2>
+                <a href="/requestsent">받은 견적</a>
                 <a href="/userpage">마이페이지</a>
-                <a href="#settings">설정</a>
                 <a href="/logout">로그아웃</a>
             </div>
         </div>

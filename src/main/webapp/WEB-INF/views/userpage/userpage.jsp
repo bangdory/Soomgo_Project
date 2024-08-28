@@ -15,6 +15,10 @@
 
 
             <div class="profile-card">
+                <div class="profile-img">
+                    <img src="${pageContext.request.contextPath}/resources/static<c:out value='${userprofile.profile_img != null ? userprofile.profile_img : "default.png"}' />" alt="Profile Image">
+
+                </div>
                 <div class="profile-details">
                     <p><strong>${userprofile.user_nickname} 고객님</strong></p>
                     <p>${user.user_email}</p>

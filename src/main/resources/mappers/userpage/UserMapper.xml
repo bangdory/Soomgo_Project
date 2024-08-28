@@ -14,7 +14,9 @@
 
     <update id="updateUserProfile" parameterType="org.soomgo.soomgo_project.domain.userpage.UserProfileDTO">
         UPDATE user_profile
-        SET user_nickname = #{user_nickname}
+        SET
+        user_nickname = #{user_nickname},
+        profile_img = #{profile_img}
         WHERE user_num = #{user_num}
     </update>
 </mapper>

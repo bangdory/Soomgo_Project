@@ -21,11 +21,12 @@ public class RequestSentController {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user != null) {
             String userEmail = user.getUser_email();
-            List<RequestSentDTO> requests = requestSentService.getRequestsByUserEmail(userEmail);  // 클래스 이름 변경
+            List<RequestSentDTO> requests = requestSentService.getRequestsByUserEmail(userEmail);
             model.addAttribute("requests", requests);
             return "userpage/requestsent";  // JSP 파일로 요청 포워딩
         } else {
             return "redirect:/login";  // 로그인 페이지로 리디렉션
         }
     }
+
 }

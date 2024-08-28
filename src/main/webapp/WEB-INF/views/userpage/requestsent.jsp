@@ -9,16 +9,17 @@
 <body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/userpage/styles.css">
+/* 스타일 값*/
 <div class="container">
     <main>
         <div class="requests">
             <h2>받은견적</h2>
             <div class="requestContainer">
-                <c:forEach var="request" items="${requests}">
+                <c:forEach var="request" items="${requests}"> /*유저가 보낸견적들*/
                     <div class="request-item">
                         <div class="sort-date">
-                        <h3>${request.sort}</h3>
-                        <p><span class="regDate" data-date="${request.regDate}">${request.regDate}</span></p>
+                        <h3>${request.sort}</h3> /* 카테고리 예)IT */
+                        <p><span class="regDate" data-date="${request.regDate}">${request.regDate}</span></p> /*언제 보냈는지*/
                         </div>
                         <div class="progress">
                             <div class="progress-bar">
