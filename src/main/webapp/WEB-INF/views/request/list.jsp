@@ -18,6 +18,13 @@
             padding: 10px; /* 여백 추가 */
         }
 
+        .left {
+            flex: 1 1 calc(25% - 20px); /* 너비를 25%로 설정 (간격을 고려) */
+            min-width: 250px;
+            max-width: 300px;
+            margin: 5px; /* 상하좌우 여백 추가 */
+        }
+
         .hidden {
             display: none;
         }
@@ -60,26 +67,76 @@
             border: solid transparent;
         }
 
-        .btn-primary {
+        #showDetail {
             background-color: mediumturquoise;
             border: solid transparent;
             border-radius: 5px;
-            width: 40%;
+            /*width: 55%;*/
+            width: auto;
             height: 30px;
             cursor: pointer;
             color: white;
             margin: 3px;
             float: right;
+            text-align: center;
+        }
+
+        #requestWithoutAnswer {
+            background-color: gray;
+            color: black;
+            border: solid transparent;
+            border-radius: 5px;
+            width: auto;
+            max-height: 30px;
+            margin: 3px;
+            padding: 0;
+            text-align: center;
+        }
+
+
+        .readDetailButtonDiv, .buttonDiv {
+            margin: 3px;
+            padding: 5px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .readButton {
+            background-color: mediumturquoise;
+            border: solid transparent;
+            border-radius: 5px;
+            width: auto;
+            height: 30px;
+            cursor: pointer;
+            color: white;
+            margin: 3px;
+            padding: 0;
+            text-align: center;
+            /*float: right;*/
+            /*margin-right: 50px;*/
         }
 
         .backButton {
             border: solid transparent;
             border-radius: 5px;
-            width: 40%;
+            width: auto;
             height: 30px;
             cursor: pointer;
             margin: 3px;
-            float: left;
+            padding: 0;
+            text-align: center;
+        }
+
+        .deleteAnswer {
+            border: solid transparent;
+            border-radius: 5px;
+            width: auto;
+            height: 30px;
+            cursor: pointer;
+            margin: 3px;
+            padding: 0;
+            text-align: center;
+            /*float: left;*/
         }
 
         .btn-detail {
@@ -152,7 +209,68 @@
         }
 
         .requestDetail {
-            float: right;
+            float: left;
+            width: 60%;
+        }
+
+        .wrapper {
+            width: 50px;
+            height: auto;
+            text-align: center;
+            margin: 5%;
+        }
+
+        #switch {
+            position: absolute;
+            /* hidden */
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .switch_label {
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            width: 58px;
+            height: 28px;
+            background: #fff;
+            border: 2px solid #daa;
+            border-radius: 20px;
+            transition: 0.2s;
+        }
+
+        .switch_label:hover {
+            background: #efefef;
+        }
+
+        .onf_btn {
+            position: absolute;
+            top: 4px;
+            left: 3px;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            background: #daa;
+            transition: 0.2s;
+        }
+
+        /* checking style */
+        #switch:checked + .switch_label {
+            background: mediumturquoise;
+            border: 2px solid mediumturquoise;
+        }
+
+        #switch:checked + .switch_label:hover {
+            background: mediumturquoise;
+        }
+
+        /* move */
+        #switch:checked + .switch_label .onf_btn {
+            left: 34px;
+            background: #fff;
+            box-shadow: 1px 2px 3px #00000020;
         }
     </style>
 </head>
@@ -165,55 +283,69 @@
         <%--<c:out value="${lists}"></c:out>--%>
         <div class="requestContainer">
             <div class="left">
-                <h2>내 견적서</h2>
-                <h3>답장을 받은 요청서</h3>
-                <c:forEach var="list" items="${lists}">
-                    <c:if test="${not empty list.replier}">
-                        <div class="request-item">
-                            <div class="sort-date">
-                                <h3>${list.sort}</h3> <%-- 카테고리 예)IT --%>
-                                <p><span class="regDate" data-date="${list.regDate}">${list.regDate}</span>
-                                </p> <%--언제 보냈는지--%>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar">
+                <h2>내 요청서</h2>
+                <div class="wrapper">
+                    <input type="checkbox" id="switch">
+                    <label for="switch" class="switch_label">
+                        <span class="onf_btn"></span>
+                    </label>
+                </div>
+                <div id="requestsWithAnswer" class="requestsList hidden">
+                    <c:if test="${not empty lists[0].replier}">
+                        <h3>답장을 받은 요청서</h3>
+                    </c:if>
+                    <c:forEach var="list" items="${lists}">
+                        <c:if test="${not empty list.replier}">
+                            <div class="request-item">
+                                <div class="sort-date">
+                                    <h3>${list.sort}</h3> <%-- 카테고리 예)IT --%>
+                                    <p><span class="regDate" data-date="${list.regDate}">${list.regDate}</span>
+                                    </p> <%--언제 보냈는지--%>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar">
+                                    </div>
+                                </div>
+                                <div class="progress-tag">
+                                    <p class="progress-tag-left">견적요청</p>
+                                    <p class="progress-tag-center">상담진행</p>
+                                    <p class="progress-tag-right">거래완료</p>
+                                </div>
+                                <div class="read-con">
+                                    <button id="btn-detail" class="btn-detail" data-list='${list.id}'>자세히보기</button>
                                 </div>
                             </div>
-                            <div class="progress-tag">
-                                <p class="progress-tag-left">견적요청</p>
-                                <p class="progress-tag-center">상담진행</p>
-                                <p class="progress-tag-right">거래완료</p>
-                            </div>
-                            <div class="read-con">
-                                <button class="btn-detail" data-list='${list.id}'>자세히보기</button>
-                            </div>
-                        </div>
-                    </c:if>
-                </c:forEach>
-                <h3>내가 보낸 요청서</h3>
-                <c:forEach var="list" items="${lists}">
-                    <c:if test="${empty list.replier}">
-                        <div class="request-item">
-                            <div class="sort-date">
-                                <h3>${list.sort}</h3> <%-- 카테고리 예)IT --%>
-                                <p><span class="regDate" data-date="${list.regDate}">${list.regDate}</span>
-                                </p> <%--언제 보냈는지--%>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar">
+                        </c:if>
+                    </c:forEach>
+                </div>
+                <div id="requestsWithoutAnswer" class="requestsList">
+                    <h3>내가 보낸 요청서</h3>
+                    <c:forEach var="list" items="${lists}">
+                        <c:if test="${empty list.replier}">
+                            <div class="request-item">
+                                <div class="sort-date">
+                                    <h3>${list.sort}</h3> <%-- 카테고리 예)IT --%>
+                                    <p><span class="regDate" data-date="${list.regDate}">${list.regDate}</span>
+                                    </p> <%--언제 보냈는지--%>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar">
+                                    </div>
+                                </div>
+                                <div class="progress-tag">
+                                    <p class="progress-tag-left">견적요청</p>
+                                    <p class="progress-tag-center">상담진행</p>
+                                    <p class="progress-tag-right">거래완료</p>
+                                </div>
+                                <div class="read-con">
+                                    <button id="requestDetailWithoutAnswer" class="btn-detail" data-list='${list.id}'>
+                                        자세히보기
+                                    </button>
                                 </div>
                             </div>
-                            <div class="progress-tag">
-                                <p class="progress-tag-left">견적요청</p>
-                                <p class="progress-tag-center">상담진행</p>
-                                <p class="progress-tag-right">거래완료</p>
-                            </div>
-                            <div class="read-con">
-                                <button class="btn-detail">자세히보기</button>
-                            </div>
-                        </div>
-                    </c:if>
-                </c:forEach>
+                        </c:if>
+                    </c:forEach>
+                </div>
             </div>
             <div class="right">
                 <div class="hidden" id="answerDetails">
@@ -257,28 +389,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
 <script>
-    /*function hideDetail() {
-        const answerDetailDiv = document.getElementById('answerDetails');
-        answerDetailDiv.classList.add('hidden');
-        const requestDetailDiv = document.getElementById('requestDetail');
-        if (requestDetailDiv.classList.contains('hidden')) {
-            requestDetailDiv.classList.remove('hidden');
-        }
-
-        // 필요에 따라 추가적인 초기화 작업 수행
-        const requestDetail = document.getElementById('requestDetail');
-        requestDetail.innerHTML = ''; // 상세 정보 영역의 내용을 초기화
-    }
-
-    function hideRequest() {
-        const requestDetailDiv = document.getElementById('requestDetail');
-        requestDetailDiv.classList.add('hidden')
-        const answerDetailDiv = document.getElementById('answerDetails');
-        if (answerDetailDiv.classList.contains('hidden')) {
-            answerDetailDiv.classList.remove('hidden');
-        }
-    }*/
-
     function formatDateFromArray(dateArray) {
         // 배열의 요소를 각각의 변수로 추출
         const [year, month, day] = dateArray;
@@ -288,6 +398,30 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
+            const pagingSwitch = document.getElementById('switch');
+            pagingSwitch.addEventListener('click', pagination)
+
+            function pagination() {
+                const page1 = document.getElementById('requestsWithoutAnswer');
+                const page2 = document.getElementById('requestsWithAnswer');
+                /*if (page1.classList.contains('hidden') && !page2.classList.contains('hidden')) {
+                    page1.classList.remove('hidden');
+                    page2.classList.add('hidden');
+                }
+                if (!page1.classList.contains('hidden') && page2.classList.contains('hidden')) {
+                    page1.classList.add('hidden');
+                    page2.classList.remove('hidden');
+                }*/
+                if (page1.classList.contains('hidden')) {
+                    page1.classList.remove('hidden');
+                    page2.classList.add('hidden');
+                } else {
+                    page1.classList.add('hidden');
+                    page2.classList.remove('hidden');
+                }
+            }
+
+
             const dateElements = document.querySelectorAll('.regDate');
             dateElements.forEach(function (element) {
                 const dateString = element.getAttribute('data-date');
@@ -307,7 +441,7 @@
             detailButton.forEach(button => {
                 button.addEventListener('click', function () {
                     const answerDetailDiv = document.getElementById('answerDetails');
-                    answerDetailDiv.classList.remove('hidden');
+                    answerDetailDiv.classList.add('hidden');
                     const requestDetail = document.getElementById('requestDetail');
                     requestDetail.classList.remove('hidden')
 
@@ -352,7 +486,7 @@
                         h3.textContent = '요청서 상세보기'
 
                         const h4 = document.createElement('h4');
-                        h4.textContent = '고수 ID: ' + data.type;
+                        h4.textContent = '요청 타입: ' + data.type + '요청ID: ' + data.id;
                         h4.setAttribute('type', data.type);
 
                         const h5 = document.createElement('h5');
@@ -362,18 +496,32 @@
                         h5.textContent = '작성일 : ' + regDate;
                         h5.setAttribute('reaDate', regDate);
 
+                        const buttonDiv = document.createElement('div');
+                        buttonDiv.classList.add('buttonDiv');
+
                         const backButton = document.createElement('button');
                         backButton.classList.add('backButton');
                         backButton.textContent = '뒤로가기'
+                        backButton.addEventListener('click', backToLists)
 
                         const showAnswers = document.createElement('button');
+                        showAnswers.id = 'showDetail'
                         showAnswers.classList.add('btn-primary');
                         const reqId = data.id;
-                        console.log(reqId)
-                        showAnswers.dataset.id = reqId;
-                        showAnswers.textContent = '견적보기'
-                        showAnswers.addEventListener('click', handleButtonClick);
-                        showAnswers.addEventListener('click', hideRequest)
+                        if (data.replier) {
+                            const replierArray = data.replier.split(',');
+                            showAnswers.dataset.id = reqId;
+                            showAnswers.textContent = replierArray.length + `개의 견적보기`;
+                            showAnswers.addEventListener('click', handleButtonClick);
+                            showAnswers.addEventListener('click', hideRequest);
+                        } else {
+                            showAnswers.id = 'requestWithoutAnswer'
+                            showAnswers.dataset.id = reqId;
+                            showAnswers.textContent = `아직 받은 견적이 없습니다`;
+                            showAnswers.disabled = true;
+                            showAnswers.style.cursor = 'no-drop';
+                            // showAnswers.addEventListener('click', hideRequest);
+                        }
 
                         // 기존 btn-primary 버튼 삭제
                         document.querySelectorAll('.btn-primary').forEach(btn => {
@@ -387,8 +535,9 @@
                         requestDetail.appendChild(h3);
                         requestDetail.appendChild(h4);
                         requestDetail.appendChild(h5);
-                        requestDetail.appendChild(backButton);
-                        requestDetail.appendChild(showAnswers);
+                        buttonDiv.appendChild(backButton);
+                        buttonDiv.appendChild(showAnswers);
+                        requestDetail.appendChild(buttonDiv);
 
                     })
 
@@ -400,7 +549,22 @@
                         requestDetail.classList.add('hidden');
                     }
                     if (answerDetail.classList.contains('hidden')) {
-                        requestDetail.classList.remove('hidden');
+                        answerDetail.classList.remove('hidden');
+                    }
+
+                    // 필요에 따라 추가적인 초기화 작업 수행
+                    // requestDetail.innerHTML = '';
+                }
+
+                function backToLists() {
+                    const requestDetail = document.getElementById('requestDetail');
+                    const answerDetail = document.getElementById('answerDetails');
+
+                    if (!requestDetail.classList.contains('hidden')) {
+                        requestDetail.classList.add('hidden');
+                    }
+                    if (!answerDetail.classList.contains('hidden')) {
+                        answerDetail.classList.add('hidden');
                     }
 
                     // 필요에 따라 추가적인 초기화 작업 수행
@@ -423,20 +587,20 @@
                 });
             }
 
-/*
-            document.querySelectorAll(".btn-primary").forEach(button => {
-                // 이벤트 핸들러를 직접 함수로 등록
-                button.addEventListener('click', handleButtonClick);
-            });
-*/
+            /*
+                        document.querySelectorAll(".btn-primary").forEach(button => {
+                            // 이벤트 핸들러를 직접 함수로 등록
+                            button.addEventListener('click', handleButtonClick);
+                        });
+            */
 
             function handleButtonClick(event) {
                 event.preventDefault(); // 버튼의 기본 동작 방지
 
                 const button = event.currentTarget; // 버튼에 설정된 데이터 속성에서 ID 가져오기
-                console.log(button);
+                // console.log(button);
                 const requestId = button.getAttribute("data-id");
-                console.log('requestId 불러오기 : ', requestId);
+                // console.log('requestId 불러오기 : ', requestId);
 
                 if (!requestId) {
                     console.error("Request ID is not found");
@@ -458,26 +622,30 @@
                     .then(data => {
                         const answerDetails = document.getElementById('answerDetails');
                         answerDetails.innerHTML = ''; // 기존 내용 삭제
+                        const h3 = document.createElement('h3');
+                        h3.textContent = '선택된 요청서의 답변'
+                        answerDetails.appendChild(h3);
+
                         data.forEach(answer => {
 
-                            const h3 = document.createElement('h3');
-                            h3.textContent = '선택된 요청서의 답변'
 
                             const h4 = document.createElement('h4');
-                            h4.textContent = '고수 ID: ' + answer.gosuId;
+                            h4.textContent = '고수 ID: ' + answer.gosuId + '답변NO:' + answer.no + '요청서번호:' + answer.requestId;
                             h4.setAttribute('gosuId', answer.gosuId);
 
                             const h5 = document.createElement('h5');
                             h5.textContent = '서비스 금액: ' + answer.price;
                             h5.setAttribute('price', answer.price);
 
+                            const readDetailButtonDiv = document.createElement('div');
+                            readDetailButtonDiv.classList.add('readDetailButtonDiv');
                             const readButton = document.createElement('button');
 
                             // 버튼 속성 설정
-                            readButton.type = 'button'; // type 속성 추가
+                            // readButton.type = 'button'; // type 속성 추가
                             readButton.textContent = '상세 견적 보기';
                             // readButton.id = 'readModal';
-                            readButton.classList.add('btn', 'btn-primary', 'readButton'); // class 속성 추가
+                            readButton.classList.add('btn', 'readButton'); // class 속성 추가
                             readButton.setAttribute('data-bs-toggle', 'modal'); // data-bs-toggle 속성 추가
                             readButton.setAttribute('data-bs-target', '#detailModal'); // data-bs-target 속성 추가
                             readButton.dataset.id = answer.no + '|' + answer.gosuId + '|' + answer.price + '|' + answer.ref + '|' + answer.file;
@@ -508,17 +676,19 @@
                                 console.log(answer)
 
                             })
+                            const backToList = document.createElement('button');
+                            backToList.classList.add('backButton')
+                            backToList.textContent = '요청서돌아가기'
+                            backToList.addEventListener('click', hideRequest)
+
                             const deleteButton = document.createElement('button');
                             deleteButton.textContent = '견적 지우기';
                             deleteButton.classList.add('btn', 'btn-secondary', 'deleteAnswer');
                             deleteButton.dataset.id = answer.no;
+
                             deleteButton.addEventListener('click', function (event) {
                                 console.log(answer)
                             })
-
-                            const backToList = document.createElement('button');
-                            backToList.textContent = '견적으로 돌아가기'
-                            backToList.addEventListener('click', hideRequest)
 
                             function hideRequest() {
                                 const answerDetail = document.getElementById('answerDetails');
@@ -535,12 +705,12 @@
                             }
 
 
-                            answerDetails.appendChild(h3);
                             answerDetails.appendChild(h4);
                             answerDetails.appendChild(h5);
-                            answerDetails.appendChild(readButton);
-                            answerDetails.appendChild(backToList)
-                            answerDetails.appendChild(deleteButton);
+                            readDetailButtonDiv.appendChild(deleteButton);
+                            readDetailButtonDiv.appendChild(backToList);
+                            readDetailButtonDiv.appendChild(readButton);
+                            answerDetails.appendChild(readDetailButtonDiv);
                         });
 
                         addButtons()

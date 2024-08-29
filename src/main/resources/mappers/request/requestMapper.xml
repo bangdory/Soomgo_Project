@@ -37,8 +37,8 @@
     </select>
 
     <select id="answeredRequest" parameterType="GosuDTO" resultType="RequestDTO">
-<!--        SELECT * from request r INNER JOIN gTest g ON r.region = #{region} AND r.type = #{type} AND r.replier = #{id}-->
-<!--        where g.id = #{id} order by regDate desc-->
+        <!--        SELECT * from request r INNER JOIN gTest g ON r.region = #{region} AND r.type = #{type} AND r.replier = #{id}-->
+        <!--        where g.id = #{id} order by regDate desc-->
 
         SELECT r.*
         FROM request r
@@ -107,7 +107,10 @@
 
     <update id="update" parameterType="AnswerRequestDTO"> <!-- 사용 안할 예정 -->
         update request
-        set replier = #{gosuId}
+        set replier = CASE
+        WHEN replier IS NULL THEN #{newReplier}
+        ELSE CONCAT(replier, ',#{newReplier}')
+        END
         where id = #{requestId}
     </update>
 </mapper>
