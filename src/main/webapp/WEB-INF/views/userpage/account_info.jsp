@@ -17,7 +17,9 @@
             <div class="profile-card">
                 <div class="profile-img">
 
-                        <img src="${pageContext.request.contextPath}/resources/static<c:out value='${userprofile.profile_img != null ? userprofile.profile_img : "default.png"}' />" alt="Profile Image">
+                    <img src="${pageContext.request.contextPath}/resources/static${empty userprofile.profile_img ? '/img/default.png' : userprofile.profile_img}" alt="Profile Image">
+
+
                     <button onclick="showModal()">이미지 수정</button>
                 </div>
                 <div class="profile-nickname">
@@ -55,14 +57,14 @@
     </main>
 </div>
 
-<!-- 이미지 수정 모달 창 -->
+
 <div id="imgModal" class="modal">
     <div class="modal-img">
         <span class="close" onclick="closeModal()">&times;</span>
         <h2>이미지 수정</h2>
         <form id="imgForm" enctype="multipart/form-data">
-            <input type="file" id="user_img" name="user_img" accept="image/*" required>
-            <button type="button" onclick="uploadImage()">사진 등록</button>
+            <input type="file" id="user_img" name="user_img" accept="image/*" onchange="uploadImage()" required>
+            <!-- 사진 등록 버튼 삭제 -->
             <button type="button" onclick="setDefaultProfile()">기본 프로필로 변경</button>
         </form>
     </div>
@@ -88,7 +90,7 @@
         var imageFile = document.getElementById('user_img').files[0];
 
         if (!imageFile) {
-            alert('이미지를 선택하세요.');
+            showToast('이미지를 선택하세요.');
             return;
         }
 
@@ -99,7 +101,7 @@
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                alert('이미지 업로드 성공');
+
                 closeModal();
                 location.reload();
             } else {
@@ -121,7 +123,7 @@
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function () {
             if (xhr.status === 200) {
-                alert('기본 프로필로 변경되었습니다.');
+
                 closeModal();
                 location.reload();
             } else {

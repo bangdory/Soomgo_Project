@@ -7,7 +7,7 @@
     }
 
     // 클릭 시 드롭다운 외부를 클릭하면 닫히도록 설정
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (!event.target.matches('.dropbtn')) {
             var dropdowns = document.getElementsByClassName("dropdown-content");
             for (var i = 0; i < dropdowns.length; i++) {
@@ -61,32 +61,53 @@
                     </div>
                 </div>
 
-                           </c:when>
+            </c:when>
+            <c:when test="${usertype eq 'EXPERT'}">
+                <div class="header-third-container-2">
+                    <div>
+                        <a href="/request/sent">보낸견적</a>
+                    </div>
+                    <div>
+                        <a href="/profile">프로필</a>
+                    </div>
+                    <div>
+                        <a href="chat">채팅</a>
+                    </div>
+
+                    <div class="dropdown">
+                        <button onclick="toggleDropdown()" class="dropbtn">내 프로필</button>
+                        <div id="myDropdown" class="dropdown-content">
+                            <h2 id="headerNickname">${userprofile.user_nickname}</h2>
+                            <a href="/requestsent">ㅋㅋ고수</a>
+                            <a href="/userpage">ㅋㅋㅋ쌉고수</a>
+                            <a href="/logout">로그아웃</a>
+                        </div>
+                    </div>
+                </div>
+            </c:when>
             <c:otherwise>
-        <div class="header-third-container-2">
-            <div>
-                <a href="/requestsent">받은견적</a>
-            </div>
-            <div>
-                <a href="chat">채팅</a>
-            </div>
+                <div class="header-third-container-2">
+                    <div>
+                        <a href="/requestsent">받은견적</a>
+                    </div>
+                    <div>
+                        <a href="chat">채팅</a>
+                    </div>
 
-        <div class="dropdown">
-            <button onclick="toggleDropdown()" class="dropbtn">내 프로필</button>
-            <div id="myDropdown" class="dropdown-content">
-                <h2 id="headerNickname">${userprofile.user_nickname}</h2>
-                <a href="/requestsent">받은 견적</a>
-                <a href="/userpage">마이페이지</a>
-                <a href="/logout">로그아웃</a>
-            </div>
-        </div>
-        </div>
-
+                    <div class="dropdown">
+                        <button onclick="toggleDropdown()" class="dropbtn">내 프로필</button>
+                        <div id="myDropdown" class="dropdown-content">
+                            <h2 id="headerNickname">${userprofile.user_nickname}</h2>
+                            <a href="/requestsent">받은 견적</a>
+                            <a href="/userpage">마이페이지</a>
+                            <a href="/logout">로그아웃</a>
+                        </div>
+                    </div>
+                </div>
 
 
             </c:otherwise>
         </c:choose>
-
 
 
     </div>

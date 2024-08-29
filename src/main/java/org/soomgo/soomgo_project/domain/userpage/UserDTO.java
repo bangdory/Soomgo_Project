@@ -11,11 +11,14 @@ public class UserDTO {
     private String user_name;
     private int user_phonenum;
 
-    public enum UserType {
-        CUSTOMER, EXPERT
-    }
 
+
+    private enum UserType{
+        CUSTOMER,EXPERT
+    }
     private UserType user_type;
+
+
     private LocalDateTime create_at;
 
     public enum UserSex {

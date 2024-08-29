@@ -13,18 +13,39 @@ body {
 
 main {
     padding: 20px;
+    min-width: 600px;
+
 }
 
 .userpage {
     width: 60%;
+    min-width: 500px;
     margin: 0 auto;
 
 }
-.profile-menu {
+.user-menu {
     padding-top : 40px;
 }
-.profile-card {
+.user-card {
     padding-top : 20px;
+    display: flex;
+}
+.user-img img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+.user-img {
+    width: 100px;
+    height: 100px;
+    padding-right: 20px;
+
+}
+.user-details2 {
+    padding-top:20px;
+    padding-left:40px;
 }
 .menu-title {
     font-weight: bold;

@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Param;
 import org.soomgo.soomgo_project.domain.userpage.UserDTO;
 import org.soomgo.soomgo_project.domain.userpage.UserProfileDTO;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
 

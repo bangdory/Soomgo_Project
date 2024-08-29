@@ -7,4 +7,12 @@
     <select id="getExpertList" resultType="org.soomgo.soomgo_project.domain.expert.ExpertDTO">
         SELECT expert_num, user_num, category_num, experience_years, education, rating FROM expert
     </select>
+    <select id="updateExpertList" resultType="org.soomgo.soomgo_project.domain.expert.ExpertDTO">
+        UPDATE expert SET category_num = #{category_num},
+        experience_years = #{experience_years},
+        education = #{education},
+        img = #{img},
+        profile_intro = #{profile_intro},
+        WHERE user_num = #{user_num}
+    </select>
 </mapper>

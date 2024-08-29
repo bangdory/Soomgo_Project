@@ -6,6 +6,8 @@ import org.soomgo.soomgo_project.domain.userpage.UserDTO;
 import org.soomgo.soomgo_project.domain.userpage.UserProfileDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {

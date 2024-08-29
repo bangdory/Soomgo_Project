@@ -14,40 +14,42 @@
             <h1>마이페이지</h1>
 
 
-            <div class="profile-card">
-                <div class="profile-img">
+            <div class="user-card">
+                <div class="user-img">
                     <img src="${pageContext.request.contextPath}/resources/static<c:out value='${userprofile.profile_img != null ? userprofile.profile_img : "default.png"}' />" alt="Profile Image">
 
                 </div>
-                <div class="profile-details">
+                <div class="user-details">
                     <p><strong>${userprofile.user_nickname} 고객님</strong></p>
                     <p>${user.user_email}</p>
                 </div>
-                <a href="${pageContext.request.contextPath}/userpage/account_info">프로필수정</a>
+                <div class="user-details2">
+                <a href="${pageContext.request.contextPath}/userpage/account_info"><p>프로필수정</p></a>
+                </div>
             </div>
-            <div class="profile-menu">
+            <div class="user-menu">
                 <p><strong>숨고페이</strong></p>
                 <a href="/#"><div class="sub-menu">숨고페이 거래내역</div></a>
             </div>
-            <div class="profile-menu">
+            <div class="user-menu">
                 <p><strong>고수찾기</strong></p>
                 <a href="/#"><div class="sub-menu">찜한고수</div></a>
             </div>
-            <div class="profile-menu">
+            <div class="user-menu">
                 <p class="menu-title">숨고 캐시</p>
                 <a href="/#"><div class="sub-menu">스토어</div></a>
                 <a href="/#"><div class="sub-menu">충전/사용 내역</div></a>
             </div>
-            <div class="profile-menu">
+            <div class="user-menu">
                 <p class="menu-title">마켓</p>
                 <a href="/#"><div class="sub-menu">구매내역</div></a>
                 <a href="/#"><div class="sub-menu">문의내역</div></a>
             </div>
-            <div class="profile-menu">
+            <div class="user-menu">
                 <p><strong>커뮤니티</strong></p>
                 <a href="/#"><div class="sub-menu">숨고생활 작성글/댓글</div></a>
             </div>
-            <div class="profile-menu">
+            <div class="user-menu">
                 <p><strong>설정</strong></p>
                 <a href="/#"><div class="sub-menu">알림</div></a>
                 <a href="/#"><div class="sub-menu">공지사항</div></a>

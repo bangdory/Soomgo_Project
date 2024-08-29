@@ -122,7 +122,7 @@ public class UserPageController {
         }
 
         try {
-            userprofile.setProfile_img("/img/SoomgoIcon.png");
+            userprofile.setProfile_img("/img/default.jpeg");
             userService.updateUserProfile(userprofile);
 
             session.setAttribute("userprofile", userprofile);

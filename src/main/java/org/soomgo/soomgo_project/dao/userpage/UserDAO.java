@@ -6,6 +6,8 @@ import org.soomgo.soomgo_project.domain.userpage.UserProfileDTO;
 import org.soomgo.soomgo_project.mappers.userpage.UserMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class UserDAO {
