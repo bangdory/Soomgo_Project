@@ -10,7 +10,6 @@ public class ExpertDTO {
     int category_num;
     int experience_years;
     int education;
-    String img;
     float rating;
-    String profile_intro;
+
 }
