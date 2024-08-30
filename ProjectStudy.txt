@@ -153,3 +153,4 @@ replier 항목이 고수의 id 와 일치할 경우 견적 답변 버튼 제한
 -- 0830 할 일
 requestMapper 처리 시 readRequestByGosuId 에서 type 이 복수일 경우 sql 문 처리할 것 (배열)
 gosuDTO 로 처리된 jsp (answer 등) 모두 ExpertDTO 로 처리할 것
+견적 받은 요청서 -> 답장 및 대화 페이징 구현
