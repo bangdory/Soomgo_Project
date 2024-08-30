@@ -21,6 +21,7 @@
 </script>
 
 <header class="header-first-container">
+    <c:out value="${user}"/>
     <div class="header-second-container">
         <div class="header-third-container-1">
             <%-- 일정 크기 이하로 내려가면 좌측 탭 생성 --%>
@@ -72,6 +73,9 @@
             <c:when test="${usertype eq 'EXPERT'}">
                 <div class="header-third-container-2">
                     <div>
+                        <a href="/request/readrequest">받은 요청서</a>
+                    </div>
+                    <div>
                         <a href="/request/sent">보낸견적</a>
                     </div>
                     <div>
@@ -95,7 +99,7 @@
             <c:otherwise>
                 <div class="header-third-container-2">
                     <div>
-                        <a href="/requestsent">받은견적</a>
+                        <a href="/request/list">내 요청서</a>
                     </div>
                     <div>
                         <a href="chat">채팅</a>

@@ -2,19 +2,25 @@ package org.soomgo.soomgo_project.controller.request;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.request.*;
+import org.soomgo.soomgo_project.domain.userpage.UserDTO;
 import org.soomgo.soomgo_project.service.request.AnswerService;
 import org.soomgo.soomgo_project.service.request.RequestService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.List;
+
+//import static com.sun.beans.introspect.PropertyInfo.Name.expert;
 
 @Controller
 @Log4j2
@@ -25,18 +31,24 @@ public class RequestController {
     private final AnswerService answerService;
 
     // list
-    @GetMapping("/list/{clientId}")
+//    @GetMapping("/list/{clientId}")
+    @GetMapping("/list")
     public String list(
-            @PathVariable(name = "clientId") String clientId,
+            HttpSession session,
             Model model // jsp 에 담기 위해!!
     ) {
-        List<RequestDTO> list = requestService.list(clientId);
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        List<RequestDTO> list = requestService.list(user.getUser_num());
 //        log.info(list);
 
 
 //        log.info(list);
 
         model.addAttribute("lists", list);
+        model.addAttribute("user", user);
         return "/request/list";
     }
 
@@ -50,7 +62,7 @@ public class RequestController {
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(request);
     }
 
-    // Ajax 처리로 답변 읽기
+    /*// Ajax 처리로 답변 읽기
     @GetMapping("/answer-list")
     public ResponseEntity<List<AnswerRequestDTO>> getAnswerList(@RequestParam int requestId) {
         if (requestId <= 0) {
@@ -59,7 +71,7 @@ public class RequestController {
         List<AnswerRequestDTO> answerList = answerService.readAnsweredList(requestId);
         log.info("받은 리스트 -> " + answerList);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(answerList);
-    }
+    }*/
 
 
     /*
@@ -101,23 +113,31 @@ public class RequestController {
         return "/request/" + job;
     }*/
 
-    @GetMapping("/read/{gosuId}")
+    //    @GetMapping("/readrequest/{gosuId}")
+    @GetMapping("/readrequest")
     // @PathVariable 은 값이 계속 바뀜 -> void 로 리턴할 수 없음
     public String read(
-            @PathVariable(name = "gosuId") String gosuId, // {} 로 묶은 것을 변수로
+            HttpSession session,
+//            @PathVariable(name = "gosuId") String gosuId, // {} 로 묶은 것을 변수로
             Model model
     ) {
-//        log.info("gosuId read : " + gosuId);
-        GosuDTO gosu = requestService.findGosu(gosuId);
-//        log.info("gosuDTO read : " + gosu);
-        List<RequestDTO> receivedRequests = requestService.readReceivedRequests(gosu);
-        List<RequestDTO> answeredRequests = requestService.readAnsweredRequests(gosu);
+        UserDTO userAsExpert = (UserDTO) session.getAttribute("user");
+        // UserDTO -> ExpertDTO 로 변환시켜서 데이터 뽑아올 것
+
+        if (userAsExpert == null) {
+            return "redirect:/login";
+        }
+        if (userAsExpert.getUser_type() == UserDTO.UserType.EXPERT) {
+
+            List<RequestDTO> receivedRequests = requestService.readReceivedRequests(userAsExpert);
+            List<RequestDTO> answeredRequests = requestService.readAnsweredRequests(userAsExpert);
+        }
 
 //        log.info("answered 찾은 값: {}", answeredRequests);
-        model.addAttribute("gosu", gosu);
-        model.addAttribute("answered", answeredRequests);
-        model.addAttribute("received", receivedRequests);
-        return "/request/read";
+//        model.addAttribute("gosu", expert);
+//        model.addAttribute("answered", answeredRequests);
+//        model.addAttribute("received", receivedRequests);
+        return "/request/readrequest";
     }
 /*
 
@@ -158,9 +178,17 @@ public class RequestController {
 
     // 카테고리 고르는 화면
     @GetMapping("/category")
-    public void categoryList(Model model) {
+    public void categoryList(
+            HttpSession session,
+            Model model
+    ) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
         List<String> categoryList = requestService.findAllCategory();
-        model.addAttribute("list", categoryList);
+        if (user != null) {
+            model.addAttribute("user", user);
+            log.info("user->>" + user);
+            model.addAttribute("list", categoryList);
+        }
     }
 
     // 카테고리 Ajax
@@ -187,12 +215,14 @@ public class RequestController {
     @GetMapping("/register")
 //    @ResponseBody
     public void register(
+            HttpSession session,
             @RequestParam("sort") String sort, @RequestParam("type") String type,
             Model model
     ) {
-//        log.info("register GET 시작");
+        UserDTO user = (UserDTO) session.getAttribute("user");
         model.addAttribute("sort", sort);
         model.addAttribute("type", type);
+        model.addAttribute("user", user);
         List<String> allStates = requestService.findAllStates();
 //        log.info(allStates.toString());
         model.addAttribute("allStates", allStates);
@@ -209,18 +239,23 @@ public class RequestController {
     @PostMapping("/register")
     public String registerPost(
             @ModelAttribute RequestDTO requestDTO,
+            HttpSession session,
             RedirectAttributes rttr
     ) {
-        log.info("-----------DTO----------" + requestDTO);
-//        rttr.addFlashAttribute("dto", requestDTO);
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
         requestService.register(requestDTO);
-        log.info("requestDTO 이름 : " + requestDTO.getWriter());
-        String encodedUri = UriComponentsBuilder.fromPath("{writer}")
+
+//        int userNum = user.getUser_num();
+//        String redirectUri = "/request/list/" + userNum;
+        /*String encodedUri = UriComponentsBuilder.fromPath("{writer}")
                 .buildAndExpand(requestDTO.getWriter())
                 .encode()
                 .toUriString();
-        log.info("받은 고객 이름 : " + encodedUri);
-
-        return "redirect:/request/list/" + encodedUri;
+*/
+        rttr.addAttribute("user", user);
+        return "redirect:/request/list";
     }
 }

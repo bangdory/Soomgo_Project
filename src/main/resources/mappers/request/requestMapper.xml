@@ -22,24 +22,32 @@
         select * from request where id = #{id}
     </select>
 
-    <select id="getListByClientId" parameterType="String" resultType="RequestDTO">
+    <select id="getListByClientNo" parameterType="int" resultType="RequestDTO">
         <!--        select * from test where id > 0 order by id desc-->
         select * from request where writer = #{clientId} AND id > 0 order by id desc
     </select>
 
-    <select id="readReceivedRequestByGosuId" parameterType="GosuDTO" resultType="RequestDTO">
+    <select id="readRequestByExpertNum" parameterType="int" resultType="RequestDTO">
+<!--        SELECT r.*-->
+<!--        FROM request r-->
+<!--        INNER JOIN gtest g ON r.region = g.region-->
+<!--        AND r.type = g.type-->
+<!--        where g.id = #{id}-->
+<!--        ORDER BY r.regDate DESC-->
         SELECT r.*
         FROM request r
-        INNER JOIN gtest g ON r.region = g.region
-        AND r.type = g.type
-        where g.id = #{id}
+        INNER JOIN expert e
+        ON r.region = (select t.district from territory t where t.no = e.region)
+        AND r.type = (select c.CategoryName from category c where c.CategoryNum = e.category_num)
+        WHERE e.expert_num = #{expertNum}
         ORDER BY r.regDate DESC
     </select>
 
-    <select id="answeredRequest" parameterType="GosuDTO" resultType="RequestDTO">
+    <select id="answeredRequestByExpertNum" parameterType="int" resultType="RequestDTO">
         <!--        SELECT * from request r INNER JOIN gTest g ON r.region = #{region} AND r.type = #{type} AND r.replier = #{id}-->
         <!--        where g.id = #{id} order by regDate desc-->
 
+<!--
         SELECT r.*
         FROM request r
         INNER JOIN gtest g ON r.replier = g.id
@@ -47,6 +55,15 @@
         AND r.type = g.type
         where g.id = #{id}
         ORDER BY r.regDate DESC;
+-->
+        SELECT r.*
+        FROM request r
+        INNER JOIN expert e
+        ON r.replier = (select u.user_name from user u where u.user_num = e.user_num)
+        AND r.type = (select c.CategoryName from category c where c.CategoryNum = e.category_num)
+        WHERE e.expert_num = #{expertNum}
+        ORDER BY r.regDate DESC
+
     </select>
 
     <insert id="answerRequest" parameterType="AnswerRequestDTO">
@@ -61,8 +78,8 @@
         WHERE r.id = #{requestId} AND g.id = #{gosuId};
     </insert>
 
-    <select id="findGosu" parameterType="String" resultType="GosuDTO">
-        select * from gTest where id = #{id}
+    <select id="findExpert" parameterType="int" resultType="ExpertDTO">
+        select * from expert where expert_num = #{expertNum}
     </select>
 
     <select id="findAllStates" resultType="string">

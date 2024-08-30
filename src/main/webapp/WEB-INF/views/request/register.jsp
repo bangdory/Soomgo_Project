@@ -12,7 +12,9 @@
     <title>견적서 등록</title>
 </head>
 <body>
-
+<c:out value="user = ${user}"></c:out><hr>
+    <c:out value="${user.user_email}"></c:out><br>
+    <c:out value="${user.user_name}"></c:out>
 <form method="post" action="/request/register" onsubmit="updateFields()">
     <fieldset>
         <legend>견적 보내기</legend>
@@ -21,13 +23,15 @@
             <table>견적 요청 항목 ===== <c:out value="${type}"/></table>
             <input type="hidden" name="sort" id="sort" value="${sort}">
             <input type="hidden" name="type" id="type" value="${type}">
+            <input type="hidden" name="writer" id="writer" value="${user.user_num}">
         </div>
 
+        <%--
         <div>
             <label for="name" class="form-label mt-4">이름을 입력하세요</label>
             <input type="text" name="writer" class="form-control" id="name">
         </div>
-        <%--
+
         <div>
             <label for="sort" class="form-label mt-4">견적 요청 분야를 선택하세요</label>
             <select name="sort" class="form-select" id="sort">
@@ -122,7 +126,8 @@
             <textarea name="ref" class="form-control" id="ref" rows="3" placeholder="서비스 설명을 적어주세요"></textarea>
         </div>
         <div>
-            <button type="submit" class="btn btn-primary">견적 보내기</button>
+            <button type="reset" class="btn btn-reset">다시 작성</button>
+            <button type="submit" class="btn btn-primary">요청서 보내기</button>
         </div>
     </fieldset>
 </form>

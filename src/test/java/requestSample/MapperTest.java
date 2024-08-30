@@ -3,9 +3,14 @@ package requestSample;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.request.*;
+import org.soomgo.soomgo_project.domain.userpage.UserDTO;
+import org.soomgo.soomgo_project.domain.userpage.UserProfileDTO;
+import org.soomgo.soomgo_project.mappers.expert.ExpertMapper;
 import org.soomgo.soomgo_project.mappers.request.AnswerMapper;
 import org.soomgo.soomgo_project.mappers.request.RequestMapper;
+import org.soomgo.soomgo_project.mappers.userpage.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -22,7 +27,8 @@ public class MapperTest {
     RequestMapper requestMapper;
     @Autowired(required = false)
     AnswerMapper answerMapper;
-
+    @Autowired(required = false)
+    UserMapper userMapper;
     @Test
     public void testMapper() {
         log.info(requestMapper);
@@ -50,33 +56,42 @@ public class MapperTest {
 
     @Test
     public void testList() {
-        List<RequestDTO> list = requestMapper.getListByClientId("고객1");
+        List<RequestDTO> list = requestMapper.getListByClientNo(1);
         log.info(list);
     }
 
     @Test
+    public void readReceivedRequest() {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUser_num(1);
+        List<RequestDTO> requestDTOS = requestMapper.readRequestByExpertNum(userDTO.getUser_num());
+        log.info(requestDTOS);
+    }
+   /* @Test
     public void readReceivedRequestByGosuId() {
         GosuDTO gosuDTO = new GosuDTO();
         gosuDTO.setId("고수9");
         gosuDTO.setType("웹개발");
         gosuDTO.setRegion("용산구");
-        List<RequestDTO> requestDTOS = requestMapper.readReceivedRequestByGosuId(gosuDTO);
+        List<RequestDTO> requestDTOS = requestMapper.readRequestByGosuId(gosuDTO);
         log.info(requestDTOS);
-    }
-    @Test
+    }*/
+    /*@Test
     public void testAnsweredRequestList() {
         GosuDTO gosuDTO = new GosuDTO();
         gosuDTO.setId("고수9");
         gosuDTO.setType("웹개발");
         gosuDTO.setRegion("용산구");
-        List<RequestDTO> requestDTOS = requestMapper.answeredRequest(gosuDTO);
+        List<RequestDTO> requestDTOS = requestMapper.answeredRequestByExpertNum(gosuDTO);
         log.info(requestDTOS);
-    }
+    }*/
 
     @Test
-    public void findGosu() {
-        GosuDTO gosuID = requestMapper.findGosu("고수4");
-        log.info(gosuID);
+    public void findExpert() {
+        ExpertDTO expert = requestMapper.findExpert(1);
+        UserProfileDTO findExpert = userMapper.findUserProfileByUserNum(1);
+        log.info(expert);
+        log.info(findExpert);
     }
 
     @Test

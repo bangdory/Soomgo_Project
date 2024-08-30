@@ -6,5 +6,20 @@
     <file url="file://$PROJECT_DIR$/데이터베이스/Client_Gosu.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/데이터베이스/RequestDBMain.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/데이터베이스/Territory.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_community_board.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_community_reply.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_email_verification.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_expert.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_market_contact.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_market_order.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_market_product.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_market_review.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_market_selling.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_message.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_notice.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_request_newbie.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_session.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_user.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/데이터베이스/soomgodb_user_profile.sql" dialect="MySQL" />
   </component>
 </project>

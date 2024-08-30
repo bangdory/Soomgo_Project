@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.request.AnswerRequestDTO;
 import org.soomgo.soomgo_project.mappers.request.AnswerMapper;
 import org.soomgo.soomgo_project.mappers.request.RequestMapper;
+import org.soomgo.soomgo_project.mappers.userpage.UserMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class AnswerService {
     private final AnswerMapper answerMapper;
     private final RequestMapper requestMapper;
+    private final UserMapper userMapper;
 
     public boolean modify(AnswerRequestDTO answerRequestDTO) {
         int updateCount = requestMapper.update(answerRequestDTO);

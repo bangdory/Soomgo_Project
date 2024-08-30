@@ -12,6 +12,7 @@
     <title>카테고리 선택</title>
 </head>
 <body>
+<c:out value="user = ${user}"></c:out>
 <form id="categoryList" action="/request/category" method="post">
     <input type="hidden" id="categorySort" name="categorySort" value="">
     <input type="hidden" id="categoryType" name="categoryType" value="">

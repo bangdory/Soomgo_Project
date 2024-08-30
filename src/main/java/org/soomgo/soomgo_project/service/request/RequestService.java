@@ -2,7 +2,9 @@ package org.soomgo.soomgo_project.service.request;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.request.*;
+import org.soomgo.soomgo_project.domain.userpage.UserDTO;
 import org.soomgo.soomgo_project.mappers.request.RequestMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,25 +29,25 @@ public class RequestService {
         return requestDTO.getId();
     }
 
-    public List<RequestDTO> list(String clientID) {
-        return requestMapper.getListByClientId(clientID);
+    public List<RequestDTO> list(int clientNo) {
+        return requestMapper.getListByClientNo(clientNo);
     }
 
     public RequestDTO getRequest(int requestId) {
         return requestMapper.select(requestId);
     }
 
-    public List<RequestDTO> readReceivedRequests(GosuDTO gosuDTO) {
-        return requestMapper.readReceivedRequestByGosuId(gosuDTO);
+    public List<RequestDTO> readReceivedRequests(UserDTO userDTO) {
+        return requestMapper.readRequestByExpertNum(userDTO.getUser_num());
     }
 
 
-    public List<RequestDTO> readAnsweredRequests(GosuDTO gosuDTO) {
-        return requestMapper.answeredRequest(gosuDTO);
+    public List<RequestDTO> readAnsweredRequests(UserDTO userDTO) {
+        return requestMapper.answeredRequestByExpertNum(userDTO.getUser_num());
     }
 
-    public GosuDTO findGosu(String id) {
-        return requestMapper.findGosu(id);
+    public ExpertDTO findExpert(int expertNum) {
+        return requestMapper.findExpert(expertNum);
     }
 
     public List<String> findAllStates() {

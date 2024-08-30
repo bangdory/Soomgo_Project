@@ -148,3 +148,8 @@ replier 항목이 고수의 id 와 일치할 경우 견적 답변 버튼 제한
 
 -- 0819 할 일
 고객이 보낸 요청서에 답이 달린 경우 답장을 받은 요청서로 이동 -> 견적 읽기 클릭 시 AnsweredDTO 가져와서 출력
+
+
+-- 0830 할 일
+requestMapper 처리 시 readRequestByGosuId 에서 type 이 복수일 경우 sql 문 처리할 것 (배열)
+gosuDTO 로 처리된 jsp (answer 등) 모두 ExpertDTO 로 처리할 것

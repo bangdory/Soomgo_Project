@@ -12,8 +12,8 @@ public class UserDTO {
     private int user_phonenum;
 
 
-
-    private enum UserType{
+    // 0830 RequestController 에서 검증을 위해 private -> public 으로 변경
+    public enum UserType{
         CUSTOMER,EXPERT
     }
     private UserType user_type;

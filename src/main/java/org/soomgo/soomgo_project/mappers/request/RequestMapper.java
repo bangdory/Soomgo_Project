@@ -1,6 +1,7 @@
 package org.soomgo.soomgo_project.mappers.request;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.request.*;
 
 import java.util.List;
@@ -11,22 +12,22 @@ public interface RequestMapper {
     int insert(RequestDTO requestDTO);
 
     // 고객이 보낸 요청서 리스트
-    List<RequestDTO> getListByClientId(String clientId);
+    List<RequestDTO> getListByClientNo(int clientNo);
 
     //
     RequestDTO select(int id);
 
     // 고수가 받은 요청서
-    List<RequestDTO> readReceivedRequestByGosuId(GosuDTO gosuDTO);
+    List<RequestDTO> readRequestByExpertNum(int expertNum);
 
     // 고수가 답장한 견적서
-    List<RequestDTO> answeredRequest(GosuDTO gosuDTO);
+    List<RequestDTO> answeredRequestByExpertNum(int expertNum);
 
     // 고수들이 만든 답장 리스트
     int answerRequest(AnswerRequestDTO answerRequestDTO);
 
     // 고수 찾기
-    GosuDTO findGosu(String id);
+    ExpertDTO findExpert(int expertNum);
 
     // 지역 찾기 (도시)
     List<String> findAllStates();
