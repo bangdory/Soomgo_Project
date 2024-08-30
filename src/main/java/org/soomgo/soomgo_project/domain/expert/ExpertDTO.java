@@ -11,5 +11,5 @@ public class ExpertDTO {
     int experience_years;
     int education;
     float rating;
-
+    int region;
 }

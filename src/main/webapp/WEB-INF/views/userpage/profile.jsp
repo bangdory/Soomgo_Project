@@ -21,7 +21,7 @@
             <div class="profile-details"></div>
 
                 <p><strong>${userprofile.user_nickname}</strong></p>
-            <div><p>${expert.profile_intro}</p></div>
+
 
 
         </div>
