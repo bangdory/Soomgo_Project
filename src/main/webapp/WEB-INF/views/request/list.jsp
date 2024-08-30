@@ -404,14 +404,6 @@
             function pagination() {
                 const page1 = document.getElementById('requestsWithoutAnswer');
                 const page2 = document.getElementById('requestsWithAnswer');
-                /*if (page1.classList.contains('hidden') && !page2.classList.contains('hidden')) {
-                    page1.classList.remove('hidden');
-                    page2.classList.add('hidden');
-                }
-                if (!page1.classList.contains('hidden') && page2.classList.contains('hidden')) {
-                    page1.classList.add('hidden');
-                    page2.classList.remove('hidden');
-                }*/
                 if (page1.classList.contains('hidden')) {
                     page1.classList.remove('hidden');
                     page2.classList.add('hidden');

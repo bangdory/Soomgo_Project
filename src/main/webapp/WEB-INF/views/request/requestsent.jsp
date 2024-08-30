@@ -127,8 +127,8 @@
 </style>
 <body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-<%--<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/userpage/styles.css">--%>
-<%--<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/userpage/styles.css">--%>
+<%--<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/requests/style.css">--%>
+<%--<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/requests/style.css">--%>
 
 <%-- 스타일 값--%>
 <div class="container">
