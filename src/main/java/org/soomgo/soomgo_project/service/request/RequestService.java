@@ -66,6 +66,10 @@ public class RequestService {
         return requestMapper.findType(type);
     }
 
+    public CategoryDTO selectedType(String selectedType) {
+        return requestMapper.selectedType(selectedType);
+    }
+
 /*
     public boolean modify(UpdateRequestDTO updateRequestDTO) {
         int updateCount = requestMapper.update(updateRequestDTO);

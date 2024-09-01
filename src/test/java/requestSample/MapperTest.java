@@ -37,7 +37,7 @@ public class MapperTest {
     @Test
     public void testInsert() {
         RequestDTO dto = new RequestDTO();
-        dto.setWriter("1번 writer");
+        dto.setUserNum(1);
         dto.setRegDate(LocalDateTime.now());
 //        dto.setRef("[\"테스트\", \"제이슨\", \"트발\"]");
         dto.setRef("test");
@@ -113,6 +113,12 @@ public class MapperTest {
     public void findAllCategory() {
         List<String> allCategory = requestMapper.findAllCategory();
         log.info(allCategory);
+    }
+
+    @Test
+    public void selectedType() {
+        CategoryDTO selectedType = requestMapper.selectedType("3D모델링");
+        log.info(selectedType);
     }
 
     @Test

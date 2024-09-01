@@ -8,11 +8,10 @@
         <selectKey order="AFTER" keyProperty="id" resultType="int">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        <!--insert into test (writer, ref)
-        values (#{writer}, #{ref})-->
-        insert into request (writer, regDate, sort, type, sub, file1, file2, cr, amount, addService, result, day, time,
+        insert into request (userNum, regDate, category, type, sub, file1, file2, cr, amount, addService, result, day, time,
         age, sex, fav, place, date, region, ref)
-        values (#{writer}, #{regDate}, #{sort}, #{type}, #{sub}, #{file1}, #{file2}, #{cr}, #{amount}, #{addService},
+        values (#{userNum}, #{regDate}, #{category}, #{type}, #{sub}, #{file1}, #{file2}, #{cr}, #{amount},
+        #{addService},
         #{result}, #{day}, #{time}, #{age},
         #{sex}, #{fav}, #{place}, #{date}, #{region}, #{ref})
     </insert>
@@ -20,20 +19,21 @@
     <select id="select" resultType="RequestDTO">
         <!--        select * from test where id = #{id}-->
         select * from request where id = #{id}
+        SELECT r.*
+        FROM request r
+        INNER JOIN expert e
+        ON r.region = (select t.district from territory t where t.no = e.region)
+        AND r.type = (select c.CategoryName from category c where c.CategoryNum = e.category_num)
+        WHERE r.id = #{id}
+        ORDER BY r.regDate DESC
     </select>
 
     <select id="getListByClientNo" parameterType="int" resultType="RequestDTO">
         <!--        select * from test where id > 0 order by id desc-->
-        select * from request where writer = #{clientId} AND id > 0 order by id desc
+        select * from request where userNum = #{clientId} AND id > 0 order by id desc
     </select>
 
     <select id="readRequestByExpertNum" parameterType="int" resultType="RequestDTO">
-<!--        SELECT r.*-->
-<!--        FROM request r-->
-<!--        INNER JOIN gtest g ON r.region = g.region-->
-<!--        AND r.type = g.type-->
-<!--        where g.id = #{id}-->
-<!--        ORDER BY r.regDate DESC-->
         SELECT r.*
         FROM request r
         INNER JOIN expert e
@@ -44,22 +44,10 @@
     </select>
 
     <select id="answeredRequestByExpertNum" parameterType="int" resultType="RequestDTO">
-        <!--        SELECT * from request r INNER JOIN gTest g ON r.region = #{region} AND r.type = #{type} AND r.replier = #{id}-->
-        <!--        where g.id = #{id} order by regDate desc-->
-
-<!--
-        SELECT r.*
-        FROM request r
-        INNER JOIN gtest g ON r.replier = g.id
-        AND r.region = g.region
-        AND r.type = g.type
-        where g.id = #{id}
-        ORDER BY r.regDate DESC;
--->
         SELECT r.*
         FROM request r
         INNER JOIN expert e
-        ON r.replier = (select u.user_name from user u where u.user_num = e.user_num)
+        ON r.expertNum = (select u.user_name from user u where u.user_num = e.user_num)
         AND r.type = (select c.CategoryName from category c where c.CategoryNum = e.category_num)
         WHERE e.expert_num = #{expertNum}
         ORDER BY r.regDate DESC
@@ -120,6 +108,12 @@
         )
         AND P_Id IS NOT NULL
         )
+    </select>
+
+    <select id="selectedType" resultType="CategoryDTO" parameterType="String">
+        SELECT CategoryNum, Id, P_Id, CategoryName
+        FROM category
+        WHERE CategoryName = #{selectedType}
     </select>
 
     <update id="update" parameterType="AnswerRequestDTO"> <!-- 사용 안할 예정 -->

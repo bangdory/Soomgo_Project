@@ -21,7 +21,6 @@
 </script>
 
 <header class="header-first-container">
-    <c:out value="${user}"/>
     <div class="header-second-container">
         <div class="header-third-container-1">
             <%-- 일정 크기 이하로 내려가면 좌측 탭 생성 --%>

@@ -154,3 +154,30 @@ replier 항목이 고수의 id 와 일치할 경우 견적 답변 버튼 제한
 requestMapper 처리 시 readRequestByGosuId 에서 type 이 복수일 경우 sql 문 처리할 것 (배열)
 gosuDTO 로 처리된 jsp (answer 등) 모두 ExpertDTO 로 처리할 것
 견적 받은 요청서 -> 답장 및 대화 페이징 구현
+
+-- 0902 할 일
+여태까지 사용했던 request, answerRequest 테이블 컬럼 변경
+    Request 테이블
+    writer (varchar) -> userNum (int) from User
+    replier (varchar) -> expertNum (int) from Expert 하지만 타입은 varchar(50)
+    sort (varchar) -> CategoryName (varchar) 혹은 P_Id (int) where Null from category
+    type (varchar) -> CategoryNum (int) from category
+    sub, file1, file2, cr, amount, addService, result, day, time -> 유지
+    age (varchar) -> (int) 혹은 유지
+    sex, fav, place, date -> 유지
+    region (varchar) -> district (varchar) 혹은 no (int) from territory
+    ref (varchar) -> 유지
+
+
+    answerRequest 테이블
+    no, RequestId -> 유지
+    type (varchar) -> CategoryNum (int) from category
+    GosuId (varchar) -> expertNum (int) from Expert
+    나머지 유지
+
+
+이렇게 되면 두 테이블을 사용하는 requestMapper 에 대대적인 수정이 필요함 -> jsp 에서도 컬럼명 주의해서 변경할 것
+
+requestList 에서 자세히 보기 404 문제 해결, 보낸 요청서에 category 가 int 로 뜨는 문제 해결
+requestService.getRequest 해결할 것, requestMapper.select 해결할 것
+DB 최신화, DTO 최신화, xml 정리할 것

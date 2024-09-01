@@ -10,3 +10,14 @@ create table AnswerRequest
     replyDate timestamp default now()
 )
 ;
+create table 1answerRequest
+(
+    no        int auto_increment primary key      not null,
+    RequestId int                                 null,
+    category  int                                 not null,
+    expert    int                         not null,
+    price     int                                 null,
+    ref       varchar(1000)                       null,
+    file      varchar(2000)                       null,
+    replyDate timestamp default CURRENT_TIMESTAMP null
+);

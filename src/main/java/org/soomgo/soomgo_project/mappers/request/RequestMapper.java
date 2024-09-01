@@ -41,6 +41,8 @@ public interface RequestMapper {
     // 서비스 종류
     List<CategoryDTO> findType(String type);
 
+    CategoryDTO selectedType(String selectedType);
+
     // 요청서 상태 업데이트
     int update(AnswerRequestDTO answerRequestDTO);
 }

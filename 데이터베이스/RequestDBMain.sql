@@ -30,4 +30,28 @@ CREATE TABLE request
 # alter table reqsend modify cr BOOLEAN default null;
 select *
 from request;
-
+create table 1request
+(
+    id         int auto_increment primary key      not null,
+    userNum    int                                 not null,
+    expertNum  varchar(50)                         null,
+    regDate    timestamp default CURRENT_TIMESTAMP not null,
+    category   int                                 not null,
+    type       int                                 not null,
+    sub        varchar(20)                         null,
+    file1      varchar(2000)                       null,
+    file2      varchar(2000)                       null,
+    cr         tinyint(1)                          null,
+    amount     varchar(50)                         null,
+    addService varchar(50)                         null,
+    result     varchar(50)                         null,
+    day        varchar(50)                         null,
+    time       varchar(150)                        null,
+    age        int                                 null,
+    sex        varchar(20)                         null,
+    fav        varchar(20)                         null,
+    place      varchar(100)                        null,
+    date       varchar(100)                        null,
+    region     int                                 null,
+    ref        varchar(200)                        null
+);

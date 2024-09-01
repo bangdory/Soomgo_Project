@@ -2,19 +2,16 @@ package org.soomgo.soomgo_project.controller.request;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.request.*;
 import org.soomgo.soomgo_project.domain.userpage.UserDTO;
 import org.soomgo.soomgo_project.service.request.AnswerService;
 import org.soomgo.soomgo_project.service.request.RequestService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
@@ -178,17 +175,20 @@ public class RequestController {
 
     // 카테고리 고르는 화면
     @GetMapping("/category")
-    public void categoryList(
+    public String categoryList(
             HttpSession session,
             Model model
     ) {
         UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
         List<String> categoryList = requestService.findAllCategory();
         if (user != null) {
             model.addAttribute("user", user);
-            log.info("user->>" + user);
             model.addAttribute("list", categoryList);
         }
+        return "/request/category";
     }
 
     // 카테고리 Ajax
@@ -202,17 +202,43 @@ public class RequestController {
     @PostMapping("/category")
     public String categorySelect(
             // @RequestParam 은 NAME 속성임!! -> HTML 태그에서 name 값 찾아옴, 오타 주의
+            @RequestParam("categoryName") String type,
+            HttpSession session) {
+        // sort, type 받아서 category 테이블에서 int 로 변경 해서 넘길 것
+
+        CategoryDTO selectedType = requestService.selectedType(type);
+        // addAttribute 는 쿼리 파라미터만 처리, flashAttribute 사용
+        session.setAttribute("category", selectedType);
+        return "redirect:/request/register";
+    }
+    /*@PostMapping("/category")
+    public String categorySelect(
+            // @RequestParam 은 NAME 속성임!! -> HTML 태그에서 name 값 찾아옴, 오타 주의
             @RequestParam("categorySelect") String sort,
             @RequestParam("categoryName") String type,
             Model model) {
+        // sort, type 받아서 category 테이블에서 int 로 변경 해서 넘길 것
         model.addAttribute("sort", sort);
         model.addAttribute("type", type);
-//        log.info("타입 전달 : " + sort + ", " + type);
         return "redirect:/request/register";
-    }
+    }*/
 
     // 견적 등록하는 화면
     @GetMapping("/register")
+//    @ResponseBody
+    public void register(
+            HttpSession session,
+            Model model
+    ) {
+        CategoryDTO category = (CategoryDTO) session.getAttribute("category");
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        List<String> allStates = requestService.findAllStates();
+        model.addAttribute("category", category);
+        model.addAttribute("user", user);
+        model.addAttribute("allStates", allStates);
+    }
+
+    /*@GetMapping("/register")
 //    @ResponseBody
     public void register(
             HttpSession session,
@@ -224,9 +250,8 @@ public class RequestController {
         model.addAttribute("type", type);
         model.addAttribute("user", user);
         List<String> allStates = requestService.findAllStates();
-//        log.info(allStates.toString());
         model.addAttribute("allStates", allStates);
-    }
+    }*/
 
 
     @GetMapping("/register/territories")
@@ -239,14 +264,17 @@ public class RequestController {
     @PostMapping("/register")
     public String registerPost(
             @ModelAttribute RequestDTO requestDTO,
-            HttpSession session,
-            RedirectAttributes rttr
+            HttpSession session
     ) {
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user == null) {
             return "redirect:/login";
         }
+        requestDTO.setUserNum(user.getUser_num());
         requestService.register(requestDTO);
+//        int register = requestService.register(requestDTO);
+//        RequestDTO request = requestService.getRequest(register);
+//        rttr.addAttribute("request", request);
 
 //        int userNum = user.getUser_num();
 //        String redirectUri = "/request/list/" + userNum;
@@ -255,7 +283,8 @@ public class RequestController {
                 .encode()
                 .toUriString();
 */
-        rttr.addAttribute("user", user);
+        // 잠시 테스트용으로 주석
+        session.setAttribute("user", user);
         return "redirect:/request/list";
     }
 }

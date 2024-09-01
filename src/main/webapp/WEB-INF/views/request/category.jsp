@@ -42,7 +42,7 @@
         document.getElementById('categorySelect').addEventListener('change', function (event) {
             // 선택된 category 값을 가져오기
             var category = this.value;
-            console.log(category);
+            // console.log(category);
 
             // AJAX 요청
             fetch('/request/category/list?type=' + category)
@@ -55,10 +55,10 @@
 
                     // 새로운 데이터를 추가
                     data.forEach(item => {
-                        console.log(item.categoryName);
+                        // console.log(item.categoryName);
                         // <option> 요소 생성
                         var listItem = document.createElement('option');
-                        console.log('----------------------',listItem)
+                        // console.log('----------------------',listItem)
                         // <option> 요소의 텍스트 설정
                         listItem.textContent = item.categoryName;
                         listItem.value = item.categoryName;
@@ -73,6 +73,10 @@
 
     function submitForm() {
         document.getElementById('categoryList').submit();
+
+
+        const name = document.getElementById('categoryName');
+        console.log(name)
     }
 </script>
 </html>

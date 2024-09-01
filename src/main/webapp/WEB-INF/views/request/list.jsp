@@ -18,12 +18,14 @@
 
 <%@include file="../header/header.jsp" %>
 <div class="container">
-
     <div class="requests">
 
         <%--<c:out value="${lists}"></c:out>--%>
         <div class="requestContainer">
             <div class="left">
+                <c:forEach var="list" items="${lists}">
+                    ${list}
+                </c:forEach>
                 <h2>내 요청서</h2>
                 <div class="wrapper">
                     <input type="checkbox" id="switch">
@@ -32,15 +34,15 @@
                     </label>
                 </div>
                 <div id="requestsWithAnswer" class="requestsList hidden">
-                        <h3>답장을 받은 요청서</h3>
-                    <c:if test="${empty lists[0].replier}">
+                    <h3>답장을 받은 요청서</h3>
+                    <c:if test="${empty lists[0].expertNum}">
                         <h4>아직 견적이 달린 요청서가 없습니다</h4>
                     </c:if>
                     <c:forEach var="list" items="${lists}">
-                        <c:if test="${not empty list.replier}">
+                        <c:if test="${not empty list.expertNum}">
                             <div class="request-item">
                                 <div class="sort-date">
-                                    <h3>${list.sort}</h3> <%-- 카테고리 예)IT --%>
+                                    <h3>${list.category}</h3> <%-- 카테고리 예)IT --%>
                                     <p><span class="regDate" data-date="${list.regDate}">${list.regDate}</span>
                                     </p> <%--언제 보냈는지--%>
                                 </div>
@@ -63,10 +65,10 @@
                 <div id="requestsWithoutAnswer" class="requestsList">
                     <h3>내가 보낸 요청서</h3>
                     <c:forEach var="list" items="${lists}">
-                        <c:if test="${empty list.replier}">
+                        <c:if test="${empty list.expertNum}">
                             <div class="request-item">
                                 <div class="sort-date">
-                                    <h3>${list.sort}</h3> <%-- 카테고리 예)IT --%>
+                                    <h3>${list.category}</h3> <%-- 카테고리 예)IT --%>
                                     <p><span class="regDate" data-date="${list.regDate}">${list.regDate}</span>
                                     </p> <%--언제 보냈는지--%>
                                 </div>
@@ -242,10 +244,10 @@
                         showAnswers.id = 'showDetail'
                         showAnswers.classList.add('btn-primary');
                         const reqId = data.id;
-                        if (data.replier) {
-                            const replierArray = data.replier.split(',');
+                        if (data.expertNum) {
+                            const experts = data.expertNum.split(',');
                             showAnswers.dataset.id = reqId;
-                            showAnswers.textContent = replierArray.length + `개의 견적보기`;
+                            showAnswers.textContent = experts.length + `개의 견적보기`;
                             showAnswers.addEventListener('click', handleButtonClick);
                             showAnswers.addEventListener('click', hideRequest);
                         } else {
@@ -322,10 +324,10 @@
             }
 
             /*
-                        document.querySelectorAll(".btn-primary").forEach(button => {
-                            // 이벤트 핸들러를 직접 함수로 등록
-                            button.addEventListener('click', handleButtonClick);
-                        });
+            document.querySelectorAll(".btn-primary").forEach(button => {
+            // 이벤트 핸들러를 직접 함수로 등록
+            button.addEventListener('click', handleButtonClick);
+            });
             */
 
             function handleButtonClick(event) {
@@ -400,10 +402,10 @@
                                 const dataDiv = document.createElement('div');
                                 modalDiv.innerHTML = '';
                                 dataDiv.innerHTML = `
-        <div>답변한 고수 : ` + gosuId + `</div>
-        <div>견적 금액 : ` + price + `</div>
-        <div>서비스 내용 : ` + ref + `</div>
-        <div>기타 사항 : ` + file + `</div>
+    <div>답변한 고수 : ` + gosuId + `</div>
+    <div>견적 금액 : ` + price + `</div>
+    <div>서비스 내용 : ` + ref + `</div>
+    <div>기타 사항 : ` + file + `</div>
     `;
 
                                 modalDiv.appendChild(dataDiv);

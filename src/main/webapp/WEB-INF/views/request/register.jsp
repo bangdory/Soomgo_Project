@@ -12,17 +12,25 @@
     <title>견적서 등록</title>
 </head>
 <body>
-<c:out value="user = ${user}"></c:out><hr>
+<div>
+    ============= 테스트용 창 =============
+    <c:out value="user = ${user}"></c:out>
+    <hr>
     <c:out value="${user.user_email}"></c:out><br>
     <c:out value="${user.user_name}"></c:out>
+    <hr>
+    <c:out value="${category}"></c:out>
+    <br>
+    ============= 테스트용 창 =============
+</div>
 <form method="post" action="/request/register" onsubmit="updateFields()">
     <fieldset>
         <legend>견적 보내기</legend>
 
         <div>
-            <table>견적 요청 항목 ===== <c:out value="${type}"/></table>
-            <input type="hidden" name="sort" id="sort" value="${sort}">
-            <input type="hidden" name="type" id="type" value="${type}">
+            <table><c:out value="${type}"/> 요청서 보내기</table>
+            <input type="hidden" name="category" id="category" value="${category.id}">
+            <input type="hidden" name="type" id="type" value="${category.categoryNum}">
             <input type="hidden" name="writer" id="writer" value="${user.user_num}">
         </div>
 
@@ -171,7 +179,7 @@
                         var listItem = document.createElement('option');
                         // <option> 요소의 텍스트 설정
                         listItem.textContent = item.district;
-                        listItem.value = item.district;
+                        listItem.value = item.no;
 
                         // <select> 요소에 <option> 요소 추가
                         district.appendChild(listItem);
