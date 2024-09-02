@@ -16,9 +16,9 @@
     <script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js"></script>
     <title>Title</title>
     <style>
-        html {
-            scroll-behavior: smooth; /* 페이지 내 모든 스크롤을 부드럽게 처리 */
-        }
+        /*html {*/
+        /*    scroll-behavior: smooth; !* 페이지 내 모든 스크롤을 부드럽게 처리 *!*/
+        /*}*/
 
         main {
             width: 1920px;
@@ -127,7 +127,7 @@
             height: 200px;
             z-index: 1000; /* 다른 요소들 위에 표시되도록 높은 z-index 값 설정 */
             background-color: white; /* 배경색 설정 */
-            transition: transform 0.3s ease, top 0.3s ease; /* transform과 top 변화 시 부드러운 애니메이션 추가 */
+            transition: transform 0s ease, top 0s ease; /* transform과 top 변화 시 부드러운 애니메이션 추가 */
             /* 추가 스타일링 */
             display: grid;
             justify-content: center;
@@ -305,8 +305,8 @@
 
         document.addEventListener('scroll', function () {
             taps.forEach(tap => {
-                if (window.scrollY > 300) {
-                    tap.style.top = (window.scrollY - 180) + 'px';
+                if (window.scrollY > 200) {
+                    tap.style.top = (window.scrollY - 150) + 'px';
                 } else {
                     // tap.style.top = (initialTop + window.scrollY) + 'px';
                     tap.style.top = initialTop + 'px';
