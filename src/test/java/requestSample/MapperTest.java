@@ -50,8 +50,7 @@ public class MapperTest {
 
     @Test
     public void testSelect() {
-        int id = 1;
-        log.info(requestMapper.select(id));
+        log.info(requestMapper.select(3));
     }
 
     @Test

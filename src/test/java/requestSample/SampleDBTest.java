@@ -24,7 +24,7 @@ public class SampleDBTest {
     }
     @Test
     public void test2() {
-        RequestVO requestVO = requestMapper.selectedRequest(4);
+        RequestVO requestVO = requestMapper.selectedRequest(3);
         log.info("selected Request: ", requestVO);
     }
 }

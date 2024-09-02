@@ -138,8 +138,8 @@ public class RequestController {
         log.info("고수!!" + expertUser);
 
         model.addAttribute("expert", expertUser);
-        model.addAttribute("answered", answeredRequests);
-        model.addAttribute("received", receivedRequests);
+        model.addAttribute("answeredList", answeredRequests);
+        model.addAttribute("receivedList", receivedRequests);
 
         return "/request/readrequest";
     }

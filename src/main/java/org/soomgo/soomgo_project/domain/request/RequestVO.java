@@ -7,21 +7,21 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 @Getter
-public class RequestVO {
+public class RequestVO extends RequestDTO {
+
     private int id;
     private int userNum;
+    private String userName; // 이름
     private String expertNum;
+    private String expertName; // 고수 이름
     private LocalDateTime regDate;
-    //
-    private String CategoryName;
-    //
-    private String district;
-    private String sub;
-    private int category;
+    private int categoryNum;
     private int type;
+    private String typeName; // 카테고리 이름
+    private String sub;
     private String file1;
     private String file2;
-    private Boolean cr; // Null 값 넣기 위해서 래퍼 클래스로 설정
+    private Boolean cr;
     private String amount;
     private String addService;
     private String delService;
@@ -34,10 +34,6 @@ public class RequestVO {
     private String place;
     private String date;
     private int region;
+    private String regionName; // 지역 이름
     private String ref;
-
-
-    public RequestVO() {
-        this.regDate = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-    }
 }
