@@ -50,7 +50,7 @@ public class MapperTest {
 
     @Test
     public void testSelect() {
-        int id = 8;
+        int id = 1;
         log.info(requestMapper.select(id));
     }
 
@@ -63,7 +63,7 @@ public class MapperTest {
     @Test
     public void readReceivedRequest() {
         UserDTO userDTO = new UserDTO();
-        userDTO.setUser_num(1);
+        userDTO.setUser_num(2);
         List<RequestDTO> requestDTOS = requestMapper.readRequestByExpertNum(userDTO.getUser_num());
         log.info(requestDTOS);
     }
@@ -88,15 +88,20 @@ public class MapperTest {
 
     @Test
     public void findExpert() {
-        ExpertDTO expert = requestMapper.findExpert(1);
+//        ExpertDTO expert = requestMapper.findExpert(1);
         UserProfileDTO findExpert = userMapper.findUserProfileByUserNum(1);
-        log.info(expert);
+//        log.info(expert);
         log.info(findExpert);
     }
 
     @Test
+    public void findExpertVO() {
+        ExpertVO expert = requestMapper.expert(2);
+        log.info(expert);
+    }
+    @Test
     public void findTerritory() {
-        List<TerritoryDTO> list = requestMapper.findTerritoryByState("강원특별자치도");
+        List<TerritoryDTO> list = requestMapper.findTerritoryByState("경기도");
         log.info(list);
     }
 

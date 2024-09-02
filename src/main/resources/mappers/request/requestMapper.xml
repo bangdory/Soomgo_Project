@@ -8,7 +8,8 @@
         <selectKey order="AFTER" keyProperty="id" resultType="int">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into request (userNum, regDate, category, type, sub, file1, file2, cr, amount, addService, result, day, time,
+        insert into request (userNum, regDate, category, type, sub, file1, file2, cr, amount, addService, result, day,
+        time,
         age, sex, fav, place, date, region, ref)
         values (#{userNum}, #{regDate}, #{category}, #{type}, #{sub}, #{file1}, #{file2}, #{cr}, #{amount},
         #{addService},
@@ -16,16 +17,28 @@
         #{sex}, #{fav}, #{place}, #{date}, #{region}, #{ref})
     </insert>
 
-    <select id="select" resultType="RequestDTO">
+    <select id="select" parameterType="int" resultType="RequestDTO">
         <!--        select * from test where id = #{id}-->
         select * from request where id = #{id}
-        SELECT r.*
-        FROM request r
-        INNER JOIN expert e
-        ON r.region = (select t.district from territory t where t.no = e.region)
-        AND r.type = (select c.CategoryName from category c where c.CategoryNum = e.category_num)
-        WHERE r.id = #{id}
-        ORDER BY r.regDate DESC
+        <!--        select t.district,-->
+        <!--        c.CategoryName,-->
+        <!--        r.*-->
+        <!--        from territory t,-->
+        <!--        category c-->
+        <!--        inner join request r on r.id = #{requestId}-->
+        <!--        where t.no = r.region-->
+        <!--        and c.CategoryNum = r.type-->
+    </select>
+
+    <select id="selectedRequest" parameterType="int" resultType="RequestVO">
+        select t.district,
+        c.CategoryName,
+        r.*
+        from territory t,
+        category c
+        inner join request r on r.id = #{requestId}
+        where t.no = r.region
+        and c.CategoryNum = r.type
     </select>
 
     <select id="getListByClientNo" parameterType="int" resultType="RequestDTO">
@@ -37,9 +50,9 @@
         SELECT r.*
         FROM request r
         INNER JOIN expert e
-        ON r.region = (select t.district from territory t where t.no = e.region)
-        AND r.type = (select c.CategoryName from category c where c.CategoryNum = e.category_num)
-        WHERE e.expert_num = #{expertNum}
+        ON r.region = e.region
+        AND r.type = e.category_num
+        WHERE e.expert_num = ${expertNum}
         ORDER BY r.regDate DESC
     </select>
 
@@ -66,8 +79,50 @@
         WHERE r.id = #{requestId} AND g.id = #{gosuId};
     </insert>
 
+    <resultMap id="expertData" type="ExpertVO">
+        <id property="expertNum" column="expert_num"/>
+        <result property="userNum" column="user_num"/>
+        <result property="expertName" column="user_name"/>
+        <result property="categoryNum" column="category_num"/>
+        <result property="categoryName" column="CategoryName"/>
+        <result property="experienceYears" column="experience_years"/>
+        <result property="education" column="education"/>
+        <result property="rating" column="rating"/>
+        <result property="region" column="region"/>
+        <result property="regionName" column="district"/>
+        <result property="img" column="img"/>
+    </resultMap>
+    <select id="expert" parameterType="int" resultMap="expertData">
+        select e.expert_num,
+        u.user_num,
+        u.user_name,
+        e.category_num,
+        c.CategoryName,
+        e.experience_years,
+        e.education,
+        e.rating,
+        e.region,
+        t.district,
+        e.img
+        from expert e
+        inner join user u
+        on u.user_num = e.user_num
+        inner join territory t
+        on t.no = e.region
+        inner join category c
+        on c.CategoryNum = e.category_num
+        where e.user_num = #{expertNum}
+    </select>
     <select id="findExpert" parameterType="int" resultType="ExpertDTO">
         select * from expert where expert_num = #{expertNum}
+<!--        select t.district,-->
+<!--        c.CategoryName,-->
+<!--        r.*-->
+<!--        from territory t,-->
+<!--        category c-->
+<!--        inner join request r on r.id = #{requestId}-->
+<!--        where t.no = r.region-->
+<!--        and c.CategoryNum = r.type-->
     </select>
 
     <select id="findAllStates" resultType="string">

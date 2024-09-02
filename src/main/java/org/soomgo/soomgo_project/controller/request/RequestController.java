@@ -2,6 +2,7 @@ package org.soomgo.soomgo_project.controller.request;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.request.*;
 import org.soomgo.soomgo_project.domain.userpage.UserDTO;
 import org.soomgo.soomgo_project.service.request.AnswerService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,22 +41,24 @@ public class RequestController {
             return "redirect:/login";
         }
         List<RequestDTO> list = requestService.list(user.getUser_num());
-//        log.info(list);
 
-
-//        log.info(list);
-
-        model.addAttribute("lists", list);
+        List<RequestVO> voList = new ArrayList<>();
+        for (RequestDTO requestDTO : list) {
+            RequestVO requests = requestService.selectedRequest(requestDTO.getId());
+            voList.add(requests);
+        }
+        log.info(voList);
+        model.addAttribute("vo", voList);
         model.addAttribute("user", user);
         return "/request/list";
     }
 
     @GetMapping("/request-detail")
-    public ResponseEntity<RequestDTO> requestDetail(@RequestParam int requestId) {
+    public ResponseEntity<RequestVO> requestDetail(@RequestParam int requestId) {
         if (requestId <= 0) {
-            return ResponseEntity.badRequest().body((RequestDTO) Collections.emptyList());
+            return ResponseEntity.badRequest().body((RequestVO) Collections.emptyList());
         }
-        RequestDTO request = requestService.getRequest(requestId);
+        RequestVO request = requestService.selectedRequest(requestId);
         log.info("상세 요청서 -> " + request);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(request);
     }
@@ -118,22 +122,25 @@ public class RequestController {
 //            @PathVariable(name = "gosuId") String gosuId, // {} 로 묶은 것을 변수로
             Model model
     ) {
-        UserDTO userAsExpert = (UserDTO) session.getAttribute("user");
+        UserDTO expert = (UserDTO) session.getAttribute("user");
+        log.info("유저!!!" + expert);
         // UserDTO -> ExpertDTO 로 변환시켜서 데이터 뽑아올 것
 
-        if (userAsExpert == null) {
+        if (expert == null) {
             return "redirect:/login";
+        } else if (expert.getUser_type() != UserDTO.UserType.EXPERT) {
+            return null; // 권한 안내 페이지로 이동시킬 것!!
         }
-        if (userAsExpert.getUser_type() == UserDTO.UserType.EXPERT) {
+        List<RequestDTO> receivedRequests = requestService.readReceivedRequests(expert);
+        List<RequestDTO> answeredRequests = requestService.readAnsweredRequests(expert);
+        log.info("유저 번호" + expert.getUser_num());
+        ExpertVO expertUser = requestService.findExpert(expert.getUser_num());
+        log.info("고수!!" + expertUser);
 
-            List<RequestDTO> receivedRequests = requestService.readReceivedRequests(userAsExpert);
-            List<RequestDTO> answeredRequests = requestService.readAnsweredRequests(userAsExpert);
-        }
+        model.addAttribute("expert", expertUser);
+        model.addAttribute("answered", answeredRequests);
+        model.addAttribute("received", receivedRequests);
 
-//        log.info("answered 찾은 값: {}", answeredRequests);
-//        model.addAttribute("gosu", expert);
-//        model.addAttribute("answered", answeredRequests);
-//        model.addAttribute("received", receivedRequests);
         return "/request/readrequest";
     }
 /*
@@ -283,7 +290,6 @@ public class RequestController {
                 .encode()
                 .toUriString();
 */
-        // 잠시 테스트용으로 주석
         session.setAttribute("user", user);
         return "redirect:/request/list";
     }

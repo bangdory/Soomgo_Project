@@ -2,7 +2,6 @@ package org.soomgo.soomgo_project.service.request;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.request.*;
 import org.soomgo.soomgo_project.domain.userpage.UserDTO;
 import org.soomgo.soomgo_project.mappers.request.RequestMapper;
@@ -37,6 +36,10 @@ public class RequestService {
         return requestMapper.select(requestId);
     }
 
+    public RequestVO selectedRequest(int requestId) {
+        return requestMapper.selectedRequest(requestId);
+    }
+
     public List<RequestDTO> readReceivedRequests(UserDTO userDTO) {
         return requestMapper.readRequestByExpertNum(userDTO.getUser_num());
     }
@@ -46,8 +49,8 @@ public class RequestService {
         return requestMapper.answeredRequestByExpertNum(userDTO.getUser_num());
     }
 
-    public ExpertDTO findExpert(int expertNum) {
-        return requestMapper.findExpert(expertNum);
+    public ExpertVO findExpert(int expertNum) {
+        return requestMapper.expert(expertNum);
     }
 
     public List<String> findAllStates() {

@@ -161,7 +161,7 @@
         document.getElementById('stateSelect').addEventListener('change', function (event) {
             // 선택된 state 값을 가져오기
             var state = this.value;
-            console.log(state);
+            // console.log(state);
 
             // AJAX 요청
             fetch('/request/register/territories?state=' + state)
@@ -174,12 +174,13 @@
 
                     // 새로운 데이터를 추가
                     data.forEach(item => {
-                        console.log(item.state);
+                        // console.log(item.state);
                         // <option> 요소 생성
                         var listItem = document.createElement('option');
                         // <option> 요소의 텍스트 설정
                         listItem.textContent = item.district;
                         listItem.value = item.no;
+                        // console.log(listItem)
 
                         // <select> 요소에 <option> 요소 추가
                         district.appendChild(listItem);

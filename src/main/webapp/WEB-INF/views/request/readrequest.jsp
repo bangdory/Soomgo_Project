@@ -13,7 +13,7 @@
 </head>
 <body>
 <h1>받은 견적서</h1>
-<c:out value="${gosu.region} ${gosu.type}의 고수 ${gosu.id}님"/>
+<c:out value="${expert.regionName} ${expert.categoryName}의 고수 ${expert.expertName}님"/>
 <hr>
 
 <div>

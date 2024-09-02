@@ -23,8 +23,12 @@
         <%--<c:out value="${lists}"></c:out>--%>
         <div class="requestContainer">
             <div class="left">
-                <c:forEach var="list" items="${lists}">
-                    ${list}
+                <%--                <c:forEach var="list" items="${lists}">--%>
+                <%--                    ${list}--%>
+                <%--                </c:forEach>--%>
+                <c:forEach var="vo" items="${vo}">
+                    ${vo.categoryName}
+                    ${vo.district}
                 </c:forEach>
                 <h2>내 요청서</h2>
                 <div class="wrapper">
@@ -35,15 +39,15 @@
                 </div>
                 <div id="requestsWithAnswer" class="requestsList hidden">
                     <h3>답장을 받은 요청서</h3>
-                    <c:if test="${empty lists[0].expertNum}">
+                    <c:if test="${empty vo[0].expertNum}">
                         <h4>아직 견적이 달린 요청서가 없습니다</h4>
                     </c:if>
-                    <c:forEach var="list" items="${lists}">
-                        <c:if test="${not empty list.expertNum}">
+                    <c:forEach var="vo" items="${vo}">
+                        <c:if test="${not empty vo.expertNum}">
                             <div class="request-item">
                                 <div class="sort-date">
-                                    <h3>${list.category}</h3> <%-- 카테고리 예)IT --%>
-                                    <p><span class="regDate" data-date="${list.regDate}">${list.regDate}</span>
+                                    <h3>${vo.categoryName}</h3> <%-- 카테고리 예)IT --%>
+                                    <p><span class="regDate" data-date="${vo.regDate}">${vo.regDate}</span>
                                     </p> <%--언제 보냈는지--%>
                                 </div>
                                 <div class="progress">
@@ -56,7 +60,7 @@
                                     <p class="progress-tag-right">거래완료</p>
                                 </div>
                                 <div class="read-con">
-                                    <button id="btn-detail" class="btn-detail" data-list='${list.id}'>자세히보기</button>
+                                    <button id="btn-detail" class="btn-detail" data-list='${vo.id}'>자세히보기</button>
                                 </div>
                             </div>
                         </c:if>
@@ -64,12 +68,12 @@
                 </div>
                 <div id="requestsWithoutAnswer" class="requestsList">
                     <h3>내가 보낸 요청서</h3>
-                    <c:forEach var="list" items="${lists}">
-                        <c:if test="${empty list.expertNum}">
+                    <c:forEach var="vo" items="${vo}">
+                        <c:if test="${empty vo.expertNum}">
                             <div class="request-item">
                                 <div class="sort-date">
-                                    <h3>${list.category}</h3> <%-- 카테고리 예)IT --%>
-                                    <p><span class="regDate" data-date="${list.regDate}">${list.regDate}</span>
+                                    <h3>${vo.categoryName}</h3> <%-- 카테고리 예)IT --%>
+                                    <p><span class="regDate" data-date="${vo.regDate}">${vo.regDate}</span>
                                     </p> <%--언제 보냈는지--%>
                                 </div>
                                 <div class="progress">
@@ -82,7 +86,7 @@
                                     <p class="progress-tag-right">거래완료</p>
                                 </div>
                                 <div class="read-con">
-                                    <button id="requestDetailWithoutAnswer" class="btn-detail" data-list='${list.id}'>
+                                    <button id="requestDetailWithoutAnswer" class="btn-detail" data-list='${vo.id}'>
                                         자세히보기
                                     </button>
                                 </div>
@@ -209,6 +213,7 @@
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
                         }
+                        console.log(response)
                         return response.json(); // 서버 응답을 JSON으로 변환
                     })
                     .then(data => {
@@ -222,8 +227,8 @@
                         h3.textContent = '요청서 상세보기'
 
                         const h4 = document.createElement('h4');
-                        h4.textContent = '요청 타입: ' + data.type + '요청ID: ' + data.id;
-                        h4.setAttribute('type', data.type);
+                        h4.textContent = '요청 타입: ' + data.categoryName + '요청ID: ' + data.id;
+                        h4.setAttribute('type', data.categoryName);
 
                         const h5 = document.createElement('h5');
                         const beforeFormatDate = data.regDate;

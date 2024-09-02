@@ -181,3 +181,11 @@ gosuDTO 로 처리된 jsp (answer 등) 모두 ExpertDTO 로 처리할 것
 requestList 에서 자세히 보기 404 문제 해결, 보낸 요청서에 category 가 int 로 뜨는 문제 해결
 requestService.getRequest 해결할 것, requestMapper.select 해결할 것
 DB 최신화, DTO 최신화, xml 정리할 것
+
+
+List.jsp 의 handleButtonClick 스크립트 메서드 -> AnswerRequestDTO 수정하므로 바꿀 것
+
+
+requestMapper.expert 에 userNum 던졌을 때 쿼리 실행되지만 ExpertVO 가 null 로 나오는 문제 해결
+    mapper xml 에서 <result property="userNum" column="u.user_num"/> 오류 발생
+    테이블명.컬럼명 이 아닌 단순 컬럼명으로 받아와야 인식 가능

@@ -55,3 +55,36 @@ create table 1request
     region     int                                 null,
     ref        varchar(200)                        null
 );
+
+select t.district,
+       c.CategoryName,
+       r.*
+from territory t,
+     category c
+         inner join request r on r.id = 4
+where t.no = r.region
+  and c.CategoryNum = r.type;
+
+SELECT t.district     AS district,
+       c.CategoryName AS CategoryName,
+       r.*
+-- 필요한 경우 다른 request 필드들도 추가합니다
+FROM territory t
+         JOIN request r ON r.id = 4
+         JOIN category c ON c.CategoryNum = r.type
+WHERE t.no = r.region;
+
+select c.*
+from category c
+where c.CategoryNum = 29;
+select t.*
+from territory t
+where t.no = 21;
+select r.*
+from request r
+where r.id = 4;
+select c.CategoryName
+from category c
+where c.P_Id is null;
+select *
+from category;

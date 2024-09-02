@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.request.AnswerRequestDTO;
+import org.soomgo.soomgo_project.domain.request.ExpertVO;
 import org.soomgo.soomgo_project.domain.request.RequestDTO;
 import org.soomgo.soomgo_project.service.request.AnswerService;
 import org.soomgo.soomgo_project.service.request.RequestService;
@@ -34,7 +35,7 @@ public class AnswerController {
             Model model
     ) {
         RequestDTO request = requestService.getRequest(id);
-        ExpertDTO expert = requestService.findExpert(expertNum);
+        ExpertVO expert = requestService.findExpert(expertNum);
 //        log.info("답장 request id: " + request);
 //        log.info("고수 : " + gosu);
         model.addAttribute("request", request);
