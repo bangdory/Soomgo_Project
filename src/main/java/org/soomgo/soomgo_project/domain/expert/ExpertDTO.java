@@ -5,13 +5,11 @@ import lombok.Data;
 @Data
 public class ExpertDTO {
 
-    int expertNum;
-    int userNum;
-    int categoryNum;
-    int experienceYears;
+    int expert_num;
+    int user_num;
+    int category_num;
+    int experience_years;
     int education;
-    long img;
-    String rating;
+    float rating;
     int region;
-
 }

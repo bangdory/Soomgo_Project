@@ -3,10 +3,8 @@ package org.soomgo.soomgo_project.mappers.expert;
 import org.apache.ibatis.annotations.Mapper;
 import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Mapper
 public interface ExpertMapper {
