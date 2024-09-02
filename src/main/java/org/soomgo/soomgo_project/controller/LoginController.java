@@ -48,15 +48,6 @@ public class LoginController {
     }
 
     /**
-     * 로그인 폼 표시
-     * @return
-     */
-    @GetMapping("/login")
-    public String showLoginForm() {
-        return "login"; // 로그인 폼을 보여주는 JSP 파일
-    }
-
-    /**
      * 로그인 처리
      * @param email
      * @param password
