@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="header.jsp" %>
+<%@ include file="/WEB-INF/views/header/header.jsp" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -17,6 +19,16 @@
 <div class="container">
     <main>
         <form id="loginForm" action="${pageContext.request.contextPath}/user/login" method="post">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/userpage/styles.css">
+</head>
+<body>
+
+<div class="container">
+    <main>
+        <c:if test="${not empty errorMessage}">
+            <div class="error-message">${errorMessage}</div>
+        </c:if>
+        <form action="<c:url value='/login' />" method="post">
             <label for="email">이메일:</label>
             <input type="email" id="email" name="email" required><br><br>
             <label for="password">비밀번호:</label>
@@ -25,6 +37,7 @@
             <a href="${pageContext.request.contextPath}/user/findUserEmail">ID 찾기</a><br>
             <a href="${pageContext.request.contextPath}/user/reset-password">비밀번호 찾기</a><br>
             <a href="${pageContext.request.contextPath}/user/signup">회원가입</a><br>
+            <button type="submit">로그인</button>
         </form>
     </main>
 </div>
@@ -55,5 +68,7 @@
 </script>
 
 <%@ include file="footer.jsp" %>
+</body>
+</html>
 </body>
 </html>
