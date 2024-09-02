@@ -1,15 +1,11 @@
 package org.soomgo.soomgo_project.dao.expert;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.mappers.expert.ExpertMapper;
 import org.springframework.stereotype.Repository;
-import sun.jvm.hotspot.debugger.Page;
-
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Map;
 

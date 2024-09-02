@@ -1,6 +1,9 @@
 package org.soomgo.soomgo_project.controller;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.UserDTO;
+import org.soomgo.soomgo_project.domain.UserProfileDTO;
 import org.soomgo.soomgo_project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,15 +48,6 @@ public class LoginController {
         HashMap<String, Object> res = new HashMap<>();
         res.put("result", cnt > 0 ? "fail" : "success");
         return res;
-    }
-
-    /**
-     * 로그인 폼 표시
-     * @return
-     */
-    @GetMapping("/login")
-    public String showLoginForm() {
-        return "login"; // 로그인 폼을 보여주는 JSP 파일
     }
 
     /**

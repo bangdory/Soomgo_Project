@@ -102,6 +102,12 @@ dependencies {
     implementation 'org.springframework.security:spring-security-config:5.6.9'
     implementation 'org.springframework.security:spring-security-taglibs:5.6.9'
 
+    // spring mail Library
+    implementation 'org.springframework:spring-context-support:5.3.24'
+
+    implementation 'javax.mail:javax.mail-api:1.6.2' // JavaMail API
+    implementation 'com.sun.mail:javax.mail:1.6.2' // JavaMail 구현
+
 }
 
 test {
