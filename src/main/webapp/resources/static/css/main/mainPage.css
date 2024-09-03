@@ -1,7 +1,11 @@
 /* 기본 스타일 설정 */
+
 html, body, main {
-    font: bold 14px "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard-Regular', sans-serif;
 }
+
 
 /* 중앙 페이지 컨테이너 스타일 */
 .main-center-page-container {

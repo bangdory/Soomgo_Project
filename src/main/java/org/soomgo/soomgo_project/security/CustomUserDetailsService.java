@@ -1,7 +1,7 @@
 package org.soomgo.soomgo_project.security;
 
-import org.soomgo.soomgo_project.domain.UserDTO;
-import org.soomgo.soomgo_project.service.UserService;
+import org.soomgo.soomgo_project.domain.user.UserDTO;
+import org.soomgo.soomgo_project.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

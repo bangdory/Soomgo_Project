@@ -1,24 +1,24 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet">
-<script>
-    function toggleDropdown() {
-        document.getElementById("myDropdown").classList.toggle("show");
-    }
+<link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet" type="text/css">
+<%--<script>--%>
+<%--    function toggleDropdown() {--%>
+<%--        document.getElementById("myDropdown").classList.toggle("show");--%>
+<%--    }--%>
 
-    // 클릭 시 드롭다운 외부를 클릭하면 닫히도록 설정
-    window.onclick = function (event) {
-        if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-            }
-        }
-    }
-</script>
+<%--    // 클릭 시 드롭다운 외부를 클릭하면 닫히도록 설정--%>
+<%--    window.onclick = function (event) {--%>
+<%--        if (!event.target.matches('.dropbtn')) {--%>
+<%--            var dropdowns = document.getElementsByClassName("dropdown-content");--%>
+<%--            for (var i = 0; i < dropdowns.length; i++) {--%>
+<%--                var openDropdown = dropdowns[i];--%>
+<%--                if (openDropdown.classList.contains('show')) {--%>
+<%--                    openDropdown.classList.remove('show');--%>
+<%--                }--%>
+<%--            }--%>
+<%--        }--%>
+<%--    }--%>
+<%--</script>--%>
 
 <header class="header-first-container">
     <div class="header-second-container">
@@ -58,10 +58,10 @@
             <c:when test="${empty user}">
                 <div class="header-third-container-2">
                     <div>
-                        <a href="/login">로그인</a>
+                        <a href="${pageContext.request.contextPath}/user/login">로그인</a>
                     </div>
                     <div>
-                        <a href="#">회원가입</a>
+                        <a href="${pageContext.request.contextPath}/user/signup">회원가입</a>
                     </div>
                     <div>
                         <a href="#">고수가입</a>
@@ -72,13 +72,13 @@
             <c:when test="${usertype eq 'EXPERT'}">
                 <div class="header-third-container-2">
                     <div>
-                        <a href="/request/sent">보낸견적</a>
+                        <a href="${pageContext.request.contextPath}/request/sent">보낸견적</a>
                     </div>
                     <div>
-                        <a href="/profile">프로필</a>
+                        <a href="${pageContext.request.contextPath}/profile">프로필</a>
                     </div>
                     <div>
-                        <a href="chat">채팅</a>
+                        <a href="${pageContext.request.contextPath}/chat">채팅</a>
                     </div>
 
                     <div class="dropdown">
@@ -119,3 +119,4 @@
 
     </div>
 </header>
+<script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js"></script>
