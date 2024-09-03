@@ -40,15 +40,15 @@
                 <a href="${pageContext.request.contextPath}/request/category">견적 요청</a>
             </div>
             <%-- 고수 찾기 --%>
-                <div class="header-link-div">
+            <div class="header-link-div">
                 <a href="${pageContext.request.contextPath}/expert/expertFind">고수 찾기</a>
             </div>
             <%-- 마켓 --%>
-                <div class="header-link-div">
+            <div class="header-link-div">
                 <a href="#">마켓</a>
             </div>
             <%-- 커뮤니티 --%>
-            <div>
+            <div class="header-link-div">
                 <a href="${pageContext.request.contextPath}/community/listAll">커뮤니티</a>
             </div>
         </div>
@@ -71,6 +71,9 @@
             </c:when>
             <c:when test="${usertype eq 'EXPERT'}">
                 <div class="header-third-container-2">
+                    <div>
+                        <a href="/request/readrequest">받은 요청서</a>
+                    </div>
                     <div>
                         <a href="/request/sent">보낸견적</a>
                     </div>
@@ -95,7 +98,7 @@
             <c:otherwise>
                 <div class="header-third-container-2">
                     <div>
-                        <a href="/requestsent">받은견적</a>
+                        <a href="/request/list">내 요청서</a>
                     </div>
                     <div>
                         <a href="chat">채팅</a>

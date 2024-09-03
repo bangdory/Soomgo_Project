@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet">
 <div id="modal-overlay">
     <div id="header-modal-main-container">
@@ -25,7 +25,7 @@
                 <div class="header-modal-link-div header-modal-line"><a href="#">견적요청</a></div>
                 <div class="header-modal-link-div header-modal-line"><a href="#">고수찾기</a></div>
                 <div class="header-modal-link-div header-modal-line"><a href="#">마켓</a></div>
-                <div class="header-modal-link-div header-modal-line"><a href="#">커뮤니티</a></div>
+                <div class="header-modal-link-div header-modal-line"><a href="${pageContext.request.contextPath}/community/listAll">커뮤니티</a></div>
             </div>
         </div>
     </div>
