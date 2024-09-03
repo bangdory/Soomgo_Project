@@ -3,11 +3,8 @@ package requestSample;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.request.*;
-import org.soomgo.soomgo_project.domain.userpage.UserDTO;
 import org.soomgo.soomgo_project.domain.userpage.UserProfileDTO;
-import org.soomgo.soomgo_project.mappers.expert.ExpertMapper;
 import org.soomgo.soomgo_project.mappers.request.AnswerMapper;
 import org.soomgo.soomgo_project.mappers.request.RequestMapper;
 import org.soomgo.soomgo_project.mappers.userpage.UserMapper;
@@ -29,6 +26,7 @@ public class MapperTest {
     AnswerMapper answerMapper;
     @Autowired(required = false)
     UserMapper userMapper;
+
     @Test
     public void testMapper() {
         log.info(requestMapper);
@@ -60,30 +58,15 @@ public class MapperTest {
     }
 
     @Test
-    public void readReceivedRequest() {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUser_num(2);
-        List<RequestDTO> requestDTOS = requestMapper.readRequestByExpertNum(userDTO.getUser_num());
-        log.info(requestDTOS);
-    }
-   /* @Test
     public void readReceivedRequestByGosuId() {
-        GosuDTO gosuDTO = new GosuDTO();
-        gosuDTO.setId("고수9");
-        gosuDTO.setType("웹개발");
-        gosuDTO.setRegion("용산구");
-        List<RequestDTO> requestDTOS = requestMapper.readRequestByGosuId(gosuDTO);
-        log.info(requestDTOS);
-    }*/
-    /*@Test
+        List<RequestVO> requestVOS = requestMapper.readRequestByExpertNum(2);
+        log.info(requestVOS);
+    }
+    @Test
     public void testAnsweredRequestList() {
-        GosuDTO gosuDTO = new GosuDTO();
-        gosuDTO.setId("고수9");
-        gosuDTO.setType("웹개발");
-        gosuDTO.setRegion("용산구");
-        List<RequestDTO> requestDTOS = requestMapper.answeredRequestByExpertNum(gosuDTO);
-        log.info(requestDTOS);
-    }*/
+        List<RequestVO> requestVOS = requestMapper.answeredRequestByExpertNum(1);
+        log.info(requestVOS);
+    }
 
     @Test
     public void findExpert() {
@@ -95,9 +78,10 @@ public class MapperTest {
 
     @Test
     public void findExpertVO() {
-        ExpertVO expert = requestMapper.expert(2);
+        ExpertVO expert = requestMapper.findExpert(2);
         log.info(expert);
     }
+
     @Test
     public void findTerritory() {
         List<TerritoryDTO> list = requestMapper.findTerritoryByState("경기도");

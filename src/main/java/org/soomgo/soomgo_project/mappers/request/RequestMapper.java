@@ -18,17 +18,17 @@ public interface RequestMapper {
     RequestVO selectedRequest(int requestId);
 
     // 고수가 받은 요청서
-    List<RequestDTO> readRequestByExpertNum(int expertNum);
+    List<RequestVO> readRequestByExpertNum(int expertNum);
 
     // 고수가 답장한 견적서
-    List<RequestDTO> answeredRequestByExpertNum(int expertNum);
+    List<RequestVO> answeredRequestByExpertNum(int expertNum);
 
     // 고수들이 만든 답장 리스트
     int answerRequest(AnswerRequestDTO answerRequestDTO);
 
     // 고수 찾기
-//    ExpertDTO findExpert(int expertNum);
-    ExpertVO expert(int expertNum);
+//    ExpertVO findExpert(int expertNum);
+    ExpertVO findExpert(int expertNum);
 
     // 지역 찾기 (도시)
     List<String> findAllStates();

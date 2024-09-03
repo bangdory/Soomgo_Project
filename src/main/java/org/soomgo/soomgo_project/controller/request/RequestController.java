@@ -123,7 +123,6 @@ public class RequestController {
             Model model
     ) {
         UserDTO expert = (UserDTO) session.getAttribute("user");
-        log.info("유저!!!" + expert);
         // UserDTO -> ExpertDTO 로 변환시켜서 데이터 뽑아올 것
 
         if (expert == null) {
@@ -131,15 +130,18 @@ public class RequestController {
         } else if (expert.getUser_type() != UserDTO.UserType.EXPERT) {
             return null; // 권한 안내 페이지로 이동시킬 것!!
         }
-        List<RequestDTO> receivedRequests = requestService.readReceivedRequests(expert);
-        List<RequestDTO> answeredRequests = requestService.readAnsweredRequests(expert);
-        log.info("유저 번호" + expert.getUser_num());
         ExpertVO expertUser = requestService.findExpert(expert.getUser_num());
-        log.info("고수!!" + expertUser);
+//        List<RequestDTO> receivedRequests = requestService.readReceivedRequests(expert);
+//        List<RequestDTO> answeredRequests = requestService.readAnsweredRequests(expert);
+        List<RequestVO> received = requestService.readReceivedRequests(expertUser);
+        List<RequestVO> answered = requestService.readAnsweredRequests(expertUser);
+
+        session.setAttribute("expert", expertUser);
+        session.setAttribute("received", received);
 
         model.addAttribute("expert", expertUser);
-        model.addAttribute("answeredList", answeredRequests);
-        model.addAttribute("receivedList", receivedRequests);
+        model.addAttribute("answeredList", answered);
+        model.addAttribute("receivedList", received);
 
         return "/request/readrequest";
     }

@@ -3,7 +3,6 @@ package org.soomgo.soomgo_project.service.request;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.request.*;
-import org.soomgo.soomgo_project.domain.userpage.UserDTO;
 import org.soomgo.soomgo_project.mappers.request.RequestMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,17 +39,17 @@ public class RequestService {
         return requestMapper.selectedRequest(requestId);
     }
 
-    public List<RequestDTO> readReceivedRequests(UserDTO userDTO) {
-        return requestMapper.readRequestByExpertNum(userDTO.getUser_num());
+    public List<RequestVO> readReceivedRequests(ExpertVO expert) {
+        return requestMapper.readRequestByExpertNum(expert.getExpertNum());
     }
 
 
-    public List<RequestDTO> readAnsweredRequests(UserDTO userDTO) {
-        return requestMapper.answeredRequestByExpertNum(userDTO.getUser_num());
+    public List<RequestVO> readAnsweredRequests(ExpertVO expert) {
+        return requestMapper.answeredRequestByExpertNum(expert.getExpertNum());
     }
 
     public ExpertVO findExpert(int expertNum) {
-        return requestMapper.expert(expertNum);
+        return requestMapper.findExpert(expertNum);
     }
 
     public List<String> findAllStates() {

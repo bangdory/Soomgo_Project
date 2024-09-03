@@ -1,8 +1,10 @@
 package org.soomgo.soomgo_project.domain.request;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
 public class ExpertVO {
 
     int expertNum;
@@ -13,7 +15,7 @@ public class ExpertVO {
     int experienceYears;
     int education;
     float rating;
-    int region;
+    int regionNum;
     String regionName;
     String img;
 }

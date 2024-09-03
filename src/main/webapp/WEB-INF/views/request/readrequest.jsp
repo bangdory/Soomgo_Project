@@ -13,339 +13,348 @@
 </head>
 <body>
 <h1>받은 견적서</h1>
+<c:out value="${expert}"/>
 <c:out value="${expert.regionName} ${expert.categoryName}의 고수 ${expert.expertName}님"/>
 <hr>
 
 <div>
-    <c:forEach var="answeredList" items="${answered}">
+    <%--    <c:out value="${answeredList}"/>--%>
+    <c:forEach var="answered" items="${answeredList}">
         <table border="1">
-            <c:if test="${not empty answeredList.id}">
+            <c:if test="${not empty answered.id}">
                 <tr>
                     <th>ID</th>
-                    <td>${answeredList.id}</td>
+                    <td>${answered.id}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.writer}">
+            <c:if test="${not empty answered.writer}">
                 <tr>
                     <th>Writer</th>
-                    <td>${answeredList.writer}</td>
+                    <td>${answered.writer}</td>
                 </tr>
             </c:if>
-            <%--<c:if test="${not empty answeredList.replier}">
-                <tr>
-                    <th>Replier</th>
-                    <td>${answeredList.replier}</td>
-                </tr>
-            </c:if>--%>
-            <c:if test="${not empty answeredList.regDate}">
+                <%--<c:if test="${not empty answered.replier}">
+                    <tr>
+                        <th>Replier</th>
+                        <td>${answered.replier}</td>
+                    </tr>
+                </c:if>--%>
+            <c:if test="${not empty answered.regDate}">
                 <tr>
                     <th>Registration Date</th>
-                    <td>${answeredList.regDate}</td>
+                    <td>${answered.regDate}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.sort}">
+            <c:if test="${not empty answered.sort}">
                 <tr>
                     <th>Sort</th>
-                    <td>${answeredList.sort}</td>
+                    <td>${answered.sort}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.type}">
+            <c:if test="${not empty answered.typeNum}">
                 <tr>
                     <th>Type</th>
-                    <td>${answeredList.type}</td>
+                    <td>${answered.typeNum}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.sub}">
+            <c:if test="${not empty answered.sub}">
                 <tr>
                     <th>Sub</th>
-                    <td>${answeredList.sub}</td>
+                    <td>${answered.sub}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.file1}">
+            <c:if test="${not empty answered.file1}">
                 <tr>
                     <th>File 1</th>
-                    <td>${answeredList.file1}</td>
+                    <td>${answered.file1}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.file2}">
+            <c:if test="${not empty answered.file2}">
                 <tr>
                     <th>File 2</th>
-                    <td>${answeredList.file2}</td>
+                    <td>${answered.file2}</td>
                 </tr>
             </c:if>
-            <c:if test="${answeredList.cr != null}">
+            <c:if test="${answered.cr != null}">
                 <tr>
                     <th>Commercial Use</th>
-                    <td>${answeredList.cr}</td>
+                    <td>${answered.cr}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.amount}">
+            <c:if test="${not empty answered.amount}">
                 <tr>
                     <th>Amount</th>
-                    <td>${answeredList.amount}</td>
+                    <td>${answered.amount}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.addService}">
+            <c:if test="${not empty answered.addService}">
                 <tr>
                     <th>Additional Service</th>
-                    <td>${answeredList.addService}</td>
+                    <td>${answered.addService}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.delService}">
+            <c:if test="${not empty answered.delService}">
                 <tr>
                     <th>Delete Service</th>
-                    <td>${answeredList.delService}</td>
+                    <td>${answered.delService}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.result}">
+            <c:if test="${not empty answered.result}">
                 <tr>
                     <th>Result</th>
-                    <td>${answeredList.result}</td>
+                    <td>${answered.result}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.day}">
+            <c:if test="${not empty answered.day}">
                 <tr>
                     <th>Day</th>
-                    <td>${answeredList.day}</td>
+                    <td>${answered.day}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.time}">
+            <c:if test="${not empty answered.time}">
                 <tr>
                     <th>Time</th>
-                    <td>${answeredList.time}</td>
+                    <td>${answered.time}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.age}">
+            <c:if test="${not empty answered.age}">
                 <tr>
                     <th>Age</th>
-                    <td>${answeredList.age}</td>
+                    <td>${answered.age}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.sex}">
+            <c:if test="${not empty answered.sex}">
                 <tr>
                     <th>Sex</th>
-                    <td>${answeredList.sex}</td>
+                    <td>${answered.sex}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.fav}">
+            <c:if test="${not empty answered.fav}">
                 <tr>
                     <th>Favorite</th>
-                    <td>${answeredList.fav}</td>
+                    <td>${answered.fav}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.place}">
+            <c:if test="${not empty answered.place}">
                 <tr>
                     <th>Place</th>
-                    <td>${answeredList.place}</td>
+                    <td>${answered.place}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.date}">
+            <c:if test="${not empty answered.date}">
                 <tr>
                     <th>Date</th>
-                    <td>${answeredList.date}</td>
+                    <td>${answered.date}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.region}">
+            <c:if test="${not empty answered.regionNum}">
                 <tr>
                     <th>Region</th>
-                    <td>${answeredList.region}</td>
+                    <td>${answered.regionNum}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answeredList.ref}">
+            <c:if test="${not empty answered.ref}">
                 <tr>
                     <th>Reference</th>
-                    <td>${answeredList.ref}</td>
+                    <td>${answered.ref}</td>
                 </tr>
             </c:if>
         </table>
         <br>
-        <c:if test="${gosu.id == receivedList.replier}">
-            <div class="requestAnswer">
-                <form action="/request/answer/${receivedList.id}" method="get">
-                    <input type="hidden" name="gosuId" value="${gosu.id}"/>
-                    <!-- 조건에 따라 비활성화 -->
-                    <c:choose>
-                        <c:when test="${gosu.id == receivedList.replier}">
-                            <button type="submit" class="btn btn-primary" disabled>견적 답장하기</button>
-                        </c:when>
-                        <c:otherwise>
-                            <button type="submit" class="btn btn-primary">견적 답장하기</button>
-                        </c:otherwise>
-                    </c:choose>
-                </form>
-                <form action="/request/delete/${receivedList.id}" method="post">
-                    <button type="submit" class="btn btn-warning">견적 지우기</button>
-                </form>
-            </div>
-        </c:if>
+        <%-- <c:if test="${expert.expertNum == received.replier}">
+             <div class="requestAnswer">
+                 <form action="/request/answer/${received.id}" method="get">
+                     <input type="hidden" name="gosuId" value="${expert.expertNum}"/>
+                     <!-- 조건에 따라 비활성화 -->
+                     <c:choose>
+                         <c:when test="${expert.ExpertNum == received.replier}">
+                             <button type="submit" class="btn btn-primary" disabled>견적 답장하기</button>
+                         </c:when>
+                         <c:otherwise>
+                             <button type="submit" class="btn btn-primary">견적 답장하기</button>
+                         </c:otherwise>
+                     </c:choose>
+                 </form>
+                 <form action="/request/delete/${received.id}" method="post">
+                     <button type="submit" class="btn btn-warning">견적 지우기</button>
+                 </form>
+             </div>
+         </c:if>--%>
         <hr>
         <hr>
         <div class="answeredRequest">
             <button type="submit" class="btn btn-primary" disabled>이미 답장한 견적입니다</button>
-            <form action="/request/delete/${answeredList.id}" method="post">
+            <form action="/request/delete/${answered.id}" method="post">
                 <button type="submit" class="btn btn-warning">견적 지우기</button>
             </form>
         </div>
     </c:forEach>
 
-    <c:forEach var="receivedList" items="${received}">
-        <c:if test="${receivedList.replier != gosu.id}">
+    <c:forEach var="received" items="${receivedList}">
+        <c:if test="${received.expertNum != expert.expertNum}">
             <table border="1">
-                <c:if test="${not empty receivedList.id}">
+                <div><c:out value="객체 -> ${received}"/></div>
+                <c:if test="${not empty received.id}">
                     <tr>
                         <th>ID</th>
-                        <td>${receivedList.id}</td>
+                        <td>${received.id}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.writer}">
+                <c:if test="${not empty received.userNum}">
                     <tr>
                         <th>Writer</th>
-                        <td>${receivedList.writer}</td>
+                        <td>${received.userName}</td>
                     </tr>
                 </c:if>
-                <%--<c:if test="${not empty receivedList.replier}">
-                    <tr>
-                        <th>Replier</th>
-                        <td>${receivedList.replier}</td>
-                    </tr>
-                </c:if>--%>
-                <c:if test="${not empty receivedList.regDate}">
+                    <%--<c:if test="${not empty received.replier}">
+                        <tr>
+                            <th>Replier</th>
+                            <td>${received.replier}</td>
+                        </tr>
+                    </c:if>--%>
+                <c:if test="${not empty received.regDate}">
                     <tr>
                         <th>Registration Date</th>
-                        <td>${receivedList.regDate}</td>
+                        <td>${received.regDate}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.sort}">
-                    <tr>
-                        <th>Sort</th>
-                        <td>${receivedList.sort}</td>
-                    </tr>
-                </c:if>
-                <c:if test="${not empty receivedList.type}">
+                    <%--<c:if test="${not empty received.categoryNum}">
+                        <tr>
+                            <th>Sort</th>
+                            <td>${received.categoryNum}</td>
+                        </tr>
+                    </c:if>--%>
+                <c:if test="${not empty received.typeNum}">
                     <tr>
                         <th>Type</th>
-                        <td>${receivedList.type}</td>
+                        <td>${received.typeName}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.sub}">
+                <c:if test="${not empty received.sub}">
                     <tr>
                         <th>Sub</th>
-                        <td>${receivedList.sub}</td>
+                        <td>${received.sub}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.file1}">
+                <c:if test="${not empty received.file1}">
                     <tr>
                         <th>File 1</th>
-                        <td>${receivedList.file1}</td>
+                        <td>${received.file1}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.file2}">
+                <c:if test="${not empty received.file2}">
                     <tr>
                         <th>File 2</th>
-                        <td>${receivedList.file2}</td>
+                        <td>${received.file2}</td>
                     </tr>
                 </c:if>
-                <c:if test="${receivedList.cr != null}">
+                <c:if test="${received.cr != null}">
                     <tr>
                         <th>Commercial Use</th>
-                        <td>${receivedList.cr}</td>
+                        <td>${received.cr}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.amount}">
+                <c:if test="${not empty received.amount}">
                     <tr>
                         <th>Amount</th>
-                        <td>${receivedList.amount}</td>
+                        <td>${received.amount}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.addService}">
+                <c:if test="${not empty received.addService}">
                     <tr>
                         <th>Additional Service</th>
-                        <td>${receivedList.addService}</td>
+                        <td>${received.addService}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.delService}">
+                <c:if test="${not empty received.delService}">
                     <tr>
                         <th>Delete Service</th>
-                        <td>${receivedList.delService}</td>
+                        <td>${received.delService}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.result}">
+                <c:if test="${not empty received.result}">
                     <tr>
                         <th>Result</th>
-                        <td>${receivedList.result}</td>
+                        <td>${received.result}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.day}">
+                <c:if test="${not empty received.day}">
                     <tr>
                         <th>Day</th>
-                        <td>${receivedList.day}</td>
+                        <td>${received.day}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.time}">
+                <c:if test="${not empty received.time}">
                     <tr>
                         <th>Time</th>
-                        <td>${receivedList.time}</td>
+                        <td>${received.time}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.age}">
+                <c:if test="${not empty received.age}">
                     <tr>
                         <th>Age</th>
-                        <td>${receivedList.age}</td>
+                        <td>${received.age}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.sex}">
+                <c:if test="${not empty received.sex}">
                     <tr>
                         <th>Sex</th>
-                        <td>${receivedList.sex}</td>
+                        <td>${received.sex}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.fav}">
+                <c:if test="${not empty received.fav}">
                     <tr>
                         <th>Favorite</th>
-                        <td>${receivedList.fav}</td>
+                        <td>${received.fav}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.place}">
+                <c:if test="${not empty received.place}">
                     <tr>
                         <th>Place</th>
-                        <td>${receivedList.place}</td>
+                        <td>${received.place}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.date}">
+                <c:if test="${not empty received.date}">
                     <tr>
                         <th>Date</th>
-                        <td>${receivedList.date}</td>
+                        <td>${received.date}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.region}">
+                <c:if test="${not empty received.regionNum}">
                     <tr>
                         <th>Region</th>
-                        <td>${receivedList.region}</td>
+                        <td>${received.regionName}</td>
                     </tr>
                 </c:if>
-                <c:if test="${not empty receivedList.ref}">
+                <c:if test="${not empty received.ref}">
                     <tr>
                         <th>Reference</th>
-                        <td>${receivedList.ref}</td>
+                        <td>${received.ref}</td>
                     </tr>
                 </c:if>
             </table>
             <br>
-            <%--        <c:if test="${gosu.id != receivedList.replier}">--%>
+            <%--        <c:if test="${gosu.id != received.replier}">--%>
             <div class="receivedRequest">
-                <form action="/request/answer/${receivedList.id}" method="get">
-                    <input type="hidden" name="gosuId" value="${gosu.id}"/>
-                    <!-- 조건에 따라 비활성화 -->
-                        <%--                    <c:choose>--%>
-                        <%--                        <c:when test="${gosu.id == receivedList.replier}">--%>
-                        <%--                            <button type="submit" class="btn btn-primary" disabled>견적 답장하기</button>--%>
-                        <%--                        </c:when>--%>
-                        <%--                        <c:otherwise>--%>
+                    <%--<form action="/request/answer/${received.id}" method="get">
+                        <input type="hidden" name="gosuId" value="${expert.expertNum}"/>
+                        <!-- 조건에 따라 비활성화 -->
+                            &lt;%&ndash;                    <c:choose>&ndash;%&gt;
+                            &lt;%&ndash;                        <c:when test="${gosu.id == received.replier}">&ndash;%&gt;
+                            &lt;%&ndash;                            <button type="submit" class="btn btn-primary" disabled>견적 답장하기</button>&ndash;%&gt;
+                            &lt;%&ndash;                        </c:when>&ndash;%&gt;
+                            &lt;%&ndash;                        <c:otherwise>&ndash;%&gt;
+                        <button type="submit" class="btn btn-primary">견적 답장하기</button>
+                            &lt;%&ndash;                        </c:otherwise>&ndash;%&gt;
+                            &lt;%&ndash;                    </c:choose>&ndash;%&gt;
+                    </form>
+                    --%>
+                <form action="/request/answer" method="post">
+<%--                    <input type="hidden" name="expert" value="${expert}"/>--%>
+<%--                    <input type="hidden" name="received" value="${received}"/>--%>
                     <button type="submit" class="btn btn-primary">견적 답장하기</button>
-                        <%--                        </c:otherwise>--%>
-                        <%--                    </c:choose>--%>
                 </form>
-                <form action="/request/delete/${receivedList.id}" method="post">
+                <form action="/request/delete/${received.id}" method="post">
                     <button type="submit" class="btn btn-warning">견적 지우기</button>
                 </form>
             </div>

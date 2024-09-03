@@ -2,21 +2,23 @@ package org.soomgo.soomgo_project.domain.request;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 @Getter
-public class RequestVO extends RequestDTO {
+@ToString
+public class RequestVO {
 
     private int id;
     private int userNum;
     private String userName; // 이름
     private String expertNum;
-    private String expertName; // 고수 이름
+//    private String expertName; // 고수 이름 -> 필요 없음???
     private LocalDateTime regDate;
     private int categoryNum;
-    private int type;
+    private int typeNum;
     private String typeName; // 카테고리 이름
     private String sub;
     private String file1;
@@ -33,7 +35,7 @@ public class RequestVO extends RequestDTO {
     private String fav;
     private String place;
     private String date;
-    private int region;
+    private int regionNum;
     private String regionName; // 지역 이름
     private String ref;
 }

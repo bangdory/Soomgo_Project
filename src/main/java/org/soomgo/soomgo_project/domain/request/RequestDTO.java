@@ -11,8 +11,8 @@ public class RequestDTO {
     private int userNum;
     private String expertNum;
     private LocalDateTime regDate;
-    private int category;
-    private int type;
+    private int categoryNum;
+    private int typeNum;
     private String sub;
     private String file1;
     private String file2;
@@ -28,7 +28,7 @@ public class RequestDTO {
     private String fav;
     private String place;
     private String date;
-    private int region;
+    private int regionNum;
     private String ref;
 
     public RequestDTO() {

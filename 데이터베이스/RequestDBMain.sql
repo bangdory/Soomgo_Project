@@ -34,7 +34,7 @@ create table 1request
 (
     id         int auto_increment primary key      not null,
     userNum    int                                 not null,
-    expertNum  varchar(50)                         null,
+    expertNum  varchar(50)                         default null,
     regDate    timestamp default CURRENT_TIMESTAMP not null,
     category   int                                 not null,
     type       int                                 not null,
