@@ -1,6 +1,6 @@
 package org.soomgo.soomgo_project.security;
 
-import org.soomgo.soomgo_project.domain.UserDTO;
+import org.soomgo.soomgo_project.domain.user.UserDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

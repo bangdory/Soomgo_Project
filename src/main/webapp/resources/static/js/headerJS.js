@@ -20,8 +20,24 @@ document.addEventListener('DOMContentLoaded', function () {
             headerModal.style.display = 'none';
             header.style.display = 'block';
         }
-    });
 
+    });
+    function toggleDropdown() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // 클릭 시 드롭다운 외부를 클릭하면 닫히도록 설정
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
 
 
 
