@@ -1,22 +1,21 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@include file="WEB-INF/views/header/header.jsp" %>
+<%@include file="WEB-INF/views/header/headerModal.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet" type="text/css">
+
+
     <link href="${pageContext.request.contextPath}/resources/static/css/main/mainPage.css" rel="stylesheet" type="text/css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
-    <script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js"></script>
+
 
     <title>JSP - Hello World</title>
 </head>
 <body>
-<%@include file="WEB-INF/views/header/header.jsp" %>
 <main>
-    <%@include file="WEB-INF/views/header/headerModal.jsp" %>
     <%-- 중앙 페이지 --%>
     <div class="main-center-page-container">
         <div class="main-center-page">
@@ -205,11 +204,11 @@
                             <a href="#">
                                 <div class="community-item-content">
                                     <img src="resources/static/img/1.jpg" class="community-img">
-                                <div class="community-right-text">
-                                    <div class="community-title">제목</div>
-                                    <div class="community-content">내용</div>
-                                    <div class="community-writer">작성자</div>
-                                </div>
+                                    <div class="community-right-text">
+                                        <div class="community-title">제목</div>
+                                        <div class="community-content">내용</div>
+                                        <div class="community-writer">작성자</div>
+                                    </div>
                                 </div>
                             </a>
                         </div>
@@ -235,5 +234,6 @@
 </main>
 
 <!-- JavaScript 파일을 페이지의 마지막에 포함 -->
+<script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js" type="text/javascript"></script>
 </body>
 </html>
