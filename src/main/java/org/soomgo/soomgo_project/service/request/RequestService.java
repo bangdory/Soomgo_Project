@@ -44,6 +44,11 @@ public class RequestService {
     }
 
 
+    public List<AnswerRequestDTO> readAnsweredListOfSelectedRequest(int requestId) {
+        return requestMapper.answerList(requestId);
+    }
+
+
     public List<RequestVO> readAnsweredRequests(ExpertVO expert) {
         return requestMapper.answeredRequestByExpertNum(expert.getExpertNum());
     }

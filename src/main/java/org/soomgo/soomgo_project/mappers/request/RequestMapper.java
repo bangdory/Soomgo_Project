@@ -23,8 +23,7 @@ public interface RequestMapper {
     // 고수가 답장한 견적서
     List<RequestVO> answeredRequestByExpertNum(int expertNum);
 
-    // 고수들이 만든 답장 리스트
-    int answerRequest(AnswerRequestDTO answerRequestDTO);
+    List<AnswerRequestDTO> answerList(int requestId);
 
     // 고수 찾기
 //    ExpertVO findExpert(int expertNum);
@@ -43,7 +42,4 @@ public interface RequestMapper {
     List<CategoryDTO> findType(String type);
 
     CategoryDTO selectedType(String selectedType);
-
-    // 요청서 상태 업데이트
-    int update(AnswerRequestDTO answerRequestDTO);
 }

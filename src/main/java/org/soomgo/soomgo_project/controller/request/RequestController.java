@@ -2,7 +2,6 @@ package org.soomgo.soomgo_project.controller.request;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.request.*;
 import org.soomgo.soomgo_project.domain.userpage.UserDTO;
 import org.soomgo.soomgo_project.service.request.AnswerService;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -51,6 +49,17 @@ public class RequestController {
         model.addAttribute("vo", voList);
         model.addAttribute("user", user);
         return "/request/list";
+    }
+
+    // Ajax 처리로 답변 읽기 -> client 용 list 에서 사용함
+    @GetMapping("/answer-list")
+    public ResponseEntity<List<AnswerRequestDTO>> getAnswerRequestList(@RequestParam int requestId) {
+        if (requestId <= 0) {
+            return ResponseEntity.badRequest().body(Collections.emptyList());
+        }
+        List<AnswerRequestDTO> answerList = requestService.readAnsweredListOfSelectedRequest(requestId);
+        log.info("받은 리스트 -> " + answerList);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(answerList);
     }
 
     @GetMapping("/request-detail")

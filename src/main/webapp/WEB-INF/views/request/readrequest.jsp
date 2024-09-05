@@ -349,9 +349,9 @@
                             &lt;%&ndash;                    </c:choose>&ndash;%&gt;
                     </form>
                     --%>
-                <form action="/request/answer" method="post">
+                <form action="/request/answer/${received.id}" method="post">
 <%--                    <input type="hidden" name="expert" value="${expert}"/>--%>
-<%--                    <input type="hidden" name="received" value="${received}"/>--%>
+                    <input type="hidden" name="received" value="${received.id}"/>
                     <button type="submit" class="btn btn-primary">견적 답장하기</button>
                 </form>
                 <form action="/request/delete/${received.id}" method="post">

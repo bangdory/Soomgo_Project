@@ -79,20 +79,11 @@
         AND r.typeNum = (select c.CategoryName from category c where c.CategoryNum = e.category_num)
         WHERE e.expert_num = #{expertNum}
         ORDER BY r.regDate DESC
-
     </select>
 
-    <insert id="answerRequest" parameterType="AnswerRequestDTO">
-        <selectKey order="AFTER" keyProperty="no" resultType="int">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-        INSERT INTO AnswerRequest (RequestId, type, GosuId, price, ref, file)
-        SELECT r.id, r.typeNum, g.id, #{price}, #{ref}, #{file}
-        FROM request r
-        INNER JOIN gtest g
-        ON r.typeNum = g.type
-        WHERE r.id = #{requestId} AND g.id = #{gosuId};
-    </insert>
+    <select id="answerList" parameterType="int" resultType="AnswerRequestDTO">
+        select a.* from answerrequest a where a.requestId = #{requestId}
+    </select>
 
     <resultMap id="expertData" type="ExpertVO">
         <id property="expertNum" column="expert_num"/>
@@ -182,13 +173,4 @@
         FROM category
         WHERE CategoryName = #{selectedType}
     </select>
-
-    <update id="update" parameterType="AnswerRequestDTO"> <!-- 사용 안할 예정 -->
-        update request
-        set replier = CASE
-        WHEN replier IS NULL THEN #{newReplier}
-        ELSE CONCAT(replier, ',#{newReplier}')
-        END
-        where id = #{requestId}
-    </update>
 </mapper>

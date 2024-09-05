@@ -4,10 +4,9 @@ import lombok.Data;
 
 @Data
 public class AnswerRequestDTO {
-    private int no;
+    private int id;
     private int requestId;
-    private String type;
-    private String gosuId;
+    private int expertNum;
     private int price;
     private String ref;
     private String file;

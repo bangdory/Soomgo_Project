@@ -21,7 +21,7 @@ public class AnswerService {
     private final UserMapper userMapper;
 
     public boolean modify(AnswerRequestDTO answerRequestDTO) {
-        int updateCount = requestMapper.update(answerRequestDTO);
+        int updateCount = answerMapper.update(answerRequestDTO);
         return updateCount == 1;
     }
 
@@ -29,7 +29,4 @@ public class AnswerService {
         answerMapper.answerRequest(answerRequestDTO);
     }
 
-    public List<AnswerRequestDTO> readAnsweredList(int clientId) {
-        return answerMapper.answerList(clientId);
-    }
 }

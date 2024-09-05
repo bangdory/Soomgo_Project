@@ -5,18 +5,23 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.soomgo.soomgo_project.mappers.request.AnswerMapper">
     <insert id="answerRequest" parameterType="AnswerRequestDTO">
-        <selectKey order="AFTER" keyProperty="no" resultType="int">
+        <selectKey order="AFTER" keyProperty="id" resultType="int">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        INSERT INTO AnswerRequest (requestId, type, GosuId, price, ref, file)
-        SELECT r.id, r.type, g.id, #{price}, #{ref}, #{file}
-        FROM request r
-        INNER JOIN gtest g
-        ON r.type = g.type
-        WHERE r.id = #{requestId} AND g.id = #{gosuId};
+        insert into answerrequest (requestId, expertNum, price, ref, file)
+        select r.id, e.expert_num, #{price}, #{ref}, #{file}
+        FROM request r,
+        expert e
+        WHERE r.id = #{requestId}
+        and e.expert_num = #{expertNum};
     </insert>
 
-    <select id="answerList" parameterType="int" resultType="AnswerRequestDTO">
-        select a.* from answerrequest a inner join request r on a.requestId = r.id where r.id = #{requestId}
-    </select>
+    <update id="update" parameterType="AnswerRequestDTO"> <!-- 사용 안할 예정 -->
+        update request
+        set replier = CASE
+        WHEN replier IS NULL THEN #{newReplier}
+        ELSE CONCAT(replier, ',#{newReplier}')
+        END
+        where id = #{requestId}
+    </update>
 </mapper>

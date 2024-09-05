@@ -9,5 +9,8 @@ import java.util.List;
 public interface AnswerMapper {
     int answerRequest(AnswerRequestDTO answerRequestDTO);
 
-    List<AnswerRequestDTO> answerList(int requestId);
+
+
+    // 요청서 상태 업데이트
+    int update(AnswerRequestDTO answerRequestDTO);
 }
