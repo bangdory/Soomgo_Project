@@ -18,9 +18,9 @@
 
     <update id="update" parameterType="AnswerRequestDTO"> <!-- 사용 안할 예정 -->
         update request
-        set replier = CASE
-        WHEN replier IS NULL THEN #{newReplier}
-        ELSE CONCAT(replier, ',#{newReplier}')
+        set expertNum = CASE
+        WHEN expertNum IS NULL THEN #{expertNum}
+        ELSE CONCAT(expertNum, ',',#{expertNum}')
         END
         where id = #{requestId}
     </update>

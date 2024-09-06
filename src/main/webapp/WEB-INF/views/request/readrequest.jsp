@@ -13,7 +13,9 @@
 </head>
 <body>
 <h1>받은 견적서</h1>
-<c:out value="${expert}"/>
+<c:out value="${expert}"/><br>
+<c:out value="answer -> ${answeredList}"/><br>
+<c:out value="received ->${receivedList}"/><br>
 <c:out value="${expert.regionName} ${expert.categoryName}의 고수 ${expert.expertName}님"/>
 <hr>
 
@@ -354,7 +356,7 @@
                     <input type="hidden" name="received" value="${received.id}"/>
                     <button type="submit" class="btn btn-primary">견적 답장하기</button>
                 </form>
-                <form action="/request/delete/${received.id}" method="post">
+                <form action="/request/ignore/${received.id}" method="post">
                     <button type="submit" class="btn btn-warning">견적 지우기</button>
                 </form>
             </div>

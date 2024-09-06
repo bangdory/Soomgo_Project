@@ -146,7 +146,7 @@ public class RequestController {
         List<RequestVO> answered = requestService.readAnsweredRequests(expertUser);
 
         session.setAttribute("expert", expertUser);
-        session.setAttribute("received", received);
+//        session.setAttribute("received", received);
 
         model.addAttribute("expert", expertUser);
         model.addAttribute("answeredList", answered);

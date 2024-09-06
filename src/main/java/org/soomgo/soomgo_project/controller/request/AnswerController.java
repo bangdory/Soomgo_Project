@@ -27,10 +27,10 @@ public class AnswerController {
     private final RequestService requestService;
     private final AnswerService answerService;
 
-    @PostMapping("/answer/{id}")
+    @PostMapping("/answer/{received}")
     public String answer(
             HttpSession session,
-            @PathVariable(name = "id") int id,
+            @PathVariable(name = "received") int id,
             Model model
     )
 //            throws JsonProcessingException
@@ -40,9 +40,12 @@ public class AnswerController {
 //        String expert = (String) session.getAttribute("expert");
         ExpertVO expert = (ExpertVO) session.getAttribute("expert");
         RequestDTO request = requestService.getRequest(id);
-        model.addAttribute("expert", expert);
-        model.addAttribute("request", request);
+        session.setAttribute("expert", expert);
+        session.setAttribute("request", request);
+        log.info("받은 id" + id);
         log.info("담은 모델" + model);
+        log.info("expert 담은것" + expert);
+        log.info("request 담은것" + request);
 //        RequestVO received = (RequestVO) session.getAttribute("received");
 
 //        String jsonExpert = new ObjectMapper().writeValueAsString(expert);
@@ -57,7 +60,9 @@ public class AnswerController {
     public String getAnswerRequest(
             HttpSession session,
             Model model
-    ) throws JsonProcessingException {
+    )
+//            throws JsonProcessingException
+    {
 
 //        String jsonExpert = (String) session.getAttribute("expert");
 //        ExpertVO expert = new ObjectMapper().readValue(jsonExpert, ExpertVO.class);
@@ -65,10 +70,14 @@ public class AnswerController {
 //        ExpertVO expert = (ExpertVO) session.getAttribute("expert");
 //        RequestVO received = (RequestVO) session.getAttribute("received");
 
-        ExpertVO expert = (ExpertVO) model.getAttribute("expert");
-        model.addAttribute("expert", expert);
+        RequestDTO request = (RequestDTO) session.getAttribute("request");
+        ExpertVO expert = (ExpertVO) session.getAttribute("expert");
+        model.addAttribute("request", request);
+        model.addAttribute("request", request);
+        log.info("컨트롤러에서 받은 request 객체" + request);
+        log.info("컨트롤러에서 받은 expert 객체" + expert);
 
-        log.info("받은 고수 ----->>>>>" + model);
+//        log.info("받은 고수 ----->>>>>" + model);
 //        log.info("받은 요청서 ----->>>>>" + received);
 //        RequestDTO request = requestService.getRequest(id);
 //        ExpertVO expert = requestService.findExpert(expertNum);
@@ -105,17 +114,19 @@ public class AnswerController {
     ) {
         log.info("업데이트 데이터 : " + answerRequestDTO);
         log.info("고수 id : " + answerRequestDTO.getExpertNum());
+        log.info("요청서 id : " + answerRequestDTO.getRequestId());
         answerService.modify(answerRequestDTO);
         RequestDTO request = requestService.getRequest(answerRequestDTO.getRequestId());
         answerService.answerRequest(answerRequestDTO);
 //        rttr.addFlashAttribute("result", request);
 //        rttr.addFlashAttribute("id", answerRequestDTO.getId());
         // 인코딩된 URI
-        String encodedUri = UriComponentsBuilder.fromPath("{gosuId}")
+        String encodedUri = UriComponentsBuilder.fromPath("{expertNum}")
                 .buildAndExpand(answerRequestDTO.getExpertNum())
                 .encode()
                 .toUriString();
-        return "redirect:/request/read/" + encodedUri;
+//        return "redirect:/request/read/" + encodedUri;
+        return "redirect:/request/read";
     }
 
 }

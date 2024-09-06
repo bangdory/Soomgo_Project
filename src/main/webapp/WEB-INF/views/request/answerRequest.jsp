@@ -12,20 +12,21 @@
     <title>견적 답변하기</title>
 </head>
 <body>
-<c:out value="${expert}"/><br>
-<c:out value="${received}"/><br>
+<c:out value="Expert 객체 -> ${expert}"/><br>
+<c:out value="Request 객체 -> ${request}"/><br>
 <c:out value="${expert.regionName} ${expert.categoryName}의 고수 ${expert.expertName}님"/>
 <form action="/request/answerRequest" method="post">
-    <input type="hidden" name="requestId" value="${received.id}">
-    <input type="hidden" name="type" value="${received.categoryNum}">
-    <input type="hidden" name="expertNum" value="${expert.expertName}"> <%--AnseredRequestDTO 의 이름 값 gosuId 에서 변경할 것 --%>
+    <input type="hidden" name="requestId" value="${request.id}">
+    <input type="hidden" name="type" value="${request.typeNum}">
+    <input type="hidden" name="expertNum" value="${expert.expertNum}"> <%--AnseredRequestDTO 의 이름 값 gosuId 에서 변경할 것 --%>
 <%--    <input type="hidden" name="answerDTO" value="${}"--%>
     <table border="1">
 
     </table>
     <div>
         서비스 금액 :
-        <input type="text" name="price" class="form-control" placeholder="금액을 입력하세요">
+        <input type="text" name="price" class="form-control" placeholder="금액을 입력하세요"
+               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
     </div>
     <div>
         서비스 설명 :
