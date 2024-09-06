@@ -152,6 +152,8 @@ public class RequestController {
         model.addAttribute("answeredList", answered);
         model.addAttribute("receivedList", received);
 
+        log.info("답장리스트" + answered);
+
         return "/request/readrequest";
     }
 /*

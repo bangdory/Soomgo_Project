@@ -1,6 +1,5 @@
 package org.soomgo.soomgo_project.controller.request;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.request.AnswerRequestDTO;
@@ -8,8 +7,6 @@ import org.soomgo.soomgo_project.domain.request.ExpertVO;
 import org.soomgo.soomgo_project.domain.request.RequestDTO;
 import org.soomgo.soomgo_project.service.request.AnswerService;
 import org.soomgo.soomgo_project.service.request.RequestService;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +37,7 @@ public class AnswerController {
 //        String expert = (String) session.getAttribute("expert");
         ExpertVO expert = (ExpertVO) session.getAttribute("expert");
         RequestDTO request = requestService.getRequest(id);
+        // 위에 이거 requestMapper 에서 selectedRequest 사용하면 RequestVO 로 추출 가능!!
         session.setAttribute("expert", expert);
         session.setAttribute("request", request);
         log.info("받은 id" + id);
@@ -115,7 +113,7 @@ public class AnswerController {
         log.info("업데이트 데이터 : " + answerRequestDTO);
         log.info("고수 id : " + answerRequestDTO.getExpertNum());
         log.info("요청서 id : " + answerRequestDTO.getRequestId());
-        answerService.modify(answerRequestDTO);
+        answerService.modifyOriginalRequest(answerRequestDTO);
         RequestDTO request = requestService.getRequest(answerRequestDTO.getRequestId());
         answerService.answerRequest(answerRequestDTO);
 //        rttr.addFlashAttribute("result", request);
@@ -126,7 +124,7 @@ public class AnswerController {
                 .encode()
                 .toUriString();
 //        return "redirect:/request/read/" + encodedUri;
-        return "redirect:/request/read";
+        return "redirect:/request/readrequest";
     }
 
 }

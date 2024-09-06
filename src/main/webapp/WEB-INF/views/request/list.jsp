@@ -27,8 +27,8 @@
                 <%--                    ${list}--%>
                 <%--                </c:forEach>--%>
                 <c:forEach var="vo" items="${vo}">
-                    ${vo.categoryName}
-                    ${vo.district}
+                    ${vo.typeName}
+                    ${vo.regionName}
                 </c:forEach>
                 <h2>내 요청서</h2>
                 <div class="wrapper">
@@ -46,7 +46,7 @@
                         <c:if test="${not empty vo.expertNum}">
                             <div class="request-item">
                                 <div class="sort-date">
-                                    <h3>${vo.categoryName}</h3> <%-- 카테고리 예)IT --%>
+                                    <h3>${vo.typeName}</h3> <%-- 카테고리 예)IT --%>
                                     <p><span class="regDate" data-date="${vo.regDate}">${vo.regDate}</span>
                                     </p> <%--언제 보냈는지--%>
                                 </div>
@@ -72,7 +72,7 @@
                         <c:if test="${empty vo.expertNum}">
                             <div class="request-item">
                                 <div class="sort-date">
-                                    <h3>${vo.categoryName}</h3> <%-- 카테고리 예)IT --%>
+                                    <h3>${vo.typeName}</h3> <%-- 카테고리 예)IT --%>
                                     <p><span class="regDate" data-date="${vo.regDate}">${vo.regDate}</span>
                                     </p> <%--언제 보냈는지--%>
                                 </div>
@@ -227,8 +227,8 @@
                         h3.textContent = '요청서 상세보기'
 
                         const h4 = document.createElement('h4');
-                        h4.textContent = '요청 타입: ' + data.categoryName + '요청ID: ' + data.id;
-                        h4.setAttribute('type', data.categoryName);
+                        h4.textContent = '요청 타입: ' + data.typeName + '요청ID: ' + data.id;
+                        h4.setAttribute('type', data.typeName);
 
                         const h5 = document.createElement('h5');
                         const beforeFormatDate = data.regDate;

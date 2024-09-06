@@ -35,15 +35,51 @@
         <!--        and c.CategoryNum = r.typeNum-->
     </select>
 
-    <select id="selectedRequest" parameterType="int" resultType="RequestVO">
+    <resultMap id="selectedRequestDetail" type="RequestVO">
+        <id property="id" column="id"/>
+        <result property="requestId" column="district"/>
+        <result property="userNum" column="CategoryName"/>
+        <result property="userName" column="user_name"/>
+        <result property="expertName" column="userNum"/>
+        <result property="replyDate" column="expertNum"/>
+        <result property="typeNum" column="amount"/>
+        <result property="typeName" column="addService"/>
+        <result property="subType" column="sub"/>
+        <result property="file1" column="file1"/>
+        <result property="file2" column="file2"/>
+        <result property="amount" column="amount"/>
+        <result property="addService" column="addService"/>
+        <result property="result" column="result"/>
+        <result property="day" column="day"/>
+        <result property="time" column="time"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="fav" column="fav"/>
+        <result property="place" column="place"/>
+        <result property="date" column="date"/>
+        <result property="regionNum" column="regionNum"/>
+        <result property="regionName" column="district"/>
+        <result property="refFromClient" column="r.ref"/>
+        <result property="price" column="price"/>
+        <result property="refFromExpert" column="a.ref"/>
+        <result property="fileFromExpert" column="file"/>
+    </resultMap>
+
+    <select id="selectedRequest" parameterType="int" resultMap="selectedRequestDetail">
         select t.district,
         c.CategoryName,
+        u.user_name,
         r.*
-        from territory t,
-        category c
-        inner join request r on r.id = #{requestId}
-        where t.no = r.regionNum
-        and c.CategoryNum = r.typeNum
+        from request r
+        inner join
+        territory t on t.no = r.regionNum
+        inner join
+        category c on c.CategoryNum = r.typeNum
+        inner join
+        answerrequest a on a.RequestId = r.id
+        inner join
+        user u on u.user_num = a.expertNum
+        where r.id = 3
     </select>
 
     <select id="readRequestByExpertNum" parameterType="int" resultType="RequestVO">
@@ -71,21 +107,95 @@
         ORDER BY r.regDate DESC
     </select>
 
-    <select id="answeredRequestByExpertNum" parameterType="int" resultType="RequestVO">
-        SELECT r.*
-        FROM request r
-        INNER JOIN expert e
-        ON r.expertNum = (select u.user_name from user u where u.user_num = e.user_num)
-        AND r.typeNum = (select c.CategoryName from category c where c.CategoryNum = e.category_num)
-        WHERE e.expert_num = #{expertNum}
-        ORDER BY r.regDate DESC
+    <resultMap id="answeredListFromExpert" type="AnswerRequestVO">
+        <id property="id" column="id"/>
+        <result property="requestId" column="RequestId"/>
+        <result property="userNum" column="userNum"/>
+        <result property="userName" column="clientName"/>
+        <result property="expertNum" column="expert_num"/>
+        <result property="expertName" column="expertName"/>
+        <result property="replyDate" column="replyDate"/>
+        <result property="typeNum" column="typeNum"/>
+        <result property="typeName" column="CategoryName"/>
+        <result property="subType" column="sub"/>
+        <result property="file1" column="file1"/>
+        <result property="file2" column="file2"/>
+        <result property="amount" column="amount"/>
+        <result property="addService" column="addService"/>
+        <result property="result" column="result"/>
+        <result property="day" column="day"/>
+        <result property="time" column="time"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="fav" column="fav"/>
+        <result property="place" column="place"/>
+        <result property="date" column="date"/>
+        <result property="regionNum" column="regionNum"/>
+        <result property="regionName" column="district"/>
+        <result property="refFromClient" column="r.ref"/>
+        <result property="price" column="price"/>
+        <result property="refFromExpert" column="a.ref"/>
+        <result property="fileFromExpert" column="file"/>
+    </resultMap>
+
+    <select id="answeredRequestByExpertNum" parameterType="int" resultMap="answeredListFromExpert">
+<!--        SELECT r.*-->
+<!--        FROM request r-->
+<!--        INNER JOIN expert e-->
+<!--        ON r.expertNum = (select u.user_name from user u where u.user_num = e.user_num)-->
+<!--        AND r.typeNum = (select c.CategoryName from category c where c.CategoryNum = e.category_num)-->
+<!--        WHERE e.expert_num = #{expertNum}-->
+<!--        ORDER BY r.regDate DESC-->
+        select a.id,
+        a.RequestId,
+        r.userNum,
+        u.user_name clientName,
+        e.expert_num,
+        u2.user_name expertName,
+        a.replyDate,
+        r.typeNum,
+        c.CategoryName,
+        r.sub,
+        r.file1,
+        r.file2,
+        r.amount,
+        r.addService,
+        r.result,
+        r.day,
+        r.time,
+        r.age,
+        r.sex,
+        r.fav,
+        r.place,
+        r.date,
+        r.regionNum,
+        t.district,
+        r.ref,
+        a.price,
+        a.ref,
+        a.file
+        from request r
+        inner join
+        answerrequest a on a.RequestId = r.id
+        inner join
+        user u on u.user_num = r.userNum
+        inner join
+        user u2 on u2.user_num = a.expertNum
+        inner join
+        expert e on e.expert_num = a.expertNum
+        inner join
+        category c on c.CategoryNum = r.typeNum
+        inner join
+        territory t on t.no = r.regionNum
+        where a.expertNum = #{expertNum}
+
     </select>
 
     <select id="answerList" parameterType="int" resultType="AnswerRequestDTO">
         select a.* from answerrequest a where a.requestId = #{requestId}
     </select>
 
-    <resultMap id="expertData" type="ExpertVO">
+    <resultMap id="findExpertVO" type="ExpertVO">
         <id property="expertNum" column="expert_num"/>
         <result property="userNum" column="user_num"/>
         <result property="expertName" column="user_name"/>
@@ -98,7 +208,7 @@
         <result property="regionName" column="district"/>
         <result property="img" column="img"/>
     </resultMap>
-    <select id="findExpert" parameterType="int" resultMap="expertData">
+    <select id="findExpert" parameterType="int" resultMap="findExpertVO">
         select e.expert_num,
         u.user_num,
         u.user_name,

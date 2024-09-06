@@ -64,7 +64,7 @@ public class MapperTest {
     }
     @Test
     public void testAnsweredRequestList() {
-        List<RequestVO> requestVOS = requestMapper.answeredRequestByExpertNum(1);
+        List<RequestVO> requestVOS = requestMapper.answeredRequestByExpertNum(2);
         log.info(requestVOS);
     }
 
@@ -137,7 +137,6 @@ public class MapperTest {
         AnswerRequestDTO a = new AnswerRequestDTO();
         a.setPrice(50000);
         a.setRef("테스트 서비스를 제공합니다");
-        a.setFile("");
         a.setRequestId(13);
 //        a.setExpertId("고수4");
         answerMapper.answerRequest(a);

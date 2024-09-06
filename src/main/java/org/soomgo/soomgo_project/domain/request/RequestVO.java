@@ -10,12 +10,12 @@ import java.time.temporal.ChronoUnit;
 @Getter
 @ToString
 public class RequestVO {
-
+// 이 클래스는 id 로 조회하는 특정 request 임
     private int id;
     private int userNum;
     private String userName; // 이름
-    private String expertNum;
-//    private String expertName; // 고수 이름 -> 필요 없음???
+//    private String expertNum; // 고수번호 -> 배열, 필요없음??
+    private String expertName; // 고수 이름
     private LocalDateTime regDate;
     private int categoryNum;
     private int typeNum;

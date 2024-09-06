@@ -9,8 +9,6 @@ import org.soomgo.soomgo_project.mappers.userpage.UserMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Log4j2
 @RequiredArgsConstructor
@@ -20,7 +18,7 @@ public class AnswerService {
     private final RequestMapper requestMapper;
     private final UserMapper userMapper;
 
-    public boolean modify(AnswerRequestDTO answerRequestDTO) {
+    public boolean modifyOriginalRequest(AnswerRequestDTO answerRequestDTO) {
         int updateCount = answerMapper.update(answerRequestDTO);
         return updateCount == 1;
     }

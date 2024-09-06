@@ -23,46 +23,26 @@
     <%--    <c:out value="${answeredList}"/>--%>
     <c:forEach var="answered" items="${answeredList}">
         <table border="1">
-            <c:if test="${not empty answered.id}">
                 <tr>
-                    <th>ID</th>
-                    <td>${answered.id}</td>
+                    <th>요청서 번호</th>
+                    <td>${answered.requestId}</td>
                 </tr>
-            </c:if>
-            <c:if test="${not empty answered.writer}">
                 <tr>
-                    <th>Writer</th>
-                    <td>${answered.writer}</td>
+                    <th>고객 이름</th>
+                    <td>${answered.userName}</td>
                 </tr>
-            </c:if>
-                <%--<c:if test="${not empty answered.replier}">
-                    <tr>
-                        <th>Replier</th>
-                        <td>${answered.replier}</td>
-                    </tr>
-                </c:if>--%>
-            <c:if test="${not empty answered.regDate}">
                 <tr>
-                    <th>Registration Date</th>
-                    <td>${answered.regDate}</td>
+                    <th>답변한 날짜</th>
+                    <td>${answered.replyDate}</td>
                 </tr>
-            </c:if>
-            <c:if test="${not empty answered.sort}">
                 <tr>
-                    <th>Sort</th>
-                    <td>${answered.sort}</td>
+                    <th>카테고리</th>
+                    <td>${answered.typeName}</td>
                 </tr>
-            </c:if>
-            <c:if test="${not empty answered.typeNum}">
-                <tr>
-                    <th>Type</th>
-                    <td>${answered.typeNum}</td>
-                </tr>
-            </c:if>
-            <c:if test="${not empty answered.sub}">
+            <c:if test="${not empty answered.subType}">
                 <tr>
                     <th>Sub</th>
-                    <td>${answered.sub}</td>
+                    <td>${answered.subType}</td>
                 </tr>
             </c:if>
             <c:if test="${not empty answered.file1}">
@@ -77,88 +57,80 @@
                     <td>${answered.file2}</td>
                 </tr>
             </c:if>
-            <c:if test="${answered.cr != null}">
+            <c:if test="${not empty answered.addService}">
                 <tr>
-                    <th>Commercial Use</th>
-                    <td>${answered.cr}</td>
+                    <th>AddService</th>
+                    <td>${answered.addService}</td>
                 </tr>
             </c:if>
+<%--            <c:if test="${answered.cr != null}">--%>
+<%--                <tr>--%>
+<%--                    <th>Commercial Use</th>--%>
+<%--                    <td>${answered.cr}</td>--%>
+<%--                </tr>--%>
+<%--            </c:if>--%>
             <c:if test="${not empty answered.amount}">
                 <tr>
                     <th>Amount</th>
                     <td>${answered.amount}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answered.addService}">
-                <tr>
-                    <th>Additional Service</th>
-                    <td>${answered.addService}</td>
-                </tr>
-            </c:if>
-            <c:if test="${not empty answered.delService}">
-                <tr>
-                    <th>Delete Service</th>
-                    <td>${answered.delService}</td>
-                </tr>
-            </c:if>
             <c:if test="${not empty answered.result}">
                 <tr>
-                    <th>Result</th>
+                    <th>result</th>
                     <td>${answered.result}</td>
                 </tr>
             </c:if>
             <c:if test="${not empty answered.day}">
                 <tr>
-                    <th>Day</th>
+                    <th>데드라인 / 마감기간</th>
                     <td>${answered.day}</td>
                 </tr>
             </c:if>
             <c:if test="${not empty answered.time}">
                 <tr>
-                    <th>Time</th>
+                    <th>원하는 시간대</th>
                     <td>${answered.time}</td>
                 </tr>
             </c:if>
             <c:if test="${not empty answered.age}">
                 <tr>
-                    <th>Age</th>
+                    <th>연령대 -> 향후에 int 에서 varchar 로 변경</th>
                     <td>${answered.age}</td>
                 </tr>
             </c:if>
             <c:if test="${not empty answered.sex}">
                 <tr>
-                    <th>Sex</th>
+                    <th>성별</th>
                     <td>${answered.sex}</td>
                 </tr>
             </c:if>
             <c:if test="${not empty answered.fav}">
                 <tr>
-                    <th>Favorite</th>
+                    <th>선호하는 성별</th>
                     <td>${answered.fav}</td>
                 </tr>
             </c:if>
             <c:if test="${not empty answered.place}">
                 <tr>
-                    <th>Place</th>
+                    <th>서비스 장소</th>
                     <td>${answered.place}</td>
                 </tr>
             </c:if>
             <c:if test="${not empty answered.date}">
                 <tr>
-                    <th>Date</th>
+                    <th>희망 요일</th>
                     <td>${answered.date}</td>
                 </tr>
             </c:if>
-            <c:if test="${not empty answered.regionNum}">
                 <tr>
-                    <th>Region</th>
-                    <td>${answered.regionNum}</td>
+                    <th>서비스 지역</th>
+                    <td>${answered.regionName}</td>
                 </tr>
-            </c:if>
-            <c:if test="${not empty answered.ref}">
+            <c:if test="${not empty answered.refFromClient}">
                 <tr>
-                    <th>Reference</th>
-                    <td>${answered.ref}</td>
+                    <th>고객의 기타사항</th>
+                    <td>${answered.refFromClient}</td>
                 </tr>
             </c:if>
         </table>

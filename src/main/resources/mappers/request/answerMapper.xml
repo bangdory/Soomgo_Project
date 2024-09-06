@@ -17,11 +17,17 @@
     </insert>
 
     <update id="update" parameterType="AnswerRequestDTO"> <!-- 사용 안할 예정 -->
-        update request
-        set expertNum = CASE
-        WHEN expertNum IS NULL THEN #{expertNum}
-        ELSE CONCAT(expertNum, ',',#{expertNum}')
+<!--        update request-->
+<!--        set expertNum = CASE-->
+<!--        WHEN expertNum IS NULL THEN #{expertNum}-->
+<!--        ELSE CONCAT(expertNum, ',',#{expertNum}')-->
+<!--        END-->
+<!--        where id = #{requestId}-->
+        UPDATE request
+        SET expertNum = CASE
+        WHEN expertNum IS NULL THEN #{expertNum, jdbcType=VARCHAR}
+        ELSE CONCAT(COALESCE(expertNum, ''), ',', #{expertNum, jdbcType=VARCHAR})
         END
-        where id = #{requestId}
+        WHERE id = #{requestId, jdbcType=INTEGER}
     </update>
 </mapper>

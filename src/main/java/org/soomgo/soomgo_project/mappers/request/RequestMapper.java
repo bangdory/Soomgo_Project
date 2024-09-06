@@ -15,6 +15,7 @@ public interface RequestMapper {
 
     //
     RequestDTO select(int requestId);
+    // 개별 요청서 확인용
     RequestVO selectedRequest(int requestId);
 
     // 고수가 받은 요청서
