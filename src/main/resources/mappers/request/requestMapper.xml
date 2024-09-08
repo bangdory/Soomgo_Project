@@ -8,7 +8,8 @@
         <selectKey order="AFTER" keyProperty="id" resultType="int">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into request (userNum, regDate, categoryNum, typeNum, sub, file1, file2, cr, amount, addService, result, day,
+        insert into request (userNum, regDate, categoryNum, typeNum, sub, file1, file2, cr, amount, addService, result,
+        day,
         time,
         age, sex, fav, place, date, regionNum, ref)
         values (#{userNum}, #{regDate}, #{categoryNum}, #{typeNum}, #{sub}, #{file1}, #{file2}, #{cr}, #{amount},
@@ -17,9 +18,35 @@
         #{sex}, #{fav}, #{place}, #{date}, #{regionNum}, #{ref})
     </insert>
 
-    <select id="getListByClientNo" parameterType="int" resultType="RequestDTO">
+    <select id="getListByClientNo" parameterType="int" resultType="RequestVO">
         <!--        select * from test where id > 0 order by id desc-->
-        select * from request where userNum = #{clientId} AND id > 0 order by id desc
+        select r.id,
+        c.CategoryName typeName,
+        LENGTH(r.expertNum) - LENGTH(REPLACE(r.expertNum, ',', '')) + 1 experts,
+        u.user_name,
+        r.userNum,
+        r.typeNum,
+        r.sub,
+        r.file1,
+        r.file2,
+        r.cr,
+        r.amount,
+        r.addService,
+        r.regDate,
+        r.result,
+        r.day,
+        r.time,
+        r.age,
+        r.sex,
+        r.fav,
+        r.place,
+        r.date,
+        r.ref refFromClient,
+        r.deleted
+        from request r
+        inner join user u on u.user_num = r.userNum
+        inner join category c on c.CategoryNum = r.typeNum
+        where r.userNum = #{clientId} order by regDate DESC, deleted ASC
     </select>
 
     <select id="select" parameterType="int" resultType="RequestDTO">
@@ -41,14 +68,9 @@
         <result property="typeName" column="CategoryName"/>
         <result property="userName" column="user_name"/>
         <result property="experts" column="experts"/>
-<!--        <result property="replyDate" column="expertNum"/>-->
-<!--        <result property="replyDate" column="regDate"/>-->
-<!--        <result property="categoryNum" column="categoryNum"/>-->
-<!--        <result property="typeName" column="typeNum"/>-->
         <result property="sub" column="sub"/>
         <result property="file1" column="file1"/>
         <result property="file2" column="file2"/>
-<!--        <result property="cr" column="cr"/>-->
         <result property="amount" column="amount"/>
         <result property="addService" column="addService"/>
         <result property="result" column="result"/>
@@ -59,8 +81,9 @@
         <result property="fav" column="fav"/>
         <result property="place" column="place"/>
         <result property="date" column="date"/>
-<!--        <result property="regionNum" column="regionNum"/>-->
+        <!--        <result property="regionNum" column="regionNum"/>-->
         <result property="regionName" column="ref"/>
+        <result property="deleted" column="deleted"/>
     </resultMap>
 
     <select id="selectedRequest" parameterType="int" resultMap="selectedRequestDetail">
@@ -79,9 +102,9 @@
         where r.id = #{requestId}
     </select>
 
-<!--    <select id="answeredRequest" parameterType="int" resultType="AnswerRequestVO">-->
-<!-- 개별 데이터 조회용, 작성할 것-->
-<!--    </select>-->
+    <!--    <select id="answeredRequest" parameterType="int" resultType="AnswerRequestVO">-->
+    <!-- 개별 데이터 조회용, 작성할 것-->
+    <!--    </select>-->
     <select id="readRequestByExpertNum" parameterType="int" resultType="RequestVO">
         <!--   SELECT r.*
            FROM request r
@@ -91,7 +114,7 @@
            WHERE e.expert_num = ${expertNum}
            ORDER BY r.regDate DESC-->
         SELECT u.user_name userName,
-<!--        u2.user_name expertName,-->
+        <!--        u2.user_name expertName,-->
         c.CategoryName typeName,
         t.district regionName,
         r.*
@@ -100,7 +123,7 @@
         ON r.regionNum = e.region
         AND r.typeNum = e.category_num
         inner join user u on u.user_num = r.userNum
-<!--        inner join user u2 on u2.user_num = e.expert_Num-->
+        <!--        inner join user u2 on u2.user_num = e.expert_Num-->
         inner join category c on c.CategoryNum = r.categoryNum
         inner join territory t on t.no = r.regionNum
         WHERE e.expert_num = #{expertNum}
@@ -139,13 +162,13 @@
     </resultMap>
 
     <select id="answeredRequestByExpertNum" parameterType="int" resultMap="answeredListFromExpert">
-<!--        SELECT r.*-->
-<!--        FROM request r-->
-<!--        INNER JOIN expert e-->
-<!--        ON r.expertNum = (select u.user_name from user u where u.user_num = e.user_num)-->
-<!--        AND r.typeNum = (select c.CategoryName from category c where c.CategoryNum = e.category_num)-->
-<!--        WHERE e.expert_num = #{expertNum}-->
-<!--        ORDER BY r.regDate DESC-->
+        <!--        SELECT r.*-->
+        <!--        FROM request r-->
+        <!--        INNER JOIN expert e-->
+        <!--        ON r.expertNum = (select u.user_name from user u where u.user_num = e.user_num)-->
+        <!--        AND r.typeNum = (select c.CategoryName from category c where c.CategoryNum = e.category_num)-->
+        <!--        WHERE e.expert_num = #{expertNum}-->
+        <!--        ORDER BY r.regDate DESC-->
         select a.id,
         a.RequestId,
         r.userNum,
@@ -216,6 +239,7 @@
         <result property="place" column="place"/>
         <result property="date" column="date"/>
         <result property="date" column="refFromClient"/>
+        <result property="deleted" column="deleted"/>
     </resultMap>
 
     <!-- 0908 견적이 달린 요청서 확인 (고객용) -->
@@ -245,7 +269,8 @@
         r.fav,
         r.place,
         r.date,
-        r.ref refFromClient
+        r.ref refFromClient,
+        r.deleted
         from answerrequest a
         inner join request r on a.requestId = r.id
         inner join user u on u.user_num = a.expertNum
@@ -340,4 +365,63 @@
         FROM category
         WHERE CategoryName = #{selectedType}
     </select>
+
+
+    <update id="deleteRequestFromClient" parameterType="int">
+        update request r set r.deleted = true where r.id = #{requestId}
+    </update>
+
+<!--
+삭제된 요청서 읽기 -> selectedRequestDetail 사용할 것
+    <resultMap id="deletedSingleRequest" type="RequestVO">
+        <id property="id" column="id"/>
+        <result property="userNum" column="userNum"/>
+        <result property="userName" column="user_name"/>
+        <result property="experts" column="experts"/>
+        <result property="typeNum" column="typeNum"/>
+        <result property="sub" column="sub"/>
+        <result property="file1" column="file1"/>
+        <result property="file2" column="file2"/>
+        <result property="amount" column="amount"/>
+        <result property="addService" column="addService"/>
+        <result property="result" column="result"/>
+        <result property="day" column="day"/>
+        <result property="time" column="time"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="fav" column="fav"/>
+        <result property="place" column="place"/>
+        <result property="date" column="date"/>
+        <result property="ref" column="refFromClient"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <select id="deletedRequestByClient" parameterType="int" resultMap="deletedSingleRequest">
+        select r.id,
+        LENGTH(r.expertNum) - LENGTH(REPLACE(r.expertNum, ',', '')) + 1 experts,
+        u.user_name,
+        r.userNum,
+        r.typeNum,
+        r.sub,
+        r.file1,
+        r.file2,
+        r.cr,
+        r.amount,
+        r.addService,
+        r.result,
+        r.day,
+        r.time,
+        r.age,
+        r.sex,
+        r.fav,
+        r.place,
+        r.date,
+        r.ref refFromClient,
+        r.deleted
+        from answerrequest a
+        inner join request r on a.requestId = r.id
+        inner join user u on u.user_num = r.userNum
+        where a.requestId = #{requestId}
+    </select>
+-->
 </mapper>

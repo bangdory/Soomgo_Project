@@ -11,7 +11,7 @@ public interface RequestMapper {
     int insert(RequestDTO requestDTO);
 
     // 고객이 보낸 요청서 리스트
-    List<RequestDTO> getListByClientNo(int clientNo);
+    List<RequestVO> getListByClientNo(int clientNo);
 
     //
     RequestDTO select(int requestId);
@@ -45,4 +45,6 @@ public interface RequestMapper {
     List<CategoryDTO> findType(String type);
 
     CategoryDTO selectedType(String selectedType);
+
+    int deletedRequestByClient(int requestId);
 }

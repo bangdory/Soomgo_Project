@@ -27,7 +27,7 @@ public class RequestService {
         return requestDTO.getId();
     }
 
-    public List<RequestDTO> list(int clientNo) {
+    public List<RequestVO> list(int clientNo) {
         return requestMapper.getListByClientNo(clientNo);
     }
 
@@ -84,7 +84,9 @@ public class RequestService {
     }
 */
 
-    public boolean remove(int id) {
-        return true; // 08.06 -> 나중에 추가할 것
+    public boolean removeRequestByClient(int requestId) {
+
+//        return true; // 08.06 -> 나중에 추가할 것
+        return requestMapper.deletedRequestByClient(requestId) == 1;
     }
 }

@@ -41,6 +41,7 @@ public class AnswerRequestVO {
     private String fileFromExpert; // 고수파일
 
     private Integer connected; // 고수와 매칭 여부
+    private Boolean deleted;
 
     public AnswerRequestVO() {
         this.replyDate = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);

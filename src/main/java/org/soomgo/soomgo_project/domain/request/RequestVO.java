@@ -38,4 +38,5 @@ public class RequestVO {
     private int regionNum;
     private String regionName; // 지역 이름
     private String ref;
+    private String deleted; // 삭제 여부 (고객)
 }

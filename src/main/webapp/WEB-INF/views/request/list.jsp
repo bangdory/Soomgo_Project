@@ -13,6 +13,23 @@
     <title>내 요청서</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/static/css/request/style.css" rel="stylesheet">
+    <style>
+        .btn-deleted {
+            background-color: gray;
+            border: solid transparent;
+            border-radius: 5px;
+            width: 100%;
+            height: 30%;
+            cursor: pointer;
+            color: white;
+        }
+        .deleted-bar {
+            height: 10px;
+            width: 100%;
+            background-color: gray;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 
@@ -31,6 +48,7 @@
                     ${vo.regionName}
                 </c:forEach>
                 <h2>내 요청서</h2>
+<%--                <c:out value="${vo[0]}"/>--%>
                 <div class="wrapper">
                     <input type="checkbox" id="switch">
                     <label for="switch" class="switch_label">
@@ -39,11 +57,11 @@
                 </div>
                 <div id="requestsWithAnswer" class="requestsList hidden">
                     <h3>답장을 받은 요청서</h3>
-                    <c:if test="${vo[0].experts.length < 1}">
-                        <h4>아직 견적이 달린 요청서가 없습니다</h4>
-                    </c:if>
                     <c:forEach var="vo" items="${vo}">
-                        <c:if test="${vo.experts>0}">
+                        <c:if test="${vo.experts < 1}">
+                            <h4>아직 견적이 달린 요청서가 없습니다</h4>
+                        </c:if>
+                        <c:if test="${vo.experts >= 1 && vo.deleted == null}">
                             <div class="request-item">
                                 <div class="sort-date">
                                     <h3>${vo.typeName}</h3> <%-- 카테고리 예)IT --%>
@@ -69,7 +87,7 @@
                 <div id="requestsWithoutAnswer" class="requestsList">
                     <h3>내가 보낸 요청서</h3>
                     <c:forEach var="vo" items="${vo}">
-                        <c:if test="${vo.experts <=0}">
+                        <c:if test="${vo.experts == null || vo.deleted == null}">
                             <div class="request-item">
                                 <div class="sort-date">
                                     <h3>${vo.typeName}</h3> <%-- 카테고리 예)IT --%>
@@ -88,6 +106,29 @@
                                 <div class="read-con">
                                     <button id="requestDetailWithoutAnswer" class="btn-detail" data-list='${vo.id}'>
                                         자세히보기
+                                    </button>
+                                </div>
+                            </div>
+                        </c:if>
+                        <c:if test="${(vo.experts >= 1 && vo.deleted == 1) || (vo.experts <= 0 && vo.deleted == 1)}">
+                            <div class="request-item">
+                                <div class="sort-date">
+                                    <h3>${vo.typeName}</h3> <%-- 카테고리 예)IT --%>
+                                    <p><span class="regDate" data-date="${vo.regDate}">${vo.regDate}</span>
+                                    </p> <%--언제 보냈는지--%>
+                                </div>
+                                <div class="progress">
+                                    <div class="deleted-bar">
+                                    </div>
+                                </div>
+                                <div class="progress-tag">
+<%--                                    <p class="progress-tag-left"></p>--%>
+<%--                                    <p class="progress-tag-center">삭제된 요청서</p>--%>
+<%--                                    <p class="progress-tag-right"></p>--%>
+                                </div>
+                                <div class="read-con">
+                                    <button id="deletedRequestByClient" class="btn-deleted" disabled style="cursor: no-drop">
+                                        삭제된 요청서입니다
                                     </button>
                                 </div>
                             </div>
@@ -152,6 +193,12 @@
             function pagination() {
                 const page1 = document.getElementById('requestsWithoutAnswer');
                 const page2 = document.getElementById('requestsWithAnswer');
+                const requestDetail = document.getElementById('requestDetail');
+                const answerDetails = document.getElementById('answerDetails');
+                if (!answerDetails.classList.contains('hidden') || !requestDetail.classList.contains('hidden')) {
+                    answerDetails.classList.add('hidden')
+                    requestDetail.classList.add('hidden')
+                }
                 if (page1.classList.contains('hidden')) {
                     page1.classList.remove('hidden');
                     page2.classList.add('hidden');

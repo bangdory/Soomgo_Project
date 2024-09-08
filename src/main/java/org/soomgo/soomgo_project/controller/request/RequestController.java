@@ -38,15 +38,11 @@ public class RequestController {
         if (user == null) {
             return "redirect:/login";
         }
-        List<RequestDTO> list = requestService.list(user.getUser_num());
+        log.info(user.getUser_num());
+        List<RequestVO> list = requestService.list(user.getUser_num());
 
-        List<RequestVO> voList = new ArrayList<>();
-        for (RequestDTO requestDTO : list) {
-            RequestVO requests = requestService.selectedRequest(requestDTO.getId());
-            voList.add(requests);
-        }
-        log.info(voList);
-        model.addAttribute("vo", voList);
+        log.info(list);
+        model.addAttribute("vo", list);
         model.addAttribute("user", user);
         return "/request/list";
     }
@@ -70,6 +66,16 @@ public class RequestController {
         RequestVO request = requestService.selectedRequest(requestId);
         log.info("상세 요청서 -> " + request);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(request);
+    }
+
+    @GetMapping("/remove-request")
+    public ResponseEntity<Boolean> removeRequestByClient(@RequestParam int requestId) {
+        if (requestId <= 0) {
+            return ResponseEntity.badRequest().body(false);
+        }
+        boolean deleted = requestService.removeRequestByClient(requestId);
+        log.info("삭제된 요청서 -> " + deleted);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(deleted);
     }
 
     /*// Ajax 처리로 답변 읽기

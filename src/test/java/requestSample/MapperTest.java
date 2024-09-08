@@ -53,7 +53,7 @@ public class MapperTest {
 
     @Test
     public void testList() {
-        List<RequestDTO> list = requestMapper.getListByClientNo(1);
+        List<RequestVO> list = requestMapper.getListByClientNo(1);
         log.info(list);
     }
 
@@ -62,6 +62,7 @@ public class MapperTest {
         List<RequestVO> requestVOS = requestMapper.readRequestByExpertNum(2);
         log.info(requestVOS);
     }
+
     @Test
     public void testAnsweredRequestList() {
         List<RequestVO> requestVOS = requestMapper.answeredRequestByExpertNum(2);
@@ -148,4 +149,12 @@ public class MapperTest {
         List<AnswerRequestVO> list = requestMapper.answerListOfSelectedRequest(3);
         log.info(list);
     }
+
+/*
+    @Test
+    public void deletedTest() {
+        RequestVO requestVO = requestMapper.deletedRequestByClient(3);
+        System.out.println("requestVO = " + requestVO);
+    }
+*/
 }
