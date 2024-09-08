@@ -44,8 +44,8 @@ public class RequestService {
     }
 
 
-    public List<AnswerRequestDTO> readAnsweredListOfSelectedRequest(int requestId) {
-        return requestMapper.answerList(requestId);
+    public List<AnswerRequestVO> readAnsweredListOfSelectedRequest(int requestId) {
+        return requestMapper.answerListOfSelectedRequest(requestId);
     }
 
 

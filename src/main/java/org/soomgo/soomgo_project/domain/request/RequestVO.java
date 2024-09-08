@@ -14,7 +14,7 @@ public class RequestVO {
     private int id;
     private int userNum;
     private String userName; // 이름
-//    private String expertNum; // 고수번호 -> 배열, 필요없음??
+    private Integer experts; // 고수번호 -> 배열, 필요없음??
     private String expertName; // 고수 이름
     private LocalDateTime regDate;
     private int categoryNum;

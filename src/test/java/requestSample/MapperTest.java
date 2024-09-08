@@ -145,7 +145,7 @@ public class MapperTest {
 
     @Test
     public void readAnswerListTest() {
-        List<AnswerRequestDTO> list = requestMapper.answerList(3);
+        List<AnswerRequestVO> list = requestMapper.answerListOfSelectedRequest(3);
         log.info(list);
     }
 }

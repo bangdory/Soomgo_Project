@@ -1,9 +1,11 @@
 package org.soomgo.soomgo_project.domain.request;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 @Getter
@@ -37,6 +39,8 @@ public class AnswerRequestVO {
     private Integer price; // 견적가격
     private String refFromExpert; // 고수기타사항
     private String fileFromExpert; // 고수파일
+
+    private Integer connected; // 고수와 매칭 여부
 
     public AnswerRequestVO() {
         this.replyDate = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);

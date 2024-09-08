@@ -37,16 +37,18 @@
 
     <resultMap id="selectedRequestDetail" type="RequestVO">
         <id property="id" column="id"/>
-        <result property="requestId" column="district"/>
-        <result property="userNum" column="CategoryName"/>
+        <result property="regionName" column="district"/>
+        <result property="typeName" column="CategoryName"/>
         <result property="userName" column="user_name"/>
-        <result property="expertName" column="userNum"/>
-        <result property="replyDate" column="expertNum"/>
-        <result property="typeNum" column="amount"/>
-        <result property="typeName" column="addService"/>
-        <result property="subType" column="sub"/>
+        <result property="experts" column="experts"/>
+<!--        <result property="replyDate" column="expertNum"/>-->
+<!--        <result property="replyDate" column="regDate"/>-->
+<!--        <result property="categoryNum" column="categoryNum"/>-->
+<!--        <result property="typeName" column="typeNum"/>-->
+        <result property="sub" column="sub"/>
         <result property="file1" column="file1"/>
         <result property="file2" column="file2"/>
+<!--        <result property="cr" column="cr"/>-->
         <result property="amount" column="amount"/>
         <result property="addService" column="addService"/>
         <result property="result" column="result"/>
@@ -57,18 +59,15 @@
         <result property="fav" column="fav"/>
         <result property="place" column="place"/>
         <result property="date" column="date"/>
-        <result property="regionNum" column="regionNum"/>
-        <result property="regionName" column="district"/>
-        <result property="refFromClient" column="r.ref"/>
-        <result property="price" column="price"/>
-        <result property="refFromExpert" column="a.ref"/>
-        <result property="fileFromExpert" column="file"/>
+<!--        <result property="regionNum" column="regionNum"/>-->
+        <result property="regionName" column="ref"/>
     </resultMap>
 
     <select id="selectedRequest" parameterType="int" resultMap="selectedRequestDetail">
         select t.district,
         c.CategoryName,
         u.user_name,
+        LENGTH(r.expertNum) - LENGTH(REPLACE(r.expertNum, ',', '')) + 1 experts,
         r.*
         from request r
         inner join
@@ -76,12 +75,13 @@
         inner join
         category c on c.CategoryNum = r.typeNum
         inner join
-        answerrequest a on a.RequestId = r.id
-        inner join
-        user u on u.user_num = a.expertNum
-        where r.id = 3
+        user u on u.user_num = r.userNum
+        where r.id = #{requestId}
     </select>
 
+<!--    <select id="answeredRequest" parameterType="int" resultType="AnswerRequestVO">-->
+<!-- 개별 데이터 조회용, 작성할 것-->
+<!--    </select>-->
     <select id="readRequestByExpertNum" parameterType="int" resultType="RequestVO">
         <!--   SELECT r.*
            FROM request r
@@ -117,7 +117,7 @@
         <result property="replyDate" column="replyDate"/>
         <result property="typeNum" column="typeNum"/>
         <result property="typeName" column="CategoryName"/>
-        <result property="subType" column="sub"/>
+        <result property="sub" column="sub"/>
         <result property="file1" column="file1"/>
         <result property="file2" column="file2"/>
         <result property="amount" column="amount"/>
@@ -191,8 +191,65 @@
 
     </select>
 
-    <select id="answerList" parameterType="int" resultType="AnswerRequestDTO">
-        select a.* from answerrequest a where a.requestId = #{requestId}
+    <resultMap id="AnswerRequestVOMap" type="AnswerRequestVO">
+        <id property="id" column="id"/>
+        <result property="requestId" column="RequestId"/>
+        <result property="expertNum" column="expertNum"/>
+        <result property="expertName" column="user_name"/>
+        <result property="price" column="price"/>
+        <result property="fileFromExpert" column="file"/>
+        <result property="refFromExpert" column="refFromExpert"/>
+        <result property="connected" column="connected"/>
+        <result property="userNum" column="userNum"/>
+        <result property="typeNum" column="typeNum"/>
+        <result property="subType" column="sub"/>
+        <result property="file1" column="file1"/>
+        <result property="file2" column="file2"/>
+        <result property="amount" column="amount"/>
+        <result property="addService" column="addService"/>
+        <result property="result" column="result"/>
+        <result property="day" column="day"/>
+        <result property="time" column="time"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="fav" column="fav"/>
+        <result property="place" column="place"/>
+        <result property="date" column="date"/>
+        <result property="date" column="refFromClient"/>
+    </resultMap>
+
+    <!-- 0908 견적이 달린 요청서 확인 (고객용) -->
+    <select id="answerListOfSelectedRequest" parameterType="int" resultMap="AnswerRequestVOMap">
+        select a.id,
+        a.RequestId,
+        a.expertNum,
+        u.user_name,
+        a.price,
+        a.file,
+        a.ref refFromExpert,
+        a.replyDate,
+        a.connected,
+        r.userNum,
+        r.typeNum,
+        r.sub,
+        r.file1,
+        r.file2,
+        r.cr,
+        r.amount,
+        r.addService,
+        r.result,
+        r.day,
+        r.time,
+        r.age,
+        r.sex,
+        r.fav,
+        r.place,
+        r.date,
+        r.ref refFromClient
+        from answerrequest a
+        inner join request r on a.requestId = r.id
+        inner join user u on u.user_num = a.expertNum
+        where a.requestId = #{requestId}
     </select>
 
     <resultMap id="findExpertVO" type="ExpertVO">

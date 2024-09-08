@@ -39,11 +39,11 @@
                 </div>
                 <div id="requestsWithAnswer" class="requestsList hidden">
                     <h3>답장을 받은 요청서</h3>
-                    <c:if test="${empty vo[0].expertNum}">
+                    <c:if test="${vo[0].experts.length < 1}">
                         <h4>아직 견적이 달린 요청서가 없습니다</h4>
                     </c:if>
                     <c:forEach var="vo" items="${vo}">
-                        <c:if test="${not empty vo.expertNum}">
+                        <c:if test="${vo.experts>0}">
                             <div class="request-item">
                                 <div class="sort-date">
                                     <h3>${vo.typeName}</h3> <%-- 카테고리 예)IT --%>
@@ -69,7 +69,7 @@
                 <div id="requestsWithoutAnswer" class="requestsList">
                     <h3>내가 보낸 요청서</h3>
                     <c:forEach var="vo" items="${vo}">
-                        <c:if test="${empty vo.expertNum}">
+                        <c:if test="${vo.experts <=0}">
                             <div class="request-item">
                                 <div class="sort-date">
                                     <h3>${vo.typeName}</h3> <%-- 카테고리 예)IT --%>
@@ -213,11 +213,9 @@
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
                         }
-                        console.log(response)
                         return response.json(); // 서버 응답을 JSON으로 변환
                     })
                     .then(data => {
-                        // console.log(data.id)
                         const requestDetail = document.getElementById('requestDetail');
                         requestDetail.innerHTML = ''; // 기존 내용 삭제
                         // data.forEach(answer => {
@@ -236,6 +234,7 @@
                         // console.log(regDate);
                         h5.textContent = '작성일 : ' + regDate;
                         h5.setAttribute('reaDate', regDate);
+                        console.log(data)
 
                         const buttonDiv = document.createElement('div');
                         buttonDiv.classList.add('buttonDiv');
@@ -249,10 +248,11 @@
                         showAnswers.id = 'showDetail'
                         showAnswers.classList.add('btn-primary');
                         const reqId = data.id;
-                        if (data.expertNum) {
-                            const experts = data.expertNum.split(',');
+                        if (data.experts) {
+                            // const experts = data.experts.split(',');
                             showAnswers.dataset.id = reqId;
-                            showAnswers.textContent = experts.length + `개의 견적보기`;
+                            // showAnswers.textContent = experts.length + `개의 견적보기`;
+                            showAnswers.textContent = data.experts + `개의 견적보기`;
                             showAnswers.addEventListener('click', handleButtonClick);
                             showAnswers.addEventListener('click', hideRequest);
                         } else {
@@ -347,7 +347,8 @@
                     console.error("Request ID is not found");
                     return; // ID가 없으면 요청을 보내지 않습니다.
                 }
-
+////////////////////////////////////////////
+                console.log(requestId)
                 fetch('/request/answer-list?requestId=' + encodeURIComponent(requestId), {
                     method: 'GET',
                     headers: {
@@ -371,8 +372,8 @@
 
 
                             const h4 = document.createElement('h4');
-                            h4.textContent = '고수 ID: ' + answer.gosuId + '답변NO:' + answer.no + '요청서번호:' + answer.requestId;
-                            h4.setAttribute('gosuId', answer.gosuId);
+                            h4.textContent = '고수 ID: ' + answer.expertName + '답변NO:' + answer.id + '요청서번호:' + answer.requestId;
+                            h4.setAttribute('expertNum', answer.expertNum);
 
                             const h5 = document.createElement('h5');
                             h5.textContent = '서비스 금액: ' + answer.price;
@@ -389,28 +390,28 @@
                             readButton.classList.add('btn', 'readButton'); // class 속성 추가
                             readButton.setAttribute('data-bs-toggle', 'modal'); // data-bs-toggle 속성 추가
                             readButton.setAttribute('data-bs-target', '#detailModal'); // data-bs-target 속성 추가
-                            readButton.dataset.id = answer.no + '|' + answer.gosuId + '|' + answer.price + '|' + answer.ref + '|' + answer.file;
+                            readButton.dataset.id = answer.id + '|' + answer.expertName + '|' + answer.price + '|' + answer.refFromExpert + '|' + answer.fileFromExpert;
                             readButton.addEventListener('click', function (event) {
 
                                 const dataIdValue = getDataValue(event);
 
                                 const modalDiv = document.getElementById('modal-body');
 
-                                const [no, gosuId, price, ref, file] = dataIdValue.split('|');
+                                const [no, expertName, price, refFromExpert, fileFromExpert] = dataIdValue.split('|');
                                 console.log('no: ' + no);
-                                console.log('gosuId: ' + gosuId);
+                                console.log('expertName: ' + expertName);
                                 console.log('price: ' + price);
-                                console.log('ref: ' + ref);
-                                console.log('file: ' + file);
+                                console.log('refFromExpert: ' + refFromExpert);
+                                console.log('fileFromExpert: ' + fileFromExpert);
                                 // answer.no + '|' + answer.gosuId + '|' + answer.price + '|' + answer.ref + '|' + answer.file;
 
                                 const dataDiv = document.createElement('div');
                                 modalDiv.innerHTML = '';
                                 dataDiv.innerHTML = `
-    <div>답변한 고수 : ` + gosuId + `</div>
+    <div>답변한 고수 : ` + expertName + `</div>
     <div>견적 금액 : ` + price + `</div>
-    <div>서비스 내용 : ` + ref + `</div>
-    <div>기타 사항 : ` + file + `</div>
+    <div>서비스 내용 : ` + refFromExpert + `</div>
+    <div>기타 사항 : ` + fileFromExpert + `</div>
     `;
 
                                 modalDiv.appendChild(dataDiv);

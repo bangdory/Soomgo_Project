@@ -53,11 +53,11 @@ public class RequestController {
 
     // Ajax 처리로 답변 읽기 -> client 용 list 에서 사용함
     @GetMapping("/answer-list")
-    public ResponseEntity<List<AnswerRequestDTO>> getAnswerRequestList(@RequestParam int requestId) {
+    public ResponseEntity<List<AnswerRequestVO>> getAnswerRequestList(@RequestParam int requestId) {
         if (requestId <= 0) {
             return ResponseEntity.badRequest().body(Collections.emptyList());
         }
-        List<AnswerRequestDTO> answerList = requestService.readAnsweredListOfSelectedRequest(requestId);
+        List<AnswerRequestVO> answerList = requestService.readAnsweredListOfSelectedRequest(requestId);
         log.info("받은 리스트 -> " + answerList);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(answerList);
     }
