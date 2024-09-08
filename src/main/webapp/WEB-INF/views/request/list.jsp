@@ -87,7 +87,7 @@
                 <div id="requestsWithoutAnswer" class="requestsList">
                     <h3>내가 보낸 요청서</h3>
                     <c:forEach var="vo" items="${vo}">
-                        <c:if test="${vo.experts == null || vo.deleted == null}">
+                        <c:if test="${vo.experts == null && vo.deleted == null}">
                             <div class="request-item">
                                 <div class="sort-date">
                                     <h3>${vo.typeName}</h3> <%-- 카테고리 예)IT --%>
