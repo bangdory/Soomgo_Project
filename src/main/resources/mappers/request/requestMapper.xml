@@ -360,10 +360,10 @@
         )
     </select>
 
-    <select id="selectedType" resultType="CategoryDTO" parameterType="String">
+    <select id="selectedType" resultType="CategoryDTO" parameterType="int">
         SELECT CategoryNum, Id, P_Id, CategoryName
         FROM category
-        WHERE CategoryName = #{selectedType}
+        WHERE CategoryNum = #{categoryNum}
     </select>
 
 

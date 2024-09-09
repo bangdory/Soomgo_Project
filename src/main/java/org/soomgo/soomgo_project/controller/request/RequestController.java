@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ public class RequestController {
         if (requestId <= 0) {
             return ResponseEntity.badRequest().body(false);
         }
+        log.info("들어온 requestID =>" + requestId);
         boolean deleted = requestService.removeRequestByClient(requestId);
         log.info("삭제된 요청서 -> " + deleted);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(deleted);
@@ -228,11 +230,13 @@ public class RequestController {
     @PostMapping("/category")
     public String categorySelect(
             // @RequestParam 은 NAME 속성임!! -> HTML 태그에서 name 값 찾아옴, 오타 주의
-            @RequestParam("categoryName") String type,
-            HttpSession session) {
+            @RequestParam("categoryName") int categoryNum,
+            HttpSession session,
+            RedirectAttributes rttr) {
         // sort, type 받아서 category 테이블에서 int 로 변경 해서 넘길 것
 
-        CategoryDTO selectedType = requestService.selectedType(type);
+        CategoryDTO selectedType = requestService.selectedType(categoryNum);
+        log.info("Category선택 !!!!!!!!!!!!!" + selectedType);
         // addAttribute 는 쿼리 파라미터만 처리, flashAttribute 사용
         session.setAttribute("category", selectedType);
         return "redirect:/request/register";
@@ -252,16 +256,22 @@ public class RequestController {
     // 견적 등록하는 화면
     @GetMapping("/register")
 //    @ResponseBody
-    public void register(
+    public String register(
             HttpSession session,
             Model model
     ) {
-        CategoryDTO category = (CategoryDTO) session.getAttribute("category");
         UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        CategoryDTO category = (CategoryDTO) session.getAttribute("category");
+        log.info("Register category!!!!!!!!!!!!!" + category);
         List<String> allStates = requestService.findAllStates();
         model.addAttribute("category", category);
         model.addAttribute("user", user);
         model.addAttribute("allStates", allStates);
+        log.info("모델!!!" + model);
+        return "/request/register";
     }
 
     /*@GetMapping("/register")

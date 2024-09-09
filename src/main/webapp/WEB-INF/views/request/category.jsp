@@ -61,7 +61,7 @@
                         // console.log('----------------------',listItem)
                         // <option> 요소의 텍스트 설정
                         listItem.textContent = item.categoryName;
-                        listItem.value = item.categoryName;
+                        listItem.value = item.categoryNum;
 
                         // <select> 요소에 <option> 요소 추가
                         type.appendChild(listItem);
@@ -75,8 +75,8 @@
         document.getElementById('categoryList').submit();
 
 
-        const name = document.getElementById('categoryName');
-        console.log(name)
+        // const name = document.getElementById('categoryName');
+        // console.log(name)
     }
 </script>
 </html>

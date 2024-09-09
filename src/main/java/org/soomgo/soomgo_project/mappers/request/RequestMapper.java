@@ -44,7 +44,7 @@ public interface RequestMapper {
     // 서비스 종류
     List<CategoryDTO> findType(String type);
 
-    CategoryDTO selectedType(String selectedType);
+    CategoryDTO selectedType(int categoryNum);
 
-    int deletedRequestByClient(int requestId);
+    int deleteRequestFromClient(int requestId);
 }

@@ -29,9 +29,9 @@
 
         <div>
             <table><c:out value="${type}"/> 요청서 보내기</table>
-            <input type="hidden" name="category" id="category" value="${category.id}">
-            <input type="hidden" name="type" id="type" value="${category.categoryNum}">
-            <input type="hidden" name="writer" id="writer" value="${user.user_num}">
+            <input type="hidden" name="typeNum" id="typeNum" value="${category.categoryNum}">
+            <input type="hidden" name="categoryNum" id="categoryNum" value="${category.p_Id}">
+            <input type="hidden" name="userNum" id="userNum" value="${user.user_num}">
         </div>
 
         <%--
@@ -123,7 +123,7 @@
         </div>
         <div>
             <label for="districtSelect">상세 지역을 선택하세요 :</label>
-            <select name="region" id="districtSelect">
+            <select name="regionNum" id="districtSelect">
                 <option id="district">시 / 군 / 구</option>
             </select>
         </div>

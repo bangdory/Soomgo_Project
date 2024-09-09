@@ -73,8 +73,8 @@ public class RequestService {
         return requestMapper.findType(type);
     }
 
-    public CategoryDTO selectedType(String selectedType) {
-        return requestMapper.selectedType(selectedType);
+    public CategoryDTO selectedType(int categoryNum) {
+        return requestMapper.selectedType(categoryNum);
     }
 
 /*
@@ -87,6 +87,6 @@ public class RequestService {
     public boolean removeRequestByClient(int requestId) {
 
 //        return true; // 08.06 -> 나중에 추가할 것
-        return requestMapper.deletedRequestByClient(requestId) == 1;
+        return requestMapper.deleteRequestFromClient(requestId) == 1;
     }
 }

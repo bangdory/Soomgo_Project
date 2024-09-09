@@ -150,11 +150,11 @@ public class MapperTest {
         log.info(list);
     }
 
-/*
+
     @Test
     public void deletedTest() {
-        RequestVO requestVO = requestMapper.deletedRequestByClient(3);
-        System.out.println("requestVO = " + requestVO);
+        requestMapper.deleteRequestFromClient(3);
+
     }
-*/
+
 }

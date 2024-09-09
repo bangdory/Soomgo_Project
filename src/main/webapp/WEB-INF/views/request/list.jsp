@@ -23,11 +23,42 @@
             cursor: pointer;
             color: white;
         }
+
         .deleted-bar {
             height: 10px;
             width: 100%;
             background-color: gray;
             border-radius: 5px;
+        }
+
+        .requestTitle {
+            width: 88%;
+
+        }
+
+        .removeButton {
+            width: 12%;
+            padding-top: 5px;
+            padding-right: 15px;
+        }
+
+        .btn-close {
+            /*border: solid transparent;*/
+            /*border-radius: 5px;*/
+            /*cursor: pointer;*/
+            margin: 3px;
+        }
+
+        .progress-bar-notAnswered {
+            height: 10px;
+            width: 15%;
+            background-color: mediumturquoise;
+            border-radius: 5px;
+
+        }
+
+        .requestHeader {
+            display: flex;
         }
     </style>
 </head>
@@ -40,15 +71,8 @@
         <%--<c:out value="${lists}"></c:out>--%>
         <div class="requestContainer">
             <div class="left">
-                <%--                <c:forEach var="list" items="${lists}">--%>
-                <%--                    ${list}--%>
-                <%--                </c:forEach>--%>
-                <c:forEach var="vo" items="${vo}">
-                    ${vo.typeName}
-                    ${vo.regionName}
-                </c:forEach>
                 <h2>내 요청서</h2>
-<%--                <c:out value="${vo[0]}"/>--%>
+                <%--                <c:out value="${vo[0]}"/>--%>
                 <div class="wrapper">
                     <input type="checkbox" id="switch">
                     <label for="switch" class="switch_label">
@@ -56,15 +80,15 @@
                     </label>
                 </div>
                 <div id="requestsWithAnswer" class="requestsList hidden">
-                    <h3>답장을 받은 요청서</h3>
+                    <h3>견적을 받은 요청서</h3>
+                    <c:if test="${empty vo[0].experts}">
+                        <h4>아직 견적이 달린 요청서가 없습니다</h4>
+                    </c:if>
                     <c:forEach var="vo" items="${vo}">
-                        <c:if test="${vo.experts < 1}">
-                            <h4>아직 견적이 달린 요청서가 없습니다</h4>
-                        </c:if>
                         <c:if test="${vo.experts >= 1 && vo.deleted == null}">
                             <div class="request-item">
                                 <div class="sort-date">
-                                    <h3>${vo.typeName}</h3> <%-- 카테고리 예)IT --%>
+                                    <div class="requestTitle"><h3>${vo.typeName}</h3></div>
                                     <p><span class="regDate" data-date="${vo.regDate}">${vo.regDate}</span>
                                     </p> <%--언제 보냈는지--%>
                                 </div>
@@ -86,16 +110,26 @@
                 </div>
                 <div id="requestsWithoutAnswer" class="requestsList">
                     <h3>내가 보낸 요청서</h3>
+                    <c:if test="${empty vo}">
+                        <h4>내가 보낸 요청서가 없습니다</h4>
+                    </c:if>
                     <c:forEach var="vo" items="${vo}">
-                        <c:if test="${vo.experts == null && vo.deleted == null}">
+                        <c:if test="${empty vo.experts && vo.deleted == null}">
                             <div class="request-item">
                                 <div class="sort-date">
-                                    <h3>${vo.typeName}</h3> <%-- 카테고리 예)IT --%>
+                                    <div class="requestHeader">
+                                        <div class="requestTitle"><h3>${vo.typeName}</h3></div>
+                                        <div class="removeButton">
+                                            <button class="btn-close"
+                                                    onclick="document.getElementById('removeRequestModal').showModal()">
+                                            </button>
+                                        </div>
+                                    </div>
                                     <p><span class="regDate" data-date="${vo.regDate}">${vo.regDate}</span>
                                     </p> <%--언제 보냈는지--%>
                                 </div>
                                 <div class="progress">
-                                    <div class="progress-bar">
+                                    <div class="progress-bar-notAnswered">
                                     </div>
                                 </div>
                                 <div class="progress-tag">
@@ -107,14 +141,31 @@
                                     <button id="requestDetailWithoutAnswer" class="btn-detail" data-list='${vo.id}'>
                                         자세히보기
                                     </button>
+                                        <%--                                    <button onclick="document.getElementById('removeRequestModal').showModal()">--%>
+                                        <%--                                        X--%>
+                                        <%--                                    </button>--%>
+                                    <dialog id="removeRequestModal">
+                                        <p>이 요청서를 삭제합니까?</p>
+                                        <button onclick="document.getElementById('removeRequestModal').close()">취소
+                                        </button>
+                                        <button class="btn-removeRequest" data-requestId="${vo.id}">삭제</button>
+                                    </dialog>
                                 </div>
                             </div>
                         </c:if>
-                        <c:if test="${(vo.experts >= 1 && vo.deleted == 1) || (vo.experts <= 0 && vo.deleted == 1)}">
+                    </c:forEach>
+                    <c:forEach var="delVO" items="${vo}">
+                        <c:if test="${(delVO.experts >= 1 && delVO.deleted == 1) || (empty delVO.experts && delVO.deleted == 1)}">
                             <div class="request-item">
                                 <div class="sort-date">
-                                    <h3>${vo.typeName}</h3> <%-- 카테고리 예)IT --%>
-                                    <p><span class="regDate" data-date="${vo.regDate}">${vo.regDate}</span>
+                                    <div class="requestHeader">
+                                        <div class="requestTitle"><h3>${delVO.typeName}</h3></div>
+                                        <div class="removeButton">
+                                            <button class="btn-close disabled">
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p><span class="regDate" data-date="${delVO.regDate}">${delVO.regDate}</span>
                                     </p> <%--언제 보냈는지--%>
                                 </div>
                                 <div class="progress">
@@ -122,12 +173,13 @@
                                     </div>
                                 </div>
                                 <div class="progress-tag">
-<%--                                    <p class="progress-tag-left"></p>--%>
-<%--                                    <p class="progress-tag-center">삭제된 요청서</p>--%>
-<%--                                    <p class="progress-tag-right"></p>--%>
+                                        <%--                                    <p class="progress-tag-left"></p>--%>
+                                        <%--                                    <p class="progress-tag-center">삭제된 요청서</p>--%>
+                                        <%--                                    <p class="progress-tag-right"></p>--%>
                                 </div>
                                 <div class="read-con">
-                                    <button id="deletedRequestByClient" class="btn-deleted" disabled style="cursor: no-drop">
+                                    <button id="deletedRequestByClient" class="btn-deleted" disabled
+                                            style="cursor: no-drop">
                                         삭제된 요청서입니다
                                     </button>
                                 </div>
@@ -217,11 +269,36 @@
                 const cleanedDate = formattedDate.replace(/\.$/, '');
                 element.textContent = cleanedDate;
             });
-            document.querySelectorAll('.deleteRequest').forEach(button => {
-                button.addEventListener('click', function () {
-                    console.log('견적 지우기 버튼 클릭됨', this.id);
-                });
+
+
+            document.querySelectorAll('.btn-removeRequest').forEach(button => {
+                button.addEventListener('click', removeRequest)
+                // console.log('견적 지우기 버튼 클릭됨', this.id);
             });
+
+            function removeRequest(event) {
+                event.preventDefault();
+
+                const requestId = event.currentTarget.getAttribute('data-requestId');
+                // console.log(requestId)
+                if (!requestId) {
+                    console.error("Request ID is not found");
+                    return;
+                }
+                fetch('/request/remove-request?requestId=' + encodeURIComponent(requestId), {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        location.reload()
+                        return response.json(); // 서버 응답을 JSON으로 변환
+                    });
+            }
 
             // 모든 버튼에 대해 이벤트 핸들러를 한 번만 등록
             const detailButton = document.querySelectorAll(".btn-detail");
@@ -281,7 +358,7 @@
                         // console.log(regDate);
                         h5.textContent = '작성일 : ' + regDate;
                         h5.setAttribute('reaDate', regDate);
-                        console.log(data)
+                        // console.log(data)
 
                         const buttonDiv = document.createElement('div');
                         buttonDiv.classList.add('buttonDiv');
@@ -394,8 +471,8 @@
                     console.error("Request ID is not found");
                     return; // ID가 없으면 요청을 보내지 않습니다.
                 }
-////////////////////////////////////////////
-                console.log(requestId)
+
+                // console.log(requestId)
                 fetch('/request/answer-list?requestId=' + encodeURIComponent(requestId), {
                     method: 'GET',
                     headers: {
@@ -419,12 +496,13 @@
 
 
                             const h4 = document.createElement('h4');
-                            h4.textContent = '고수 ID: ' + answer.expertName + '답변NO:' + answer.id + '요청서번호:' + answer.requestId;
+                            h4.textContent = answer.expertName + '의 견적';
                             h4.setAttribute('expertNum', answer.expertNum);
 
                             const h5 = document.createElement('h5');
-                            h5.textContent = '서비스 금액: ' + answer.price;
-                            h5.setAttribute('price', answer.price);
+                            const formattedDate = formatDateFromArray(answer.replyDate);
+                            h5.textContent = formattedDate + ' 작성';
+                            h5.setAttribute('replyDate', answer.replyDate);
 
                             const readDetailButtonDiv = document.createElement('div');
                             readDetailButtonDiv.classList.add('readDetailButtonDiv');
@@ -445,11 +523,11 @@
                                 const modalDiv = document.getElementById('modal-body');
 
                                 const [no, expertName, price, refFromExpert, fileFromExpert] = dataIdValue.split('|');
-                                console.log('no: ' + no);
-                                console.log('expertName: ' + expertName);
-                                console.log('price: ' + price);
-                                console.log('refFromExpert: ' + refFromExpert);
-                                console.log('fileFromExpert: ' + fileFromExpert);
+                                // console.log('no: ' + no);
+                                // console.log('expertName: ' + expertName);
+                                // console.log('price: ' + price);
+                                // console.log('refFromExpert: ' + refFromExpert);
+                                // console.log('fileFromExpert: ' + fileFromExpert);
                                 // answer.no + '|' + answer.gosuId + '|' + answer.price + '|' + answer.ref + '|' + answer.file;
 
                                 const dataDiv = document.createElement('div');
@@ -462,7 +540,7 @@
     `;
 
                                 modalDiv.appendChild(dataDiv);
-                                console.log(answer)
+                                // console.log(answer)
 
                             })
                             const backToList = document.createElement('button');
@@ -476,7 +554,7 @@
                             deleteButton.dataset.id = answer.no;
 
                             deleteButton.addEventListener('click', function (event) {
-                                console.log(answer)
+                                console.log(answer.no + '번 견적 지우기 버튼 클릭')
                             })
 
                             function hideRequest() {
@@ -504,18 +582,20 @@
 
                         addButtons()
 
-                        document.querySelectorAll('.btn-info').forEach(button => {
-                            // 이벤트 핸들러를 직접 함수로 등록
-                            button.addEventListener('click', function () {
-                                console.log('견적 읽기 버튼 클릭됨', this.dataset.id);
-                            });
-                        });
+                        /*
+                                                document.querySelectorAll('.btn-info').forEach(button => {
+                                                    // 이벤트 핸들러를 직접 함수로 등록
+                                                    button.addEventListener('click', function () {
+                                                        console.log('견적 읽기 버튼 클릭됨', this.dataset.id);
+                                                    });
+                                                });
 
-                        document.querySelectorAll('.deleteAnswer').forEach(button => {
-                            button.addEventListener('click', function () {
-                                console.log('견적 지우기 버튼 클릭됨', this.dataset.id);
-                            });
-                        });
+                                                document.querySelectorAll('.deleteAnswer').forEach(button => {
+                                                    button.addEventListener('click', function () {
+                                                        console.log('견적 지우기 버튼 클릭됨', this.dataset.id);
+                                                    });
+                                                });
+                        */
                     })
                     .catch(error => {
                         console.error("데이터를 가져오는 데 실패했습니다.", error);
