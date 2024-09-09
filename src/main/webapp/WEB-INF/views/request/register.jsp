@@ -6,13 +6,21 @@
   Time: 오전 1:05
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>견적서 등록</title>
+    <link href="${pageContext.request.contextPath}/resources/static/css/request/style.css" rel="stylesheet">
+    <style>
+        .container {
+            padding-top: 80px;
+            display: flex;
+        }
+    </style>
 </head>
 <body>
-<div>
+<%@include file="../header/header.jsp" %>
+<%--<div>
     ============= 테스트용 창 =============
     <c:out value="user = ${user}"></c:out>
     <hr>
@@ -22,123 +30,125 @@
     <c:out value="${category}"></c:out>
     <br>
     ============= 테스트용 창 =============
+</div>--%>
+<div class="container">
+    <form method="post" action="/request/register" onsubmit="updateFields()">
+        <fieldset>
+            <legend>견적 보내기</legend>
+
+            <div>
+                <table><c:out value="${type}"/> 요청서 보내기</table>
+                <input type="hidden" name="typeNum" id="typeNum" value="${category.categoryNum}">
+                <input type="hidden" name="categoryNum" id="categoryNum" value="${category.p_Id}">
+                <input type="hidden" name="userNum" id="userNum" value="${user.user_num}">
+            </div>
+
+            <%--
+            <div>
+                <label for="name" class="form-label mt-4">이름을 입력하세요</label>
+                <input type="text" name="writer" class="form-control" id="name">
+            </div>
+
+            <div>
+                <label for="sort" class="form-label mt-4">견적 요청 분야를 선택하세요</label>
+                <select name="sort" class="form-select" id="sort">
+                    <option>개발 외주</option>
+                    <option>디자인 외주</option>
+                    <option>데이터 외주</option>
+                    <option>컴퓨터 실무</option>
+                    <option>디자인 실무</option>
+                </select>
+            </div>
+            <div>
+                <label for="type" class="form-label mt-4">항목을 선택하세요</label>
+                <select name="type" class="form-select" id="type">
+                    <c:forEach var="category" items="${c}">
+                        <option>${category}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            --%>
+
+            <div>
+                <label for="sub" class="form-label mt-4">사업 분야</label>
+                <select name="sub" class="form-select" id="sub">
+                    <option value="기술 / IT">기술 / IT</option>
+                    <option value="sub 2">sub 2</option>
+                    <option value="sub 3">sub 3</option>
+                    <option value="sub 4">sub 4</option>
+                    <option value="sub 5">sub 5</option>
+                </select>
+            </div>
+            <div>
+                <label for="date" class="form-label mt-4">요일</label>
+                <div id="date">
+                    <label>
+                        <input type="checkbox" name="date" value="월요일">
+                        월요일</label>
+                    <label>
+                        <input type="checkbox" name="date" value="화요일">
+                        화요일</label>
+                    <label>
+                        <input type="checkbox" name="date" value="수요일">
+                        수요일</label>
+                    <label>
+                        <input type="checkbox" name="date" value="목요일">
+                        목요일</label>
+                    <label>
+                        <input type="checkbox" name="date" value="금요일">
+                        금요일</label>
+                    <label>
+                        <input type="checkbox" name="date" value="토요일">
+                        토요일</label>
+                    <label>
+                        <input type="checkbox" name="date" value="일요일">
+                        일요일</label>
+                </div>
+                <input type="hidden" id="dateField" name="date" value="">
+            </div>
+            <div>
+                <label for="time" class="form-label mt-4">시간대</label>
+                <div id="time">
+                    <label>
+                        <input type="checkbox" name="time" value="오전 (09시~12시)">
+                        오전</label>
+                    <label>
+                        <input type="checkbox" name="time" value="오후 (12시 ~ 6시)">
+                        오후</label>
+                    <label>
+                        <input type="checkbox" name="time" value="저녁 (6시 이후)">
+                        저녁</label>
+                </div>
+                <input type="hidden" id="timeField" name="time" value="">
+            </div>
+            <div>
+                <label for="stateSelect">지역을 선택하세요 :</label>
+                <select id="stateSelect">
+                    <option value="">시 / 도</option>
+                    <c:forEach var="state" items="${allStates}">
+                        <option class="selectState" value="${state}">${state}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div>
+                <label for="districtSelect">상세 지역을 선택하세요 :</label>
+                <select name="regionNum" id="districtSelect">
+                    <option id="district">시 / 군 / 구</option>
+                </select>
+            </div>
+
+
+            <div>
+                <label for="ref" class="form-label mt-4">기타 사항</label>
+                <textarea name="ref" class="form-control" id="ref" rows="3" placeholder="서비스 설명을 적어주세요"></textarea>
+            </div>
+            <div>
+                <button type="reset" class="btn btn-reset">다시 작성</button>
+                <button type="submit" class="btn btn-primary">요청서 보내기</button>
+            </div>
+        </fieldset>
+    </form>
 </div>
-<form method="post" action="/request/register" onsubmit="updateFields()">
-    <fieldset>
-        <legend>견적 보내기</legend>
-
-        <div>
-            <table><c:out value="${type}"/> 요청서 보내기</table>
-            <input type="hidden" name="typeNum" id="typeNum" value="${category.categoryNum}">
-            <input type="hidden" name="categoryNum" id="categoryNum" value="${category.p_Id}">
-            <input type="hidden" name="userNum" id="userNum" value="${user.user_num}">
-        </div>
-
-        <%--
-        <div>
-            <label for="name" class="form-label mt-4">이름을 입력하세요</label>
-            <input type="text" name="writer" class="form-control" id="name">
-        </div>
-
-        <div>
-            <label for="sort" class="form-label mt-4">견적 요청 분야를 선택하세요</label>
-            <select name="sort" class="form-select" id="sort">
-                <option>개발 외주</option>
-                <option>디자인 외주</option>
-                <option>데이터 외주</option>
-                <option>컴퓨터 실무</option>
-                <option>디자인 실무</option>
-            </select>
-        </div>
-        <div>
-            <label for="type" class="form-label mt-4">항목을 선택하세요</label>
-            <select name="type" class="form-select" id="type">
-                <c:forEach var="category" items="${c}">
-                    <option>${category}</option>
-                </c:forEach>
-            </select>
-        </div>
-        --%>
-
-        <div>
-            <label for="sub" class="form-label mt-4">사업 분야</label>
-            <select name="sub" class="form-select" id="sub">
-                <option value="기술 / IT">기술 / IT</option>
-                <option value="sub 2">sub 2</option>
-                <option value="sub 3">sub 3</option>
-                <option value="sub 4">sub 4</option>
-                <option value="sub 5">sub 5</option>
-            </select>
-        </div>
-        <div>
-            <label for="date" class="form-label mt-4">요일</label>
-            <div id="date">
-                <label>
-                    <input type="checkbox" name="date" value="월요일">
-                    월요일</label>
-                <label>
-                    <input type="checkbox" name="date" value="화요일">
-                    화요일</label>
-                <label>
-                    <input type="checkbox" name="date" value="수요일">
-                    수요일</label>
-                <label>
-                    <input type="checkbox" name="date" value="목요일">
-                    목요일</label>
-                <label>
-                    <input type="checkbox" name="date" value="금요일">
-                    금요일</label>
-                <label>
-                    <input type="checkbox" name="date" value="토요일">
-                    토요일</label>
-                <label>
-                    <input type="checkbox" name="date" value="일요일">
-                    일요일</label>
-            </div>
-            <input type="hidden" id="dateField" name="date" value="">
-        </div>
-        <div>
-            <label for="time" class="form-label mt-4">시간대</label>
-            <div id="time">
-                <label>
-                    <input type="checkbox" name="time" value="오전 (09시~12시)">
-                    오전</label>
-                <label>
-                    <input type="checkbox" name="time" value="오후 (12시 ~ 6시)">
-                    오후</label>
-                <label>
-                    <input type="checkbox" name="time" value="저녁 (6시 이후)">
-                    저녁</label>
-            </div>
-            <input type="hidden" id="timeField" name="time" value="">
-        </div>
-        <div>
-            <label for="stateSelect">지역을 선택하세요 :</label>
-            <select id="stateSelect">
-                <option value="">시 / 도</option>
-                <c:forEach var="state" items="${allStates}">
-                    <option class="selectState" value="${state}">${state}</option>
-                </c:forEach>
-            </select>
-        </div>
-        <div>
-            <label for="districtSelect">상세 지역을 선택하세요 :</label>
-            <select name="regionNum" id="districtSelect">
-                <option id="district">시 / 군 / 구</option>
-            </select>
-        </div>
-
-
-        <div>
-            <label for="ref" class="form-label mt-4">기타 사항</label>
-            <textarea name="ref" class="form-control" id="ref" rows="3" placeholder="서비스 설명을 적어주세요"></textarea>
-        </div>
-        <div>
-            <button type="reset" class="btn btn-reset">다시 작성</button>
-            <button type="submit" class="btn btn-primary">요청서 보내기</button>
-        </div>
-    </fieldset>
-</form>
 </body>
 <script>
     function updateField(fieldName, hiddenFieldId) {

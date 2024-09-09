@@ -6,35 +6,44 @@
   Time: 오전 1:51
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>카테고리 선택</title>
+    <link href="${pageContext.request.contextPath}/resources/static/css/request/style.css" rel="stylesheet">
+    <style>
+        .container {
+            padding-top: 80px;
+            display: flex;
+        }
+    </style>
 </head>
 <body>
-<c:out value="user = ${user}"></c:out>
-<form id="categoryList" action="/request/category" method="post">
-    <input type="hidden" id="categorySort" name="categorySort" value="">
-    <input type="hidden" id="categoryType" name="categoryType" value="">
-    <div>
-        <label for="categorySelect">카테고리를 선택하세요 :</label>
-        <select id="categorySelect" name="categorySelect">
-            <option value="">카테고리</option>
-            <c:forEach var="category" items="${list}">
-                <option class="selectCategory" value="${category}">${category}</option>
-            </c:forEach>
-        </select>
-    </div>
-    <div>
-        <label for="categoryName">상세 서비스를 선택하세요 :</label>
-        <select name="categoryName" id="categoryName">
-            <option id="type">상세 서비스</option>
-        </select>
-    </div>
-    <div>
-        <button type="button" onclick="submitForm()">견적 작성</button>
-    </div>
-</form>
+<%@include file="../header/header.jsp" %>
+<div class="container">
+    <form id="categoryList" action="/request/category" method="post">
+        <input type="hidden" id="categorySort" name="categorySort" value="">
+        <input type="hidden" id="categoryType" name="categoryType" value="">
+        <div>
+            <label for="categorySelect">카테고리를 선택하세요 :</label>
+            <select id="categorySelect" name="categorySelect">
+                <option value="">카테고리</option>
+                <c:forEach var="category" items="${list}">
+                    <option class="selectCategory" value="${category}">${category}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div>
+            <label for="categoryName">상세 서비스를 선택하세요 :</label>
+            <select name="categoryName" id="categoryName">
+                <option id="type">상세 서비스</option>
+            </select>
+        </div>
+        <div>
+            <button type="button" onclick="submitForm()">견적 작성</button>
+        </div>
+    </form>
+</div>
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
