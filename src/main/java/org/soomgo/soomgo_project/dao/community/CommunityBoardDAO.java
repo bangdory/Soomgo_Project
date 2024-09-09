@@ -1,22 +1,21 @@
 package org.soomgo.soomgo_project.dao.community;
 
+import lombok.RequiredArgsConstructor;
 import org.soomgo.soomgo_project.domain.community.CommunityBoardDTO;
 import org.soomgo.soomgo_project.mappers.community.CommunityBoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
+@RequiredArgsConstructor
 public class CommunityBoardDAO {
 
 
     private final CommunityBoardMapper communityBoardMapper;
-
-    @Autowired
-    public CommunityBoardDAO(CommunityBoardMapper communityBoardMapper) {
-        this.communityBoardMapper = communityBoardMapper;
-    }
 
     public void create(CommunityBoardDTO board){
         communityBoardMapper.create(board);
@@ -34,32 +33,41 @@ public class CommunityBoardDAO {
         communityBoardMapper.delete(cb_no);
     }
 
-    public List<CommunityBoardDTO> listAll(){
-        return communityBoardMapper.listAll();
+    public List<CommunityBoardDTO> listAll(String service, String place){
+        Map<String,Object> params = new HashMap<>();
+        params.put("service",service);
+        params.put("place",place);
+
+        return communityBoardMapper.listAll(params);
     }
 
-    public List<CommunityBoardDTO> listByBoardNo(int board_no){
-        return communityBoardMapper.listByBoardNo(board_no);
+    public List<CommunityBoardDTO> listByBoardNo(int board_no, String service, String place){
+        Map<String,Object> params = new HashMap<>();
+        params.put("board_no",board_no);
+        params.put("service",service);
+        params.put("place",place);
+
+        return communityBoardMapper.listByBoardNo(params);
     }
 
-    public boolean isLiked(int cb_no, int user_num){
-        return communityBoardMapper.isLiked(cb_no, user_num);
+    public boolean isLiked(Map<String, Object> params){
+        return communityBoardMapper.isLiked(params);
     }
 
-    public void increaseLike(int cb_no, int user_num){
-        communityBoardMapper.increaseLike(cb_no, user_num);
+    public void increaseLike(Map<String, Object> params){
+        communityBoardMapper.increaseLike(params);
     }
 
-    public void updateLikeCount(int cb_no){
-        communityBoardMapper.updateLikeCount(cb_no);
+    public void updateLikeCount(Map<String, Object> params){
+        communityBoardMapper.updateLikeCount(params);
     }
 
-    public void removeLike(int cb_no, int user_num){
-        communityBoardMapper.removeLike(cb_no, user_num);
+    public void removeLike(Map<String, Object> params){
+        communityBoardMapper.removeLike(params);
     }
 
-    public void decrementLikeCount(int cb_no){
-        communityBoardMapper.decrementLikeCount(cb_no);
+    public void decrementLikeCount(Map<String, Object> params){
+        communityBoardMapper.decrementLikeCount(params);
     }
 
     public int getLikeCount(int cb_no){

@@ -1,9 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <link href="${pageContext.request.contextPath}/resources/static/css/expert/modalStyle.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 <!-- 서비스 모달(service-modal) -->
-<div id="service-modal-base-container" style="display: none;">
+<div id="service-modal-base-container">
     <div id="service-modal">
         <div class="modal-content">
             <div class="change-modal-container">
@@ -21,7 +21,7 @@
 </div>
 
 <!-- 지역 모달 창 (place-modal) -->
-<div id="place-modal-base-container" style="display: none;">
+<div id="place-modal-base-container">
     <div id="place-modal">
         <div class="modal-content">
             <div class="change-modal-container">

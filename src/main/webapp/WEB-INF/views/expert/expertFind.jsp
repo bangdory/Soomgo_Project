@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <meta charset="UTF-8">
 
 
     <title>Title</title>
@@ -50,31 +51,6 @@
                 <%--       데이터 섹션 (modal - fetch 데이터 갱신)        --%>
                 <div class="gosu-list-container" id="gosu-list">
                     <div class="gosu-list-sub-container">
-<%--                        <c:forEach items="${ExpertList}" var="expertList">--%>
-<%--                            <a href="#" class="gosu-list-item-link">--%>
-<%--                                <div class="gosu-list-item-group" data-rating="${expertList.rating}">--%>
-<%--                                    <div class="gosu-list-item gosu-img">--%>
-<%--                                        <img src="${pageContext.request.contextPath}/resources/static/img/1.jpg">--%>
-<%--                                    </div>--%>
-<%--                                    <div class="gosu-item-contents">--%>
-<%--                                        <div class="gosu-list-item gosu-name">고수 이름 예정</div>--%>
-<%--                                        <div class="gosu-list-item gosu-experience">고수의 experienceYears: ${expertList.experienceYears}</div>--%>
-<%--                                        <div class="gosu-list-item gosu-rating">--%>
-<%--                                            <div class="rating">--%>
-<%--                                                <i class="fa fa-star star"></i>--%>
-<%--                                                <i class="fa fa-star star"></i>--%>
-<%--                                                <i class="fa fa-star star"></i>--%>
-<%--                                                <i class="fa fa-star star"></i>--%>
-<%--                                                <i class="fa fa-star star"></i>--%>
-<%--                                                <span class="gosu-rating">(${expertList.rating})</span>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="gosu-list-item gosu-content">고수 소개 내용 예정</div>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </a>--%>
-<%--                        </c:forEach>--%>
-
                         <c:forEach items="${ExpertList}" var="expertList">
                                 <a class="gosu-list-item-group" data-rating="${expertList.rating}" href="/expert/expertDetail/${expertList.expertNum}">
                                     <div class="gosu-list-item gosu-img">

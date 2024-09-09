@@ -7,7 +7,7 @@
 --%>
 
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
@@ -17,7 +17,7 @@
 </head>
 <body>
 <%@include file="../header/header.jsp"%>
-
+<%@ include file="../header/headerModal.jsp"%>
 <div>
     <h1>커뮤니티</h1>
     <table>

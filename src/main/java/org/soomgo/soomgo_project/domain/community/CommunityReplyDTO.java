@@ -1,4 +1,4 @@
-package org.soomgo.soomgo_project.domain.communityReply;
+package org.soomgo.soomgo_project.domain.community;
 
 import lombok.Data;
 
@@ -11,6 +11,7 @@ public class CommunityReplyDTO {
     private String cr_content;
     private String cr_file;
     private int user_num;
+    private String user_name;
     private int cr_like;
-    private LocalDateTime cr_regdate;
+    private String cr_regdate;
 }

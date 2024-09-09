@@ -5,7 +5,7 @@
   Time: 오전 6:05
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
@@ -21,9 +21,12 @@
             font-weight: 400;
             font-style: normal;
         }
-        main {
+        .communityRegisterBody {
+            padding-top: 80px;
             font-family: 'Pretendard-Regular';
             color: #ABA8A6;
+            width: 80%;
+            margin: 0 auto;
         }
         select {
             border: none;
@@ -105,12 +108,30 @@
             justify-content: space-between;
             align-items: center;
         }
+        .submit input {
+            width: 80px;
+            height: 45px;
+            color: white;
+            font-size: 16.5px;
+            font-weight: bold;
+            background-color: #00C7AE;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .submit input:hover {
+            background-color: #00A18D;
+
+        }
     </style>
 </head>
 <body>
 <%@include file="../header/header.jsp"%>
-<main>
-<div>
+<%@ include file="../header/headerModal.jsp"%>
+<%--<main>--%>
+<div class="communityRegisterBody">
     <form action="/community/register" method="post" enctype="multipart/form-data">
         <div class="header-part">
             <div class="board_no">
@@ -136,7 +157,7 @@
                     <input type="text" id="cb_title" name="cb_title" placeholder="제목을 입력해주세요." required>
                 </div>
 
-            <input type="hidden" id="user_num" name="user_num" value=1>
+<%--            <input type="hidden" id="user_num" name="user_num" value=1>    --%>
 
             <div class="categoryNRegion">
                 <div class="category" id="service-modal-open">
@@ -159,9 +180,9 @@
             </div>
         </div>
 
-</form>
+    </form>
 </div>
-</main>
+<%--</main>--%>
 <%@include file="communityRegisterModal.jsp" %>
 </body>
 </html>

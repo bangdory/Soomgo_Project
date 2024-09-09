@@ -1,9 +1,13 @@
 package org.soomgo.soomgo_project.mappers.community;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.soomgo.soomgo_project.domain.community.CommunityBoardDTO;
 
 import java.util.List;
+import java.util.Map;
 
+@Mapper
 public interface CommunityBoardMapper {
 
     int create(CommunityBoardDTO board);
@@ -14,19 +18,19 @@ public interface CommunityBoardMapper {
 
     void delete(Integer cb_no);
 
-    List<CommunityBoardDTO> listAll();
+    List<CommunityBoardDTO> listAll(Map<String, Object> params);
 
-    List<CommunityBoardDTO> listByBoardNo(Integer board_no);
+    List<CommunityBoardDTO> listByBoardNo(Map<String, Object> params);
 
-    boolean isLiked(Integer cb_no, Integer user_num);
+    boolean isLiked(Map<String, Object> params);
 
-    void increaseLike(Integer cb_no, Integer user_num);
+    void increaseLike(Map<String, Object> params);
 
-    void updateLikeCount(Integer cb_no);
+    void updateLikeCount(Map<String, Object> params);
 
-    void removeLike(Integer cb_no, Integer user_num);
+    void removeLike(Map<String, Object> params);
 
-    void decrementLikeCount(Integer cb_no);
+    void decrementLikeCount(Map<String, Object> params);
 
     int getLikeCount(Integer cb_no);
 

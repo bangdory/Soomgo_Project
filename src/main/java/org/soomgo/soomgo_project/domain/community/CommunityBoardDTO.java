@@ -21,5 +21,5 @@ public class CommunityBoardDTO {
     private int cb_currentview;
     private int cb_view;
     private int cb_like;
-    private LocalDateTime cb_regdate;
+    private String cb_regdate;
 }

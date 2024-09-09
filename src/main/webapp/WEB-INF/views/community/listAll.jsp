@@ -7,7 +7,7 @@
 --%>
 
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
@@ -15,18 +15,12 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet"
-          type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="${pageContext.request.contextPath}/resources/static/css/expert/modalStyle.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/static/css/expert/expertStyle.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/expert/modalStyle.css">
     <script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js"></script>
     <script src="${pageContext.request.contextPath}/resources/static/js/community/community.js"></script>
+    <meta charset="UTF-8">
+
 
     <style>
         @font-face {
@@ -35,7 +29,13 @@
             font-weight: 400;
             font-style: normal;
         }
-        .communityList {
+        .communityListBody{
+            width: 80%;
+            margin: 0 auto;
+            align-items: center;
+
+        }
+        .community-board-content {
             border: rgb(0,0,0,0%);
             cursor: pointer;
             text-align: center;
@@ -49,7 +49,7 @@
             list-style-type: none;
         }
 
-        .container {
+        .community-main-container {
             display: flex;
             justify-content: space-between;
             grid-template-columns: 1fr 4fr;
@@ -57,6 +57,7 @@
         }
 
         .header-container {
+            padding-top: 80px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -95,8 +96,6 @@
         .board-list {
             width: calc(25% - 20px);
         }
-
-
         .community-filter {
             display: flex;
             justify-content: center;
@@ -117,11 +116,11 @@
         }
     </style>
 </head>
-<body>
+<body style="font-family: 'Pretendard-Regular'">
 <%@ include file="../header/header.jsp" %>
-<main style="font-family: 'Pretendard-Regular'">
-<%--    <%@include file="../header/headerModal.jsp" %>--%>
-    <div>
+<%@ include file="../header/headerModal.jsp"%>
+<%--<main >--%>
+    <div class="communityListBody">
     <div class="header-container">
         <div class="header-left">
             <h1>커뮤니티</h1>
@@ -133,7 +132,7 @@
             </p>
         </div>
     </div>
-    <div class="container">
+    <div class="community-main-container">
         <div class="board-list">
             <ul>
                 <li><div class="board1234" onclick="location.href='/community/listAll'">전체</div></li>
@@ -146,25 +145,33 @@
         <div class="communityList-container">
             <div class="community-list">
                 <div class="community-filter">
-                    <div id="service-modal-open" class="service-modal-opener">
-                        서비스 <i class="bi bi-chevron-down"></i>
+                    <div class="community-service-modal" id="community-service-modal">
+                        <div id="service-modal-open" class="service-modal-opener">
+                            서비스 <i class="bi bi-chevron-down"></i>
+                        </div>
                     </div>
-                    <div id="place-modal-open" class="place-modal-opener">
-                        지역 <i class="bi bi-chevron-down"></i>
+                    <div class="community-place-modal" id="community-place-modal">
+                        <div id="place-modal-open" class="place-modal-opener">
+                            지역 <i class="bi bi-chevron-down"></i>
+                        </div>
                     </div>
                 </div>
-                <c:forEach items="${boards}" var="board">
-                    <div class="communityList" onclick="location.href='/community/read?cb_no=${board.cb_no}'">
-                        <div style="font-weight: bold">${board.cb_title}</div>
-                        <div>${board.cb_content}</div>
-                        <div>${board.state} ${board.district}</div>
-                    </div>
-                </c:forEach>
+                <div class="community-list-container" id="community-list" >
+                    <c:forEach items="${boards}" var="board">
+                        <div class="community-board-content" onclick="location.href='/community/read?cb_no=${board.cb_no}'">
+
+                                <div style="font-weight: bold">${board.cb_title}</div>
+                                <div>${board.cb_content}</div>
+                                <div>${board.state} ${board.district}</div>
+
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
         </div>
     </div>
     </div>
-</main>
+<%--</main>--%>
 <%@include file="communityListModal.jsp" %>
 <%--<%@ include file="footer.jsp" %>--%>
 </body>

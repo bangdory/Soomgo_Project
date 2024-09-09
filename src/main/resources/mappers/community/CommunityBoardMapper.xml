@@ -41,7 +41,12 @@
             cb.cb_currentview,
             cb.cb_view,
             cb.cb_like,
-            cb.cb_regdate
+            CASE
+                WHEN 24 > TIMESTAMPDIFF(HOUR, cb.cb_regdate, NOW())  THEN
+                    CONCAT(TIMESTAMPDIFF(HOUR, cb.cb_regdate, NOW()), '시간 전')
+                ELSE
+                    DATE_FORMAT(cb.cb_regdate, '%Y. %m. %d')
+            END AS cb_regdate
         from community_board cb
         join user u on cb.user_num = u.user_num
         join category c on cb.categoryNum = c.categoryNum
@@ -59,7 +64,7 @@
     <delete id="delete">
         delete from community_board where cb_no = #{cb_no}
     </delete>
-    <select id="listAll" resultType="org.soomgo.soomgo_project.domain.community.CommunityBoardDTO">
+    <select id="listAll" parameterType="map" resultType="org.soomgo.soomgo_project.domain.community.CommunityBoardDTO">
         select
         cb.cb_no,
         cb.board_no,
@@ -77,9 +82,17 @@
         from community_board cb
         join user u on cb.user_num = u.user_num
         join territory t on cb.cb_addr = t.no
+        <where>
+            <if test="category_num != null">
+                AND category_num = #{category_num}
+            </if>
+            <if test="region != null">
+                AND region = #{region}
+            </if>
+        </where>
         order by cb_no, cb_regdate desc
     </select>
-    <select id="listByBoardNo" resultType="org.soomgo.soomgo_project.domain.community.CommunityBoardDTO">
+    <select id="listByBoardNo" parameterType="map" resultType="org.soomgo.soomgo_project.domain.community.CommunityBoardDTO">
         select
         cb.cb_no,
         cb.board_no,
@@ -94,11 +107,19 @@
         cb.cb_currentview,
         cb.cb_view,
         cb.cb_like,
-        cb.cb_regdate
+        cb_regdate
         from community_board cb
         join user u on cb.user_num = u.user_num
         join territory t on cb.cb_addr = t.no
         where cb.board_no = #{board_no}
+        <where>
+            <if test="category_num != null">
+                AND category_num = #{category_num}
+            </if>
+            <if test="region != null">
+                AND region = #{region}
+            </if>
+        </where>
         order by cb_no, cb_regdate desc
     </select>
     <select id="isLiked" parameterType="map" resultType="boolean">
