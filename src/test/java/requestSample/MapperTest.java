@@ -65,7 +65,7 @@ public class MapperTest {
 
     @Test
     public void testAnsweredRequestList() {
-        List<RequestVO> requestVOS = requestMapper.answeredRequestByExpertNum(2);
+        List<AnswerRequestVO> requestVOS = requestMapper.answeredRequestByExpertNum(2);
         log.info(requestVOS);
     }
 
@@ -106,7 +106,7 @@ public class MapperTest {
 
     @Test
     public void selectedType() {
-        CategoryDTO selectedType = requestMapper.selectedType("3D모델링");
+        CategoryDTO selectedType = requestMapper.selectedType(29);
         log.info(selectedType);
     }
 
@@ -154,7 +154,22 @@ public class MapperTest {
     @Test
     public void deletedTest() {
         requestMapper.deleteRequestFromClient(3);
-
     }
 
+    @Test
+    public void deletedFromExpertTest() {
+        AnswerRequestVO a = new AnswerRequestVO();
+/*
+        a.setId(6);
+        a.setExpertNum(3);
+        a.setRequestId(3);
+*/
+        answerMapper.ignoreAnswerRequest(a);
+    }
+
+    @Test
+    public void findAnswerRequestByAnwerRequestID() {
+        AnswerRequestVO a = answerMapper.findAnswerRequestVOById(5);
+        log.info(a);
+    }
 }

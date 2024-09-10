@@ -24,7 +24,7 @@ public interface RequestMapper {
     List<RequestVO> readRequestByExpertNum(int expertNum);
 
     // 고수가 답장한 견적서
-    List<RequestVO> answeredRequestByExpertNum(int expertNum);
+    List<AnswerRequestVO> answeredRequestByExpertNum(int expertNum);
     // 견적이 달린 요청서 리스트 (고객확인용)
     List<AnswerRequestVO> answerListOfSelectedRequest(int requestId);
 

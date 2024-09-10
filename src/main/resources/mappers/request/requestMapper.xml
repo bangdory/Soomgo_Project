@@ -18,7 +18,32 @@
         #{sex}, #{fav}, #{place}, #{date}, #{regionNum}, #{ref})
     </insert>
 
-    <select id="getListByClientNo" parameterType="int" resultType="RequestVO">
+    <resultMap id="listByClient" type="RequestVO">
+        <id property="id" column="id"/>
+        <result property="typeName" column="typeName"/>
+        <result property="experts" column="experts"/>
+        <result property="userName" column="user_name"/>
+        <result property="userNum" column="userNum"/>
+        <result property="typeNum" column="typeNum"/>
+        <result property="sub" column="sub"/>
+        <result property="file1" column="file1"/>
+        <result property="file2" column="file2"/>
+        <result property="amount" column="amount"/>
+        <result property="addService" column="addService"/>
+        <result property="regDate" column="regDate"/>
+        <result property="result" column="result"/>
+        <result property="day" column="day"/>
+        <result property="time" column="time"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="fav" column="fav"/>
+        <result property="place" column="place"/>
+        <result property="date" column="date"/>
+        <result property="ref" column="ref"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <select id="getListByClientNo" parameterType="int" resultMap="listByClient">
         <!--        select * from test where id > 0 order by id desc-->
         select r.id,
         c.CategoryName typeName,
@@ -41,7 +66,7 @@
         r.fav,
         r.place,
         r.date,
-        r.ref refFromClient,
+        r.ref,
         r.deleted
         from request r
         inner join user u on u.user_num = r.userNum
@@ -106,16 +131,17 @@
     <!-- 개별 데이터 조회용, 작성할 것-->
     <!--    </select>-->
     <select id="readRequestByExpertNum" parameterType="int" resultType="RequestVO">
-        <!--   SELECT r.*
-           FROM request r
-           INNER JOIN expert e
-           ON r.regionNum = e.region
-           AND r.typeNum = e.category_num
-           WHERE e.expert_num = ${expertNum}
-           ORDER BY r.regDate DESC-->
         SELECT u.user_name userName,
-        <!--        u2.user_name expertName,-->
         c.CategoryName typeName,
+        LENGTH(r.expertNum) - LENGTH(REPLACE(r.expertNum, ',', '')) + 1 experts,
+        CASE
+        WHEN FIND_IN_SET(e.expert_num, r.expertNum) > 0 THEN 1
+        ELSE 0
+        END AS is_in_list,
+        CASE
+        WHEN FIND_IN_SET(e.expert_num, r.expertNum) > 0 THEN 1
+        ELSE 0
+        END AS ignoredExpertByThisExpert,
         t.district regionName,
         r.*
         FROM request r
@@ -123,11 +149,10 @@
         ON r.regionNum = e.region
         AND r.typeNum = e.category_num
         inner join user u on u.user_num = r.userNum
-        <!--        inner join user u2 on u2.user_num = e.expert_Num-->
-        inner join category c on c.CategoryNum = r.categoryNum
+        inner join category c on c.CategoryNum = r.typeNum
         inner join territory t on t.no = r.regionNum
-        WHERE e.expert_num = #{expertNum}
-        ORDER BY r.regDate DESC
+        WHERE e.expert_num = 2
+        ORDER BY r.regDate DESC;
     </select>
 
     <resultMap id="answeredListFromExpert" type="AnswerRequestVO">
@@ -140,7 +165,7 @@
         <result property="replyDate" column="replyDate"/>
         <result property="typeNum" column="typeNum"/>
         <result property="typeName" column="CategoryName"/>
-        <result property="sub" column="sub"/>
+        <result property="subType" column="sub"/>
         <result property="file1" column="file1"/>
         <result property="file2" column="file2"/>
         <result property="amount" column="amount"/>
@@ -159,6 +184,7 @@
         <result property="price" column="price"/>
         <result property="refFromExpert" column="a.ref"/>
         <result property="fileFromExpert" column="file"/>
+        <result property="ignored" column="ignored"/>
     </resultMap>
 
     <select id="answeredRequestByExpertNum" parameterType="int" resultMap="answeredListFromExpert">
@@ -196,7 +222,8 @@
         r.ref,
         a.price,
         a.ref,
-        a.file
+        a.file,
+        a.ignored
         from request r
         inner join
         answerrequest a on a.RequestId = r.id

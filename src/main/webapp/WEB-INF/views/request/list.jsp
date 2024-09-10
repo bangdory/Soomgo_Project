@@ -81,10 +81,10 @@
                 </div>
                 <div id="requestsWithAnswer" class="requestsList hidden">
                     <h3>견적을 받은 요청서</h3>
-                    <c:if test="${empty vo[0].experts}">
+                    <c:if test="${vos[0].experts <=0}">
                         <h4>아직 견적이 달린 요청서가 없습니다</h4>
                     </c:if>
-                    <c:forEach var="vo" items="${vo}">
+                    <c:forEach var="vo" items="${vos}">
                         <c:if test="${vo.experts >= 1 && vo.deleted == null}">
                             <div class="request-item">
                                 <div class="sort-date">
@@ -110,11 +110,11 @@
                 </div>
                 <div id="requestsWithoutAnswer" class="requestsList">
                     <h3>내가 보낸 요청서</h3>
-                    <c:if test="${empty vo}">
+                    <c:if test="${empty vos}">
                         <h4>내가 보낸 요청서가 없습니다</h4>
                     </c:if>
-                    <c:forEach var="vo" items="${vo}">
-                        <c:if test="${empty vo.experts && vo.deleted == null}">
+                    <c:forEach var="vo" items="${vos}">
+                        <c:if test="${vo.experts <=0 && vo.deleted == null}">
                             <div class="request-item">
                                 <div class="sort-date">
                                     <div class="requestHeader">
@@ -154,8 +154,8 @@
                             </div>
                         </c:if>
                     </c:forEach>
-                    <c:forEach var="delVO" items="${vo}">
-                        <c:if test="${(delVO.experts >= 1 && delVO.deleted == 1) || (empty delVO.experts && delVO.deleted == 1)}">
+                    <c:forEach var="delVO" items="${vos}">
+                        <c:if test="${(delVO.experts >= 1 && delVO.deleted == 1) || (delVO.experts <=0 && delVO.deleted == 1)}">
                             <div class="request-item">
                                 <div class="sort-date">
                                     <div class="requestHeader">

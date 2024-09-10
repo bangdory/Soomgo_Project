@@ -17,12 +17,12 @@
     </insert>
 
     <update id="update" parameterType="AnswerRequestDTO"> <!-- 사용 안할 예정 -->
-<!--        update request-->
-<!--        set expertNum = CASE-->
-<!--        WHEN expertNum IS NULL THEN #{expertNum}-->
-<!--        ELSE CONCAT(expertNum, ',',#{expertNum}')-->
-<!--        END-->
-<!--        where id = #{requestId}-->
+        <!--        update request-->
+        <!--        set expertNum = CASE-->
+        <!--        WHEN expertNum IS NULL THEN #{expertNum}-->
+        <!--        ELSE CONCAT(expertNum, ',',#{expertNum}')-->
+        <!--        END-->
+        <!--        where id = #{requestId}-->
         UPDATE request
         SET expertNum = CASE
         WHEN expertNum IS NULL THEN #{expertNum, jdbcType=VARCHAR}
@@ -30,4 +30,103 @@
         END
         WHERE id = #{requestId, jdbcType=INTEGER}
     </update>
+
+    <update id="ignoreAnswerRequest" parameterType="AnswerRequestVO">
+        UPDATE answerRequest a, request r
+        SET a.ignored = 1
+        , r.ignoredExpert = CASE
+        WHEN ignoredExpert IS NULL THEN #{expertNum, jdbcType=VARCHAR}
+        ELSE CONCAT(COALESCE(ignoredExpert, ''), ',', #{expertNum, jdbcType=VARCHAR})
+        END
+        WHERE r.id = #{requestId}
+        AND a.id = #{id}
+    </update>
+
+    <update id="ignoreReceivedRequest" parameterType="int">
+        UPDATE request r
+        SET r.ignoredExpert = CASE
+        WHEN ignoredExpert IS NULL THEN #{expertNum, jdbcType=VARCHAR}
+        ELSE CONCAT(COALESCE(ignoredExpert, ''), ',', #{expertNum, jdbcType=VARCHAR})
+        END
+        WHERE a.id = #{id}
+    </update>
+
+    <resultMap id="answeredListFromExpert" type="AnswerRequestVO">
+        <id property="id" column="id"/>
+        <result property="requestId" column="RequestId"/>
+        <result property="userNum" column="userNum"/>
+        <result property="userName" column="clientName"/>
+        <result property="expertNum" column="expert_num"/>
+        <result property="expertName" column="expertName"/>
+        <result property="replyDate" column="replyDate"/>
+        <result property="typeNum" column="typeNum"/>
+        <result property="typeName" column="CategoryName"/>
+        <result property="subType" column="sub"/>
+        <result property="file1" column="file1"/>
+        <result property="file2" column="file2"/>
+        <result property="amount" column="amount"/>
+        <result property="addService" column="addService"/>
+        <result property="result" column="result"/>
+        <result property="day" column="day"/>
+        <result property="time" column="time"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="fav" column="fav"/>
+        <result property="place" column="place"/>
+        <result property="date" column="date"/>
+        <result property="regionNum" column="regionNum"/>
+        <result property="regionName" column="district"/>
+        <result property="refFromClient" column="r.ref"/>
+        <result property="price" column="price"/>
+        <result property="refFromExpert" column="a.ref"/>
+        <result property="fileFromExpert" column="file"/>
+        <result property="ignored" column="ignored"/>
+    </resultMap>
+
+    <select id="findAnswerRequestVOById" parameterType="int" resultMap="answeredListFromExpert">
+        select a.id,
+        a.RequestId,
+        r.userNum,
+        u.user_name clientName,
+        e.expert_num,
+        u2.user_name expertName,
+        a.replyDate,
+        r.typeNum,
+        c.CategoryName,
+        r.sub,
+        r.file1,
+        r.file2,
+        r.amount,
+        r.addService,
+        r.result,
+        r.day,
+        r.time,
+        r.age,
+        r.sex,
+        r.fav,
+        r.place,
+        r.date,
+        r.regionNum,
+        t.district,
+        r.ref,
+        a.price,
+        a.ref,
+        a.file,
+        a.ignored
+        from request r
+        inner join
+        answerrequest a on a.RequestId = r.id
+        inner join
+        user u on u.user_num = r.userNum
+        inner join
+        user u2 on u2.user_num = a.expertNum
+        inner join
+        expert e on e.expert_num = a.expertNum
+        inner join
+        category c on c.CategoryNum = r.typeNum
+        inner join
+        territory t on t.no = r.regionNum
+        where a.id = #{answerRequestId}
+
+    </select>
 </mapper>

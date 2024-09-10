@@ -49,7 +49,7 @@ public class RequestService {
     }
 
 
-    public List<RequestVO> readAnsweredRequests(ExpertVO expert) {
+    public List<AnswerRequestVO> readAnsweredRequests(ExpertVO expert) {
         return requestMapper.answeredRequestByExpertNum(expert.getExpertNum());
     }
 

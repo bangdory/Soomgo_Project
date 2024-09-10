@@ -193,7 +193,7 @@ main {
     text-align: right; /* 텍스트를 중앙 정렬 */
 }
 
-.requestDetail {
+.answeredRequestDetail {
     float: left;
     width: 60%;
 }

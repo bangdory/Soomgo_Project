@@ -3,8 +3,10 @@ package org.soomgo.soomgo_project.controller.request;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.request.AnswerRequestDTO;
+import org.soomgo.soomgo_project.domain.request.AnswerRequestVO;
 import org.soomgo.soomgo_project.domain.request.ExpertVO;
 import org.soomgo.soomgo_project.domain.request.RequestDTO;
+import org.soomgo.soomgo_project.domain.userpage.UserDTO;
 import org.soomgo.soomgo_project.service.request.AnswerService;
 import org.soomgo.soomgo_project.service.request.RequestService;
 import org.springframework.stereotype.Controller;
@@ -32,18 +34,24 @@ public class AnswerController {
     )
 //            throws JsonProcessingException
     {
+        log.info("answer Post 에 넘어온 id" + id);
+        UserDTO userAsExpert = (UserDTO) session.getAttribute("user");
+        // UserDTO -> ExpertDTO 로 변환시켜서 데이터 뽑아올 것
 
-//        ExpertVO expert = (ExpertVO) session.getAttribute("expert");
-//        String expert = (String) session.getAttribute("expert");
+        if (userAsExpert == null) {
+            return "redirect:/login";
+        } else if (userAsExpert.getUser_type() != UserDTO.UserType.EXPERT) {
+            return null; // 권한 안내 페이지로 이동시킬 것!!
+        }
         ExpertVO expert = (ExpertVO) session.getAttribute("expert");
         RequestDTO request = requestService.getRequest(id);
         // 위에 이거 requestMapper 에서 selectedRequest 사용하면 RequestVO 로 추출 가능!!
         session.setAttribute("expert", expert);
         session.setAttribute("request", request);
-        log.info("받은 id" + id);
-        log.info("담은 모델" + model);
-        log.info("expert 담은것" + expert);
-        log.info("request 담은것" + request);
+//        log.info("받은 id" + id);
+//        log.info("담은 모델" + model);
+//        log.info("expert 담은것" + expert);
+//        log.info("request 담은것" + request);
 //        RequestVO received = (RequestVO) session.getAttribute("received");
 
 //        String jsonExpert = new ObjectMapper().writeValueAsString(expert);
@@ -67,7 +75,14 @@ public class AnswerController {
 
 //        ExpertVO expert = (ExpertVO) session.getAttribute("expert");
 //        RequestVO received = (RequestVO) session.getAttribute("received");
+        UserDTO userAsExpert = (UserDTO) session.getAttribute("user");
+        // UserDTO -> ExpertDTO 로 변환시켜서 데이터 뽑아올 것
 
+        if (userAsExpert == null) {
+            return "redirect:/login";
+        } else if (userAsExpert.getUser_type() != UserDTO.UserType.EXPERT) {
+            return null; // 권한 안내 페이지로 이동시킬 것!!
+        }
         RequestDTO request = (RequestDTO) session.getAttribute("request");
         ExpertVO expert = (ExpertVO) session.getAttribute("expert");
         model.addAttribute("request", request);
@@ -108,8 +123,17 @@ public class AnswerController {
     @PostMapping("/answerRequest")
     public String PostAnswer(
             @ModelAttribute AnswerRequestDTO answerRequestDTO,
+            HttpSession session,
             RedirectAttributes rttr
     ) {
+        UserDTO userAsExpert = (UserDTO) session.getAttribute("user");
+        // UserDTO -> ExpertDTO 로 변환시켜서 데이터 뽑아올 것
+
+        if (userAsExpert == null) {
+            return "redirect:/login";
+        } else if (userAsExpert.getUser_type() != UserDTO.UserType.EXPERT) {
+            return null; // 권한 안내 페이지로 이동시킬 것!!
+        }
         log.info("업데이트 데이터 : " + answerRequestDTO);
         log.info("고수 id : " + answerRequestDTO.getExpertNum());
         log.info("요청서 id : " + answerRequestDTO.getRequestId());
@@ -126,5 +150,52 @@ public class AnswerController {
 //        return "redirect:/request/read/" + encodedUri;
         return "redirect:/request/readrequest";
     }
+
+    @PostMapping("/ignoreAnswerRequest/{idToIgnore}")
+    public String removeAnsweredRequestByExpert(
+            @RequestParam(name = "idToIgnore") int id,
+            HttpSession session
+    ) {
+        log.info("들어온 requestID =>" + id);
+        UserDTO userAsExpert = (UserDTO) session.getAttribute("user");
+        // UserDTO -> ExpertDTO 로 변환시켜서 데이터 뽑아올 것
+
+        if (userAsExpert == null) {
+            return "redirect:/login";
+        } else if (userAsExpert.getUser_type() != UserDTO.UserType.EXPERT) {
+            return null; // 권한 안내 페이지로 이동시킬 것!!
+        }/*else if (id <= 0) {
+            return null; // 에러 페이지로 띄울 것!!
+        }*/
+        AnswerRequestVO selectedAnswerRequest = answerService.findAnswerRequestVOById(id);
+        answerService.ignoreAnswerRequestByExpert(selectedAnswerRequest);
+
+        return "redirect:/request/readrequest";
+    }
+/*
+
+    @PostMapping("/ignoreReceivedRequest/{idToIgnore}")
+    public String removeReceivedRequestByExpert(
+            @RequestParam(name = "idToIgnore") int id,
+            HttpSession session
+    ) {
+        log.info("들어온 requestID =>" + id);
+        UserDTO userAsExpert = (UserDTO) session.getAttribute("user");
+        ExpertVO expert = requestService.findExpert(userAsExpert.getUser_num());
+
+        if (userAsExpert == null) {
+            return "redirect:/login";
+        } else if (userAsExpert.getUser_type() != UserDTO.UserType.EXPERT) {
+            return null; // 권한 안내 페이지로 이동시킬 것!!
+        }*/
+/*else if (id <= 0) {
+            return null; // 에러 페이지로 띄울 것!!
+        }*//*
+
+        answerService.ignoreReceivedRequestByExpert(id,expert.getExpertNum());
+
+        return "redirect:/request/readrequest";
+    }
+*/
 
 }

@@ -14,7 +14,8 @@ public class RequestVO {
     private int id;
     private int userNum;
     private String userName; // 이름
-    private Integer experts; // 고수번호 -> 배열, 필요없음??
+    private int experts; // 고수번호 -> 배열, 필요없음??
+    private Integer expertIsIncluded; // 선택된 고수가 답변을 했는지 여부, Boolean
     private String expertName; // 고수 이름
     private LocalDateTime regDate;
     private int categoryNum;
@@ -26,7 +27,7 @@ public class RequestVO {
     private Boolean cr;
     private String amount;
     private String addService;
-    private String delService;
+//    private String delService;
     private String result;
     private String day;
     private String time;
@@ -38,5 +39,7 @@ public class RequestVO {
     private int regionNum;
     private String regionName; // 지역 이름
     private String ref;
-    private String deleted; // 삭제 여부 (고객)
+    private int deleted; // 삭제 여부 (고객)
+    private int ignoredExpert; // 고수가 이 요청서를 무시했는지
+    private int ignoredExpertByThisExpert; // 고수가 이 요청서를 무시했는지
 }

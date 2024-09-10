@@ -43,7 +43,7 @@ public class RequestController {
         List<RequestVO> list = requestService.list(user.getUser_num());
 
         log.info(list);
-        model.addAttribute("vo", list);
+        model.addAttribute("vos", list);
         model.addAttribute("user", user);
         return "/request/list";
     }
@@ -151,8 +151,10 @@ public class RequestController {
 //        List<RequestDTO> receivedRequests = requestService.readReceivedRequests(expert);
 //        List<RequestDTO> answeredRequests = requestService.readAnsweredRequests(expert);
         List<RequestVO> received = requestService.readReceivedRequests(expertUser);
-        List<RequestVO> answered = requestService.readAnsweredRequests(expertUser);
+        List<AnswerRequestVO> answered = requestService.readAnsweredRequests(expertUser);
 
+        log.info("received!!!" + received);
+        log.info("answered!!!" + answered);
         session.setAttribute("expert", expertUser);
 //        session.setAttribute("received", received);
 
@@ -161,6 +163,7 @@ public class RequestController {
         model.addAttribute("receivedList", received);
 
         log.info("답장리스트" + answered);
+        log.info("받은리스트" + received);
 
         return "/request/readrequest";
     }

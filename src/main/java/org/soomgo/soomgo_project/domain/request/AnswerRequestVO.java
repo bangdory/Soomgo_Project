@@ -40,8 +40,10 @@ public class AnswerRequestVO {
     private String refFromExpert; // 고수기타사항
     private String fileFromExpert; // 고수파일
 
-    private Integer connected; // 고수와 매칭 여부
-    private Boolean deleted;
+    private int connected; // 고수와 매칭 여부
+    private int deleted;
+
+    private int ignored; // 고수가 이 요청서를 무시했는지
 
     public AnswerRequestVO() {
         this.replyDate = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
