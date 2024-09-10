@@ -55,4 +55,10 @@
         SET user_password = #{user_password}
         WHERE user_num = #{user_num}
     </update>
+
+    <select id="searchPhone" parameterType="String" resultType="Integer">
+        SELECT COUNT(*) FROM user WHERE user_phonenum = #{phone}
+    </select>
+
+
 </mapper>

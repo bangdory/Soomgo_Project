@@ -71,7 +71,7 @@ public class EmailServiceImpl implements EmailService {
 
         log.info("userId: " + userId);
 
-        if(userId != -1) {
+        if (userId != -1) {
             emailVerificationTokenDTO.setUser_num(userId);
             emailVerificationTokenMapper.save(emailVerificationTokenDTO);
         }
@@ -84,7 +84,7 @@ public class EmailServiceImpl implements EmailService {
         LocalDateTime now = LocalDateTime.now();
         EmailVerificationTokenDTO emailVerificationTokenDTO = emailVerificationTokenMapper.findByToken(token);
 
-        if(emailVerificationTokenDTO != null) {
+        if (emailVerificationTokenDTO != null) {
             return emailVerificationTokenDTO.getExpires().isAfter(LocalDateTime.now());
         }
 
@@ -125,7 +125,11 @@ public class EmailServiceImpl implements EmailService {
             }
 
             String resetLink = "http://localhost:8080/user/resetpasswordform?token=" + token;
-            String emailContent = "Password ResetLink : " + resetLink;
+//            String emailContent = "Password ResetLink : " + resetLink;
+            String emailContent = "<html><body>"
+                    + "<p>Password Reset Link:</p>"
+                    + "<a href=\"" + resetLink + "\">" + resetLink + "</a>"
+                    + "</body></html>";
 
 
 //        SimpleMailMessage message = new SimpleMailMessage();

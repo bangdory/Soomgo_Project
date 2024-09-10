@@ -12,7 +12,7 @@
 <body>
     <%@include file="../header/header.jsp" %>
 <main>
-    <div class="container">
+    <div class="find-userEmail-container">
         <div class="account-info">
             <h1>계정설정</h1>
             <div class="profile-card">

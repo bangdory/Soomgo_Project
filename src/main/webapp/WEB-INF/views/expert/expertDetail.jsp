@@ -31,7 +31,7 @@
                 <div class="expert-detail-item"><img src="${pageContext.request.contextPath}/resources/static/img/1.jpg"
                                                      class="expert-detail-item-img"></div>
             </div>
-            <div class="expert-detail-profile container">
+            <div class="expert-detail-profile find-userEmail-container">
                 <div class="row fs-2">대충 고수 닉네임</div>
                 <div class="row">대충 고수 서비스</div>
                 <div class="row">대충 고수 지역</div>

@@ -84,4 +84,13 @@
         profile_intro = #{profile_intro},
         WHERE user_num = #{user_num}
     </select>
+
+    <update id="expertSignUp" parameterType="org.soomgo.soomgo_project.domain.expert.ExpertDTO">
+        UPDATE expert
+        SET region = #{region},
+        experience_years = #{experienceYears},
+        category_num = #{categoryNum}
+        WHERE user_num = #{userNum}
+    </update>
+
 </mapper>

@@ -39,4 +39,8 @@ public class ExpertService {
     public ExpertDTO expertDetail (int expertNum) {
         return expertDAO.expertDetail(expertNum);
     }
+
+    public int expertSignUp (ExpertDTO expertDTO) {
+        return expertDAO.expertSignUp(expertDTO);
+    }
 }

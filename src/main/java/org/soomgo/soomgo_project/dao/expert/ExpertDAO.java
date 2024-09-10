@@ -36,4 +36,8 @@ public class ExpertDAO {
     public ExpertDTO expertDetail(int expertNum) {
         return expertMapper.expertDetail(expertNum);
     }
+
+    public int expertSignUp (ExpertDTO expertDTO) {
+        return expertMapper.expertSignUp(expertDTO);
+    }
 }
