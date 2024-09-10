@@ -17,6 +17,8 @@ public class CategoryDAO {
         return categoryMapper.getCategoryId(id);
     }
 
+    public List<CategoryDTO> getCategoryAll(){return categoryMapper.getCategoryAll();}
+
     public List<CategoryDTO> getCategoryZero() {
         return categoryMapper.getCategoryZero();
     }
@@ -24,5 +26,12 @@ public class CategoryDAO {
     public List<CategoryDTO> getCategoryNotZero() {
         return categoryMapper.getCategoryNotZero();
     }
+
+//    public List<CategoryDTO> getCategoryId1() {return categoryMapper.getCategoryId1();};
+//    public List<CategoryDTO> getCategoryId2() {return categoryMapper.getCategoryId2();};
+//    public List<CategoryDTO> getCategoryId3() {return categoryMapper.getCategoryId3();};
+//    public List<CategoryDTO> getCategoryId4() {return categoryMapper.getCategoryId4();};
+//    public List<CategoryDTO> getCategoryId5() {return categoryMapper.getCategoryId5();};
+    public List<CategoryDTO> getCategoryIdOther() {return categoryMapper.getCategoryIdOther();};
 
 }

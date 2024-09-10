@@ -44,6 +44,7 @@
 
 package org.soomgo.soomgo_project.service.user;
 
+import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.user.UserDTO;
 import org.soomgo.soomgo_project.domain.user.UserProfileDTO;
 
@@ -75,4 +76,7 @@ public interface UserService {
     Optional<String> findByNameAndPhoneNumber(String name, String phoneNumber);
 
     boolean resetPasswordWithToken(String token, String newPassword);
+
+    int searchPhone(String phone);
+
 }

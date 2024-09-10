@@ -19,4 +19,6 @@ public interface ExpertMapper {
 
     ExpertDTO expertDetail(int expertNum);
 
+    int expertSignUp (ExpertDTO expertDTO);
+
 }

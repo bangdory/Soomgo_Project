@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
         div.addEventListener('click', function (event) {
             const target = event.target;
 
-            if (target.classList.contains('toggle-btn')) {
+            if (target.classList.contains('modal-toggle-btn')) {
                 const item = target.closest('.place-modal-item');
                 const isExpanded = item.getAttribute('data-expanded') === 'true';
                 const dataDiv = item.nextElementSibling;
@@ -447,6 +447,3 @@ function updatePagingLinks(pageResult) {
         pagingList.appendChild(nextLi);
     }
 }
-
-
-

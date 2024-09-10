@@ -11,7 +11,6 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
 
-
     <title>JSP - Hello World</title>
 </head>
 <body>
@@ -41,7 +40,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/category/list?num=1">
                             <div class="icon-container">
                                 <i class="bi bi-vector-pen icon-size"></i>
                                 <p>디자인외주</p>
@@ -49,7 +48,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/category/list?num=2">
                             <div class="icon-container">
                                 <i class="bi bi-qr-code icon-size"></i>
                                 <p>개발외주</p>
@@ -57,7 +56,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/category/list?num=3">
                             <div class="icon-container">
                                 <i class="bi bi-database-fill icon-size"></i>
                                 <p>데이터외주</p>
@@ -65,7 +64,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/category/list?num=4">
                             <div class="icon-container">
                                 <i class="bi bi-pc-display icon-size"></i>
                                 <p>컴퓨터실무</p>
@@ -73,7 +72,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/category/list?num=5">
                             <div class="icon-container">
                                 <i class="bi bi-palette icon-size"></i>
                                 <p>디자인실무</p>
@@ -144,7 +143,7 @@
                     <div class="community-left-section">
                         <%-- 좌측섹션 _ 첫번째 단 --%>
                         <div class="community-left-item">
-                            <a href="#">
+                            <a href="#" class="community-alink-container">
                                 <div>
                                     <div class="item-header">
                                         좌측 섹션 첫번째 단(커뮤니티 탭)
@@ -162,7 +161,7 @@
                         </div>
                         <%-- 좌측섹션 _ 두번째 단 --%>
                         <div class="community-left-item">
-                            <a href="#">
+                            <a href="#" class="community-alink-container">
                                 <div>
                                     <div class="item-header">
                                         좌측 세션 두번째 단(커뮤니티 탭)
@@ -180,7 +179,7 @@
                         </div>
                         <%-- 좌측섹션 _ 세번째 단 --%>
                         <div class="community-left-item ">
-                            <a href="#">
+                            <a href="#" class="community-alink-container">
                                 <div>
                                     <div class="item-header">
                                         좌측 섹션 세번쨰 단(커뮤니티 탭)
@@ -232,7 +231,6 @@
         </div>
     </div>
 </main>
-
 <!-- JavaScript 파일을 페이지의 마지막에 포함 -->
 <script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js" type="text/javascript"></script>
 </body>

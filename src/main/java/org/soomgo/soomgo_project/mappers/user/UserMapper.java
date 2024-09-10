@@ -2,6 +2,7 @@ package org.soomgo.soomgo_project.mappers.user;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.user.UserDTO;
 import org.soomgo.soomgo_project.domain.user.UserProfileDTO;
 
@@ -26,4 +27,7 @@ public interface UserMapper {
     UserDTO findUserByNameAndPhoneNumber(@Param("name") String name, @Param("phoneNumber") String phoneNumber);
 
     void updatePassword(@Param("user_num") int userNum, @Param("user_password") String newPassword);
+
+    int searchPhone(String phone);
+
 }

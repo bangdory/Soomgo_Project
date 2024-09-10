@@ -144,6 +144,7 @@
 
 package org.soomgo.soomgo_project.service.user;
 
+import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.user.EmailVerificationTokenDTO;
 import org.soomgo.soomgo_project.domain.user.UserDTO;
 import org.soomgo.soomgo_project.domain.user.UserProfileDTO;
@@ -254,4 +255,10 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+    @Override
+    public int searchPhone(String phone) {
+        return userMapper.searchPhone(phone);
+    }
+
 }
