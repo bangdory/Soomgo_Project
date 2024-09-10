@@ -105,12 +105,13 @@
         <%--        <c:out value="${expert}"/><br>--%>
         <%--<c:out value="answer -> ${answeredList}"/><br>--%>
         <%--        <c:out value="received ->${receivedList}"/><br>--%>
-        <c:out value="${expert.categoryName}의 고수 ${expert.expertName}님"/>
-        <hr>
-
-
+        <h2><c:out value="${expert.categoryName}의 고수 ${expert.expertName}님"/></h2>
+        <br>
+        <c:if test="${not empty answeredList && (answeredList[0].ignored != 1 && receivedList[0].deleted != 1)}">
+            <h3>견적을 보낸 요청서</h3>
+        </c:if>
         <c:forEach var="answered" items="${answeredList}">
-            <c:if test="${answered.ignored != 1}">
+            <c:if test="${answered.ignored != 1 || answered.deleted != 0}">
                 <div class="answeredRequestDetail">
                     <div>
                             ${answered.userName} 님의 ${answered.typeName} 요청서
@@ -251,8 +252,15 @@
         </c:forEach>
 
         <%--                        <c:out value="${receivedList}"></c:out>--%>
+        <c:if test="${not empty receivedList && (receivedList[0].expertAlreadyAnswered != 1 && receivedList[0].ignored != 1)}">
+            <h3>내가 받은 요청서</h3>
+        </c:if>
+        <c:if test="${empty receivedList || receivedList[0].expertAlreadyAnswered == 1 && receivedList[0].ignored == 1}">
+            <h3>아직 받은 요청서가 없습니다</h3>
+        </c:if>
+
         <c:forEach var="received" items="${receivedList}">
-            <c:if test="${received.expertIsIncluded == 0 && received.ignoredExpertByThisExpert != 1}">
+            <c:if test="${received.expertAlreadyAnswered == 0 && received.ignored == 0}">
                 <div class="answeredRequestDetail">
                     <div>
                             ${received.userName} 님의 ${received.typeName} 요청서

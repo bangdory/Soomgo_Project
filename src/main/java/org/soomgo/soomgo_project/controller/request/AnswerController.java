@@ -172,7 +172,6 @@ public class AnswerController {
 
         return "redirect:/request/readrequest";
     }
-/*
 
     @PostMapping("/ignoreReceivedRequest/{idToIgnore}")
     public String removeReceivedRequestByExpert(
@@ -187,15 +186,14 @@ public class AnswerController {
             return "redirect:/login";
         } else if (userAsExpert.getUser_type() != UserDTO.UserType.EXPERT) {
             return null; // 권한 안내 페이지로 이동시킬 것!!
-        }*/
-/*else if (id <= 0) {
+        }
+else if (id <= 0) {
             return null; // 에러 페이지로 띄울 것!!
-        }*//*
+        }
 
         answerService.ignoreReceivedRequestByExpert(id,expert.getExpertNum());
 
         return "redirect:/request/readrequest";
     }
-*/
 
 }

@@ -172,4 +172,10 @@ public class MapperTest {
         AnswerRequestVO a = answerMapper.findAnswerRequestVOById(5);
         log.info(a);
     }
+
+    @Test
+    public void ignoreReadRequest() {
+
+        answerMapper.ignoreReceivedRequest(14, 2);
+    }
 }

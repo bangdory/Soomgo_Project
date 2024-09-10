@@ -48,7 +48,7 @@
         WHEN ignoredExpert IS NULL THEN #{expertNum, jdbcType=VARCHAR}
         ELSE CONCAT(COALESCE(ignoredExpert, ''), ',', #{expertNum, jdbcType=VARCHAR})
         END
-        WHERE a.id = #{id}
+        WHERE r.id = #{id}
     </update>
 
     <resultMap id="answeredListFromExpert" type="AnswerRequestVO">

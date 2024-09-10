@@ -137,11 +137,11 @@
         CASE
         WHEN FIND_IN_SET(e.expert_num, r.expertNum) > 0 THEN 1
         ELSE 0
-        END AS is_in_list,
+        END AS expertAlreadyAnswered,
         CASE
-        WHEN FIND_IN_SET(e.expert_num, r.expertNum) > 0 THEN 1
+        WHEN FIND_IN_SET(CAST(e.expert_num AS CHAR), r.ignoredExpert) > 0 THEN 1
         ELSE 0
-        END AS ignoredExpertByThisExpert,
+        END AS ignored,
         t.district regionName,
         r.*
         FROM request r
@@ -151,8 +151,8 @@
         inner join user u on u.user_num = r.userNum
         inner join category c on c.CategoryNum = r.typeNum
         inner join territory t on t.no = r.regionNum
-        WHERE e.expert_num = 2
-        ORDER BY r.regDate DESC;
+        WHERE e.expert_num = #{expertNum}
+        ORDER BY r.regDate DESC
     </select>
 
     <resultMap id="answeredListFromExpert" type="AnswerRequestVO">
