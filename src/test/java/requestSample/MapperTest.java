@@ -3,11 +3,13 @@ package requestSample;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO;
 import org.soomgo.soomgo_project.domain.request.CategoryDTO;
 import org.soomgo.soomgo_project.domain.request.GosuDTO;
 import org.soomgo.soomgo_project.domain.request.RequestDTO;
 import org.soomgo.soomgo_project.domain.request.TerritoryDTO;
 import org.soomgo.soomgo_project.mappers.request.RequestMapper;
+import org.soomgo.soomgo_project.mappers.userpage.ProfileMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -22,6 +24,9 @@ public class MapperTest {
 
     @Autowired(required = false)
     RequestMapper requestMapper;
+
+    @Autowired
+    ProfileMapper profileMapper;
 
     @Test
     public void testMapper() {
@@ -88,5 +93,11 @@ public class MapperTest {
     public void findAllCategory() {
         List<String> allCategory = requestMapper.findAllCategory();
         log.info(allCategory);
+    }
+
+    @Test
+    public void expertData() {
+        List<ExpertPortfolioDTO> expertPortfolios = profileMapper.getExpertPortfolios(2);
+        log.info(expertPortfolios);
     }
 }
