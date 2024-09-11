@@ -3,7 +3,6 @@ package org.soomgo.soomgo_project.service.category;
 import lombok.RequiredArgsConstructor;
 import org.soomgo.soomgo_project.dao.category.CategoryDAO;
 import org.soomgo.soomgo_project.domain.category.CategoryDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

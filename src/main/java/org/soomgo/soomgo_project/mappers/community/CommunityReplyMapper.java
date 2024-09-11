@@ -2,7 +2,6 @@ package org.soomgo.soomgo_project.mappers.community;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.soomgo.soomgo_project.domain.community.CommunityReplyDTO;
-import org.soomgo.soomgo_project.service.community.CommunityBoardServiceImpl;
 
 import java.util.List;
 import java.util.Map;

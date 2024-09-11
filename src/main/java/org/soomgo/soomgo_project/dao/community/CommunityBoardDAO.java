@@ -3,10 +3,8 @@ package org.soomgo.soomgo_project.dao.community;
 import lombok.RequiredArgsConstructor;
 import org.soomgo.soomgo_project.domain.community.CommunityBoardDTO;
 import org.soomgo.soomgo_project.mappers.community.CommunityBoardMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

@@ -3,7 +3,7 @@ package org.soomgo.soomgo_project.controller.request;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.request.*;
-import org.soomgo.soomgo_project.domain.userpage.UserDTO;
+import org.soomgo.soomgo_project.domain.user.UserDTO;
 import org.soomgo.soomgo_project.service.request.AnswerService;
 import org.soomgo.soomgo_project.service.request.RequestService;
 import org.springframework.http.MediaType;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

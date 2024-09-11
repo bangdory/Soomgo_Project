@@ -17,7 +17,6 @@
 package org.soomgo.soomgo_project.dao.user;
 
 import lombok.RequiredArgsConstructor;
-import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.user.UserDTO;
 import org.soomgo.soomgo_project.domain.user.UserProfileDTO;
 import org.soomgo.soomgo_project.mappers.user.UserMapper;

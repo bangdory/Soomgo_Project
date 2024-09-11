@@ -3,16 +3,12 @@ package org.soomgo.soomgo_project.controller.community;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.soomgo.soomgo_project.domain.community.CommunityReplyDTO;
-import org.soomgo.soomgo_project.domain.user.UserDTO;
 import org.soomgo.soomgo_project.domain.category.CategoryDTO;
 import org.soomgo.soomgo_project.domain.community.CommunityBoardDTO;
 import org.soomgo.soomgo_project.domain.territory.TerritoryDTO;
-import org.soomgo.soomgo_project.domain.user.UserProfileDTO;
 import org.soomgo.soomgo_project.service.category.CategoryService;
 import org.soomgo.soomgo_project.service.community.CommunityBoardService;
 import org.soomgo.soomgo_project.service.community.CommunityBoardServiceImpl;
-import org.soomgo.soomgo_project.service.community.CommunityReplyService;
 import org.soomgo.soomgo_project.service.territory.TerritoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -45,7 +41,7 @@ public class CommunityBoardController {
     private final TerritoryService territoryService; // 지역 서비스 -> register.jsp 에서 훔쳐온 모달 사용할려고
     private final CommunityBoardServiceImpl service;
     private final ServletContext servletContext;
-    private final CommunityReplyService replyService;
+//    private final CommunityReplyService replyService;
 
     /*
     @Autowired
@@ -216,9 +212,9 @@ public class CommunityBoardController {
         }
 
         // 댓글목록
-        List<CommunityReplyDTO> replies = replyService.read(cb_no);
-        log.info("replies : " + replies.toString());
-        model.addAttribute("replies", replies);
+//        List<CommunityReplyDTO> replies = replyService.read(cb_no);
+//        log.info("replies : " + replies.toString());
+//        model.addAttribute("replies", replies);
 
         return "community/read";
 

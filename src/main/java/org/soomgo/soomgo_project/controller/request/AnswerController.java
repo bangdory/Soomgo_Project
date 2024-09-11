@@ -6,7 +6,7 @@ import org.soomgo.soomgo_project.domain.request.AnswerRequestDTO;
 import org.soomgo.soomgo_project.domain.request.AnswerRequestVO;
 import org.soomgo.soomgo_project.domain.request.ExpertVO;
 import org.soomgo.soomgo_project.domain.request.RequestDTO;
-import org.soomgo.soomgo_project.domain.userpage.UserDTO;
+import org.soomgo.soomgo_project.domain.user.UserDTO;
 import org.soomgo.soomgo_project.service.request.AnswerService;
 import org.soomgo.soomgo_project.service.request.RequestService;
 import org.springframework.stereotype.Controller;

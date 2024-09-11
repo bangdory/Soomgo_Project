@@ -2,8 +2,6 @@ package org.soomgo.soomgo_project.domain.community;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class CommunityBoardDTO {
     private int cb_no;

@@ -4,10 +4,8 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.soomgo.soomgo_project.domain.request.*;
-import org.soomgo.soomgo_project.domain.userpage.UserProfileDTO;
 import org.soomgo.soomgo_project.mappers.request.AnswerMapper;
 import org.soomgo.soomgo_project.mappers.request.RequestMapper;
-import org.soomgo.soomgo_project.mappers.userpage.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -24,8 +22,9 @@ public class MapperTest {
     RequestMapper requestMapper;
     @Autowired(required = false)
     AnswerMapper answerMapper;
+
     @Autowired(required = false)
-    UserMapper userMapper;
+//    UserMapper userMapper;
 
     @Test
     public void testMapper() {

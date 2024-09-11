@@ -1,7 +1,6 @@
 package org.soomgo.soomgo_project.mappers.community;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.soomgo.soomgo_project.domain.community.CommunityBoardDTO;
 
 import java.util.List;

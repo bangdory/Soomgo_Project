@@ -6,7 +6,7 @@ import org.soomgo.soomgo_project.domain.request.AnswerRequestDTO;
 import org.soomgo.soomgo_project.domain.request.AnswerRequestVO;
 import org.soomgo.soomgo_project.mappers.request.AnswerMapper;
 import org.soomgo.soomgo_project.mappers.request.RequestMapper;
-import org.soomgo.soomgo_project.mappers.userpage.UserMapper;
+import org.soomgo.soomgo_project.mappers.user.UserMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -5,8 +5,6 @@ import org.apache.ibatis.annotations.Param;
 import org.soomgo.soomgo_project.domain.request.AnswerRequestDTO;
 import org.soomgo.soomgo_project.domain.request.AnswerRequestVO;
 
-import java.util.List;
-
 @Mapper
 public interface AnswerMapper {
     int answerRequest(AnswerRequestDTO answerRequestDTO);

@@ -1,11 +1,9 @@
 package org.soomgo.soomgo_project.domain.request;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 @Getter
