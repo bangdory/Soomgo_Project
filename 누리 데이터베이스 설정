@@ -1,0 +1,404 @@
+-- auto-generated definition
+create table answerrequest
+(
+    id        int auto_increment
+        primary key,
+    requestId int                                  null,
+    expertNum int                                  not null,
+    price     int                                  null,
+    ref       varchar(1000)                        null,
+    file      varchar(2000)                        null,
+    replyDate timestamp  default CURRENT_TIMESTAMP null,
+    connected tinyint(1) default 0                 null,
+    ignored   tinyint(1) default 0                 null
+);
+=============================================
+
+-- auto-generated definition
+create table category
+(
+    CategoryNum  int auto_increment
+        primary key,
+    Id           int         null,
+    P_Id         int         null,
+    CategoryName varchar(20) null
+);
+=============================================
+-- auto-generated definition
+create table community_board
+(
+    cb_no          int auto_increment
+        primary key,
+    board_no       tinyint                            not null,
+    cb_title       varchar(50)                        not null,
+    cb_content     longtext                           not null,
+    cb_file        json                               null,
+    user_num       int                                not null,
+    CategoryNum    int                                not null,
+    cb_addr        varchar(50)                        null,
+    cb_currentview int      default 0                 not null,
+    cb_view        int      default 0                 not null,
+    cb_like        int      default 0                 not null,
+    cb_regdate     datetime default CURRENT_TIMESTAMP null,
+    constraint community_board_ibfk_1
+        foreign key (user_num) references user (user_num)
+            on delete cascade,
+    constraint community_board_ibfk_2
+        foreign key (CategoryNum) references category (CategoryNum)
+            on delete cascade
+);
+=============================================
+
+-- auto-generated definition
+create table community_reply
+(
+    cb_no      int                                not null,
+    cr_no      int auto_increment
+        primary key,
+    cr_content longtext                           not null,
+    cr_file    json                               null,
+    user_num   int                                not null,
+    cr_like    int      default 0                 not null,
+    cr_regdate datetime default CURRENT_TIMESTAMP null,
+    constraint community_reply_ibfk_1
+        foreign key (user_num) references user (user_num)
+            on delete cascade,
+    constraint community_reply_ibfk_2
+        foreign key (cb_no) references community_board (cb_no)
+            on delete cascade
+);
+
+create index cb_no
+    on community_reply (cb_no);
+
+create index user_num
+    on community_reply (user_num);
+=============================================
+
+-- auto-generated definition
+create table email_verification
+(
+    verification_id    int auto_increment
+        primary key,
+    user_num           int                                  not null,
+    verification_token varchar(255)                         not null,
+    created            timestamp  default CURRENT_TIMESTAMP null,
+    expires            timestamp                            null,
+    verified           tinyint(1) default 0                 null,
+    constraint verification_token
+        unique (verification_token),
+    constraint email_verification_ibfk_1
+        foreign key (user_num) references user (user_num)
+            on delete cascade
+);
+
+create index user_num
+    on email_verification (user_num);
+=============================================
+
+-- auto-generated definition
+create table expert
+(
+    expert_num       int auto_increment
+        primary key,
+    user_num         int   not null,
+    category_num     int   not null,
+    experience_years int   null,
+    education        int   null,
+    img              json  null,
+    rating           float null,
+    region           int   null,
+    constraint expert_ibfk_1
+        foreign key (user_num) references user (user_num)
+            on delete cascade,
+    constraint expert_ibfk_2
+        foreign key (category_num) references category (CategoryNum)
+            on update cascade,
+    check ((`rating` >= 0) and (`rating` <= 5))
+);
+
+create index CategoryNum
+    on expert (category_num);
+
+create index user_num
+    on expert (user_num);
+=============================================
+
+-- auto-generated definition
+create table market_contact
+(
+    mk_contact_no       int auto_increment
+        primary key,
+    user_num            int                               not null,
+    user_name           varchar(10)                       not null,
+    mk_selling_no       int                               not null,
+    mk_contact_category enum ('PRODUCT', 'REFUND', 'ETC') not null,
+    mk_contact_content  longtext                          not null,
+    constraint market_contact_ibfk_1
+        foreign key (user_num) references user (user_num)
+            on delete cascade,
+    constraint market_contact_ibfk_2
+        foreign key (mk_selling_no) references market_selling (mk_selling_no)
+            on delete cascade,
+    constraint market_contact_ibfk_3
+        foreign key (user_num) references user (user_num)
+            on delete cascade,
+    constraint market_contact_ibfk_4
+        foreign key (mk_selling_no) references market_selling (mk_selling_no)
+            on delete cascade
+);
+
+create index mk_selling_no
+    on market_contact (mk_selling_no);
+
+create index user_num
+    on market_contact (user_num);
+=============================================
+
+-- auto-generated definition
+create table market_order
+(
+    mk_order_no           int auto_increment
+        primary key,
+    user_name             varchar(10)                        not null,
+    user_num              int                                not null,
+    mk_selling_no         int                                not null,
+    mk_order_date         datetime default CURRENT_TIMESTAMP not null,
+    mk_order_reserve_date date                               not null,
+    constraint market_order_ibfk_1
+        foreign key (user_num) references user (user_num)
+            on delete cascade,
+    constraint market_order_ibfk_2
+        foreign key (mk_selling_no) references market_selling (mk_selling_no)
+            on delete cascade,
+    constraint market_order_ibfk_3
+        foreign key (user_num) references user (user_num)
+            on delete cascade,
+    constraint market_order_ibfk_4
+        foreign key (mk_selling_no) references market_selling (mk_selling_no)
+            on delete cascade
+);
+
+create index mk_selling_no
+    on market_order (mk_selling_no);
+
+create index user_num
+    on market_order (user_num);
+=============================================
+
+-- auto-generated definition
+create table market_product
+(
+    mk_product_no            int auto_increment
+        primary key,
+    expert_num               int                  not null,
+    mk_product_title         varchar(50)          not null,
+    mk_product_title_image   json                 null,
+    mk_product_content       longtext             not null,
+    mk_product_content_image json                 null,
+    mk_product_qna_title     varchar(50)          not null,
+    mk_product_rules         longtext             not null,
+    mk_product_method        enum ('1', '2', '3') not null,
+    mk_product_thumbs        int        default 0 not null,
+    mk_product_click         int        default 0 not null,
+    mk_product_consent       tinyint(1) default 0 null,
+    constraint market_product_ibfk_1
+        foreign key (expert_num) references expert (expert_num)
+            on delete cascade,
+    constraint market_product_ibfk_2
+        foreign key (expert_num) references expert (expert_num)
+            on delete cascade
+);
+
+create index expert_num
+    on market_product (expert_num);
+=============================================
+-- auto-generated definition
+create table market_review
+(
+    mk_review_no      int auto_increment
+        primary key,
+    user_num          int         not null,
+    user_name         varchar(10) not null,
+    mk_selling_no     int         not null,
+    mk_review_content longtext    null,
+    mk_review_image   json        null,
+    mk_review_rated   float       not null,
+    constraint market_review_ibfk_1
+        foreign key (user_num) references user (user_num)
+            on delete cascade,
+    constraint market_review_ibfk_2
+        foreign key (mk_selling_no) references market_selling (mk_selling_no)
+            on delete cascade,
+    constraint market_review_ibfk_3
+        foreign key (user_num) references user (user_num)
+            on delete cascade,
+    constraint market_review_ibfk_4
+        foreign key (mk_selling_no) references market_selling (mk_selling_no)
+            on delete cascade,
+    check ((`mk_review_rated` >= 0) and (`mk_review_rated` <= 5))
+);
+
+create index mk_selling_no
+    on market_review (mk_selling_no);
+
+create index user_num
+    on market_review (user_num);
+=============================================
+
+-- auto-generated definition
+create table market_selling
+(
+    mk_selling_no      int auto_increment
+        primary key,
+    mk_product_no      int         not null,
+    mk_selling_product varchar(50) not null,
+    mk_selling_content longtext    not null,
+    mk_selling_price   int         not null,
+    mk_selling_week    json        not null,
+    mk_selling_time    json        not null,
+    constraint market_selling_ibfk_1
+        foreign key (mk_product_no) references market_product (mk_product_no)
+            on update cascade,
+    constraint market_selling_ibfk_2
+        foreign key (mk_product_no) references market_product (mk_product_no)
+            on update cascade
+);
+
+create index mk_product_no
+    on market_selling (mk_product_no);
+=============================================
+
+-- auto-generated definition
+create table message
+(
+    message_num  int auto_increment
+        primary key,
+    sender_num   int                                 not null,
+    receiver_num int                                 not null,
+    message_text text                                not null,
+    sent         timestamp default CURRENT_TIMESTAMP null,
+    constraint message_ibfk_1
+        foreign key (sender_num) references user (user_num)
+            on delete cascade,
+    constraint message_ibfk_2
+        foreign key (receiver_num) references user (user_num)
+            on delete cascade
+);
+
+create index receiver_num
+    on message (receiver_num);
+
+create index sender_num
+    on message (sender_num);
+=============================================
+
+-- auto-generated definition
+create table notice
+(
+    notice_no        int                                  not null
+        primary key,
+    notice_title     varchar(20)                          not null,
+    notice_content   longtext                             not null,
+    notice_regdate   datetime   default CURRENT_TIMESTAMP not null,
+    notice_highlight tinyint(1) default 1                 not null,
+    notice_vote      int        default 0                 not null
+);
+=============================================
+
+-- auto-generated definition
+create table request
+(
+    id            int auto_increment
+        primary key,
+    userNum       int                                 not null,
+    expertNum     varchar(50)                         null,
+    regDate       timestamp default CURRENT_TIMESTAMP not null,
+    categoryNum   int                                 not null,
+    typeNum       int                                 not null,
+    sub           varchar(20)                         null,
+    file1         varchar(2000)                       null,
+    file2         varchar(2000)                       null,
+    cr            tinyint(1)                          null,
+    amount        varchar(50)                         null,
+    addService    varchar(50)                         null,
+    result        varchar(50)                         null,
+    day           varchar(50)                         null,
+    time          varchar(150)                        null,
+    age           int                                 null,
+    sex           varchar(20)                         null,
+    fav           varchar(20)                         null,
+    place         varchar(100)                        null,
+    date          varchar(100)                        null,
+    regionNum     int                                 null,
+    ref           varchar(200)                        null,
+    deleted       tinyint(1)                          null,
+    ignoredExpert varchar(50)                         null
+);
+=============================================
+
+-- auto-generated definition
+create table session
+(
+    session_id    int auto_increment
+        primary key,
+    user_num      int                                 not null,
+    session_token varchar(255)                        not null,
+    created       timestamp default CURRENT_TIMESTAMP null,
+    expires       timestamp                           null,
+    constraint session_token
+        unique (session_token),
+    constraint session_ibfk_1
+        foreign key (user_num) references user (user_num)
+            on delete cascade
+);
+
+create index user_num
+    on session (user_num);
+=============================================
+
+-- auto-generated definition
+create table territory
+(
+    no       int auto_increment
+        primary key,
+    id       int         not null,
+    state    varchar(50) null,
+    district varchar(50) null
+);
+=============================================
+
+-- auto-generated definition
+create table user
+(
+    user_num      int auto_increment
+        primary key,
+    user_email    varchar(30)                         not null,
+    user_password varchar(255)                        not null,
+    user_name     varchar(10)                         not null,
+    user_phonenum varchar(15)                         not null,
+    user_type     enum ('CUSTOMER', 'EXPERT')         not null,
+    create_at     timestamp default CURRENT_TIMESTAMP null,
+    user_sex      enum ('남성', '여성')                   null,
+    constraint user_email
+        unique (user_email)
+);
+=============================================
+
+-- auto-generated definition
+create table user_profile
+(
+    profile_id    int auto_increment
+        primary key,
+    user_num      int         not null,
+    user_nickname varchar(20) null,
+    user_addr     varchar(30) not null,
+    profile_img   varchar(50) null,
+    introduce     text        null,
+    constraint user_profile_ibfk_1
+        foreign key (user_num) references user (user_num)
+            on delete cascade
+);
+
+create index user_num
+    on user_profile (user_num);
