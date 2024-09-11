@@ -7,26 +7,24 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@include file="../header/header.jsp" %>
+<%@include file="../header/headerModal.jsp" %>
+<%@include file="../expert/expertModal.jsp" %>
 
 <html>
 <head>
     <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet"
           type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="${pageContext.request.contextPath}/resources/static/css/expert/modalStyle.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/static/css/expert/expertStyle.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/static/css/expert/expertFindStyle.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
-    <script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/static/js/expert/expert.js"></script>
+
 
     <title>Title</title>
 </head>
 <body>
-<%@include file="../header/header.jsp" %>
 <main>
     <div class="gosu-main-container">
         <div class="gosu-keyword">
@@ -131,6 +129,8 @@
         <%-- 페이징 처리 종료 --%>
     </div>
 </main>
-<%@include file="expertModal.jsp" %>
+
+<script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js"></script>
+<script src="${pageContext.request.contextPath}/resources/static/js/expert/expert.js"></script>
 </body>
 </html>

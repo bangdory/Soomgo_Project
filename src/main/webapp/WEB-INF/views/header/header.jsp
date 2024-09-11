@@ -1,23 +1,24 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script>
-    function toggleDropdown() {
-        document.getElementById("myDropdown").classList.toggle("show");
-    }
+<link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet" type="text/css">
+<%--<script>--%>
+<%--    function toggleDropdown() {--%>
+<%--        document.getElementById("myDropdown").classList.toggle("show");--%>
+<%--    }--%>
 
-    // 클릭 시 드롭다운 외부를 클릭하면 닫히도록 설정
-    window.onclick = function (event) {
-        if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-            }
-        }
-    }
-</script>
+<%--    // 클릭 시 드롭다운 외부를 클릭하면 닫히도록 설정--%>
+<%--    window.onclick = function (event) {--%>
+<%--        if (!event.target.matches('.dropbtn')) {--%>
+<%--            var dropdowns = document.getElementsByClassName("dropdown-content");--%>
+<%--            for (var i = 0; i < dropdowns.length; i++) {--%>
+<%--                var openDropdown = dropdowns[i];--%>
+<%--                if (openDropdown.classList.contains('show')) {--%>
+<%--                    openDropdown.classList.remove('show');--%>
+<%--                }--%>
+<%--            }--%>
+<%--        }--%>
+<%--    }--%>
+<%--</script>--%>
 
 <header class="header-first-container">
     <div class="header-second-container">
@@ -68,23 +69,22 @@
                 </div>
 
             </c:when>
-
-            <c:when test="${usertype eq 'EXPERT'}">
+            <c:when test="${sess_user_type eq 'EXPERT'}">
                 <div class="header-third-container-2">
                     <div>
-                        <a href="/request/sent">보낸견적</a>
+                        <a href="${pageContext.request.contextPath}/request/sent">보낸견적</a>
                     </div>
                     <div>
-                        <a href="/profile">프로필</a>
+                        <a href="${pageContext.request.contextPath}/profile">프로필</a>
                     </div>
                     <div>
-                        <a href="chat">채팅</a>
+                        <a href="${pageContext.request.contextPath}/chat">채팅</a>
                     </div>
 
                     <div class="dropdown">
                         <button onclick="toggleDropdown()" class="dropbtn">내 프로필</button>
                         <div id="myDropdown" class="dropdown-content">
-                            <h2 id="headerNickname">${userprofile.user_nickname}</h2>
+                            <h2 id="headerNickname">${sess_user_name}</h2>
                             <a href="/requestsent">ㅋㅋ고수</a>
                             <a href="/userpage">ㅋㅋㅋ쌉고수</a>
                             <a href="/logout">로그아웃</a>
@@ -104,7 +104,7 @@
                     <div class="dropdown">
                         <button onclick="toggleDropdown()" class="dropbtn">내 프로필</button>
                         <div id="myDropdown" class="dropdown-content">
-                            <h2 id="headerNickname">${userprofile.user_nickname}</h2>
+                            <h2 id="headerNickname">${sess_user_name}</h2>
                             <a href="/requestsent">받은 견적</a>
                             <a href="/userpage">마이페이지</a>
                             <a href="/logout">로그아웃</a>
@@ -119,3 +119,4 @@
 
     </div>
 </header>
+<script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js"></script>

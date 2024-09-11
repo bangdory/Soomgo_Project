@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>계정 정보</title>
-    <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/userpage/account_info.css">
 </head>
 <body>
@@ -18,8 +17,7 @@
             <div class="profile-card">
                 <div class="profile-img">
 
-                    <img src="${pageContext.request.contextPath}/resources/static${empty userprofile.profile_img ? '/img/default.png' : userprofile.profile_img}"
-                         alt="Profile Image">
+                    <img src="${pageContext.request.contextPath}/resources/static${empty userprofile.profile_img ? '/img/default.png' : userprofile.profile_img}" alt="Profile Image">
 
 
                     <button onclick="showModal()">이미지 수정</button>
@@ -38,9 +36,8 @@
                     <div id="nicknameEdit" class="profile-nickname-edit" style="display: none;">
                         <form id="nicknameForm">
                             <div class="breakline">
-                                <input type="text" id="newNickname" name="newNickname"
-                                       value="${userprofile.user_nickname}"
-                                       oninput="updateCharacterCount()" required>
+                            <input type="text" id="newNickname" name="newNickname" value="${userprofile.user_nickname}"
+                                   oninput="updateCharacterCount()" required>
                             </div>
                             <div class="char-counter"><span id="charCount">0/10자</span></div> <!-- 글자 수 표시 -->
                             <button type="button" onclick="saveNickname()">저장</button>
