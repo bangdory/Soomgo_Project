@@ -7,13 +7,19 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@include file="../header/header.jsp"%>
+<%@ include file="../header/headerModal.jsp"%>
+<%@include file="communityRegisterModal.jsp" %>
 
 <html>
 <head>
     <title>커뮤니티 글쓰기</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/expert/modalStyle.css">
+    <link href="${pageContext.request.contextPath}/resources/static/css/expert/expertFindStyle.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js"></script>
     <style>
         @font-face {
             font-family: 'Pretendard-Regular';
@@ -128,8 +134,6 @@
     </style>
 </head>
 <body>
-<%@include file="../header/header.jsp"%>
-<%@ include file="../header/headerModal.jsp"%>
 <%--<main>--%>
 <div class="communityRegisterBody">
     <form action="/community/register" method="post" enctype="multipart/form-data">
@@ -183,6 +187,5 @@
     </form>
 </div>
 <%--</main>--%>
-<%@include file="communityRegisterModal.jsp" %>
 </body>
 </html>

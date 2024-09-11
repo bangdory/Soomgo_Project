@@ -9,14 +9,16 @@
 
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-
+<%@ include file="../header/header.jsp" %>
+<%@ include file="../header/headerModal.jsp"%>
+<%@include file="communityListModal.jsp" %>
 <html>
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/expert/modalStyle.css">
+    <link href="${pageContext.request.contextPath}/resources/static/css/expert/expertFindStyle.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js"></script>
     <script src="${pageContext.request.contextPath}/resources/static/js/community/community.js"></script>
     <meta charset="UTF-8">
@@ -117,8 +119,6 @@
     </style>
 </head>
 <body style="font-family: 'Pretendard-Regular'">
-<%@ include file="../header/header.jsp" %>
-<%@ include file="../header/headerModal.jsp"%>
 <%--<main >--%>
     <div class="communityListBody">
     <div class="header-container">
@@ -172,7 +172,6 @@
     </div>
     </div>
 <%--</main>--%>
-<%@include file="communityListModal.jsp" %>
 <%--<%@ include file="footer.jsp" %>--%>
 </body>
 </html>

@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // 별점 색칠 페이지 로딩 시 실행
 
     // 서비스 모달에서 지역 클릭 시 지역 모달창
     document.getElementById('service-changePlace-btn').addEventListener('click', function () {
@@ -143,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
         div.addEventListener('click', function (event) {
             const target = event.target;
 
-            if (target.classList.contains('toggle-btn')) {
+            if (target.classList.contains('modal-toggle-btn')) {
                 const item = target.closest('.place-modal-item');
                 const isExpanded = item.getAttribute('data-expanded') === 'true';
                 const dataDiv = item.nextElementSibling;
@@ -285,7 +284,11 @@ function fetchProcessing(response) {
             // 작성자와 날짜 div 생성
             const metaDiv = document.createElement('div');
             metaDiv.classList.add('baord-meta');
-            metaDiv.textContent = item.user_name
+            if (item.district !== null) {
+                metaDiv.textContent = item.state + " " + item.district;
+            } else {
+                metaDiv.textContent = item.state;
+            }
 
             // 내용 div에 추가
             itemGroupDiv.appendChild(titleDiv);
