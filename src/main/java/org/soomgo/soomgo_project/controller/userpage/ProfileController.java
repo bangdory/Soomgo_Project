@@ -32,6 +32,7 @@ public class ProfileController {
 
     // 프로필 페이지 렌더링
     @GetMapping("")
+
     public String profile(HttpSession session, Model model) {
 
 
@@ -42,8 +43,8 @@ public class ProfileController {
         if (user != null) {
             ExpertDTO expertIntro = profileService.getExpertProfile(user.getUser_num());
             log.info("expert intro: " + expertIntro);
-            ExpertPortfolioDTO expertPortfolio = profileService.getExpertPortfolio(expertIntro.getExpert_num());
-            List<ExpertPortfolioDTO> expertPortfolios = profileService.getExpertPortfolios(expertIntro.getExpert_num());
+            ExpertPortfolioDTO expertPortfolio = profileService.getExpertPortfolio(expertIntro.getExpertNum());
+            List<ExpertPortfolioDTO> expertPortfolios = profileService.getExpertPortfolios(expertIntro.getExpertNum());
             log.info(expertPortfolios);
 
             model.addAttribute("user", user);
@@ -108,7 +109,7 @@ public class ProfileController {
         }
 
         ExpertDTO expertYears = profileService.getExpertProfile(user.getUser_num());
-        expertYears.setExperience_years(newYears);
+        expertYears.setExperienceYears(newYears);
         profileService.updateExpertYears(expertYears);
 
         log.info("Updated Years: {}", newYears);
@@ -148,8 +149,8 @@ public class ProfileController {
         expertPortfolio.setDuration(newDuration);
         expertPortfolio.setDuration_value(newDuration_value);
         expertPortfolio.setDescription(newDescription);
-        expertPortfolio.setExpert_num(expert.getExpert_num());
-        expertPortfolio.setCategory_num(expert.getCategory_num()); // category_num 설정
+        expertPortfolio.setExpert_num(expert.getExpertNum());
+        expertPortfolio.setCategory_num(expert.getCategoryNum()); // category_num 설정
 
         // 썸네일 업로드
         if (!thumbnail.isEmpty()) {

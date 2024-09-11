@@ -1,8 +1,8 @@
-package org.soomgo.soomgo_project.dao.userpage;
+package org.soomgo.soomgo_project.dao.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.soomgo.soomgo_project.mappers.userpage.ProfileMapper;
+import org.soomgo.soomgo_project.mappers.user.ProfileMapper;
 import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO;
 import org.springframework.stereotype.Repository;

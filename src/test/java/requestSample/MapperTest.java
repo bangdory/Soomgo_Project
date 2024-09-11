@@ -9,7 +9,7 @@ import org.soomgo.soomgo_project.domain.request.GosuDTO;
 import org.soomgo.soomgo_project.domain.request.RequestDTO;
 import org.soomgo.soomgo_project.domain.request.TerritoryDTO;
 import org.soomgo.soomgo_project.mappers.request.RequestMapper;
-import org.soomgo.soomgo_project.mappers.userpage.ProfileMapper;
+import org.soomgo.soomgo_project.mappers.user.ProfileMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;

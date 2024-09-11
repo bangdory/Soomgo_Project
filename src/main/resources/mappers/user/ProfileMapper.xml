@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.soomgo.soomgo_project.mappers.userpage.ProfileMapper">
+<mapper namespace="org.soomgo.soomgo_project.mappers.user.ProfileMapper">
 
     <select id="findExpertProfile" resultType="org.soomgo.soomgo_project.domain.expert.ExpertDTO">
         SELECT expert_num, user_num, experience_years, introduce, contact_start, contact_end, employees

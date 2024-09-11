@@ -2,7 +2,7 @@ package org.soomgo.soomgo_project.service.userpage;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.soomgo.soomgo_project.dao.userpage.ProfileDAO;
+import org.soomgo.soomgo_project.dao.user.ProfileDAO;
 import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO;
 import org.springframework.stereotype.Service;

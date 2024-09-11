@@ -1,22 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="../header/header.jsp" %>
-<%@include file="../header/headerModal.jsp" %>
 <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/userpage/userpage.css">
 
 <!-- 페이지 내용 -->
 
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/user/userpage.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css">
-</head>
->
 <body>
 
 <main>
@@ -89,9 +79,8 @@
                 </a>
             </div>
         </div>
+    </div>
 </main>
-</div>
-<script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js" type="text/javascript"></script>
 </body>
 
 </html>

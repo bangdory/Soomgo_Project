@@ -4,20 +4,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/userpage/profile.css">
-<%@include file="../header/header.jsp" %>
-<%@include file="../header/headerModal.jsp" %>
 <!-- 페이지 내용 -->
 
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/user/profile.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css">
-</head>
 <body>
+
+
 
 <div class="container">
     <main>
@@ -55,7 +48,6 @@
         <h2>이미지 수정</h2>
         <form id="imgForm" enctype="multipart/form-data">
             <input type="file" id="user_img" name="user_img" accept="image/*" onchange="uploadImage()" required>
-            <!-- 사진 등록 버튼 삭제 -->
             <button type="button" onclick="setDefaultProfile()">기본 프로필로 변경</button>
         </form>
     </div>
@@ -113,12 +105,10 @@
         document.getElementById('imgModal').classList.add('show');
     }
 
-    // 모달을 닫는 함수
     function closeModal() {
         document.getElementById('imgModal').classList.remove('show');
     }
 
-    // 이미지 업로드 함수
     function uploadImage() {
         var formData = new FormData();
         var imageFile = document.getElementById('user_img').files[0];
@@ -135,7 +125,6 @@
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-
                 closeModal();
                 location.reload();
             } else {
@@ -150,14 +139,12 @@
         xhr.send(formData);
     }
 
-    // 기본 프로필 이미지로 변경하는 함수
     function setDefaultProfile() {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '${pageContext.request.contextPath}/userpage/setDefaultProfile', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function () {
             if (xhr.status === 200) {
-
                 closeModal();
                 location.reload();
             } else {
@@ -408,6 +395,4 @@
         }, 3000); // 3초 후 토스트 사라짐
     }
 </script>
-<script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js" type="text/javascript"></script>
-</body>
 </html>

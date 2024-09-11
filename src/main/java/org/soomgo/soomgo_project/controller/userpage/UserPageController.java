@@ -35,7 +35,7 @@ public class UserPageController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("userprofile", userprofile);
-            return "userpage/userpage";
+            return "user/userpage";
         }
         return "redirect:/login";
     }
@@ -48,7 +48,7 @@ public class UserPageController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("userprofile", userprofile);
-            return "userpage/account_info";
+            return "user/account_info";
         }
         return "redirect:/login";
 
@@ -59,7 +59,7 @@ public class UserPageController {
 
         if (user != null) {
             model.addAttribute("user", user);
-            return "userpage/setting";
+            return "user/setting";
         }
         return "redirect:/login";
     }
