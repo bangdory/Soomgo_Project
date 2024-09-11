@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.soomgo.soomgo_project.mappers.community.CommunityReplyMapper">
+    <insert id="create" parameterType="org.soomgo.soomgo_project.domain.community.CommunityReplyDTO">
+        insert into community_reply (
+            cb_no,
+            cr_content,
+            cr_file,
+            user_num
+        )
+        values (
+            #{cb_no},
+            #{cr_content},
+            #{cr_file},
+            #{user_num}
+        )
+    </insert>
+    <select id="read" resultType="org.soomgo.soomgo_project.domain.community.CommunityReplyDTO">
+        select
+            cr.cb_no,
+            cr.cr_no,
+            cr.cr_content,
+            cr.cr_file,
+            u.user_num,
+            u.user_name,
+            cr.cr_like,
+                CASE
+                    WHEN 24 > TIMESTAMPDIFF(HOUR, cr.cr_regdate, NOW()) THEN
+                    CONCAT(TIMESTAMPDIFF(HOUR, cr.cr_regdate, NOW()), '시간 전')
+                ELSE
+                    DATE_FORMAT(cr.cr_regdate, '%Y. %m. %d')
+                END AS cr_regdate
+        from community_reply cr
+        join user u on cr.user_num = u.user_num
+        where cb_no = #{cb_no}
+        order by cr_no, cr_regdate desc
+    </select>
+    <select id="getReply" parameterType="map" resultType="org.soomgo.soomgo_project.domain.community.CommunityReplyDTO">
+        select
+            cr.cb_no,
+            cr.cr_no,
+            cr.cr_content,
+            cr.cr_file,
+            u.user_num,
+            u.user_name,
+            CASE
+                WHEN 24 > TIMESTAMPDIFF(HOUR, cr.cr_regdate, NOW()) THEN
+                CONCAT(TIMESTAMPDIFF(HOUR, cr.cr_regdate, NOW()), '시간 전')
+            ELSE
+                DATE_FORMAT(cr.cr_regdate, '%Y. %m. %d')
+            END AS cr_regdate
+        from community_reply cr
+        join user u on cr.user_num = u.user_num
+        where cr.cb_no = #{cb_no} and cr.user_num = #{user_num}
+        order by cr.cr_regdate desc
+        limit 1
+    </select>
+    <update id="update">
+        update community_reply
+        set
+            cr_content = #{cr_content},
+            cr_file = #{cr_file}
+        where cr_no = #{cr_no}
+    </update>
+    <delete id="delete">
+        delete from community_reply where cr_no = #{cr_no}
+    </delete>
+    <select id="isLiked" parameterType="map" resultType="boolean">
+        select count(1) > 0
+        from likeCount
+        where cr_no = #{cr_no} and user_num = #{user_num}
+    </select>
+    <insert id="increaseLike" parameterType="map">
+        insert into likeCount (user_num, cr_no)
+        values (#{user_num}, #{cr_no})
+    </insert>
+    <update id="updateLikeCount" parameterType="map">
+        update community_reply
+        set cr_like = cr_like +1
+        where cr_no = #{cr_no}
+    </update>
+    <delete id="removeLike" parameterType="map">
+        delete from likeCount
+        where cr_no = #{cr_no} and user_num = #{user_num}
+    </delete>
+    <update id="decrementLikeCount" parameterType="map">
+        update community_reply
+        set cr_like = cr_like -1
+        where cr_no = #{cr_no}
+    </update>
+    <select id="getLikeCount" parameterType="int" resultType="int">
+        select cr_like
+        from community_reply
+        where cr_no = #{cr_no}
+    </select>
+</mapper>

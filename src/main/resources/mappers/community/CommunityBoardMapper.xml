@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.soomgo.soomgo_project.mappers.community.CommunityBoardMapper">
+    <insert id="create" parameterType="org.soomgo.soomgo_project.domain.community.CommunityBoardDTO">
+        <selectKey order="AFTER" keyProperty="cb_no" resultType="int">
+            select count(cb_no) from community_board where cb_no > 0
+        </selectKey>
+        insert into community_board (
+            board_no,
+            cb_title,
+            cb_content,
+            cb_file,
+            user_num,
+            categoryNum,
+            cb_addr
+        )
+        values (
+            #{board_no},
+            #{cb_title},
+            #{cb_content},
+            #{cb_file},
+            #{user_num},
+            #{categoryNum},
+            #{cb_addr}
+        )
+    </insert>
+    <select id="read" resultType="org.soomgo.soomgo_project.domain.community.CommunityBoardDTO">
+        select
+            cb.cb_no,
+            cb.board_no,
+            cb.cb_title,
+            cb.cb_content,
+            cb.cb_file,
+            u.user_name,
+            c.categoryName,
+            t.state,
+            t.district,
+            cb.cb_currentview,
+            cb.cb_view,
+            cb.cb_like,
+            CASE
+                WHEN 24 > TIMESTAMPDIFF(HOUR, cb.cb_regdate, NOW())  THEN
+                    CONCAT(TIMESTAMPDIFF(HOUR, cb.cb_regdate, NOW()), '시간 전')
+                ELSE
+                    DATE_FORMAT(cb.cb_regdate, '%Y. %m. %d')
+            END AS cb_regdate
+        from community_board cb
+        join user u on cb.user_num = u.user_num
+        join category c on cb.categoryNum = c.categoryNum
+        join territory t on cb.cb_addr = t.no
+        where cb.cb_no = #{cb_no}
+    </select>
+    <update id="update">
+        update community_board
+        set
+            cb_title = #{cb_title},
+            cb_content = #{cb_content},
+            cb_file = #{cb_file}
+        where cb_no = #{cb_no}
+    </update>
+    <delete id="delete">
+        delete from community_board where cb_no = #{cb_no}
+    </delete>
+    <select id="listAll" resultType="org.soomgo.soomgo_project.domain.community.CommunityBoardDTO">
+        select
+            cb.cb_no,
+            cb.board_no,
+            cb.cb_title,
+            cb.cb_content,
+            cb.cb_file,
+            u.user_name,
+            cb.categoryNum,
+            t.state,
+            t.district,
+            cb.cb_currentview,
+            cb.cb_view,
+            cb.cb_like,
+            cb.cb_regdate
+        from community_board cb
+        join user u on cb.user_num = u.user_num
+        join territory t on cb.cb_addr = t.no
+        order by cb_no, cb_regdate desc
+    </select>
+    <select id="listByBoardNo" resultType="org.soomgo.soomgo_project.domain.community.CommunityBoardDTO">
+        select
+            cb.cb_no,
+            cb.board_no,
+            cb.cb_title,
+            cb.cb_content,
+            cb.cb_file,
+            u.user_name,
+            u.user_num,
+            cb.categoryNum,
+            t.state,
+            t.district,
+            cb.cb_currentview,
+            cb.cb_view,
+            cb.cb_like,
+            cb_regdate
+        from community_board cb
+        join user u on cb.user_num = u.user_num
+        join territory t on cb.cb_addr = t.no
+        where cb.board_no = #{board_no}
+        order by cb_no, cb_regdate desc
+    </select>
+    <select id="communitySearch" parameterType="map" resultType="org.soomgo.soomgo_project.domain.community.CommunityBoardDTO">
+        select
+            cb.cb_no,
+            cb.board_no,
+            cb.cb_title,
+            cb.cb_content,
+            cb.cb_file,
+            u.user_name,
+            u.user_num,
+            cb.categoryNum,
+            t.state,
+            t.district,
+            cb.cb_currentview,
+            cb.cb_addr,
+            cb.cb_view,
+            cb.cb_like,
+            cb_regdate
+        from community_board cb
+        join user u on cb.user_num = u.user_num
+        join territory t on cb.cb_addr = t.no
+        WHERE 1 = 1
+            <if test="categoryNum != null">
+                AND CategoryNum = #{categoryNum}
+            </if>
+            <if test="cb_addr != null">
+                AND cb_addr = #{cb_addr}
+            </if>
+        order by cb_no, cb_regdate desc
+    </select>
+    <select id="isLiked" parameterType="map" resultType="boolean">
+        select count(1) > 0
+        from likeCount
+        where cb_no = #{cb_no} and user_num = #{user_num}
+    </select>
+    <insert id="increaseLike" parameterType="map">
+        insert into likeCount (user_num, cb_no)
+        values (#{user_num}, #{cb_no})
+    </insert>
+    <update id="updateLikeCount" parameterType="map">
+        update community_board
+        set cb_like = cb_like +1
+        where cb_no = #{cb_no}
+    </update>
+    <delete id="removeLike" parameterType="map">
+        delete from likeCount
+        where cb_no = #{cb_no} and user_num = #{user_num}
+    </delete>
+    <update id="decrementLikeCount" parameterType="map">
+        update community_board
+        set cb_like = cb_like -1
+        where cb_no = #{cb_no}
+    </update>
+    <select id="getLikeCount" parameterType="int" resultType="int">
+        select cb_like
+        from community_board
+        where cb_no = #{cb_no}
+    </select>
+    <update id="lookAtThis">
+        update community_board
+        set cb_view = cb_view+1
+        where cb_no = #{cb_no}
+    </update>
+</mapper>
