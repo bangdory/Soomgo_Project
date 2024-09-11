@@ -13,9 +13,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/user/userpage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/user/userpage.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css">
-</head>>
+</head>
+>
 <body>
 
 <main>
@@ -88,7 +89,7 @@
                 </a>
             </div>
         </div>
-    </main>
+</main>
 </div>
 <script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js" type="text/javascript"></script>
 </body>

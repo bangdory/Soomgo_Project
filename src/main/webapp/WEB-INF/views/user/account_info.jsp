@@ -100,7 +100,7 @@
             formData.append('user_img', imageFile);
 
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '${pageContext.request.contextPath}/userpage/ + /uploadProfileImage', true);
+            xhr.open('POST', '${pageContext.request.contextPath}/userpage/uploadProfileImage', true);
 
             xhr.onload = function () {
                 if (xhr.status === 200) {
