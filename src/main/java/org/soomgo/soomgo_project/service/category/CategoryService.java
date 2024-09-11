@@ -9,8 +9,18 @@ public interface CategoryService {
 
     List<CategoryDTO> getCategoryId(int id);
 
+    List<CategoryDTO> getCategoryAll();
 
     List<CategoryDTO> getCategoryZero();
 
     List<CategoryDTO> getCategoryNotZero();
+
+    int getCategoryByName(String categoryname);
+
+
+//    List<CategoryDTO> getCategoryId1();
+//    List<CategoryDTO> getCategoryId2();
+//    List<CategoryDTO> getCategoryId3();
+//    List<CategoryDTO> getCategoryId4();
+    List<CategoryDTO> getCategoryIdOther();
 }

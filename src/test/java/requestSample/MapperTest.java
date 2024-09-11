@@ -72,9 +72,9 @@ public class MapperTest {
     @Test
     public void findExpert() {
 //        ExpertDTO expert = requestMapper.findExpert(1);
-        UserProfileDTO findExpert = userMapper.findUserProfileByUserNum(1);
+//        UserProfileDTO findExpert = userMapper.findUserProfileByUserNum(1);
 //        log.info(expert);
-        log.info(findExpert);
+//        log.info(findExpert);
     }
 
     @Test

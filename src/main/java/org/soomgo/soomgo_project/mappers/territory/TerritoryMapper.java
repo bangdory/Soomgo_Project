@@ -12,4 +12,5 @@ public interface TerritoryMapper {
 
     List<TerritoryDTO> getTerritoryId(int id);
 
+    TerritoryDTO getTerritoryByNo(int id);
 }
