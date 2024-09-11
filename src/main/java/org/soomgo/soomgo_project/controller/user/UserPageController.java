@@ -191,9 +191,9 @@ public class UserPageController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("userprofile",userprofile);
-            return "userpage"; // 사용자 페이지로 이동
+            return "user/userpage"; // 사용자 페이지로 이동
         }
-        return "redirect:/login"; // 사용자 정보가 없으면 로그인 페이지로 리디렉션
+        return "redirect:user/login"; // 사용자 정보가 없으면 로그인 페이지로 리디렉션
     }
     @GetMapping("/account_info")
     public String accountInfo(HttpSession session, Model model) {
@@ -204,7 +204,7 @@ public class UserPageController {
             model.addAttribute("user", user);
             model.addAttribute("userprofile",userprofile);
 
-            return "account_info";
+            return "user/account_info";
         }
 
         return "redirect:/login";

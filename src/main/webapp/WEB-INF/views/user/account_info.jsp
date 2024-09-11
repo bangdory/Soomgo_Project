@@ -7,10 +7,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>계정 정보</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/userpage/account_info.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/user/account_info.css">
 </head>
 <body>
-    <%@include file="../header/header.jsp" %>
+
 <main>
     <div class="find-userEmail-container">
         <div class="account-info">

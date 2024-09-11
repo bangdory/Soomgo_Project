@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO;
-import org.soomgo.soomgo_project.domain.userpage.UserDTO;
-import org.soomgo.soomgo_project.domain.userpage.UserProfileDTO;
+import org.soomgo.soomgo_project.domain.user.UserDTO;
+import org.soomgo.soomgo_project.domain.user.UserProfileDTO;
 import org.soomgo.soomgo_project.service.userpage.ProfileService;
-import org.soomgo.soomgo_project.service.userpage.UserService;
+import org.soomgo.soomgo_project.service.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,14 +37,11 @@ public class ProfileController {
 
         UserDTO user = (UserDTO) session.getAttribute("user");
         UserProfileDTO userprofile = (UserProfileDTO) session.getAttribute("userprofile");
-        log.info("user!!!" + user);
-        log.info("userprofile!!!" + userprofile);
+
         if (user != null) {
             ExpertDTO expertIntro = profileService.getExpertProfile(user.getUser_num());
-            log.info("expert intro: " + expertIntro);
-            ExpertPortfolioDTO expertPortfolio = profileService.getExpertPortfolio(expertIntro.getExpert_num());
-            List<ExpertPortfolioDTO> expertPortfolios = profileService.getExpertPortfolios(expertIntro.getExpert_num());
-            log.info(expertPortfolios);
+            ExpertPortfolioDTO expertPortfolio = profileService.getExpertPortfolio(expertIntro.getExpertNum());
+            List<ExpertPortfolioDTO> expertPortfolios = profileService.getExpertPortfolios(expertIntro.getExpertNum());
 
             model.addAttribute("user", user);
             model.addAttribute("userprofile", userprofile);
@@ -108,7 +105,7 @@ public class ProfileController {
         }
 
         ExpertDTO expertYears = profileService.getExpertProfile(user.getUser_num());
-        expertYears.setExperience_years(newYears);
+        expertYears.setExperienceYears(newYears);
         profileService.updateExpertYears(expertYears);
 
         log.info("Updated Years: {}", newYears);
@@ -148,8 +145,8 @@ public class ProfileController {
         expertPortfolio.setDuration(newDuration);
         expertPortfolio.setDuration_value(newDuration_value);
         expertPortfolio.setDescription(newDescription);
-        expertPortfolio.setExpert_num(expert.getExpert_num());
-        expertPortfolio.setCategory_num(expert.getCategory_num()); // category_num 설정
+        expertPortfolio.setExpert_num(expert.getExpertNum());
+        expertPortfolio.setCategory_num(expert.getCategoryNum()); // category_num 설정
 
         // 썸네일 업로드
         if (!thumbnail.isEmpty()) {
