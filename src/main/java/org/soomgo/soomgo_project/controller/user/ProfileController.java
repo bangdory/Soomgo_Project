@@ -1,4 +1,4 @@
-package org.soomgo.soomgo_project.controller.userpage;
+package org.soomgo.soomgo_project.controller.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
