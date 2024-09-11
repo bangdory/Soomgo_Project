@@ -18,7 +18,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public ExpertDTO getExpertProfile(int user_num) {
-        log.info("Profile Imple 받은 user num"+user_num);
+
         return profileDAO.findExpertProfile(user_num);
     }
 

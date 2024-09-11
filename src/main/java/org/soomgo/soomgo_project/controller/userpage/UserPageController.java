@@ -2,6 +2,7 @@ package org.soomgo.soomgo_project.controller.userpage;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.user.UserDTO;
 import org.soomgo.soomgo_project.domain.user.UserProfileDTO;
 import org.soomgo.soomgo_project.service.user.UserService;
@@ -30,7 +31,7 @@ public class UserPageController {
     @GetMapping("")
     public String userPage(HttpSession session, Model model) {
         UserDTO user = (UserDTO) session.getAttribute("user");
-        UserProfileDTO userprofile = (UserProfileDTO) session.getAttribute("userprofile");
+        UserProfileDTO userprofile = userService.getUserProfileByUserNum(user.getUser_num());
 
         if (user != null) {
             model.addAttribute("user", user);
@@ -43,7 +44,7 @@ public class UserPageController {
     @GetMapping("/account_info")
     public String accountInfo(HttpSession session, Model model) {
         UserDTO user = (UserDTO) session.getAttribute("user");
-        UserProfileDTO userprofile = (UserProfileDTO) session.getAttribute("userprofile");
+        UserProfileDTO userprofile = userService.getUserProfileByUserNum(user.getUser_num());
 
         if (user != null) {
             model.addAttribute("user", user);
@@ -66,12 +67,12 @@ public class UserPageController {
 
     @PostMapping("/uploadProfileImage")
     @ResponseBody
-    public ResponseEntity<String> uploadProfileImage(@RequestParam("user_img") MultipartFile file, HttpServletRequest request, HttpSession session) {
+    public ResponseEntity<String> uploadProfileImage(@RequestParam("user_img") MultipartFile file, HttpServletRequest request, HttpSession session, Model model) {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("이미지가 없습니다.");
         }
-
-        UserProfileDTO userprofile = (UserProfileDTO) session.getAttribute("userprofile");
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        UserProfileDTO userprofile = userService.getUserProfileByUserNum(user.getUser_num());
         if (userprofile == null) {
             return ResponseEntity.status(403).body("사용자 정보가 없습니다.");
         }
@@ -99,7 +100,7 @@ public class UserPageController {
             String dbFilePath = "/img/" + fileName;
             userprofile.setProfile_img(dbFilePath);
             userService.updateUserProfile(userprofile);
-            session.setAttribute("userprofile", userprofile);
+            model.addAttribute("userprofile", userprofile);
 
             return ResponseEntity.ok("이미지 업로드 성공");
 
@@ -112,8 +113,9 @@ public class UserPageController {
 
     @PostMapping("/setDefaultProfile")
     @ResponseBody
-    public ResponseEntity<String> setDefaultProfile(HttpSession session) {
-        UserProfileDTO userprofile = (UserProfileDTO) session.getAttribute("userprofile");
+    public ResponseEntity<String> setDefaultProfile(HttpSession session,Model model) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        UserProfileDTO userprofile = userService.getUserProfileByUserNum(user.getUser_num());
 
         if (userprofile == null) {
             return ResponseEntity.status(403).body("사용자 정보가 없습니다.");
@@ -123,7 +125,7 @@ public class UserPageController {
             userprofile.setProfile_img("/img/default.jpeg");
             userService.updateUserProfile(userprofile);
 
-            session.setAttribute("userprofile", userprofile);
+            model.addAttribute("userprofile", userprofile);
 
             return ResponseEntity.ok("기본 프로필로 변경되었습니다.");
 
@@ -135,8 +137,9 @@ public class UserPageController {
     }
     @PostMapping("/updateNickname")
     @ResponseBody
-    public ResponseEntity<String> updateNickname(@RequestParam("newNickname") String newNickname, HttpSession session) {
-        UserProfileDTO userprofile = (UserProfileDTO) session.getAttribute("userprofile");
+    public ResponseEntity<String> updateNickname(@RequestParam("newNickname") String newNickname, HttpSession session,Model model) {
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        UserProfileDTO userprofile = userService.getUserProfileByUserNum(user.getUser_num());
 
         if (userprofile == null) {
             return ResponseEntity.status(403).body("사용자 정보가 없습니다.");
@@ -145,7 +148,7 @@ public class UserPageController {
         try {
             userprofile.setUser_nickname(newNickname);
             userService.updateUserProfile(userprofile);
-            session.setAttribute("userprofile", userprofile);
+            model.addAttribute("userprofile", userprofile);
 
             return ResponseEntity.ok("닉네임 변경 성공");
         } catch (Exception e) {

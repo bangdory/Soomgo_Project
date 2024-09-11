@@ -70,7 +70,7 @@
 
             </c:when>
 
-            <c:when test="${usertype eq 'EXPERT'}">
+            <c:when test="${sess_user_type eq 'EXPERT'}">
                 <div class="header-third-container-2">
                     <div>
                         <a href="/request/sent">보낸견적</a>
@@ -88,7 +88,7 @@
                             <h2 id="headerNickname">${userprofile.user_nickname}</h2>
                             <a href="/request/sent">보낸견적</a>
                             <a href="${pageContext.request.contextPath}/userpage">마이페이지</a>
-                            <a href="/logout">로그아웃</a>
+                            <a href="${pageContext.request.contextPath}/user/logout">로그아웃</a>
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                             <h2 id="headerNickname">${userprofile.user_nickname}</h2>
                             <a href="/requestsent">받은 견적</a>
                             <a href="${pageContext.request.contextPath}/userpage">마이페이지</a>
-                            <a href="/logout">로그아웃</a>
+                            <a href="${pageContext.request.contextPath}/user/logout">로그아웃</a>
                         </div>
                     </div>
                 </div>

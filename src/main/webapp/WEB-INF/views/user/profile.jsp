@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/header/header.jsp" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/userpage/profile.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/user/profile.css">
 <!-- 페이지 내용 -->
 
 <!DOCTYPE html>
@@ -23,8 +23,8 @@
             <p id="nicknameDisplay"><strong>${userprofile.user_nickname}</strong></p>
             <p id="introDisplay">${expertIntro.introduce}</p>
             <button onclick="showModal2()">내소개편집</button>
-            <p id="yearsDisplay" style="display: ${expertyears.experience_years >= 1 ? 'none' : 'block'};">
-                경력: ${expertIntro.experience_years} 년
+            <p id="yearsDisplay" style="display: ${expertyears.experienceYears >= 1 ? 'none' : 'block'};">
+                경력: ${expertIntro.experienceYears} 년
             </p>
             <button onclick="showModal3()">등록</button>
             <div id="portfolios">

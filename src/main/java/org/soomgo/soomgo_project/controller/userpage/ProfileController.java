@@ -37,9 +37,9 @@ public class ProfileController {
 
 
         UserDTO user = (UserDTO) session.getAttribute("user");
-        UserProfileDTO userprofile = (UserProfileDTO) session.getAttribute("userprofile");
-        log.info("user!!!" + user);
-        log.info("userprofile!!!" + userprofile);
+        UserProfileDTO userprofile = userService.getUserProfileByUserNum(user.getUser_num());
+        ExpertDTO expertDTO=profileService.getExpertProfile(5);
+
         if (user != null) {
             ExpertDTO expertIntro = profileService.getExpertProfile(user.getUser_num());
             log.info("expert intro: " + expertIntro);
@@ -53,7 +53,7 @@ public class ProfileController {
             model.addAttribute("expertPortfolio", expertPortfolio);
 
             model.addAttribute("expertPortfolios", expertPortfolios);
-            return "userpage/profile";
+            return "user/profile";
         }
 
 
@@ -69,10 +69,11 @@ public class ProfileController {
             @RequestParam(value = "newCon_S", required = false) String newCon_S,
             @RequestParam(value = "newCon_E", required = false) String newCon_E,
             @RequestParam(value = "newEmpl", required = false) String newEmpl,
-            HttpSession session
+            HttpSession session,Model model
     ) {
+
         UserDTO user = (UserDTO) session.getAttribute("user");
-        UserProfileDTO userprofile = (UserProfileDTO) session.getAttribute("userprofile");
+        UserProfileDTO userprofile = userService.getUserProfileByUserNum(user.getUser_num());
 
         if (user == null || userprofile == null) {
             return ResponseEntity.status(403).body("사용자 정보가 없습니다.");
@@ -81,8 +82,8 @@ public class ProfileController {
         // 사용자 프로필 업데이트
         userprofile.setUser_nickname(newNickname);
         userService.updateUserProfile(userprofile);
-        session.setAttribute("userprofile", userprofile);
-
+        model.addAttribute("userprofile", userprofile);
+        log.info("user정보!!!!!!!!!!!" + user.getUser_num());
         // 전문가 정보 업데이트
         ExpertDTO expertIntro = profileService.getExpertProfile(user.getUser_num());
         expertIntro.setIntroduce(newIntro);
