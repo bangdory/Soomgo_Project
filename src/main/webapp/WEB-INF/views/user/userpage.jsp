@@ -3,7 +3,7 @@
 <%@include file="../header/header.jsp" %>
 <%@include file="../header/headerModal.jsp" %>
 <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/userpage/userpage.css">
+
 
 <!-- 페이지 내용 -->
 
