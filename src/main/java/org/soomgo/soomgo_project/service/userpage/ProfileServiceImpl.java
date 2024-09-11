@@ -48,10 +48,8 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     public List<ExpertPortfolioDTO> getExpertPortfolios(int expert_num) {
-        List<ExpertPortfolioDTO> expertPortfolios = profileDAO.getExpertPortfolios(expert_num);
-        log.info("전달된 파라미터 -> "+ expert_num);
-        log.info("DAO 전달 리스트!!!" + expertPortfolios);
-        // return profileDAO.getExpertPortfolios(expert_num);
-        return expertPortfolios;
+
+        return profileDAO.getExpertPortfolios(expert_num);
+
     }
 }

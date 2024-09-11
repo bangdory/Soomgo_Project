@@ -5,9 +5,6 @@ import org.soomgo.soomgo_project.dao.expert.ExpertDAO;
 import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.expert.PageResult;
 import org.springframework.stereotype.Service;
-import sun.jvm.hotspot.debugger.Page;
-
-import java.awt.print.Pageable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,5 +38,9 @@ public class ExpertService {
 
     public ExpertDTO expertDetail (int expertNum) {
         return expertDAO.expertDetail(expertNum);
+    }
+
+    public int expertSignUp (ExpertDTO expertDTO) {
+        return expertDAO.expertSignUp(expertDTO);
     }
 }

@@ -1,3 +1,9 @@
+html, body, main {
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard-Regular', sans-serif;
+}
+
 /* 모달 배경 */
 #service-modal-base-container,
 #place-modal-base-container {
@@ -83,7 +89,7 @@ span {
 }
 
 /* 기본 버튼 스타일을 제거 */
-.toggle-btn {
+.modal-toggle-btn {
     background: none; /* 배경 제거 */
     border: none; /* 테두리 제거 */
     padding: 0; /* 기본 패딩 제거 (선택 사항) */
@@ -94,17 +100,17 @@ span {
 }
 
 /* 버튼의 hover 상태 스타일 제거 */
-.toggle-btn:hover {
+.modal-toggle-btn:hover {
     background: none; /* hover 시 배경 제거 */
     border: none; /* hover 시 테두리 제거 */
 }
 
 /* 버튼의 focus 상태 스타일 제거 */
-.toggle-btn:focus {
+.modal-toggle-btn:focus {
     outline: none; /* focus 시 아웃라인 제거 */
 }
 
-.toggle-btn i {
+.modal-toggle-btn i {
     pointer-events: none; /* 아이콘의 클릭 이벤트를 비활성화 */
 }
 
@@ -116,7 +122,7 @@ span {
 /*}*/
 
 .place-modal-item {
-    display: flex;              /* Flexbox를 사용하여 자식 요소들을 정렬합니다 */
+    display: flex; /* Flexbox를 사용하여 자식 요소들을 정렬합니다 */
     justify-content: space-between;
     align-items: center;
     position: relative;
@@ -127,17 +133,17 @@ span {
 }
 
 .toggle-btn-container {
-    position: absolute;         /* 절대 위치로 버튼을 우측에 배치 */
-    right: 0;                   /* 우측 정렬 */
-    top: 50%;                   /* 중앙 정렬 */
+    position: absolute; /* 절대 위치로 버튼을 우측에 배치 */
+    right: 0; /* 우측 정렬 */
+    top: 50%; /* 중앙 정렬 */
     transform: translateY(-50%); /* 수직 중앙 정렬 */
     padding-right: 15px;
 }
 
-.toggle-btn {
-    background: none;           /* 배경 제거 */
-    border: none;               /* 테두리 제거 */
-    cursor: pointer;            /* 포인터 커서로 변경 */
+.modal-toggle-btn {
+    background: none; /* 배경 제거 */
+    border: none; /* 테두리 제거 */
+    cursor: pointer; /* 포인터 커서로 변경 */
 }
 
 /*.toggle-btn {*/
@@ -147,7 +153,7 @@ span {
 /*    margin-left: 0.5rem;    !* 좌측 여백 추가 (선택 사항) *!*/
 /*}*/
 
-.toggle-btn i {
-    font-size: 12px;        /* 아이콘 크기 조절 (선택 사항) */
+.modal-toggle-btn i {
+    font-size: 12px; /* 아이콘 크기 조절 (선택 사항) */
 }
 

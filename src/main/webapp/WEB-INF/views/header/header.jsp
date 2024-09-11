@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet" type="text/css">
 <script>
     function toggleDropdown() {
         document.getElementById("myDropdown").classList.toggle("show");
@@ -39,15 +40,15 @@
                 <a href="${pageContext.request.contextPath}/request/category">견적 요청</a>
             </div>
             <%-- 고수 찾기 --%>
-                <div class="header-link-div">
+            <div class="header-link-div">
                 <a href="${pageContext.request.contextPath}/expert/expertFind">고수 찾기</a>
             </div>
             <%-- 마켓 --%>
-                <div class="header-link-div">
+            <div class="header-link-div">
                 <a href="#">마켓</a>
             </div>
             <%-- 커뮤니티 --%>
-                <div class="header-link-div">
+            <div class="header-link-div">
                 <a href="#">커뮤니티</a>
             </div>
         </div>
@@ -57,13 +58,13 @@
             <c:when test="${empty user}">
                 <div class="header-third-container-2">
                     <div>
-                        <a href="/login">로그인</a>
+                        <a href="user/login">로그인</a>
                     </div>
                     <div>
-                        <a href="#">회원가입</a>
+                        <a href="user/signup">회원가입</a>
                     </div>
                     <div>
-                        <a href="#">고수가입</a>
+                        <a href="user/signup">고수가입</a>
                     </div>
                 </div>
 
@@ -85,8 +86,8 @@
                         <button onclick="toggleDropdown()" class="dropbtn">내 프로필</button>
                         <div id="myDropdown" class="dropdown-content">
                             <h2 id="headerNickname">${userprofile.user_nickname}</h2>
-                            <a href="/requestsent">ㅋㅋ고수</a>
-                            <a href="/userpage">ㅋㅋㅋ쌉고수</a>
+                            <a href="/request/sent">보낸견적</a>
+                            <a href="/userpage">마이페이지</a>
                             <a href="/logout">로그아웃</a>
                         </div>
                     </div>
@@ -119,3 +120,5 @@
 
     </div>
 </header>
+
+<script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js"></script>

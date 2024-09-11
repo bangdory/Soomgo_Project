@@ -40,9 +40,6 @@ public class ProfileDAO {
         profileMapper.createExpertPortfolio(expertPortfolioDTO);
     }
     public List<ExpertPortfolioDTO> getExpertPortfolios(int expert_num) {
-        log.info("DAO 받은 expert_num"+expert_num);
-        List<ExpertPortfolioDTO> expertPortfolios = profileMapper.getExpertPortfolios(expert_num);
-        log.info("DAO expertPortfolios"+expertPortfolios);
         return profileMapper.getExpertPortfolios(expert_num);
     }
 }
