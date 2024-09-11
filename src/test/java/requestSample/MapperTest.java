@@ -3,8 +3,10 @@ package requestSample;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.soomgo.soomgo_project.domain.request.*;
-import org.soomgo.soomgo_project.mappers.request.AnswerMapper;
+import org.soomgo.soomgo_project.domain.request.CategoryDTO;
+import org.soomgo.soomgo_project.domain.request.GosuDTO;
+import org.soomgo.soomgo_project.domain.request.RequestDTO;
+import org.soomgo.soomgo_project.domain.request.TerritoryDTO;
 import org.soomgo.soomgo_project.mappers.request.RequestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,11 +22,6 @@ public class MapperTest {
 
     @Autowired(required = false)
     RequestMapper requestMapper;
-    @Autowired(required = false)
-    AnswerMapper answerMapper;
-
-    @Autowired(required = false)
-//    UserMapper userMapper;
 
     @Test
     public void testMapper() {
@@ -34,7 +31,7 @@ public class MapperTest {
     @Test
     public void testInsert() {
         RequestDTO dto = new RequestDTO();
-        dto.setUserNum(1);
+        dto.setWriter("1번 writer");
         dto.setRegDate(LocalDateTime.now());
 //        dto.setRef("[\"테스트\", \"제이슨\", \"트발\"]");
         dto.setRef("test");
@@ -47,44 +44,34 @@ public class MapperTest {
 
     @Test
     public void testSelect() {
-        log.info(requestMapper.select(3));
+        int id = 8;
+        log.info(requestMapper.select(id));
     }
 
     @Test
     public void testList() {
-        List<RequestVO> list = requestMapper.getListByClientNo(1);
-        log.info(list);
+        requestMapper.getList().forEach(requestDTO -> log.info(requestDTO));
     }
 
     @Test
-    public void readReceivedRequestByGosuId() {
-        List<RequestVO> requestVOS = requestMapper.readRequestByExpertNum(2);
-        log.info(requestVOS);
+    public void testReadRequest() {
+        GosuDTO gosuDTO = new GosuDTO();
+        gosuDTO.setId("고수3");
+        gosuDTO.setType("type1");
+        gosuDTO.setRegion("대전");
+        List<RequestDTO> requestDTOS = requestMapper.readRequest(gosuDTO);
+        log.info(requestDTOS);
     }
 
     @Test
-    public void testAnsweredRequestList() {
-        List<AnswerRequestVO> requestVOS = requestMapper.answeredRequestByExpertNum(2);
-        log.info(requestVOS);
-    }
-
-    @Test
-    public void findExpert() {
-//        ExpertDTO expert = requestMapper.findExpert(1);
-//        UserProfileDTO findExpert = userMapper.findUserProfileByUserNum(1);
-//        log.info(expert);
-//        log.info(findExpert);
-    }
-
-    @Test
-    public void findExpertVO() {
-        ExpertVO expert = requestMapper.findExpert(2);
-        log.info(expert);
+    public void findGosu() {
+        GosuDTO gosuID = requestMapper.findGosu("고수4");
+        log.info(gosuID);
     }
 
     @Test
     public void findTerritory() {
-        List<TerritoryDTO> list = requestMapper.findTerritoryByState("경기도");
+        List<TerritoryDTO> list = requestMapper.findTerritoryByState("강원특별자치도");
         log.info(list);
     }
 
@@ -101,80 +88,5 @@ public class MapperTest {
     public void findAllCategory() {
         List<String> allCategory = requestMapper.findAllCategory();
         log.info(allCategory);
-    }
-
-    @Test
-    public void selectedType() {
-        CategoryDTO selectedType = requestMapper.selectedType(29);
-        log.info(selectedType);
-    }
-
-    @Test
-    public void updateRequest() {
-        AnswerRequestDTO answerRequestDTO = new AnswerRequestDTO();
-//        answerRequestDTO.setGosuId("고수2");
-        answerRequestDTO.setPrice(5000);
-        answerRequestDTO.setRef("어쩌구저쩌구");
-        answerRequestDTO.setRequestId(10);
-        int update = answerMapper.update(answerRequestDTO);
-        log.info(answerRequestDTO);
-        log.info(update);
-    }
-
-    @Test
-    public void testAnswerRequest() {
-        AnswerRequestDTO a = new AnswerRequestDTO();
-        a.setPrice(50000);
-        a.setRef("테스트 서비스를 제공합니다");
-        a.setRequestId(3);
-        a.setExpertNum(2);
-        answerMapper.answerRequest(a);
-        log.info(a);
-    }
-
-    @Test
-    public void testAnswerRequestMapper() {
-        AnswerRequestDTO a = new AnswerRequestDTO();
-        a.setPrice(50000);
-        a.setRef("테스트 서비스를 제공합니다");
-        a.setRequestId(13);
-//        a.setExpertId("고수4");
-        answerMapper.answerRequest(a);
-        log.info(a);
-    }
-
-    @Test
-    public void readAnswerListTest() {
-        List<AnswerRequestVO> list = requestMapper.answerListOfSelectedRequest(3);
-        log.info(list);
-    }
-
-
-    @Test
-    public void deletedTest() {
-        requestMapper.deleteRequestFromClient(3);
-    }
-
-    @Test
-    public void deletedFromExpertTest() {
-        AnswerRequestVO a = new AnswerRequestVO();
-/*
-        a.setId(6);
-        a.setExpertNum(3);
-        a.setRequestId(3);
-*/
-        answerMapper.ignoreAnswerRequest(a);
-    }
-
-    @Test
-    public void findAnswerRequestByAnwerRequestID() {
-        AnswerRequestVO a = answerMapper.findAnswerRequestVOById(5);
-        log.info(a);
-    }
-
-    @Test
-    public void ignoreReadRequest() {
-
-        answerMapper.ignoreReceivedRequest(14, 2);
     }
 }

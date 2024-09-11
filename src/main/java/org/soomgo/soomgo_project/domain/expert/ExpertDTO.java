@@ -12,4 +12,9 @@ public class ExpertDTO {
     int education;
     float rating;
     int region;
+    String introduce;
+    String contact_start;
+    String contact_end;
+    String employees;
+
 }

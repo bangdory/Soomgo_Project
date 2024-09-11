@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.soomgo.soomgo_project.mappers.user.ProfileMapper">
+
+    <resultMap id="ExpertProfileResultMap" type="org.soomgo.soomgo_project.domain.expert.ExpertDTO">
+        <result property="expertNum" column="expert_num"/>
+        <result property="userNum" column="user_num"/>
+        <result property="categoryNum" column="category_num"/>
+        <result property="experienceYears" column="experience_years"/>
+        <result property="education" column="education"/>
+        <result property="rating" column="rating"/>
+        <result property="region" column="region"/>
+        <result property="introduce" column="introduce"/>
+        <result property="contact_start" column="contact_start"/>
+        <result property="contact_end" column="contact_end"/>
+        <result property="employees" column="employees"/>
+    </resultMap>
+
+    <select id="findExpertProfile" resultMap="ExpertProfileResultMap">
+        SELECT expert_num, user_num, category_num, experience_years, education, rating, region, introduce, contact_start, contact_end, employees
+        FROM expert
+        WHERE user_num = #{user_num} <!-- userNum으로 수정 -->
+    </select>
+
+    <update id="updateExpertIntro" parameterType="org.soomgo.soomgo_project.domain.expert.ExpertDTO">
+        UPDATE expert
+        SET
+        introduce = #{introduce},
+        contact_start = #{contact_start},
+        contact_end = #{contact_end},
+        employees = #{employees}
+        WHERE user_num = #{userNum} <!-- userNum으로 수정 -->
+    </update>
+
+    <update id="updateExpertYears" parameterType="org.soomgo.soomgo_project.domain.expert.ExpertDTO">
+        UPDATE expert
+        SET
+        experience_years = #{experienceYears}
+        WHERE user_num = #{userNum} <!-- userNum으로 수정 -->
+    </update>
+
+    <select id="findExpertPortfolio" resultType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO">
+        SELECT * FROM expert_pf WHERE expert_num = #{expert_num} <!-- expertNum으로 수정 -->
+    </select>
+
+    <insert id="createExpertPortfolio" parameterType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO" useGeneratedKeys="true" keyProperty="portfolioNum">
+        INSERT INTO expert_pf (
+        expert_num,
+        title,
+        thumbnail,
+        total_price,
+        work_year,
+        duration,
+        duration_value,
+        description,
+        category_num
+        )
+        VALUES (
+        #{expert_num},
+        #{title},
+        #{thumbnail},
+        #{total_price},
+        #{work_year},
+        #{duration},
+        #{duration_value},
+        #{description},
+        #{category_num}
+        )
+    </insert>
+
+    <insert id="insertPortfolioImages" parameterType="map">
+        INSERT INTO expert_pf_images (portfolio_num, image_url)
+        VALUES
+        <foreach collection="images" item="image" separator=",">
+            (#{portfolioNum}, #{image})
+        </foreach>
+    </insert>
+
+    <select id="getExpertPortfolios" parameterType="int" resultType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO">
+        SELECT * FROM expert_pf WHERE expert_num = #{expert_num} <!-- expertNum으로 수정 -->
+    </select>
+
+</mapper>

@@ -7,6 +7,7 @@ import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.territory.TerritoryDTO;
 import org.soomgo.soomgo_project.domain.user.TotalUserDTO;
 import org.soomgo.soomgo_project.domain.user.UserDTO;
+import org.soomgo.soomgo_project.domain.user.UserProfileDTO;
 import org.soomgo.soomgo_project.security.CustomUserDetails;
 import org.soomgo.soomgo_project.service.category.CategoryServiceImpl;
 import org.soomgo.soomgo_project.service.expert.ExpertService;
@@ -71,7 +72,7 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam String email,
                                    @RequestParam String password,
-                                   HttpServletRequest request) {
+                                   HttpServletRequest request, Model model) {
 
         try {
             // 인증 요청 생성
@@ -94,6 +95,8 @@ public class LoginController {
             session.setAttribute("sess_user_name", userDTO.getUser_name());
             session.setAttribute("sess_user_num" , userDTO.getUser_num());
             session.setAttribute("sess_user_type", userDTO.getUser_type());
+
+
 
             System.out.println("test : " + session.getAttribute("sess_user_name"));
 

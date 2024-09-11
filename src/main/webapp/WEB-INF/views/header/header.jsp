@@ -1,24 +1,24 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet" type="text/css">
-<%--<script>--%>
-<%--    function toggleDropdown() {--%>
-<%--        document.getElementById("myDropdown").classList.toggle("show");--%>
-<%--    }--%>
+<script>
+    function toggleDropdown() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
 
-<%--    // 클릭 시 드롭다운 외부를 클릭하면 닫히도록 설정--%>
-<%--    window.onclick = function (event) {--%>
-<%--        if (!event.target.matches('.dropbtn')) {--%>
-<%--            var dropdowns = document.getElementsByClassName("dropdown-content");--%>
-<%--            for (var i = 0; i < dropdowns.length; i++) {--%>
-<%--                var openDropdown = dropdowns[i];--%>
-<%--                if (openDropdown.classList.contains('show')) {--%>
-<%--                    openDropdown.classList.remove('show');--%>
-<%--                }--%>
-<%--            }--%>
-<%--        }--%>
-<%--    }--%>
-<%--</script>--%>
+    // 클릭 시 드롭다운 외부를 클릭하면 닫히도록 설정
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
 
 <header class="header-first-container">
     <div class="header-second-container">
@@ -58,10 +58,13 @@
             <c:when test="${empty user}">
                 <div class="header-third-container-2">
                     <div>
-                        <a href="${pageContext.request.contextPath}/user/login">로그인</a>
+                        <a href="user/login">로그인</a>
                     </div>
                     <div>
-                        <a href="${pageContext.request.contextPath}/user/signup">회원가입</a>
+                        <a href="user/signup">회원가입</a>
+                    </div>
+                    <div>
+                        <a href="user/signup">고수가입</a>
                     </div>
 <%--                    <div>--%>
 <%--                        <a href="#">고수가입</a>--%>
@@ -84,10 +87,10 @@
                     <div class="dropdown">
                         <button onclick="toggleDropdown()" class="dropbtn">내 프로필</button>
                         <div id="myDropdown" class="dropdown-content">
-                            <h2 id="headerNickname">${sess_user_name}</h2>
-                            <a href="/requestsent">ㅋㅋ고수</a>
-                            <a href="/userpage">ㅋㅋㅋ쌉고수</a>
-                            <a href="/logout">로그아웃</a>
+                            <h2 id="headerNickname">${userprofile.user_nickname}</h2>
+                            <a href="/request/sent">보낸견적</a>
+                            <a href="${pageContext.request.contextPath}/userpage">마이페이지</a>
+                            <a href="${pageContext.request.contextPath}/user/logout">로그아웃</a>
                         </div>
                     </div>
                 </div>
@@ -104,10 +107,10 @@
                     <div class="dropdown">
                         <button onclick="toggleDropdown()" class="dropbtn">내 프로필</button>
                         <div id="myDropdown" class="dropdown-content">
-                            <h2 id="headerNickname">${sess_user_name}</h2>
+                            <h2 id="headerNickname">${userprofile.user_nickname}</h2>
                             <a href="/requestsent">받은 견적</a>
-                            <a href="/userpage">마이페이지</a>
-                            <a href="/logout">로그아웃</a>
+                            <a href="${pageContext.request.contextPath}/userpage">마이페이지</a>
+                            <a href="${pageContext.request.contextPath}/user/logout">로그아웃</a>
                         </div>
                     </div>
                 </div>
