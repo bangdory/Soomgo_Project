@@ -1,6 +1,5 @@
 package org.soomgo.soomgo_project.controller.userpage;
 
-import jdk.internal.icu.text.NormalizerBase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.userpage.UserDTO;
