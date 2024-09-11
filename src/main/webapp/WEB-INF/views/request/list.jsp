@@ -114,7 +114,7 @@
                         <h4>내가 보낸 요청서가 없습니다</h4>
                     </c:if>
                     <c:forEach var="vo" items="${vos}">
-                        <c:if test="${vo.experts <=0 && vo.deleted == null}">
+                        <c:if test="${vo.experts <=0 && vo.deleted == 0}">
                             <div class="request-item">
                                 <div class="sort-date">
                                     <div class="requestHeader">
