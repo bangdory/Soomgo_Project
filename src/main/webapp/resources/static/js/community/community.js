@@ -113,11 +113,11 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(placeValue)
 
             if (placeValue !== null) {
-                const url = '/community/listAll?categoryNum=' + encodeURIComponent(categoryNum) + '&no=' + encodeURIComponent(placeValue);
+                const url = '/community/communitySearch?categoryNum=' + encodeURIComponent(categoryNum) + '&no=' + encodeURIComponent(placeValue);
                 console.log(url);
                 fetchData(url, fetchProcessing);
             } else {
-                const url = '/community/listAll?categoryNum=' + encodeURIComponent(categoryNum);
+                const url = '/community/communitySearch?categoryNum=' + encodeURIComponent(categoryNum);
                 console.log(url);
                 fetchData(url, fetchProcessing);
             }
@@ -197,11 +197,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('serviceValue: ' + serviceValue);
 
                 if (serviceValue !== null) {
-                    const url = '/community/listAll?categoryNum=' + encodeURIComponent(serviceValue) + '&no=' + encodeURIComponent(no);
+                    const url = '/community/communitySearch?categoryNum=' + encodeURIComponent(serviceValue) + '&no=' + encodeURIComponent(no);
                     console.log(url);
                     fetchData(url, fetchProcessing);
                 } else {
-                    const url = '/community/listAll?no=' + encodeURIComponent(no);
+                    const url = '/community/communitySearch?no=' + encodeURIComponent(no);
                     fetchData(url, fetchProcessing);
                 }
 
@@ -246,7 +246,7 @@ function fetchData(url, fetchProcessing) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log('fetchData_data: ' , JSON.stringify(data, null, 2));
+            // console.log('fetchData_data: ' , JSON.stringify(data, null, 2));
             fetchProcessing(data);  // 데이터를 처리하는 콜백 함수 호출
         })
         .catch(error => {
@@ -254,40 +254,51 @@ function fetchData(url, fetchProcessing) {
         });
 }
 
-function fetchProcessing(pageResult) {
+function fetchProcessing(response) {
+    console.log("--------------------------------");
+    console.log("response: " + JSON.stringify(response, null, 2))
     const communityList = document.getElementById('community-list');
     communityList.innerHTML = ''; // 기존 내용 지우기
 
     // pageResult가 객체인지 확인
-    if (pageResult && Array.isArray(pageResult.content)) {
-        pageResult.content.forEach(item => {
+    if (response && Array.isArray(response.boards)) {
+        response.boards.forEach(item => {
+
+
+            console.log("item: " + JSON.stringify(item, null, 2))
+
             // 새로운 div 요소 생성
             const itemGroupDiv = document.createElement('div');
             itemGroupDiv.classList.add('community-board-content');
-            itemGroupDiv.setAttribute('data-rating', item.id);
+            itemGroupDiv.setAttribute('data-rating', item.cb_no);
 
             //제목 div 생성
             const titleDiv = document.createElement('div');
             titleDiv.classList.add('board-title');
-            titleDiv.textContent = item.title || '제목없음';
+            titleDiv.textContent = item.cb_title || '제목없음';
 
             // 내용 div 생성
             const contentDiv = document.createElement('div');
             contentDiv.classList.add('board-content');
-            contentDiv.textContent = item.content || '내용없음';
+            contentDiv.textContent = item.cb_content || '내용없음';
 
             // 작성자와 날짜 div 생성
             const metaDiv = document.createElement('div');
             metaDiv.classList.add('baord-meta');
-            metaDiv.textContent = `작성자: `+ item.author + `|| '작성자없음', 날짜: `+ item.date + `|| 날짜없음`;
+            metaDiv.textContent = item.user_name
 
             // 내용 div에 추가
             itemGroupDiv.appendChild(titleDiv);
             itemGroupDiv.appendChild(contentDiv);
             itemGroupDiv.appendChild(metaDiv);
 
+            console.log('item.id!!!! ',item.cb_no)
+            console.log('content!!!! ',item.cb_content)
+            console.log('title!!!! ',item.cb_title)
+
             // 생성한 div를 community-list에 추가
             communityList.appendChild(itemGroupDiv);
+            console.log('communityList!!!! 완료')
         });
     }
 }

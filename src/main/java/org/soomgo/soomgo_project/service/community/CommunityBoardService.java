@@ -15,9 +15,11 @@ public interface CommunityBoardService {
 
     void delete(int cb_no);
 
-    List<CommunityBoardDTO> listAll(String service, String place);
+    List<CommunityBoardDTO> listAll();
 
-    List<CommunityBoardDTO> listByBoardNo(int board_no, String service, String place);
+    List<CommunityBoardDTO> listByBoardNo(int board_no);
+
+    List<CommunityBoardDTO> communitySearch(Map<String, Object> params);
 
     boolean isLiked(Map<String, Object> params);
 

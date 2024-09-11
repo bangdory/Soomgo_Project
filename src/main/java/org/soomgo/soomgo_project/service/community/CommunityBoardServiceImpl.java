@@ -45,13 +45,18 @@ public class CommunityBoardServiceImpl implements CommunityBoardService {
     }
 
     @Override
-    public List<CommunityBoardDTO> listAll(String service, String place) {
-        return communityBoardDAO.listAll(service, place);
+    public List<CommunityBoardDTO> listAll() {
+        return communityBoardDAO.listAll();
     }
 
     @Override
-    public List<CommunityBoardDTO> listByBoardNo(int board_no, String service, String place){
-        return communityBoardDAO.listByBoardNo(board_no, service, place);
+    public List<CommunityBoardDTO> listByBoardNo(int board_no){
+        return communityBoardDAO.listByBoardNo(board_no);
+    }
+
+    @Override
+    public List<CommunityBoardDTO> communitySearch(Map<String, Object> params) {
+        return communityBoardDAO.communitySearch(params);
     }
 
     @Override

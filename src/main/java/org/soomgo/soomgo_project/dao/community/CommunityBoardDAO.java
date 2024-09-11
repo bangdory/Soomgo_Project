@@ -33,21 +33,16 @@ public class CommunityBoardDAO {
         communityBoardMapper.delete(cb_no);
     }
 
-    public List<CommunityBoardDTO> listAll(String service, String place){
-        Map<String,Object> params = new HashMap<>();
-        params.put("service",service);
-        params.put("place",place);
-
-        return communityBoardMapper.listAll(params);
+    public List<CommunityBoardDTO> listAll(){
+        return communityBoardMapper.listAll();
     }
 
-    public List<CommunityBoardDTO> listByBoardNo(int board_no, String service, String place){
-        Map<String,Object> params = new HashMap<>();
-        params.put("board_no",board_no);
-        params.put("service",service);
-        params.put("place",place);
+    public List<CommunityBoardDTO> listByBoardNo(int board_no){
+        return communityBoardMapper.listByBoardNo(board_no);
+    }
 
-        return communityBoardMapper.listByBoardNo(params);
+    public List<CommunityBoardDTO> communitySearch(Map<String, Object> params){
+        return communityBoardMapper.communitySearch(params);
     }
 
     public boolean isLiked(Map<String, Object> params){

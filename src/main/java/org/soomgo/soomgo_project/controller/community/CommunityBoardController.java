@@ -76,6 +76,7 @@ public class CommunityBoardController {
     }
 
     private static final String uploadDir = "/resources/static/img/community/";
+
     @PostMapping("/register")
     public String register(@RequestParam("cb_title") String title,
                            @RequestParam("cb_content") String content,
@@ -128,7 +129,7 @@ public class CommunityBoardController {
         return territories;  // JSON 형식으로 반환
     }
 
-    private String getUploadPath()  {
+    private String getUploadPath() {
         String rootPath = System.getProperty("user.dir");
         return rootPath + uploadDir;
     }
@@ -171,16 +172,15 @@ public class CommunityBoardController {
     @GetMapping("/categoryNum")
     @ResponseBody
     public ResponseEntity<Integer> getCategoryNum(@RequestParam("categoryName") String categoryName) {
-            int categoryNum = categoryService.getCategoryByName(categoryName);
-            return ResponseEntity.ok(categoryNum);
+        int categoryNum = categoryService.getCategoryByName(categoryName);
+        return ResponseEntity.ok(categoryNum);
     }
-
 
 
     @GetMapping("/read")
     public String read(@RequestParam("cb_no") int cb_no, Model model, HttpSession session) {
 
-        System.out.println("cb_no 받아왔나요? "+cb_no);
+        System.out.println("cb_no 받아왔나요? " + cb_no);
 
         //        로그인 세션에서 user_num 받아와서 user_num 에 저장하기
         Integer userNum = (Integer) session.getAttribute("sess_user_num");
@@ -199,7 +199,7 @@ public class CommunityBoardController {
         System.out.println("Params: " + params);
 
         CommunityBoardDTO board = communityBoardService.read(cb_no);
-        log.info("board : "+board.toString());
+        log.info("board : " + board.toString());
         if (board != null) {
             model.addAttribute("board", board);
             model.addAttribute("cb_regdate", board.getCb_regdate());
@@ -217,36 +217,12 @@ public class CommunityBoardController {
 
         // 댓글목록
         List<CommunityReplyDTO> replies = replyService.read(cb_no);
-        log.info("replies : "+replies.toString());
+        log.info("replies : " + replies.toString());
         model.addAttribute("replies", replies);
 
         return "community/read";
 
     }
-
-//    @GetMapping("/")
-
-//    @GetMapping("/checkLike")
-//    @ResponseBody
-//    public Map<String, Object> checkLike(@RequestParam("cb_no") int cb_no,
-//                                         HttpSession session) {
-//
-//        Map<String, Object> response = new HashMap<>();
-//        //        로그인 세션에서 user_num 받아와서 user_num 에 저장하기
-//        UserDTO userDTO = (UserDTO) session.getAttribute("user");
-//        if (userDTO == null) {
-//            response.put("status", "not_logged_in");
-//            response.put("message", "로그인이 필요합니다.");
-//            return response;
-//        }
-//
-//        int user_num = userDTO.getUser_num();
-//        boolean isLiked = service.isLiked(cb_no, user_num);
-//
-//        response.put("status", "success");
-//        response.put("isLiked", isLiked);
-//        return response;
-//    }
 
     @PostMapping("/increaseLike")
     @ResponseBody
@@ -285,7 +261,8 @@ public class CommunityBoardController {
 
         if (userNum == null) {
             throw new IllegalStateException("로그인이 필요합니다.");
-        } params.put("user_num", userNum);
+        }
+        params.put("user_num", userNum);
 
         log.info("user_num: " + userNum);
         log.info("cb_no: " + cb_no);
@@ -299,101 +276,73 @@ public class CommunityBoardController {
     }
 
     @GetMapping("/listAll")
-    public String listAll(@RequestParam(value = "board_no", defaultValue = "0") int board_no,
-                          @RequestParam(value = "categoryNum", required = false) String service,
-                          @RequestParam(value = "no", required = false) String place,
-                          Model model) {
+    public String listAll(@RequestParam(value = "board_no", defaultValue = "0") int board_no, Model model) {
 
-            // 필터링된 게시글 리스트
-            List<CommunityBoardDTO> boards;
-            if (board_no != 0) {
+        if (board_no != 0) {
+            List<CategoryDTO> CategoryList = categoryService.getCategoryNotZero();
+            List<TerritoryDTO> TerritoryList = territoryService.getTerritory();
+            List<CommunityBoardDTO> boards = communityBoardService.listByBoardNo(board_no);
 
-                // 카테고리와 지역리스트
+            model.addAttribute("boards", boards);
+            model.addAttribute("board_no", board_no);
+            model.addAttribute("CategoryList", CategoryList);
+            model.addAttribute("TerritoryList", TerritoryList);
 
-                List<CategoryDTO> CategoryList = categoryService.getCategoryNotZero();
-                List<TerritoryDTO> TerritoryList = territoryService.getTerritory();
+            return "community/listAll";
+        } else {
+            List<CategoryDTO> CategoryList = categoryService.getCategoryNotZero();
+            List<TerritoryDTO> TerritoryList = territoryService.getTerritory();
+            List<CommunityBoardDTO> boards = communityBoardService.listAll();
 
-                boards = communityBoardService.listByBoardNo(board_no, service, place);
+            model.addAttribute("boards", boards);
+            model.addAttribute("board_no", board_no);
+            model.addAttribute("CategoryList", CategoryList);
+            model.addAttribute("TerritoryList", TerritoryList);
 
-                // 모델에 데이터를 추가
-                model.addAttribute("boards", boards);
-                model.addAttribute("boardNo", board_no);
-                model.addAttribute("CategoryList", CategoryList);
-                model.addAttribute("TerritoryList", TerritoryList);
+            return "community/listAll";
+        }
 
-                return "community/listAll";
-
-//                Map<String, Object> response = new HashMap<>();
-//                response.put("boards", boards);
-//                response.put("boardNo", board_no);
-//                response.put("CategoryList", CategoryList);
-//                response.put("TerritoryList", TerritoryList);
-//
-//                return response;
-
-            } else {
-                // 카테고리와 지역리스트
-
-                List<CategoryDTO> CategoryList = categoryService.getCategoryNotZero();
-                List<TerritoryDTO> TerritoryList = territoryService.getTerritory();
-
-                boards = communityBoardService.listAll(service, place);
-                // 모델에 데이터를 추가
-                model.addAttribute("boards", boards);
-                model.addAttribute("boardNo", board_no);
-                model.addAttribute("CategoryList", CategoryList);
-                model.addAttribute("TerritoryList", TerritoryList);
-
-                return "community/listAll";
-
-//                Map<String, Object> response = new HashMap<>();
-//
-//                response.put("boards", boards);
-//                response.put("boardNo", board_no);
-//                response.put("CategoryList", CategoryList);
-//                response.put("TerritoryList", TerritoryList);
-//
-//                return response;
-            }
     }
 
-    @GetMapping("api/list")
+    @GetMapping("/communitySearch")
     @ResponseBody
-    public ResponseEntity<Integer> filterList () {
+    public ResponseEntity<Map<String, Object>> filterList(@RequestParam(value = "board_no", defaultValue = "0") int board_no,
+                                                          @RequestParam(value = "categoryNum", required = false) Integer categoryNum,
+                                                          @RequestParam(value = "no", required = false) Integer no) {
+
+        log.info("no: " + no);
+
+        List<CategoryDTO> CategoryList = categoryService.getCategoryNotZero();
+        List<TerritoryDTO> TerritoryList = territoryService.getTerritory();
+
+        log.info("board_no" + board_no);
+        log.info("categoryNum" + categoryNum);
+        log.info("no" + no);
+        log.info("TerritoryList" + TerritoryList);
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("board_no", board_no);
+        params.put("categoryNum", categoryNum);
+        params.put("cb_addr", no);
+
+        List<CommunityBoardDTO> boards = communityBoardService.communitySearch(params);
+
+        log.info("boards!!!!" + boards);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("boards", boards);
+        response.put("board_no", board_no);
+        response.put("CategoryList", CategoryList);
+        response.put("TerritoryList", TerritoryList);
+        response.put("categoryNum", categoryNum);
+        response.put("no", no);
 
 
-        return null;
+        return ResponseEntity.ok(response);
+
+
     }
 
-
-
-//@GetMapping("/listAll")
-//public String listAll(@RequestParam(value = "board_no", defaultValue = "0") int board_no, Model model) {
-//    if (board_no != 0) {
-//        List<CategoryDTO> CategoryList = categoryService.getCategoryNotZero();
-//        List<TerritoryDTO> TerritoryList = territoryService.getTerritory();
-//        List<CommunityBoardDTO> boards = communityBoardService.listByBoardNo(board_no);
-//
-//        model.addAttribute("boards", boards);
-//        model.addAttribute("boardNo", board_no);
-//        model.addAttribute("CategoryList", CategoryList);
-//        model.addAttribute("TerritoryList", TerritoryList);
-//
-//        return "community/listAll";
-//    } else {
-//        List<CategoryDTO> CategoryList = categoryService.getCategoryNotZero();
-//        List<TerritoryDTO> TerritoryList = territoryService.getTerritory();
-//        List<CommunityBoardDTO> boards = communityBoardService.listAll();
-//
-//        model.addAttribute("boards", boards);
-//        model.addAttribute("boardNo", 0);
-//        model.addAttribute("CategoryList", CategoryList);
-//        model.addAttribute("TerritoryList", TerritoryList);
-//
-//        return "community/listAll";
-//
-//    }
-//}
 
     @GetMapping("/listAll/place")
     @ResponseBody
@@ -438,7 +387,7 @@ public class CommunityBoardController {
             return "redirect:/user/login";
         }
 
-        log.info("userNum: ", userNum);
+//        log.info("userNum: ", userNum);
 
         // 파일업로드
         String filePath = null;
@@ -469,7 +418,7 @@ public class CommunityBoardController {
     public List<CommunityBoardDTO> getBoardPosts(@RequestParam("board_no") int board_no,
                                                  @RequestParam(value = "service", required = false) String service,
                                                  @RequestParam(value = "place", required = false) String place) {
-        return communityBoardService.listByBoardNo(board_no, service, place);
+        return communityBoardService.listByBoardNo(board_no);
     }
 
     @GetMapping("/user/isLoggedIn")

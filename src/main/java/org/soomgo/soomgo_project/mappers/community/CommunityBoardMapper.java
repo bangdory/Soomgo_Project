@@ -18,9 +18,11 @@ public interface CommunityBoardMapper {
 
     void delete(Integer cb_no);
 
-    List<CommunityBoardDTO> listAll(Map<String, Object> params);
+    List<CommunityBoardDTO> listAll();
 
-    List<CommunityBoardDTO> listByBoardNo(Map<String, Object> params);
+    List<CommunityBoardDTO> listByBoardNo(Integer board);
+
+    List<CommunityBoardDTO> communitySearch(Map<String, Object> params);
 
     boolean isLiked(Map<String, Object> params);
 
