@@ -20,6 +20,9 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
+    public List<CategoryDTO> getCategoryAll () {return categoryDAO.getCategoryAll();}
+
+    @Override
     public List<CategoryDTO> getCategoryZero() { return categoryDAO.getCategoryZero(); }
 
     @Override
@@ -36,4 +39,22 @@ public class CategoryServiceImpl implements CategoryService{
         throw new RuntimeException("Category not found for name: " + categoryName);
 
     }
+
+//    @Override
+//    public List<CategoryDTO> getCategoryId1(){return categoryDAO.getCategoryId1();}
+//
+//    @Override
+//    public List<CategoryDTO> getCategoryId2(){return categoryDAO.getCategoryId2();}
+//
+//    @Override
+//    public List<CategoryDTO> getCategoryId3(){return categoryDAO.getCategoryId3();}
+//
+//    @Override
+//    public List<CategoryDTO> getCategoryId4(){return categoryDAO.getCategoryId4();}
+//
+//    @Override
+//    public List<CategoryDTO> getCategoryId5(){return categoryDAO.getCategoryId5();}
+
+    @Override
+    public List<CategoryDTO> getCategoryIdOther() {return categoryDAO.getCategoryIdOther();}
 }

@@ -4,7 +4,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.container {
+.find-userEmail-container {
     width: 100%;
     height: calc(100% - 120px);
     padding-top: 120px;

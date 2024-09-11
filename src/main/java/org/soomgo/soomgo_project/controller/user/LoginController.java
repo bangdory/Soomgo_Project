@@ -3,11 +3,13 @@ package org.soomgo.soomgo_project.controller.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.category.CategoryDTO;
+import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.territory.TerritoryDTO;
+import org.soomgo.soomgo_project.domain.user.TotalUserDTO;
 import org.soomgo.soomgo_project.domain.user.UserDTO;
-import org.soomgo.soomgo_project.domain.user.UserProfileDTO;
 import org.soomgo.soomgo_project.security.CustomUserDetails;
 import org.soomgo.soomgo_project.service.category.CategoryServiceImpl;
+import org.soomgo.soomgo_project.service.expert.ExpertService;
 import org.soomgo.soomgo_project.service.territory.TerritoryServiceImpl;
 import org.soomgo.soomgo_project.service.user.UserService;
 import org.springframework.http.HttpStatus;
@@ -39,6 +41,7 @@ public class LoginController {
     private final PasswordEncoder passwordEncoder;
     private final CategoryServiceImpl categoryServiceImpl;
     private final TerritoryServiceImpl territoryServiceImpl;
+    private final ExpertService expertService;
 
     /**
      * 이메일 중복 체크
@@ -59,13 +62,14 @@ public class LoginController {
      * 로그인 처리
      * @param email
      * @param password
-    //     * @param request
+//     * @param request
      * @return
      */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam String email,
                                    @RequestParam String password,
                                    HttpServletRequest request) {
+
         try {
             // 인증 요청 생성
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(email, password);
@@ -79,6 +83,11 @@ public class LoginController {
 
             HttpSession session = request.getSession();
             UserDTO userDTO = userDetails.getUser();
+
+            if(userDTO != null) {
+                session.setAttribute("user", userDTO);
+            }
+
             session.setAttribute("sess_user_name", userDTO.getUser_name());
             session.setAttribute("sess_user_num" , userDTO.getUser_num());
             session.setAttribute("sess_user_type", userDTO.getUser_type());
@@ -161,13 +170,13 @@ public class LoginController {
     public String signup(Model model) {
 
         try {
-            List<CategoryDTO> category = categoryServiceImpl.getCategoryNotZero();
-            List<TerritoryDTO> territory = territoryServiceImpl.getTerritory();
+        List<CategoryDTO> category = categoryServiceImpl.getCategoryNotZero();
+        List<TerritoryDTO> territory = territoryServiceImpl.getTerritory();
 
-            log.info(territory);
+        log.info(territory);
 
-            model.addAttribute("territory", territory);
-            model.addAttribute("category", category);
+        model.addAttribute("territory", territory);
+        model.addAttribute("category", category);
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -192,7 +201,9 @@ public class LoginController {
      * @return
      */
     @PostMapping("/signup")
-    public ResponseEntity<Integer> signup(@RequestBody UserDTO userDTO, HttpServletRequest request) {
+    public ResponseEntity<Integer> signup(@RequestBody UserDTO userDTO
+            , HttpServletRequest request) {
+
         String rawPassword = userDTO.getUser_password();
         userDTO.setUser_password(passwordEncoder.encode(rawPassword));
 
@@ -202,18 +213,58 @@ public class LoginController {
     }
 
     /**
+     * 고수 회원가입 처리
+     * @param TotalUserDTO
+     * @param request
+     * @return
+     */
+
+    @PostMapping("/signupExpert")
+    @ResponseBody
+    public ResponseEntity<Integer> ExpertSignup(@RequestBody TotalUserDTO totalUserDTO) {
+
+
+            System.out.println("ExpertSignup 실행 중");
+            UserDTO userDTO = totalUserDTO.getUserDTO();
+            log.info("userDTO: " + userDTO.toString());
+            ExpertDTO expertDTO = totalUserDTO.getExpertDTO();
+            log.info("expertDTO: " + expertDTO.toString());
+
+            String rawPassword = userDTO.getUser_password();
+            userDTO.setUser_password(passwordEncoder.encode(rawPassword));
+
+            int isSignValid = userService.insertUserProfile(userDTO);
+
+            if (isSignValid == 0) {
+                ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            expertDTO.setUserNum(userDTO.getUser_num());
+
+            log.info("expertDTO: " + expertDTO.toString());
+
+
+            int expertSignValid = expertService.expertSignUp(expertDTO);
+            System.out.println("expertSignValid: " + expertSignValid);
+
+
+            return ResponseEntity.ok(expertSignValid);
+
+    }
+
+    /**
      * 회원 이메일 찾기
      * @param name
-     * @param phoneNumber
+     * @param user_phonenum
      * @param model
      * @return
      */
     @PostMapping("/findUserEmail")
-    public String findUserEmail(@RequestParam("name") String name,
-                                @RequestParam("phoneNumber") String phoneNumber,
+    public String findUserEmail(@RequestParam("user_name") String name,
+                                @RequestParam("user_phonenum") String user_phonenum,
                                 Model model) {
-        System.out.println("findUserEmail name: " + name + ", phoneNumber: " + phoneNumber);
-        Optional<String> email = userService.findByNameAndPhoneNumber(name, phoneNumber);
+        System.out.println("findUserEmail name: " + name + ", user_phonenum: " + user_phonenum);
+        Optional<String> email = userService.findByNameAndPhoneNumber(name, user_phonenum);
 
         if (email.isPresent()) {
             model.addAttribute("email", email.get());
@@ -245,4 +296,24 @@ public class LoginController {
     public String resetpasswordform() {
         return "/user/resetPasswordForm";
     }
+
+    @PostMapping("/api/phone")
+    @ResponseBody
+    public ResponseEntity<Boolean> searchPhone(@RequestBody Map<String, String> requestBody) {
+        System.out.println("searchPhone 메소드 실행 중");
+
+        String phone = requestBody.get("phone");
+        log.info("phone: " + phone);
+
+        int validPhone = userService.searchPhone(phone);
+
+        log.info("validPhone: " + validPhone);
+
+        // validPhone이 0이면 false, 아니면 true를 응답으로 설정
+        boolean isPhoneValid = (validPhone == 0);
+        log.info("isPhoneValid: " + isPhoneValid);
+
+        return ResponseEntity.ok(isPhoneValid);
+    }
+
 }

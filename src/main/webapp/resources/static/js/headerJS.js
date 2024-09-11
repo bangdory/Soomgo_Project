@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-
     //
     // document.querySelector('.header-tap').addEventListener('click', function () {
     //     document.querySelector('.header-modal-main-container').style.display = 'block';

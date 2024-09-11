@@ -36,4 +36,40 @@
         WHERE categoryName = #{categoryName}
     </select>
 
+<!--    <select id="getCategoryId1" parameterType="int" resultType="org.soomgo.soomgo_project.domain.category.CategoryDTO">-->
+<!--        SELECT * FROM category-->
+<!--        WHERE Id = 1-->
+<!--        AND P_Id != 0-->
+<!--    </select>-->
+
+<!--    <select id="getCategoryId2" parameterType="int" resultType="org.soomgo.soomgo_project.domain.category.CategoryDTO">-->
+<!--        SELECT * FROM category-->
+<!--        WHERE Id = 2-->
+<!--        AND P_Id != 0-->
+<!--    </select>-->
+
+<!--    <select id="getCategoryId3" parameterType="int" resultType="org.soomgo.soomgo_project.domain.category.CategoryDTO">-->
+<!--        SELECT * FROM category-->
+<!--        WHERE Id = 3-->
+<!--        AND P_Id != 0-->
+<!--    </select>-->
+
+<!--    <select id="getCategoryId4" parameterType="int" resultType="org.soomgo.soomgo_project.domain.category.CategoryDTO">-->
+<!--        SELECT * FROM category-->
+<!--        WHERE Id = 4-->
+<!--        AND P_Id != 0-->
+<!--    </select>-->
+
+<!--    <select id="getCategoryId5" parameterType="int" resultType="org.soomgo.soomgo_project.domain.category.CategoryDTO">-->
+<!--        SELECT * FROM category-->
+<!--        WHERE Id = 5-->
+<!--        AND P_Id != 0-->
+<!--    </select>-->
+
+<!--    <select id="getCategoryIdOther" parameterType="int" resultType="org.soomgo.soomgo_project.domain.category.CategoryDTO">-->
+<!--        SELECT * FROM category-->
+<!--        WHERE Id > 5-->
+<!--        AND P_Id != 0-->
+<!--    </select>-->
+
 </mapper>

@@ -4,7 +4,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.container {
+.find-userEmail-container {
     padding-top: 60px; /* 헤더 높이만큼 패딩을 주어 본문이 헤더 아래로 오도록 설정 */
 }
 

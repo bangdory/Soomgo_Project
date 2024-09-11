@@ -47,7 +47,7 @@
                     <span class="place-modal-item"
                           data-value="${tList.no}|${tList.id}|${tList.state}|${tList.district}">${tList.state}
                         <span class="toggle-btn-container">
-                        <button class="toggle-btn"><i class="bi bi-caret-down"></i></button>
+                        <button class="modal-toggle-btn"><i class="bi bi-caret-down"></i></button>
                         </span>
                     </span>
                     <span class="place-modal-data"></span>

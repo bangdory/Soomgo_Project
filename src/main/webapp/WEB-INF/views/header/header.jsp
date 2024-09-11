@@ -63,13 +63,13 @@
                     <div>
                         <a href="${pageContext.request.contextPath}/user/signup">회원가입</a>
                     </div>
-                    <div>
-                        <a href="#">고수가입</a>
-                    </div>
+<%--                    <div>--%>
+<%--                        <a href="#">고수가입</a>--%>
+<%--                    </div>--%>
                 </div>
 
             </c:when>
-            <c:when test="${usertype eq 'EXPERT'}">
+            <c:when test="${sess_user_type eq 'EXPERT'}">
                 <div class="header-third-container-2">
                     <div>
                         <a href="${pageContext.request.contextPath}/request/sent">보낸견적</a>
@@ -84,7 +84,7 @@
                     <div class="dropdown">
                         <button onclick="toggleDropdown()" class="dropbtn">내 프로필</button>
                         <div id="myDropdown" class="dropdown-content">
-                            <h2 id="headerNickname">${userprofile.user_nickname}</h2>
+                            <h2 id="headerNickname">${sess_user_name}</h2>
                             <a href="/requestsent">ㅋㅋ고수</a>
                             <a href="/userpage">ㅋㅋㅋ쌉고수</a>
                             <a href="/logout">로그아웃</a>
@@ -104,15 +104,13 @@
                     <div class="dropdown">
                         <button onclick="toggleDropdown()" class="dropbtn">내 프로필</button>
                         <div id="myDropdown" class="dropdown-content">
-                            <h2 id="headerNickname">${userprofile.user_nickname}</h2>
+                            <h2 id="headerNickname">${sess_user_name}</h2>
                             <a href="/requestsent">받은 견적</a>
                             <a href="/userpage">마이페이지</a>
                             <a href="/logout">로그아웃</a>
                         </div>
                     </div>
                 </div>
-
-
             </c:otherwise>
         </c:choose>
 
