@@ -1,4 +1,4 @@
-package org.soomgo.soomgo_project.controller.user;
+package org.soomgo.soomgo_project.controller.userpage;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -36,7 +35,7 @@ public class UserPageController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("userprofile", userprofile);
-            return "user/userpage";
+            return "userpage/userpage";
         }
         return "redirect:/login";
     }
@@ -49,7 +48,7 @@ public class UserPageController {
         if (user != null) {
             model.addAttribute("user", user);
             model.addAttribute("userprofile", userprofile);
-            return "user/account_info";
+            return "userpage/account_info";
         }
         return "redirect:/login";
 
@@ -60,7 +59,7 @@ public class UserPageController {
 
         if (user != null) {
             model.addAttribute("user", user);
-            return "user/setting";
+            return "userpage/setting";
         }
         return "redirect:/login";
     }

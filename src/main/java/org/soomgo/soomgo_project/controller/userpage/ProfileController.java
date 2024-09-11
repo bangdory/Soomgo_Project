@@ -1,4 +1,4 @@
-package org.soomgo.soomgo_project.controller.user;
+package org.soomgo.soomgo_project.controller.userpage;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -37,11 +37,14 @@ public class ProfileController {
 
         UserDTO user = (UserDTO) session.getAttribute("user");
         UserProfileDTO userprofile = (UserProfileDTO) session.getAttribute("userprofile");
-
+        log.info("user!!!" + user);
+        log.info("userprofile!!!" + userprofile);
         if (user != null) {
             ExpertDTO expertIntro = profileService.getExpertProfile(user.getUser_num());
-            ExpertPortfolioDTO expertPortfolio = profileService.getExpertPortfolio(expertIntro.getExpertNum());
-            List<ExpertPortfolioDTO> expertPortfolios = profileService.getExpertPortfolios(expertIntro.getExpertNum());
+            log.info("expert intro: " + expertIntro);
+            ExpertPortfolioDTO expertPortfolio = profileService.getExpertPortfolio(expertIntro.getExpert_num());
+            List<ExpertPortfolioDTO> expertPortfolios = profileService.getExpertPortfolios(expertIntro.getExpert_num());
+            log.info(expertPortfolios);
 
             model.addAttribute("user", user);
             model.addAttribute("userprofile", userprofile);
@@ -105,7 +108,7 @@ public class ProfileController {
         }
 
         ExpertDTO expertYears = profileService.getExpertProfile(user.getUser_num());
-        expertYears.setExperienceYears(newYears);
+        expertYears.setExperience_years(newYears);
         profileService.updateExpertYears(expertYears);
 
         log.info("Updated Years: {}", newYears);
@@ -145,8 +148,8 @@ public class ProfileController {
         expertPortfolio.setDuration(newDuration);
         expertPortfolio.setDuration_value(newDuration_value);
         expertPortfolio.setDescription(newDescription);
-        expertPortfolio.setExpert_num(expert.getExpertNum());
-        expertPortfolio.setCategory_num(expert.getCategoryNum()); // category_num 설정
+        expertPortfolio.setExpert_num(expert.getExpert_num());
+        expertPortfolio.setCategory_num(expert.getCategory_num()); // category_num 설정
 
         // 썸네일 업로드
         if (!thumbnail.isEmpty()) {
