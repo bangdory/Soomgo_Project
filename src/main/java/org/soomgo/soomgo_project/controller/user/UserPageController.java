@@ -231,9 +231,9 @@ public class UserPageController {
                 }
             }
 
-            return "account_info"; // 페이지 리로드 시 successMessage를 사용
+            return "user/account_info"; // 페이지 리로드 시 successMessage를 사용
         }
-        return "redirect:/login";
+        return "redirect:user/login";
     }
 
 
