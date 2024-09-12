@@ -104,7 +104,6 @@
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-
                 closeModal();
                 location.reload();
             } else {

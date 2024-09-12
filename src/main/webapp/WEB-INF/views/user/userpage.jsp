@@ -68,7 +68,7 @@
             </div>
             <div class="user-menu">
                 <p><strong>설정</strong></p>
-                <a href="/#">
+                <a href="userpage/settings">
                     <div class="sub-menu">알림</div>
                 </a>
                 <a href="/#">
