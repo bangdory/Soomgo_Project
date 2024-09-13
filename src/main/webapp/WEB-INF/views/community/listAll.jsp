@@ -142,8 +142,13 @@
                 <li><div class="board1234" onclick="location.href='/community/listAll?board_no=4'">고수소식</div></li>
             </ul>
         </div>
-        <div class="communityList-container">
+        <div class="communityList-container" data-board-no="${board_no}">
             <div class="community-list">
+                <div class="community-recomended">
+                    <div style="font-weight: bold">${board.cb_title}</div>
+                    <div>${board.cb_content}</div>
+                    <div>${board.state} ${board.district}</div>
+                </div>
                 <div class="community-filter">
                     <div class="community-service-modal" id="community-service-modal">
                         <div id="service-modal-open" class="service-modal-opener">
@@ -156,7 +161,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="community-list-container" id="community-list" >
+                <div class="community-list-container" id="community-list">
                     <c:forEach items="${boards}" var="board">
                         <div class="community-board-content" onclick="location.href='/community/read?cb_no=${board.cb_no}'">
 

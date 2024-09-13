@@ -21,7 +21,7 @@
                 <i id="close-serviceModal" class="bi bi-x"></i>
             </div>
             <div>
-                <div class="service-modal-item" id="reset-service-modal">전체보기</div>
+                <div id="reset-service-modal">전체보기</div>
             </div>
             <c:forEach var="cList" items="${CategoryList}">
                 <div class="service-modal-item"

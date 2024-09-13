@@ -140,10 +140,10 @@
         <div class="header-part">
             <div class="board_no">
                 <select id="board_no" name="board_no">
-                    <option value="1">고수에게묻다</option>
-                    <option value="2">고수노하우</option>
-                    <option value="3">함께해요</option>
-                    <option value="4">고수소식</option>
+                    <option value="1" <c:if test="${board_no == 1}">selected</c:if>>고수에게묻다</option>
+                    <option value="2" <c:if test="${board_no == 2}">selected</c:if>>고수노하우</option>
+                    <option value="3" <c:if test="${board_no == 3}">selected</c:if>>함께해요</option>
+                    <option value="4" <c:if test="${board_no == 4}">selected</c:if>>고수소식</option>
                 </select>
             </div>
             <div class="submit">

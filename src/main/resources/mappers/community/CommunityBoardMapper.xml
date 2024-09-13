@@ -127,6 +127,9 @@
         join user u on cb.user_num = u.user_num
         join territory t on cb.cb_addr = t.no
         WHERE 1 = 1
+            <if test="board_no != null and board_no != 0">
+                AND board_no = #{board_no}
+            </if>
             <if test="categoryNum != null">
                 AND CategoryNum = #{categoryNum}
             </if>

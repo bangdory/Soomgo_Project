@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@include file="../header/header.jsp"%>
+<%@ include file="../header/headerModal.jsp"%>
+<%@include file="communityRegisterModal.jsp" %>
 
 
 <html>
@@ -14,6 +17,10 @@
     <title>커뮤니티 수정하기</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/expert/modalStyle.css">
+    <link href="${pageContext.request.contextPath}/resources/static/css/expert/expertFindStyle.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/resources/static/js/headerJS.js"></script>
     <style>
         @font-face {
             font-family: 'Pretendard-Regular';
@@ -21,7 +28,7 @@
             font-weight: 400;
             font-style: normal;
         }
-        .communityModifiyBody {
+        .communityModifyBody {
             padding-top: 80px;
             font-family: 'Pretendard-Regular';
             color: #ABA8A6;
@@ -111,9 +118,8 @@
     </style>
 </head>
 <body>
-<%@include file="../header/header.jsp"%>
-<%@ include file="../header/headerModal.jsp"%>
-<div class="communityModifiyBody">
+
+<div class="communityModifyBody">
 <div>
     <form action="/community/modify" method="post" enctype="multipart/form-data">
         <input type="hidden" name="cb_no" value="${board.cb_no}" />
@@ -168,7 +174,7 @@
         </div>
     </form>
 </div>
-<%@include file="communityRegisterModal.jsp" %>
+</div>
 </body>
 </html>
 
