@@ -279,6 +279,13 @@
         </div>
 
         <div class="receivedRequests">
+
+            <c:set var="showAnsweredList" value="false"/>
+            <c:forEach var="answered" items="${answeredList}">
+                <c:if test="${answered.ignored == 0 && answered.deleted == 0}">
+                    <c:set var="showAnsweredList" value="true"/>
+                </c:if>
+            </c:forEach>
             <c:set var="showHeading" value="false"/>
             <c:forEach var="received" items="${receivedList}">
                 <c:if test="${received.ignored == 0 && received.expertAlreadyAnswered == 0}">
@@ -287,10 +294,10 @@
             </c:forEach>
 
             <!-- Display the heading only if the flag is true -->
-            <c:if test="${showHeading}">
+            <c:if test="${showHeading && showAnsweredList}">
                 <h3>내가 받은 요청서</h3>
             </c:if>
-            <c:if test="${!showHeading}">
+            <c:if test="${!showHeading && !showAnsweredList}">
                 <h3>아직 받은 요청서가 없습니다</h3>
             </c:if>
 

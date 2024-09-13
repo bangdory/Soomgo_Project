@@ -72,7 +72,7 @@
             <c:when test="${sess_user_type eq 'EXPERT'}">
                 <div class="header-third-container-2">
                     <div>
-                        <a href="${pageContext.request.contextPath}/request/sent">보낸견적</a>
+                        <a href="${pageContext.request.contextPath}/request/reqdrequest">보낸견적</a>
                     </div>
                     <div>
                         <a href="${pageContext.request.contextPath}/profile">프로필</a>
@@ -95,7 +95,7 @@
             <c:otherwise>
                 <div class="header-third-container-2">
                     <div>
-                        <a href="/requestsent">받은견적</a>
+                        <a href="/request/list">받은견적</a>
                     </div>
                     <div>
                         <a href="chat">채팅</a>

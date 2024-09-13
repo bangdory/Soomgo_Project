@@ -140,6 +140,7 @@ public class RequestController {
     ) {
         UserDTO expert = (UserDTO) session.getAttribute("user");
         // UserDTO -> ExpertDTO 로 변환시켜서 데이터 뽑아올 것
+        log.info("expert!!!!!" + expert);
 
         if (expert == null) {
             return "redirect:/login";
