@@ -39,7 +39,7 @@ public class AnswerRequestVO {
     private String fileFromExpert; // 고수파일
 
     private int connected; // 고수와 매칭 여부
-    private int deleted;
+    private int deletedByClient; // 고객이 이 요청서를 이미 삭제했는지
 
     private int ignored; // 고수가 이 요청서를 무시했는지
 

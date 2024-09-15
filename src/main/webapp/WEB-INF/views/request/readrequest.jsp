@@ -125,7 +125,7 @@
         <div class="answeredRequests">
             <c:set var="showHeading" value="false"/>
             <c:forEach var="answered" items="${answeredList}">
-                <c:if test="${answered.ignored == 0 && answered.deleted == 0}">
+                <c:if test="${answered.ignored == 0 && answered.deletedByClient == 0}">
                     <c:set var="showHeading" value="true"/>
                 </c:if>
             </c:forEach>
@@ -137,7 +137,7 @@
             <%--            <h3>견적을 보낸 요청서</h3>--%>
             <%--        </c:if>--%>
             <c:forEach var="answered" items="${answeredList}">
-                <c:if test="${answered.ignored != 1 || answered.deleted != 0}">
+                <c:if test="${answered.ignored != 1 || answered.deletedByClient != 0}">
                     <div class="answeredRequestDetail">
                         <div>
                                 ${answered.userName} 님의 ${answered.typeName} 요청서
@@ -282,7 +282,7 @@
 
             <c:set var="showAnsweredList" value="false"/>
             <c:forEach var="answered" items="${answeredList}">
-                <c:if test="${answered.ignored == 0 && answered.deleted == 0}">
+                <c:if test="${answered.ignored == 0 && answered.deletedByClient == 0}">
                     <c:set var="showAnsweredList" value="true"/>
                 </c:if>
             </c:forEach>

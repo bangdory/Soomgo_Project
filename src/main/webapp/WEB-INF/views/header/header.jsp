@@ -72,7 +72,7 @@
             <c:when test="${sess_user_type eq 'EXPERT'}">
                 <div class="header-third-container-2">
                     <div>
-                        <a href="${pageContext.request.contextPath}/request/reqdrequest">보낸견적</a>
+                        <a href="${pageContext.request.contextPath}/request/readrequest">보낸견적</a>
                     </div>
                     <div>
                         <a href="${pageContext.request.contextPath}/profile">프로필</a>

@@ -40,7 +40,7 @@
         <result property="place" column="place"/>
         <result property="date" column="date"/>
         <result property="ref" column="ref"/>
-        <result property="deleted" column="deleted"/>
+        <result property="deletedByClient" column="deletedByClient"/>
     </resultMap>
 
     <select id="getListByClientNo" parameterType="int" resultMap="listByClient">
@@ -67,11 +67,11 @@
         r.place,
         r.date,
         r.ref,
-        r.deleted
+        r.deletedByClient
         from request r
         inner join user u on u.user_num = r.userNum
         inner join category c on c.CategoryNum = r.typeNum
-        where r.userNum = #{clientId} order by regDate DESC, deleted ASC
+        where r.userNum = #{clientId} order by regDate DESC, deletedByClient ASC
     </select>
 
     <select id="select" parameterType="int" resultType="RequestDTO">
@@ -108,7 +108,7 @@
         <result property="date" column="date"/>
         <!--        <result property="regionNum" column="regionNum"/>-->
         <result property="regionName" column="ref"/>
-        <result property="deleted" column="deleted"/>
+        <result property="deletedByClient" column="deletedByClient"/>
     </resultMap>
 
     <select id="selectedRequest" parameterType="int" resultMap="selectedRequestDetail">
@@ -266,7 +266,7 @@
         <result property="place" column="place"/>
         <result property="date" column="date"/>
         <result property="date" column="refFromClient"/>
-        <result property="deleted" column="deleted"/>
+        <result property="deletedByClient" column="deletedByClient"/>
     </resultMap>
 
     <!-- 0908 견적이 달린 요청서 확인 (고객용) -->
@@ -297,7 +297,7 @@
         r.place,
         r.date,
         r.ref refFromClient,
-        r.deleted
+        r.deletedByClient
         from answerrequest a
         inner join request r on a.requestId = r.id
         inner join user u on u.user_num = a.expertNum
@@ -395,7 +395,7 @@
 
 
     <update id="deleteRequestFromClient" parameterType="int">
-        update request r set r.deleted = true where r.id = #{requestId}
+        update request r set r.deletedByClient = true where r.id = #{requestId}
     </update>
 
 <!--

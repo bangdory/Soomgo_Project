@@ -214,3 +214,6 @@ requestController list() 에서 list.jsp 로 던지는 vo 내부 멤버변수 �
 메세지 기능 구현하기
 
 ignoredExpertByThisExpert 를 1 로 만드는 ignore 컨트롤러 구현할 것!!!
+
+request 테이블 deleted -> deletedByClient 로 변경
+list.jsp, readrequest.jsp, requestMapper.xml, RequestVO, AnswerRequestVO 수정됨

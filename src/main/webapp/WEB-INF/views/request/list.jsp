@@ -85,7 +85,7 @@
                         <h4>아직 견적이 달린 요청서가 없습니다</h4>
                     </c:if>
                     <c:forEach var="vo" items="${vos}">
-                        <c:if test="${vo.experts >= 1 && vo.deleted == null}">
+                        <c:if test="${vo.experts >= 1 && vo.deletedByClient == 0}">
                             <div class="request-item">
                                 <div class="sort-date">
                                     <div class="requestTitle"><h3>${vo.typeName}</h3></div>
@@ -114,7 +114,7 @@
                         <h4>내가 보낸 요청서가 없습니다</h4>
                     </c:if>
                     <c:forEach var="vo" items="${vos}">
-                        <c:if test="${vo.experts <=0 && vo.deleted == 0}">
+                        <c:if test="${vo.experts <=0 && vo.deletedByClient == 0}">
                             <div class="request-item">
                                 <div class="sort-date">
                                     <div class="requestHeader">
@@ -155,7 +155,7 @@
                         </c:if>
                     </c:forEach>
                     <c:forEach var="delVO" items="${vos}">
-                        <c:if test="${(delVO.experts >= 1 && delVO.deleted == 1) || (delVO.experts <=0 && delVO.deleted == 1)}">
+                        <c:if test="${(delVO.experts >= 1 && delVO.deletedByClient == 1) || (delVO.experts <=0 && delVO.deletedByClient == 1)}">
                             <div class="request-item">
                                 <div class="sort-date">
                                     <div class="requestHeader">
