@@ -54,4 +54,8 @@ public class ProfileServiceImpl implements ProfileService {
         // return profileDAO.getExpertPortfolios(expert_num);
         return expertPortfolios;
     }
+    public ExpertPortfolioDTO getPortfolioDetails(int portfolio_num) {
+        return profileDAO.findPortfolioDetails(portfolio_num);
+    }
+
 }

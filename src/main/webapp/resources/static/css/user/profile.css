@@ -1,16 +1,26 @@
-body {
+
+
+html, body, main {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-.find-userEmail-container {
-    padding-top: 60px; /* 헤더 높이만큼 패딩을 주어 본문이 헤더 아래로 오도록 설정 */
+    font-family: 'Pretendard-Regular', sans-serif;
 }
 
 main {
-    padding: 20px;
+    width: 1920px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
+
+
+.container {
+    width: 100%;
+
+
+}
+
 
 .profile {
     width: 100%;
@@ -18,18 +28,46 @@ main {
     display: flex;
 }
 
+.profile-img {
+    width: 100px;
+    height: 100px;
+    position: relative; /* 아이콘 위치 조정을 위한 relative 위치 설정 */
+}
+
 .profile-img img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 10px;
 }
-.profile-img {
-    width: 100px;
-    height: 100px;
-    padding-right: 20px;
 
+.profile-img .btn {
+    position: absolute;
+    bottom: 0px;
+    right: 0px; /* 오른쪽으로 아이콘 위치 조정 */
+    background-color: #fff; /* 흰색 배경 */
+    border: none;
+    border-radius: 50%;
+    padding: 5px; /* 버튼 크기 조정 */
+    width: 30px; /* 버튼 너비 조정 */
+    height: 30px; /* 버튼 높이 조정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-img .btn i {
+    font-size: 18px; /* 아이콘 크기 조정 */
+    color: #000; /* 아이콘 색상 검정색으로 설정 */
+}
+
+
+.nickname-intro-container div {
+    margin-right: 10px;
+}
+
+.edit-button {
+    margin-left: 20px; /* 필요 시 간격 조정 */
 }
 
 
@@ -183,4 +221,123 @@ main {
     }
 }
 
+.place-modal-container {
+    display: flex;
+    justify-content: space-between;
+}
+/* 지역 선택 드롭다운 스타일 */
+.-region-select-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
 
+.region-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #888888;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+.region-select:focus {
+    border-color: #1AA69D;
+    outline: none;
+}
+
+/* 지역 선택 드롭다운의 옵션 스타일 */
+.region-select option {
+    padding: 10px;
+}
+
+/* 지역 선택 결과 표시 스타일 */
+.region-choice-container {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.region-choice {
+    font-weight: bold;
+    color: #1AA69D;
+}
+
+/* 지역 선택 모달 스타일 */
+.place-modal-item {
+    height: 50px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.place-modal-item:hover {
+    background-color: #f0f0f0;
+}
+
+.place-modal-data span {
+    padding-left: 30px;
+}
+.modal-icon-opener {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    border-radius: 50px;
+    background-color: white;
+    border: 1px solid #1AA69D;
+    color: #1AA69D;
+}
+
+.modal-icon-opener:hover {
+    cursor: pointer;
+    filter: brightness(0.8);
+
+}
+
+/* 지역 선택 버튼 스타일 */
+.select-region-btn {
+    background-color: #1AA69D;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.select-region-btn:hover {
+    background-color: #159b8e;
+}
+#place-modal-base-container {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed; /* 화면에 고정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    overflow: auto; /* 모달 내용이 넘칠 경우 스크롤 */
+}
+.modal-content {
+    background: #fff; /* 흰색 배경 */
+    padding: 20px;
+    border-radius: 5px; /* 둥근 모서리 */
+    width: 80%; /* 너비 조절 */
+    height: 100%;
+    max-width: 500px; /* 최대 너비 */
+    max-height: 80vh; /* 최대 높이 80% 뷰포트 높이 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    position: absolute; /* 절대 위치 설정 */
+    top: 50%; /* 화면의 50% 위치 */
+    left: 50%; /* 화면의 50% 위치 */
+    transform: translate(-50%, -50%); /* 중앙으로 이동 */
+    overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤 */
+    text-align: left;
+}
+
+.modal-toggle-btn i {
+    pointer-events: none; /* 아이콘의 클릭 이벤트를 비활성화 */
+}

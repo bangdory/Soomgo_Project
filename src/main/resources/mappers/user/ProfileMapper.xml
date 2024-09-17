@@ -45,7 +45,7 @@
         SELECT * FROM expert_pf WHERE expert_num = #{expert_num} <!-- expertNum으로 수정 -->
     </select>
 
-    <insert id="createExpertPortfolio" parameterType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO" useGeneratedKeys="true" keyProperty="portfolioNum">
+    <insert id="createExpertPortfolio" parameterType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO" useGeneratedKeys="true" keyProperty="portfolio_num">
         INSERT INTO expert_pf (
         expert_num,
         title,
@@ -74,12 +74,15 @@
         INSERT INTO expert_pf_images (portfolio_num, image_url)
         VALUES
         <foreach collection="images" item="image" separator=",">
-            (#{portfolioNum}, #{image})
+            (#{portfolio_num}, #{image})
         </foreach>
     </insert>
 
     <select id="getExpertPortfolios" parameterType="int" resultType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO">
         SELECT * FROM expert_pf WHERE expert_num = #{expert_num} <!-- expertNum으로 수정 -->
+    </select>
+    <select id="getPortfolioDetails" parameterType="int" resultType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO">
+        SELECT * FROM expertportfolio_pf WHERE portfolio_num = #{portfolioNum}
     </select>
 
 </mapper>

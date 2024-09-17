@@ -10,15 +10,18 @@ body {
 .find-userEmail-container {
     padding-top: 60px; /* 헤더 높이만큼 패딩을 주어 본문이 헤더 아래로 오도록 함 */
 }
-.container{
-    padding-top: 60px;
-}
 
 main {
     padding: 20px;
     min-width: 600px;
 
 }
+.container{
+
+    padding-top: 300px;
+}
+
+
 
 .userpage {
     width: 60%;
@@ -45,6 +48,9 @@ main {
     height: 100px;
     padding-right: 20px;
 
+}
+.user-details{
+    padding-right: 20px;
 }
 .user-details2 {
     padding-top:20px;

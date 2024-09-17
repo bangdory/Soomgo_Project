@@ -45,4 +45,7 @@ public class ProfileDAO {
         log.info("DAO expertPortfolios"+expertPortfolios);
         return profileMapper.getExpertPortfolios(expert_num);
     }
+    public ExpertPortfolioDTO findPorfolioDetails(int portfolioNum) {
+        return profileMapper.findPorfolioDetails(portfolioNum);
+    }
 }

@@ -2,10 +2,14 @@ package org.soomgo.soomgo_project.controller.userpage;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.soomgo.soomgo_project.domain.category.CategoryDTO;
 import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO;
+import org.soomgo.soomgo_project.domain.territory.TerritoryDTO;
 import org.soomgo.soomgo_project.domain.user.UserDTO;
 import org.soomgo.soomgo_project.domain.user.UserProfileDTO;
+import org.soomgo.soomgo_project.service.category.CategoryServiceImpl;
+import org.soomgo.soomgo_project.service.territory.TerritoryServiceImpl;
 import org.soomgo.soomgo_project.service.userpage.ProfileService;
 import org.soomgo.soomgo_project.service.user.UserService;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +33,8 @@ public class ProfileController {
 
     private final ProfileService profileService;
     private final UserService userService;
+    private final CategoryServiceImpl categoryServiceImpl;
+    private final TerritoryServiceImpl territoryServiceImpl;
 
     // 프로필 페이지 렌더링
     @GetMapping("")
@@ -38,19 +44,26 @@ public class ProfileController {
 
         UserDTO user = (UserDTO) session.getAttribute("user");
         UserProfileDTO userprofile = userService.getUserProfileByUserNum(user.getUser_num());
-        ExpertDTO expertDTO=profileService.getExpertProfile(5);
+
+        List<CategoryDTO> category = categoryServiceImpl.getCategoryNotZero();
+        List<TerritoryDTO> territory = territoryServiceImpl.getTerritory();
+
+        log.info("territory: " + territory);
+        log.info("category: " + category);
+
+            model.addAttribute("territory", territory);
+            model.addAttribute("category", category);
 
         if (user != null) {
             ExpertDTO expertIntro = profileService.getExpertProfile(user.getUser_num());
-            log.info("expert intro: " + expertIntro);
-            ExpertPortfolioDTO expertPortfolio = profileService.getExpertPortfolio(expertIntro.getExpertNum());
+
+
             List<ExpertPortfolioDTO> expertPortfolios = profileService.getExpertPortfolios(expertIntro.getExpertNum());
             log.info(expertPortfolios);
 
             model.addAttribute("user", user);
             model.addAttribute("userprofile", userprofile);
             model.addAttribute("expertIntro", expertIntro);
-            model.addAttribute("expertPortfolio", expertPortfolio);
 
             model.addAttribute("expertPortfolios", expertPortfolios);
             return "user/profile";
@@ -214,5 +227,16 @@ public class ProfileController {
         return "/img/" + fileName;
     }
 
+
+    @GetMapping("/portfolio/{portfolioNum}")
+    @ResponseBody
+    public ResponseEntity<ExpertPortfolioDTO> getPortfolioDetails(@PathVariable("portfolioNum") int portfolioNum) {
+        ExpertPortfolioDTO portfolioDetails = profileService.getPortfolioDetails(portfolioNum);
+        if (portfolioDetails != null) {
+            return ResponseEntity.ok(portfolioDetails);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }
