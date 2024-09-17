@@ -150,7 +150,12 @@ main {
 .years_modal.show {
     display: flex; /* 모달을 보이게 함 */
 }
-
+.yearDisplayContainer {
+    display: flex;
+}
+.yearsDisplay{
+    width: 300px;
+}
 .portfolio {
     background: #fff;
     padding: 20px;

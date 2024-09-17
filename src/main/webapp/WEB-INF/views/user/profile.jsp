@@ -60,12 +60,27 @@
             <div class="container2">
                 <div>
 
+                    <div class="signup-gosu-item-container userForm-items">
+                        <label>지역</label>
+                        <div class="place-modal-container">
+                       <span id="place-choice" class="-place-choice">
+                           ${expertIntro.region}
+                       </span>
+
+                            <button type="button" class="btn btn-primary modal-icon-opener">
+                                <i class="bi bi-geo-alt alt-icon"></i>
+                            </button>
+                            <input type="hidden" name="region" value="" id="region">
+                        </div>
+                    </div>
+                    <div class="yearDisplayContainer">
                     <div id="yearsDisplay" style="display: ${expertIntro.experienceYears >= 1 ? 'block' : 'none'};">
                         경력 : ${expertIntro.experienceYears}년
                     </div>
                     <button onclick="showModal3()">등록</button>
+                    </div>
                     <div id="portfolios">
-                        <div>포트폴리오 목록</div>
+                        <div>포트폴리오 목록   <button onclick="showModal4()">포트폴리오 등록</button> </div>
                         <c:forEach var="portfolio" items="${expertPortfolios}">
                             <div class="portfolio-item">
                                 <button data-portfolio-num="${portfolio.portfolio_num}" onclick="fetchPortfolioDetails(this)">
@@ -80,22 +95,10 @@
 
 
                 </div>
-                <button onclick="showModal4()">포트폴리오 등록</button>
-            </div>
-        </div>
-        <div class="signup-gosu-item-container userForm-items">
-            <label>지역</label>
-            <div class="place-modal-container">
-                       <span id="place-choice" class="-place-choice">
-                            ${expertIntro.region}
-                       </span>
 
-                <button type="button" class="btn btn-primary modal-icon-opener">
-                    <i class="bi bi-geo-alt alt-icon"></i>
-                </button>
-                <input type="hidden" name="region" value="" id="region">
             </div>
         </div>
+
 
     </div>
 </main>
