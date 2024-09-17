@@ -81,8 +81,13 @@
     <select id="getExpertPortfolios" parameterType="int" resultType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO">
         SELECT * FROM expert_pf WHERE expert_num = #{expert_num} <!-- expertNum으로 수정 -->
     </select>
-    <select id="getPortfolioDetails" parameterType="int" resultType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO">
-        SELECT * FROM expertportfolio_pf WHERE portfolio_num = #{portfolioNum}
+    <select id="findPortfolioDetails" parameterType="int" resultType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO">
+        SELECT * FROM expert_pf WHERE portfolio_num = #{portfolio_num}
     </select>
+    <update id="updateRegion" parameterType="org.soomgo.soomgo_project.domain.expert.ExpertDTO">
+        UPDATE expert
+        SET region = #{region}
+        WHERE user_num = #{userNum}
+    </update>
 
 </mapper>

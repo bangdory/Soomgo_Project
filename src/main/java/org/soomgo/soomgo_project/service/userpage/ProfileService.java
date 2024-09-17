@@ -13,5 +13,7 @@ public interface ProfileService {
     void addPortfolioImages(int portfolio_num, List<String> images);
     void createExpertPortfolio(ExpertPortfolioDTO expertPortfolioDTO);
     List<ExpertPortfolioDTO> getExpertPortfolios(int expert_num);
-    ExpertPortfolioDTO getPortfolioDetails(int portfolioNum);
+    ExpertPortfolioDTO findPortfolioDetails(int portfolio_num);
+    void updateRegion(ExpertDTO expertDTO);
+
 }

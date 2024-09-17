@@ -59,10 +59,7 @@
 
             <div class="container2">
                 <div>
-                    <div>
-                        서비스 지역 : ${expertIntro.region}
 
-                    </div>
                     <div id="yearsDisplay" style="display: ${expertIntro.experienceYears >= 1 ? 'block' : 'none'};">
                         경력 : ${expertIntro.experienceYears}년
                     </div>
@@ -78,15 +75,19 @@
                         </c:forEach>
                     </div>
 
+                    <!-- 포트폴리오 세부 정보가 표시될 곳 -->
+                    <div id="portfolioDetails"></div>
+
+
                 </div>
-                <button onclick="showModal4()">포트폴리오 보기</button>
+                <button onclick="showModal4()">포트폴리오 등록</button>
             </div>
         </div>
         <div class="signup-gosu-item-container userForm-items">
             <label>지역</label>
             <div class="place-modal-container">
                        <span id="place-choice" class="-place-choice">
-                        선호 지역 선택
+                            ${expertIntro.region}
                        </span>
 
                 <button type="button" class="btn btn-primary modal-icon-opener">
@@ -169,28 +170,20 @@
             document.getElementById('place-modal-base-container').style.display = 'flex';
         });
 
-
+        // 모달 닫기
         document.getElementById('close-placeModal').addEventListener('click', function () {
             document.getElementById('place-modal-base-container').style.display = 'none';
         });
 
-
         // 모달 내의 toggle 버튼 기능
         document.querySelectorAll('.place-modal-addDiv').forEach(function (div) {
-
-            console.log("11")
-
             div.setAttribute('data-expanded', 'false');
-            console.log("div: " + div);
 
             div.addEventListener('click', function (event) {
-
                 const target = event.target;
-                console.log(target)
 
                 if (target.classList.contains('modal-toggle-btn')) {
                     const item = target.closest('.place-modal-item');
-                    console.log("작동중?")
                     const isExpanded = item.getAttribute('data-expanded') === 'true';
                     const dataDiv = item.nextElementSibling;
 
@@ -200,8 +193,7 @@
                         target.innerHTML = '<i class="bi bi-caret-down"></i>';
                     } else {
                         const value = item.getAttribute('data-value');
-                        const [no, id, state, district] = value.split("|"); // 배열 비구조화 할당
-                        console.log('테스트용 value: ' + value);
+                        const [no, id, state, district] = value.split("|");
 
                         fetch('/expert/expertFind/place?id=' + id)
                             .then(response => response.json())
@@ -210,7 +202,6 @@
 
                                 data.forEach(dataItem => {
                                     const setValues = dataItem.no + '|' + dataItem.id + '|' + dataItem.state + '|' + dataItem.district;
-                                    console.log('setValues: ' + dataItem.no + '|' + dataItem.id + '|' + dataItem.state + '|' + dataItem.district);
                                     const newItem = document.createElement('span');
                                     newItem.classList.add('place-modal-item');
                                     newItem.setAttribute('data-value', setValues);
@@ -224,17 +215,10 @@
                             }).catch(error => console.error('Error fetching data: ' + error));
                     }
                 } else if (target.classList.contains('place-modal-item')) {
-                    console.log(target.getAttribute('data-value'));
                     const value = target.getAttribute('data-value');
                     const [no, id, state, district] = value.split("|");
-                    console.log('value: ' + value);
-                    console.log('no: ' + no);
-                    console.log('id: ' + id);
-                    console.log('state: ' + state);
-                    console.log('district: ' + district);
 
                     document.getElementById('region').value = no;
-                    console.log(document.getElementById('region').value);
 
                     if (district === '') {
                         document.getElementById('place-choice').innerText = state;
@@ -244,10 +228,39 @@
 
                     document.getElementById('place-choice').style.color = '#1AA69D';
                     document.getElementById('place-modal-base-container').style.display = 'none';
+
+                    // 지역 업데이트 요청
+                    updateRegion(no);
                 }
             });
         });
     });
+
+    // 지역 정보를 서버에 업데이트하는 함수
+    function updateRegion(region) {
+        fetch('/profile/updateRegion', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ region })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('지역 업데이트에 실패했습니다.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('지역 업데이트 성공:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+
+
 
     function showModal() {
         document.getElementById('imgModal').classList.add('show');
@@ -559,6 +572,43 @@
         setTimeout(function () {
             toast.className = toast.className.replace('show', '');
         }, 3000); // 3초 후 토스트 사라짐
+    }
+    function fetchPortfolioDetails(button) {
+        const portfolio_num = button.getAttribute('data-portfolio-num');
+        console.log('portfolio_num:', portfolio_num); // 디버깅용 로그 추가
+
+        if (!portfolio_num) {
+            console.error('portfolio_num is missing');
+            return;
+        }
+
+        // URL에 portfolio_num을 제대로 추가
+        fetch(`/profile/portfolio/${portfolio_num}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('포트폴리오를 가져오는 데 실패했습니다.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                displayPortfolioDetails(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+
+
+    function displayPortfolioDetails(portfolio) {
+        const portfolioDetailsDiv = document.getElementById('portfolioDetails');
+        portfolioDetailsDiv.innerHTML = `
+        <h3>${portfolio.title}</h3>
+        <p>${portfolio.description}</p>
+        <p>가격: ${portfolio.total_price}</p>
+        <p>작업 기간: ${portfolio.duration}</p>
+        <p>카테고리 번호: ${portfolio.category_num}</p>
+    `;
     }
 
 

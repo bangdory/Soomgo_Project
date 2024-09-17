@@ -11,7 +11,6 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-
 @Log4j2
 public class ProfileDAO {
     private final ProfileMapper profileMapper;
@@ -39,13 +38,19 @@ public class ProfileDAO {
     public void createExpertPortfolio(ExpertPortfolioDTO expertPortfolioDTO) {
         profileMapper.createExpertPortfolio(expertPortfolioDTO);
     }
+
     public List<ExpertPortfolioDTO> getExpertPortfolios(int expert_num) {
-        log.info("DAO 받은 expert_num"+expert_num);
+        log.info("DAO 받은 expert_num: " + expert_num);
         List<ExpertPortfolioDTO> expertPortfolios = profileMapper.getExpertPortfolios(expert_num);
-        log.info("DAO expertPortfolios"+expertPortfolios);
-        return profileMapper.getExpertPortfolios(expert_num);
+        log.info("DAO expertPortfolios: " + expertPortfolios);
+        return expertPortfolios;
     }
-    public ExpertPortfolioDTO findPorfolioDetails(int portfolioNum) {
-        return profileMapper.findPorfolioDetails(portfolioNum);
+
+    public ExpertPortfolioDTO findPortfolioDetails(int portfolio_num) {
+        return profileMapper.findPortfolioDetails(portfolio_num);
+    }
+
+    public void updateRegion(ExpertDTO expertDTO) {
+        profileMapper.updateRegion(expertDTO);
     }
 }

@@ -19,4 +19,5 @@ public interface ProfileMapper {
     void insertPortfolioImages(@Param("portfolio_num") int portfolioNum, @Param("images") List<String> images);
     List<ExpertPortfolioDTO> getExpertPortfolios(@Param("expert_num") int expert_num);
     ExpertPortfolioDTO findPortfolioDetails(int portfolioNum);
+    void updateRegion(ExpertDTO expertDTO);
 }

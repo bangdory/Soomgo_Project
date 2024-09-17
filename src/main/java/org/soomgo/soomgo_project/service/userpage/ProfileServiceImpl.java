@@ -46,7 +46,7 @@ public class ProfileServiceImpl implements ProfileService {
     public void createExpertPortfolio(ExpertPortfolioDTO expertPortfolioDTO) {
         profileDAO.createExpertPortfolio(expertPortfolioDTO);
     }
-
+    @Override
     public List<ExpertPortfolioDTO> getExpertPortfolios(int expert_num) {
         List<ExpertPortfolioDTO> expertPortfolios = profileDAO.getExpertPortfolios(expert_num);
         log.info("전달된 파라미터 -> "+ expert_num);
@@ -54,8 +54,12 @@ public class ProfileServiceImpl implements ProfileService {
         // return profileDAO.getExpertPortfolios(expert_num);
         return expertPortfolios;
     }
-    public ExpertPortfolioDTO getPortfolioDetails(int portfolio_num) {
+    @Override
+    public ExpertPortfolioDTO findPortfolioDetails(int portfolio_num) {
         return profileDAO.findPortfolioDetails(portfolio_num);
     }
-
+    @Override
+    public void updateRegion(ExpertDTO expertDTO) {
+        profileDAO.updateRegion(expertDTO);
+    }
 }
