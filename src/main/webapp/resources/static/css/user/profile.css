@@ -346,3 +346,36 @@ main {
 .modal-toggle-btn i {
     pointer-events: none; /* 아이콘의 클릭 이벤트를 비활성화 */
 }
+.file-upload-container {
+    position: relative;
+    display: inline-block;
+}
+
+.file-upload-label {
+    display: block;
+    width: 25px; /* 버튼 너비 50px */
+    height: 25px; /* 버튼 높이 50px */
+    border: 2px solid #ccc; /* 테두리 스타일 */
+    border-radius: 8px; /* 모서리 둥글기 */
+    background-color: #f5f5f5; /* 배경 색상 */
+    text-align: center;
+    line-height: 50px; /* 세로 중앙 정렬 */
+    color: #666; /* 아이콘 색상 */
+    cursor: pointer;
+    position: relative;
+}
+
+.file-upload-label i {
+    font-size: 24px; /* 아이콘 크기 조정 */
+    vertical-align: middle; /* 세로 정렬 */
+}
+
+.file-upload-label input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* 입력 필드 숨기기 */
+    cursor: pointer;
+}

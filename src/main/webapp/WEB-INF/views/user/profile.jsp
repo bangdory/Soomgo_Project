@@ -149,11 +149,22 @@
         <h2>포트폴리오 등록</h2>
         <form id="createPortfolioForm" enctype="multipart/form-data">
             <input type="text" id="newTitle" name="newTitle" placeholder="제목" required>
-            <input type="file" id="newThumbnail" name="newThumbnail" accept="image/*" onchange="previewThumbnail(event)"
-                   required>
-            <img id="thumbnailPreview" src="#" alt="Thumbnail Preview"
+            <div>대표이미지</div>
+            <div class="file-upload-container">
+                <label for="newThumbnail" class="file-upload-label">
+                    <i class="bi bi-plus" aria-hidden="true"></i>
+                    <input class="port-thumbnail" type="file" id="newThumbnail" name="newThumbnail" accept="image/*" onchange="previewThumbnail(event)" required>
+                </label>
+            </div>
+            <img  id="thumbnailPreview" src="#" alt="Thumbnail Preview"
                  style="max-width: 200px; max-height: 200px; display:none;">
-            <input type="file" id="newImg" name="newImg" accept="image/*" multiple onchange="addFiles(event)">
+            <div>이미지파일</div>
+            <div class="file-upload-container">
+                <label for="newImg" class="file-upload-label">
+                    <i class="bi bi-plus" aria-hidden="true"></i>
+                    <input class="port-img" type="file" id="newImg" name="newImg" accept="image/*" multiple onchange="addFiles(event)">
+                </label>
+            </div>
             <div id="imagePreviewContainer"></div>
             <input type="text" id="newTotal_price" name="newTotal_price" placeholder="총 가격" required>
             <input type="text" id="newWork_year" name="newWork_year" placeholder="근무 연수" required>
