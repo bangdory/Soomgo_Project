@@ -273,7 +273,7 @@ public class ProfileController {
     public ExpertPortfolioDTO getPortfolioDetails(@PathVariable("portfolio_num") int portfolio_num) {
         ExpertPortfolioDTO portfolio = profileService.findPortfolioDetails(portfolio_num);
         List<ExpertPortfolioImageDTO> images = profileService.findPortfolioImgs(portfolio_num);
-
+        log.info("image!!!"+images);
         if (portfolio != null) {
             // 이미지 URL을 `imagePaths` 리스트에 추가
             for (ExpertPortfolioImageDTO image : images) {

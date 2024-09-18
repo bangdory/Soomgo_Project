@@ -615,61 +615,74 @@
 
 
 
-        function openModal(portfolioNum) {
-            fetch('/profile/portfolio/' + portfolioNum)
-                .then(response => response.json())
-                .then(data => {
-                    if (data) {
-                        // 모달의 HTML을 동적으로 생성
-                        const imageHtml = data.imagePaths.map(image =>
-                            `<img src="/resources/static${image}" alt="Img" class="portfolio-img">`
-                        ).join('');
-                        console.log(data)
-                        console.log(data.portfolio_num)
-                        const modalHtml = `
-                <div id="modal-${data.portfolio_num}" class="portfolio-modal" style="display:block;">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeModal(${data.portfolio_num})">&times;</span>
-                        <p>${data.title}</p>
-                        <div class="thumbnail-container">
-                            <img src="/resources/static${data.thumbnail}" alt="Thumbnail" class="thumbnail-img">
-                        </div>
-                        <div class="img-container">
-                            ${imageHtml}
-                        </div>
-                        <p>가격: ${data.total_price}</p>
-                        <p>작업 기간: ${data.duration} ${data.duration_value}</p>
-                        <p>설명: ${data.description}</p>
-                    </div>
-                </div>
-            `;
-                        console.log(modalHtml)
-                        // 모달 컨테이너에 HTML 삽입
-                        const modalContainer = document.getElementById('modalContainer');
-                        modalContainer.innerHTML = modalHtml;
+    function openModal(portfolioNum) {
+        fetch('/profile/portfolio/' + portfolioNum)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    // 이미지 HTML 생성
+                    const imageHtml = data.imagePaths.map(image =>
+                        '<img src="/resources/static' + image + '" alt="' + data.thumbnail + '" class="thumbnail-img">'
+                    ).join('');
+                    console.log(data);
+                    console.log(imageHtml);
 
-                        // 모달 표시
-                        const modal = document.getElementById('modal-' + data.portfolio_num);
-                        if (modal) {
-                            modal.style.display = 'block';
-                            document.body.style.overflow = 'hidden'; // 페이지 스크롤 비활성화
-                        }
+                    const modalHtml =
+                        '<div id="modal-' + data.portfolio_num + '" class="portfolio-modal" style="display:block;">' +
+                        '<div class="modal-content">' +
+                        '<span class="close" onclick="closeModal(' + data.portfolio_num + ')">&times;</span>' +
+                        '<div class="modal-title">' + data.title + '</div>' +  // 제목을 위한 div 추가
+                        '<div class="thumbnail-container">' +
+                        '<div class="thumbnail-title">대표이미지</div>' +
+                        '<img src="/resources/static' + data.thumbnail + '" alt="' + data.thumbnail + '" class="thumbnail-img">' +
+                        '</div>' +
+                        '<div class="img-container">' +
+                        '<div class="image-title">이미지</div>' +
+                        '<div class="image-wrapper">' +  // 공통 스타일을 적용할 수 있는 div
+                        imageHtml +
+                        '</div>' +
+                        '</div>' +
+                        '<p>가격: ' + data.total_price + '</p>' +
+                        '<p>작업 기간: ' + data.duration + ' ' + data.duration_value + '</p>' +
+                        '<p>설명: ' + data.description + '</p>' +
+                        '</div>' +
+                        '</div>';
 
-                        // 닫기 버튼 기능 추가
-                        const closeButton = modal.querySelector('.close');
+                    console.log(modalHtml);
+                    // 모달 컨테이너에 HTML 삽입
+                    const modalContainer = document.getElementById('modalContainer');
+                    modalContainer.innerHTML = modalHtml;
+
+                    // 모달 표시
+                    const modal = document.getElementById('modal-' + data.portfolio_num);
+                    if (modal) {
+                        modal.style.display = 'block';
+                        document.body.style.overflow = 'hidden'; // 페이지 스크롤 비활성화
+                    }
+
+                    // 닫기 버튼 기능 추가
+                    const closeButton = modal.querySelector('.close');
+                    if (closeButton) {
                         closeButton.onclick = function() {
                             closeModal(data.portfolio_num);
                         };
                     } else {
-                        console.error('No data received for portfolio number:', portfolioNum);
+                        console.error('Close button not found in modal');
                     }
-                })
-                .catch(error => {
-                    console.error('Error loading modal:', error);
-                });
-        }
+                } else {
+                    console.error('No data received for portfolio number:', portfolioNum);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading modal:', error);
+            });
+    }
 
-        function closeModal(portfolioNum) {
+
+
+
+
+    function closeModal(portfolioNum) {
             const modal = document.getElementById('modal-' + portfolioNum);
             if (modal) {
                 modal.style.display = 'none';

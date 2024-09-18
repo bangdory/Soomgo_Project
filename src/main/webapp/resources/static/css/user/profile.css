@@ -349,7 +349,7 @@ main {
 }
 .modal-content {
     background: #fff; /* 흰색 배경 */
-    padding: 20px;
+
     border-radius: 5px; /* 둥근 모서리 */
     width: 80%; /* 너비 조절 */
     height: 100%;
@@ -357,7 +357,7 @@ main {
     max-height: 80vh; /* 최대 높이 80% 뷰포트 높이 */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
     position: absolute; /* 절대 위치 설정 */
-    top: 50%; /* 화면의 50% 위치 */
+    top: 30%; /* 화면의 30% 위치 */
     left: 50%; /* 화면의 50% 위치 */
     transform: translate(-50%, -50%); /* 중앙으로 이동 */
     overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤 */
@@ -441,8 +441,14 @@ main {
     border-radius: 8px; /* 둥근 테두리 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column; /* 제목을 이미지 위에 배치하기 위해 열 방향으로 설정 */
+    align-items: center; /* 중앙 정렬 */
+}
+
+/* 제목 스타일 */
+.thumbnail-title {
+    font-weight: bold; /* 제목을 강조 */
+    margin-bottom: 10px; /* 제목과 이미지 사이의 간격 */
 }
 
 /* 이미지 자체 스타일 */
@@ -455,6 +461,31 @@ main {
 
 /* 마우스 오버 시 이미지 확대 효과 */
 .thumbnail-img:hover {
+    transform: scale(1.05); /* 이미지 확대 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 그림자 강화 */
+}
+.img-container {
+    width: 300px; /* 컨테이너 너비 설정 */
+    padding: 10px; /* 내부 여백 */
+    background-color: #f8f8f8; /* 배경색 */
+    border-radius: 8px; /* 둥근 테두리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+    display: flex;
+    flex-wrap: wrap; /* 여러 이미지가 있을 경우 줄 바꿈 */
+    justify-content: center; /* 이미지 가운데 정렬 */
+    gap: 10px; /* 이미지 간 간격 */
+}
+
+/* 이미지 자체 스타일 */
+.img-container img {
+    max-width: 100%; /* 이미지가 컨테이너에 맞게 조정됨 */
+    height: auto;
+    border-radius: 5px; /* 이미지 테두리 둥글게 */
+    transition: transform 0.3s; /* 마우스 오버 시 애니메이션 */
+}
+
+/* 마우스 오버 시 이미지 확대 효과 */
+.img-container img:hover {
     transform: scale(1.05); /* 이미지 확대 */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 그림자 강화 */
 }
@@ -473,12 +504,16 @@ main {
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
     border: 1px solid #888;
     width: 80%; /* 모달 너비 */
 }
-
+.modal-title {
+    padding-top:20px;
+    padding-bottom: 20px;
+    font-size: 1.5em; /* 폰트 크기 조절 */
+    font-weight: bold; /* 폰트 두께 조절 */
+    margin-bottom: 15px; /* 아래 여백 */
+}
 .close {
     color: #aaa;
     float: right;
