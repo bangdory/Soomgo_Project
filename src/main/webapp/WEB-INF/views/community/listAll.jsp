@@ -11,7 +11,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../header/header.jsp" %>
 <%@ include file="../header/headerModal.jsp"%>
-<%@include file="communityListModal.jsp" %>
+<%@ include file="communityListModal.jsp" %>
 <html>
 <head>
     <title>Title</title>

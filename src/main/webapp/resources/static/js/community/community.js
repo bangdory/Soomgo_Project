@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (boardNo !== null && boardNo !== 0) {
                     if (serviceValue !== null) {
-                        const url = '/community/communitySearch?board_no='+ encodeURIComponent(boardNo) +'&categoryNum=' + encodeURIComponent(categoryNum) + '&no=' + encodeURIComponent(placeValue);
+                        const url = '/community/communitySearch?board_no='+ encodeURIComponent(boardNo) +'&categoryNum=' + encodeURIComponent(serviceValue) + '&no=' + encodeURIComponent(placeValue);
                         console.log(url);
                         fetchData(url, fetchProcessing);
                     } else {
@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }else {
                     if (serviceValue !== null) {
-                        const url = '/community/communitySearch?categoryNum=' + encodeURIComponent(categoryNum) + '&no=' + encodeURIComponent(no);
+                        const url = '/community/communitySearch?categoryNum=' + encodeURIComponent(serviceValue) + '&no=' + encodeURIComponent(no);
                         console.log(url);
                         fetchData(url, fetchProcessing);
                     } else {
