@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO;
+import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioImageDTO;
+import org.soomgo.soomgo_project.domain.territory.TerritoryDTO;
 
 import java.util.List;
 
@@ -18,4 +20,8 @@ public interface ProfileMapper {
 
     void insertPortfolioImages(@Param("portfolio_num") int portfolioNum, @Param("images") List<String> images);
     List<ExpertPortfolioDTO> getExpertPortfolios(@Param("expert_num") int expert_num);
+    ExpertPortfolioDTO findPortfolioDetails(int portfolioNum);
+    void updateRegion(ExpertDTO expertDTO);
+    TerritoryDTO getTerritoryabc(int no);
+    List<ExpertPortfolioImageDTO> findPortfolioImgs(@Param("portfolio_num") int portfolio_num);
 }

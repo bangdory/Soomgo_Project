@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/userpage/userpage.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/user/userpage.css">
 
 <!-- 페이지 내용 -->
 
@@ -27,7 +27,7 @@
                     <p>${user.user_email}</p>
                 </div>
                 <div class="user-details2">
-                    <a href="${pageContext.request.contextPath}/userpage/account_info"><p>프로필수정</p></a>
+                    <a href="${pageContext.request.contextPath}/userpage/account_info"></a><div>수정</div>
                 </div>
             </div>
             <div class="user-menu">

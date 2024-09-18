@@ -17,7 +17,12 @@
         <result property="contact_end" column="contact_end"/>
         <result property="employees" column="employees"/>
     </resultMap>
-
+    <resultMap id="TerritoryResultMap" type="org.soomgo.soomgo_project.domain.territory.TerritoryDTO">
+        <id property="no" column="no"/>
+        <result property="id" column="id"/>
+        <result property="state" column="state"/>
+        <result property="district" column="district"/>
+    </resultMap>
     <select id="findExpertProfile" resultMap="ExpertProfileResultMap">
         SELECT expert_num, user_num, category_num, experience_years, education, rating, region, introduce, contact_start, contact_end, employees
         FROM expert
@@ -45,7 +50,7 @@
         SELECT * FROM expert_pf WHERE expert_num = #{expert_num} <!-- expertNum으로 수정 -->
     </select>
 
-    <insert id="createExpertPortfolio" parameterType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO" useGeneratedKeys="true" keyProperty="portfolioNum">
+    <insert id="createExpertPortfolio" parameterType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO" useGeneratedKeys="true" keyProperty="portfolio_num">
         INSERT INTO expert_pf (
         expert_num,
         title,
@@ -74,12 +79,29 @@
         INSERT INTO expert_pf_images (portfolio_num, image_url)
         VALUES
         <foreach collection="images" item="image" separator=",">
-            (#{portfolioNum}, #{image})
+            (#{portfolio_num}, #{image})
         </foreach>
     </insert>
 
     <select id="getExpertPortfolios" parameterType="int" resultType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO">
         SELECT * FROM expert_pf WHERE expert_num = #{expert_num} <!-- expertNum으로 수정 -->
     </select>
-
+    <select id="findPortfolioDetails" parameterType="int" resultType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO">
+        SELECT * FROM expert_pf WHERE portfolio_num = #{portfolio_num}
+    </select>
+    <update id="updateRegion" parameterType="org.soomgo.soomgo_project.domain.expert.ExpertDTO">
+        UPDATE expert
+        SET region = #{region}
+        WHERE user_num = #{userNum}
+    </update>
+    <select id="getTerritoryabc" resultMap="TerritoryResultMap">
+        SELECT no, id, state, district
+        FROM territory
+        WHERE no = #{no}
+    </select>
+    <select id="findPortfolioImgs" parameterType="int" resultType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioImageDTO">
+        SELECT image_url FROM
+        expert_pf_images
+        WHERE portfolio_num = #{portfolio_num}
+    </select>
 </mapper>

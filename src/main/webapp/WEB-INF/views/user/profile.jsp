@@ -1,44 +1,129 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="/WEB-INF/views/header/header.jsp" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link href="${pageContext.request.contextPath}/resources/static/css/header/headerStyle.css" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/user/profile.css">
+<link href="${pageContext.request.contextPath}/resources/static/css/expert/modalStyle.css" rel="stylesheet"
+      type="text/css">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+
+<%@include file="../user/placeModal.jsp" %>
+
+
 <!-- 페이지 내용 -->
 
 <!DOCTYPE html>
 <html lang="ko">
+
 <body>
+<main>
+    <%@ include file="/WEB-INF/views/header/header.jsp" %>
+    <div>
 
+    </div>
 
-<div class="container">
-    <main>
-        <div class="profile">
-            <div class="profile-img">
-                <img src="${pageContext.request.contextPath}/resources/static${empty userprofile.profile_img ? '/img/default.png' : userprofile.profile_img}" alt="Profile Image">
-                <button onclick="showModal()">이미지 수정</button>
-            </div>
-            <div class="profile-details"></div>
-            <p id="nicknameDisplay"><strong>${userprofile.user_nickname}</strong></p>
-            <p id="introDisplay">${expertIntro.introduce}</p>
-            <button onclick="showModal2()">내소개편집</button>
-            <p id="yearsDisplay" style="display: ${expertyears.experienceYears >= 1 ? 'none' : 'block'};">
-                경력: ${expertIntro.experienceYears} 년
-            </p>
-            <button onclick="showModal3()">등록</button>
-            <div id="portfolios">
-                <c:forEach var="portfolio" items="${expertPortfolios}">
-                    <div class="portfolio-item">
-                        <h3>${portfolio.title}</h3>
+    <div class="container">
+        <div class="container1">
+            <div class="profileContainer">
+                <div class="profile">
+                    <div class="profile-img">
+                        <div>
+                            <img src="${pageContext.request.contextPath}/resources/static${empty userprofile.profile_img ? '/img/default.png' : userprofile.profile_img}"
+                                 alt="Profile Image">
+                            <button onclick="showModal()" class="btn">
+                                <i class="fa fa-camera"></i> <!-- Font Awesome 아이콘 -->
+                            </button>
+                        </div>
 
                     </div>
-                </c:forEach>
+
+                    <div class="profile-details">
+                        <div class="nickname-intro-container">
+                            <div>
+                                <div id="nicknameDisplay"><strong>${userprofile.user_nickname}</strong></div>
+                                <div id="introDisplay">${expertIntro.introduce}</div>
+                            </div>
+                            <div class="edit-button">
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div>
+                    <button class="Modal2_btn" onclick="showModal2()">내소개편집</button>
+                </div>
             </div>
-            <button onclick="showModal4()">포트폴리오 보기</button>
         </div>
-    </main>
-</div>
+        <div class="container1.5"></div>
+        <div class="container2">
+            <div>
+
+                <div class="signup-gosu-item-container userForm-items">
+                    <label>지역</label>
+                    <div class="place-modal-container">
+                       <span id="place-choice" class="-place-choice">
+                           ${territoryDTO.state} ${territoryDTO.district}
+                       </span>
+
+                        <button type="button" class="btn btn-primary modal-icon-opener">
+                            <i class="bi bi-geo-alt alt-icon"></i>
+                        </button>
+                        <input type="hidden" name="region" value="" id="region">
+                    </div>
+                </div>
+                <div class="yearDisplayContainer">
+                    <div id="yearsDisplay" style="display: ${expertIntro.experienceYears >= 1 ? 'block' : 'none'};">
+                        경력 : ${expertIntro.experienceYears}년
+
+                    </div>
+                    <div class="yearButton">
+                        <button onclick="showModal3()">등록</button>
+                    </div>
+                </div>
+                <!-- HTML 버튼 예시 -->
+                <div id="portfolios">
+                    <div>포트폴리오 목록
+                        <button onclick="showModal4()">포트폴리오 등록</button>
+                    </div>
+
+                    <!-- 포트폴리오 버튼과 모달 컨테이너 -->
+
+                    <c:forEach var="portfolio" items="${expertPortfolios}">
+                        <div class="portfolio-item">
+                            <!-- 포트폴리오 버튼 -->
+                            <button data-portfolio-num="${portfolio.portfolio_num}" onclick="openModal(${portfolio.portfolio_num})">
+                                <c:out value="${portfolio.title}" />
+                            </button>
+                        </div>
+                    </c:forEach>
+
+                    <!-- 모달 컨테이너 -->
+                    <div id="modalContainer"></div>
+
+
+                </div>
+                <!-- 포트폴리오 세부 정보가 표시될 곳 -->
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+</main>
 </body>
+
 
 <%-- 이미지 모달 --%>
 <div id="imgModal" class="modal">
@@ -55,6 +140,7 @@
 <div id="Modal2" class="intro_modal">
     <div class="intro">
         <span class="close" onclick="closeModal2()">&times;</span>
+        <div><h2>소개 편집</h2></div>
         <form>
             <input type="text" id="newNickname" name="newNickname" value="${userprofile.user_nickname}" required>
             <input type="text" id="newIntro" name="newIntro" value="${expertIntro.introduce}" required>
@@ -84,9 +170,24 @@
         <h2>포트폴리오 등록</h2>
         <form id="createPortfolioForm" enctype="multipart/form-data">
             <input type="text" id="newTitle" name="newTitle" placeholder="제목" required>
-            <input type="file" id="newThumbnail" name="newThumbnail" accept="image/*" onchange="previewThumbnail(event)" required>
-            <img id="thumbnailPreview" src="#" alt="Thumbnail Preview" style="max-width: 200px; max-height: 200px; display:none;">
-            <input type="file" id="newImg" name="newImg" accept="image/*" multiple onchange="addFiles(event)">
+            <div>대표이미지</div>
+            <div class="file-upload-container">
+                <label for="newThumbnail" class="file-upload-label">
+                    <i class="bi bi-plus" aria-hidden="true"></i>
+                    <input class="port-thumbnail" type="file" id="newThumbnail" name="newThumbnail" accept="image/*"
+                           onchange="previewThumbnail(event)" required>
+                </label>
+            </div>
+            <img id="thumbnailPreview" src="#" alt="Thumbnail Preview"
+                 style="max-width: 200px; max-height: 200px; display:none;">
+            <div>이미지파일</div>
+            <div class="file-upload-container">
+                <label for="newImg" class="file-upload-label">
+                    <i class="bi bi-plus" aria-hidden="true"></i>
+                    <input class="port-img" type="file" id="newImg" name="newImg" accept="image/*" multiple
+                           onchange="addFiles(event)">
+                </label>
+            </div>
             <div id="imagePreviewContainer"></div>
             <input type="text" id="newTotal_price" name="newTotal_price" placeholder="총 가격" required>
             <input type="text" id="newWork_year" name="newWork_year" placeholder="근무 연수" required>
@@ -98,8 +199,108 @@
     </div>
 </div>
 
+
+
+
+
 <div id="toast" class="toast">닉네임이 성공적으로 변경되었습니다.</div>
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 모달 열기
+        document.querySelector('.modal-icon-opener').addEventListener('click', function () {
+            document.getElementById('place-modal-base-container').style.display = 'flex';
+        });
+
+        // 모달 닫기
+        document.getElementById('close-placeModal').addEventListener('click', function () {
+            document.getElementById('place-modal-base-container').style.display = 'none';
+        });
+
+        // 모달 내의 toggle 버튼 기능
+        document.querySelectorAll('.place-modal-addDiv').forEach(function (div) {
+            div.setAttribute('data-expanded', 'false');
+
+            div.addEventListener('click', function (event) {
+                const target = event.target;
+
+                if (target.classList.contains('modal-toggle-btn')) {
+                    const item = target.closest('.place-modal-item');
+                    const isExpanded = item.getAttribute('data-expanded') === 'true';
+                    const dataDiv = item.nextElementSibling;
+
+                    if (isExpanded) {
+                        dataDiv.style.display = 'none';
+                        item.setAttribute('data-expanded', 'false');
+                        target.innerHTML = '<i class="bi bi-caret-down"></i>';
+                    } else {
+                        const value = item.getAttribute('data-value');
+                        const [no, id, state, district] = value.split("|");
+
+                        fetch('/expert/expertFind/place?id=' + id)
+                            .then(response => response.json())
+                            .then(data => {
+                                dataDiv.innerText = '';
+
+                                data.forEach(dataItem => {
+                                    const setValues = dataItem.no + '|' + dataItem.id + '|' + dataItem.state + '|' + dataItem.district;
+                                    const newItem = document.createElement('span');
+                                    newItem.classList.add('place-modal-item');
+                                    newItem.setAttribute('data-value', setValues);
+                                    newItem.textContent = dataItem.district;
+                                    dataDiv.appendChild(newItem);
+                                });
+
+                                dataDiv.style.display = 'block';
+                                item.setAttribute('data-expanded', 'true');
+                                target.innerHTML = '<i class="bi bi-caret-up"></i>';
+                            }).catch(error => console.error('Error fetching data: ' + error));
+                    }
+                } else if (target.classList.contains('place-modal-item')) {
+                    const value = target.getAttribute('data-value');
+                    const [no, id, state, district] = value.split("|");
+
+                    document.getElementById('region').value = no;
+
+                    if (district === '') {
+                        document.getElementById('place-choice').innerText = state;
+                    } else {
+                        document.getElementById('place-choice').innerText = district;
+                    }
+
+                    document.getElementById('place-choice').style.color = '#1AA69D';
+                    document.getElementById('place-modal-base-container').style.display = 'none';
+
+                    // 지역 업데이트 요청
+                    updateRegion(no);
+                }
+            });
+        });
+    });
+
+    // 지역 정보를 서버에 업데이트하는 함수
+    function updateRegion(region) {
+        fetch('/profile/updateRegion', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({region})
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('지역 업데이트에 실패했습니다.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('지역 업데이트 성공:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+
     function showModal() {
         document.getElementById('imgModal').classList.add('show');
     }
@@ -214,7 +415,7 @@
         numbers.forEach(number => {
             const option = document.createElement('option');
             option.value = number;
-            option.textContent = number+'년';
+            option.textContent = number + '년';
             dropdown.appendChild(option);
         });
         document.getElementById('Modal3').classList.add('show');
@@ -222,6 +423,26 @@
 
     function closeModal3() {
         document.getElementById('Modal3').classList.remove('show');
+    }
+
+    // 저장된 경력 정보가 있으면 표시
+    window.onload = function () {
+        const savedExperience = localStorage.getItem('experienceYears');
+        if (savedExperience) {
+            document.getElementById('yearsDisplay').innerText = savedExperience + '년';
+            document.getElementById('yearsDisplay').style.display = 'block';
+        }
+    }
+
+    function saveYears() {
+        const dropdown = document.getElementById('numberDropdown');
+        const selectedValue = dropdown.value;
+        if (selectedValue) {
+            document.getElementById('yearsDisplay').innerText = selectedValue + '년';
+            document.getElementById('yearsDisplay').style.display = 'block';
+            localStorage.setItem('experienceYears', selectedValue);
+            closeModal3();
+        }
     }
 
     function showModal4() {
@@ -268,13 +489,12 @@
     }
 
 
-
     // 썸네일 파일 미리보기 (기존 코드 그대로 유지)
     function previewThumbnail(event) {
         var file = event.target.files[0];
         var reader = new FileReader();
 
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             var preview = document.getElementById('thumbnailPreview');
             preview.src = e.target.result;
             preview.style.display = 'block'; // 미리보기 이미지 보이기
@@ -303,7 +523,7 @@
 
                     // 미리보기 이미지 추가
                     var reader = new FileReader();
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         var imgContainer = document.createElement('div');
                         imgContainer.style.margin = '10px';
 
@@ -384,7 +604,6 @@
     }
 
 
-
     function showToast(message) {
         var toast = document.getElementById('toast');
         toast.textContent = message;
@@ -393,5 +612,88 @@
             toast.className = toast.className.replace('show', '');
         }, 3000); // 3초 후 토스트 사라짐
     }
+
+
+
+    function openModal(portfolioNum) {
+        fetch('/profile/portfolio/' + portfolioNum)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    // 이미지 HTML 생성
+                    const imageHtml = data.imagePaths.map(image =>
+                        '<img src="/resources/static' + image + '" alt="' + data.thumbnail + '" class="thumbnail-img">'
+                    ).join('');
+                    console.log(data);
+                    console.log(imageHtml);
+
+                    const modalHtml =
+                        '<div id="modal-' + data.portfolio_num + '" class="portfolio-modal" style="display:block;">' +
+                        '<div class="modal-content">' +
+                        '<span class="close" onclick="closeModal(' + data.portfolio_num + ')">&times;</span>' +
+                        '<div class="modal-title">' + data.title + '</div>' +  // 제목을 위한 div 추가
+                        '<div class="thumbnail-container">' +
+                        '<div class="thumbnail-title">대표이미지</div>' +
+                        '<img src="/resources/static' + data.thumbnail + '" alt="' + data.thumbnail + '" class="thumbnail-img">' +
+                        '</div>' +
+                        '<div class="img-container">' +
+                        '<div class="image-title">이미지</div>' +
+                        '<div class="image-wrapper">' +  // 공통 스타일을 적용할 수 있는 div
+                        imageHtml +
+                        '</div>' +
+                        '</div>' +
+                        '<p>가격: ' + data.total_price + '</p>' +
+                        '<p>작업 기간: ' + data.duration + ' ' + data.duration_value + '</p>' +
+                        '<p>설명: ' + data.description + '</p>' +
+                        '</div>' +
+                        '</div>';
+
+                    console.log(modalHtml);
+                    // 모달 컨테이너에 HTML 삽입
+                    const modalContainer = document.getElementById('modalContainer');
+                    modalContainer.innerHTML = modalHtml;
+
+                    // 모달 표시
+                    const modal = document.getElementById('modal-' + data.portfolio_num);
+                    if (modal) {
+                        modal.style.display = 'block';
+                        document.body.style.overflow = 'hidden'; // 페이지 스크롤 비활성화
+                    }
+
+                    // 닫기 버튼 기능 추가
+                    const closeButton = modal.querySelector('.close');
+                    if (closeButton) {
+                        closeButton.onclick = function() {
+                            closeModal(data.portfolio_num);
+                        };
+                    } else {
+                        console.error('Close button not found in modal');
+                    }
+                } else {
+                    console.error('No data received for portfolio number:', portfolioNum);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading modal:', error);
+            });
+    }
+
+
+
+
+
+    function closeModal(portfolioNum) {
+            const modal = document.getElementById('modal-' + portfolioNum);
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // 페이지 스크롤 다시 활성화
+            }
+        }
+
+
+
+
+
+
 </script>
 </html>

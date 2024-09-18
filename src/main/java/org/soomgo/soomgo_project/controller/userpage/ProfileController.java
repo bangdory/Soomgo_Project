@@ -2,12 +2,18 @@ package org.soomgo.soomgo_project.controller.userpage;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.soomgo.soomgo_project.domain.category.CategoryDTO;
 import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO;
+import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioImageDTO;
+import org.soomgo.soomgo_project.domain.territory.TerritoryDTO;
 import org.soomgo.soomgo_project.domain.user.UserDTO;
 import org.soomgo.soomgo_project.domain.user.UserProfileDTO;
+import org.soomgo.soomgo_project.service.category.CategoryServiceImpl;
+import org.soomgo.soomgo_project.service.territory.TerritoryServiceImpl;
 import org.soomgo.soomgo_project.service.userpage.ProfileService;
 import org.soomgo.soomgo_project.service.user.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @Controller
@@ -29,6 +36,8 @@ public class ProfileController {
 
     private final ProfileService profileService;
     private final UserService userService;
+    private final CategoryServiceImpl categoryServiceImpl;
+    private final TerritoryServiceImpl territoryServiceImpl;
 
     // 프로필 페이지 렌더링
     @GetMapping("")
@@ -38,21 +47,29 @@ public class ProfileController {
 
         UserDTO user = (UserDTO) session.getAttribute("user");
         UserProfileDTO userprofile = userService.getUserProfileByUserNum(user.getUser_num());
-        ExpertDTO expertDTO=profileService.getExpertProfile(5);
+
+        List<CategoryDTO> category = categoryServiceImpl.getCategoryNotZero();
+        List<TerritoryDTO> territory = territoryServiceImpl.getTerritory();
+
+        log.info("territory: " + territory);
+        log.info("category: " + category);
+
+            model.addAttribute("territory", territory);
+            model.addAttribute("category", category);
 
         if (user != null) {
             ExpertDTO expertIntro = profileService.getExpertProfile(user.getUser_num());
-            log.info("expert intro: " + expertIntro);
-            ExpertPortfolioDTO expertPortfolio = profileService.getExpertPortfolio(expertIntro.getExpertNum());
             List<ExpertPortfolioDTO> expertPortfolios = profileService.getExpertPortfolios(expertIntro.getExpertNum());
-            log.info(expertPortfolios);
+
+            TerritoryDTO territoryDTO = profileService.getTerritoryabc(expertIntro.getRegion());
+
 
             model.addAttribute("user", user);
             model.addAttribute("userprofile", userprofile);
             model.addAttribute("expertIntro", expertIntro);
-            model.addAttribute("expertPortfolio", expertPortfolio);
-
             model.addAttribute("expertPortfolios", expertPortfolios);
+            model.addAttribute("territoryDTO", territoryDTO);
+
             return "user/profile";
         }
 
@@ -153,47 +170,53 @@ public class ProfileController {
         expertPortfolio.setExpert_num(expert.getExpertNum());
         expertPortfolio.setCategory_num(expert.getCategoryNum()); // category_num 설정
 
-        // 썸네일 업로드
-        if (!thumbnail.isEmpty()) {
-            String uploadDir = request.getServletContext().getRealPath("/resources/static/img");
-            try {
-                String thumbnailPath = handleFileUpload(thumbnail, uploadDir);
-                expertPortfolio.setThumbnail(thumbnailPath);
-            } catch (IOException e) {
-                return ResponseEntity.status(500).body("썸네일 업로드 실패: " + e.getMessage());
-            }
-        }
-
-        // 포트폴리오 생성
-        int portfolioId;
         try {
-            profileService.createExpertPortfolio(expertPortfolio);
-            portfolioId = expertPortfolio.getPortfolio_num();
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("포트폴리오 생성 실패: " + e.getMessage());
-        }
 
-        // 이미지 업로드 처리
-        if (images != null && images.length > 0) {
-            List<String> imagePaths = new ArrayList<>();
 
-            for (MultipartFile img : images) {
-                if (!img.isEmpty()) {
-                    try {
-                        String imagePath = handleFileUpload(img, request.getServletContext().getRealPath("/resources/static/img"));
-                        imagePaths.add(imagePath);
-
-                    } catch (IOException e) {
-                        return ResponseEntity.status(500).body("이미지 업로드 실패: " + e.getMessage());
-                    }
+            if (!thumbnail.isEmpty()) {
+                String uploadDir = request.getServletContext().getRealPath("/resources/static/img");
+                try {
+                    String thumbnailPath = handleFileUpload(thumbnail, uploadDir);
+                    expertPortfolio.setThumbnail(thumbnailPath);
+                } catch (IOException e) {
+                    return ResponseEntity.status(500).body("썸네일 업로드 실패: " + e.getMessage());
                 }
             }
-            // 이미지 추가를 위한 서비스 호출
+
+            // 포트폴리오 생성
+            int portfolioId;
             try {
-                profileService.addPortfolioImages(portfolioId, imagePaths);
+                profileService.createExpertPortfolio(expertPortfolio);
+                portfolioId = expertPortfolio.getPortfolio_num();
             } catch (Exception e) {
-                return ResponseEntity.status(500).body("이미지 추가 실패: " + e.getMessage());
+                return ResponseEntity.status(500).body("포트폴리오 생성 실패: " + e.getMessage());
             }
+
+            // 이미지 업로드 처리
+            if (images != null && images.length > 0) {
+                List<String> imagePaths = new ArrayList<>();
+
+                for (MultipartFile img : images) {
+                    if (!img.isEmpty()) {
+                        try {
+                            String imagePath = handleFileUpload(img, request.getServletContext().getRealPath("/resources/static/img"));
+                            imagePaths.add(imagePath);
+
+                        } catch (IOException e) {
+                            return ResponseEntity.status(500).body("이미지 업로드 실패: " + e.getMessage());
+                        }
+                    }
+                }
+                // 이미지 추가를 위한 서비스 호출
+                try {
+                    profileService.addPortfolioImages(portfolioId, imagePaths);
+                } catch (Exception e) {
+                    return ResponseEntity.status(500).body("이미지 추가 실패: " + e.getMessage());
+                }
+            }
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(500).body("이미지를 추가해주세요");
         }
 
         return ResponseEntity.ok("포트폴리오가 성공적으로 생성되었습니다.");
@@ -213,6 +236,59 @@ public class ProfileController {
         // DB에 저장할 경로 리턴
         return "/img/" + fileName;
     }
+
+    @PostMapping("/updateRegion")
+    public ResponseEntity<Void> updateRegion(@RequestBody Map<String, Integer> requestBody, HttpSession session) {
+        // 세션에서 현재 사용자 정보를 가져옴
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        // 요청 본문에서 지역 값을 가져옴
+        Integer region = requestBody.get("region");
+        if (region == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        // 사용자 번호를 가져옴
+        int userNum = user.getUser_num();
+
+        // ExpertDTO 객체 생성 및 지역 값 설정
+        ExpertDTO expertDTO = new ExpertDTO();
+        expertDTO.setUserNum(userNum);
+        expertDTO.setRegion(region);
+
+        // 지역 업데이트 서비스 호출
+        profileService.updateRegion(expertDTO);
+
+        return ResponseEntity.ok().build();
+    }
+
+
+
+
+    @GetMapping("/portfolio/{portfolio_num}")
+    @ResponseBody
+    public ExpertPortfolioDTO getPortfolioDetails(@PathVariable("portfolio_num") int portfolio_num) {
+        ExpertPortfolioDTO portfolio = profileService.findPortfolioDetails(portfolio_num);
+        List<ExpertPortfolioImageDTO> images = profileService.findPortfolioImgs(portfolio_num);
+        log.info("image!!!"+images);
+        if (portfolio != null) {
+            // 이미지 URL을 `imagePaths` 리스트에 추가
+            for (ExpertPortfolioImageDTO image : images) {
+                portfolio.addImage(image.getImage_url());
+            }
+            return portfolio;
+        } else {
+            // 포트폴리오를 찾지 못한 경우 빈 DTO를 반환할 수 있습니다.
+            return new ExpertPortfolioDTO();
+        }
+    }
+
+
+
+
 
 
 }

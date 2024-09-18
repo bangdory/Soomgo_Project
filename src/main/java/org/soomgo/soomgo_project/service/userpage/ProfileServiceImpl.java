@@ -5,6 +5,8 @@ import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.dao.user.ProfileDAO;
 import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO;
+import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioImageDTO;
+import org.soomgo.soomgo_project.domain.territory.TerritoryDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,12 +48,28 @@ public class ProfileServiceImpl implements ProfileService {
     public void createExpertPortfolio(ExpertPortfolioDTO expertPortfolioDTO) {
         profileDAO.createExpertPortfolio(expertPortfolioDTO);
     }
-
+    @Override
     public List<ExpertPortfolioDTO> getExpertPortfolios(int expert_num) {
         List<ExpertPortfolioDTO> expertPortfolios = profileDAO.getExpertPortfolios(expert_num);
         log.info("전달된 파라미터 -> "+ expert_num);
         log.info("DAO 전달 리스트!!!" + expertPortfolios);
         // return profileDAO.getExpertPortfolios(expert_num);
         return expertPortfolios;
+    }
+    @Override
+    public ExpertPortfolioDTO findPortfolioDetails(int portfolio_num) {
+        return profileDAO.findPortfolioDetails(portfolio_num);
+    }
+    @Override
+    public void updateRegion(ExpertDTO expertDTO) {
+        profileDAO.updateRegion(expertDTO);
+    }
+    @Override
+    public TerritoryDTO getTerritoryabc(int no) {
+        return profileDAO.getTerritoryabc(no);
+    }
+    @Override
+    public List<ExpertPortfolioImageDTO> findPortfolioImgs(int portfolio_num) {
+        return profileDAO.findPortfolioImgs(portfolio_num);
     }
 }

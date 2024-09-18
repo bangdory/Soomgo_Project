@@ -1,16 +1,26 @@
-body {
+
+
+html, body, main {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-.find-userEmail-container {
-    padding-top: 60px; /* 헤더 높이만큼 패딩을 주어 본문이 헤더 아래로 오도록 설정 */
+    font-family: 'Pretendard-Regular', sans-serif;
 }
 
 main {
-    padding: 20px;
+    width: 1920px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
+
+
+.container {
+    width: 100%;
+
+
+}
+
 
 .profile {
     width: 100%;
@@ -18,18 +28,46 @@ main {
     display: flex;
 }
 
+.profile-img {
+    width: 100px;
+    height: 100px;
+    position: relative; /* 아이콘 위치 조정을 위한 relative 위치 설정 */
+}
+
 .profile-img img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 10px;
 }
-.profile-img {
-    width: 100px;
-    height: 100px;
-    padding-right: 20px;
 
+.profile-img .btn {
+    position: absolute;
+    bottom: 0px;
+    right: 0px; /* 오른쪽으로 아이콘 위치 조정 */
+    background-color: #fff; /* 흰색 배경 */
+    border: none;
+    border-radius: 50%;
+    padding: 5px; /* 버튼 크기 조정 */
+    width: 30px; /* 버튼 너비 조정 */
+    height: 30px; /* 버튼 높이 조정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-img .btn i {
+    font-size: 18px; /* 아이콘 크기 조정 */
+    color: #000; /* 아이콘 색상 검정색으로 설정 */
+}
+
+
+.nickname-intro-container div {
+    margin-right: 10px;
+}
+
+.edit-button {
+    margin-left: 20px; /* 필요 시 간격 조정 */
 }
 
 
@@ -112,7 +150,29 @@ main {
 .years_modal.show {
     display: flex; /* 모달을 보이게 함 */
 }
-
+.yearDisplayContainer {
+    padding-top:25px;
+    padding-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.yearsDisplay{
+    width: 300px;
+}
+.profileContainer{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+.container2{
+    padding:10px;
+    margin-top:20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
 .portfolio {
     background: #fff;
     padding: 20px;
@@ -120,7 +180,9 @@ main {
     position: relative;
     width: 300px;
 }
-
+.Modal2_btn{
+    white-space: nowrap;
+}
 .portfolio_modal {
     position: fixed;
     top: 0;
@@ -137,7 +199,9 @@ main {
     display: flex; /* 모달을 보이게 함 */
 }
 
-
+.profile-details{
+    padding-left:20px;
+}
 
 .toast {
     position: fixed;
@@ -183,4 +247,283 @@ main {
     }
 }
 
+.place-modal-container {
+    display: flex;
+    justify-content: space-between;
+}
+/* 지역 선택 드롭다운 스타일 */
+.-region-select-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
 
+.region-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #888888;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+.region-select:focus {
+    border-color: #1AA69D;
+    outline: none;
+}
+
+/* 지역 선택 드롭다운의 옵션 스타일 */
+.region-select option {
+    padding: 10px;
+}
+
+/* 지역 선택 결과 표시 스타일 */
+.region-choice-container {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.region-choice {
+    font-weight: bold;
+    color: #1AA69D;
+}
+
+/* 지역 선택 모달 스타일 */
+.place-modal-item {
+    height: 50px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.place-modal-item:hover {
+    background-color: #f0f0f0;
+}
+
+.place-modal-data span {
+    padding-left: 30px;
+}
+.modal-icon-opener {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    border-radius: 50px;
+    background-color: white;
+    border: 1px solid #1AA69D;
+    color: #1AA69D;
+}
+
+.modal-icon-opener:hover {
+    cursor: pointer;
+    filter: brightness(0.8);
+
+}
+
+/* 지역 선택 버튼 스타일 */
+.select-region-btn {
+    background-color: #1AA69D;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.select-region-btn:hover {
+    background-color: #159b8e;
+}
+#place-modal-base-container {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed; /* 화면에 고정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    overflow: auto; /* 모달 내용이 넘칠 경우 스크롤 */
+}
+.modal-content {
+    background: #fff; /* 흰색 배경 */
+
+    border-radius: 5px; /* 둥근 모서리 */
+    width: 80%; /* 너비 조절 */
+    height: 100%;
+    max-width: 500px; /* 최대 너비 */
+    max-height: 80vh; /* 최대 높이 80% 뷰포트 높이 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    position: absolute; /* 절대 위치 설정 */
+    top: 30%; /* 화면의 30% 위치 */
+    left: 50%; /* 화면의 50% 위치 */
+    transform: translate(-50%, -50%); /* 중앙으로 이동 */
+    overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤 */
+    text-align: left;
+}
+
+.modal-toggle-btn i {
+    pointer-events: none; /* 아이콘의 클릭 이벤트를 비활성화 */
+}
+.file-upload-container {
+    position: relative;
+    display: inline-block;
+}
+
+.file-upload-label {
+    display: block;
+    width: 25px; /* 버튼 너비 50px */
+    height: 25px; /* 버튼 높이 50px */
+    border: 2px solid #ccc; /* 테두리 스타일 */
+    border-radius: 8px; /* 모서리 둥글기 */
+    background-color: #f5f5f5; /* 배경 색상 */
+    text-align: center;
+    line-height: 50px; /* 세로 중앙 정렬 */
+    color: #666; /* 아이콘 색상 */
+    cursor: pointer;
+    position: relative;
+}
+
+.file-upload-label i {
+    font-size: 24px; /* 아이콘 크기 조정 */
+    vertical-align: middle; /* 세로 정렬 */
+}
+
+.file-upload-label input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* 입력 필드 숨기기 */
+    cursor: pointer;
+}
+
+
+ .portfolio_modal2 {
+     position: fixed;
+     z-index: 1;
+     left: 0;
+     top: 0;
+     width: 100%;
+     height: 100%;
+     overflow: auto;
+     background-color: rgba(0, 0, 0, 0.5);
+ }
+
+.portfolio_modal2-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.PM_close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.thumbnail-container {
+    width: 300px; /* 컨테이너 너비 설정 */
+    padding: 10px; /* 내부 여백 */
+    background-color: #f8f8f8; /* 배경색 */
+    border-radius: 8px; /* 둥근 테두리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+    display: flex;
+    flex-direction: column; /* 제목을 이미지 위에 배치하기 위해 열 방향으로 설정 */
+    align-items: center; /* 중앙 정렬 */
+}
+
+/* 제목 스타일 */
+.thumbnail-title {
+    font-weight: bold; /* 제목을 강조 */
+    margin-bottom: 10px; /* 제목과 이미지 사이의 간격 */
+}
+
+/* 이미지 자체 스타일 */
+.thumbnail-img {
+    max-width: 100%; /* 이미지가 컨테이너에 맞게 조정됨 */
+    height: auto;
+    border-radius: 5px; /* 이미지 테두리 둥글게 */
+    transition: transform 0.3s; /* 마우스 오버 시 애니메이션 */
+}
+
+/* 마우스 오버 시 이미지 확대 효과 */
+.thumbnail-img:hover {
+    transform: scale(1.05); /* 이미지 확대 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 그림자 강화 */
+}
+.img-container {
+    width: 300px; /* 컨테이너 너비 설정 */
+    padding: 10px; /* 내부 여백 */
+    background-color: #f8f8f8; /* 배경색 */
+    border-radius: 8px; /* 둥근 테두리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+    display: flex;
+    flex-wrap: wrap; /* 여러 이미지가 있을 경우 줄 바꿈 */
+    justify-content: center; /* 이미지 가운데 정렬 */
+    gap: 10px; /* 이미지 간 간격 */
+}
+
+/* 이미지 자체 스타일 */
+.img-container img {
+    max-width: 100%; /* 이미지가 컨테이너에 맞게 조정됨 */
+    height: auto;
+    border-radius: 5px; /* 이미지 테두리 둥글게 */
+    transition: transform 0.3s; /* 마우스 오버 시 애니메이션 */
+}
+
+/* 마우스 오버 시 이미지 확대 효과 */
+.img-container img:hover {
+    transform: scale(1.05); /* 이미지 확대 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 그림자 강화 */
+}
+
+.portfolio-modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* 반투명 배경 */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    border: 1px solid #888;
+    width: 80%; /* 모달 너비 */
+}
+.modal-title {
+    padding-top:20px;
+    padding-bottom: 20px;
+    font-size: 1.5em; /* 폰트 크기 조절 */
+    font-weight: bold; /* 폰트 두께 조절 */
+    margin-bottom: 15px; /* 아래 여백 */
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
