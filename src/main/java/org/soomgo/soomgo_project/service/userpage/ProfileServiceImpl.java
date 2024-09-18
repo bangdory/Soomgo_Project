@@ -5,6 +5,8 @@ import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.dao.user.ProfileDAO;
 import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO;
+import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioImageDTO;
+import org.soomgo.soomgo_project.domain.territory.TerritoryDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,5 +63,13 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public void updateRegion(ExpertDTO expertDTO) {
         profileDAO.updateRegion(expertDTO);
+    }
+    @Override
+    public TerritoryDTO getTerritoryabc(int no) {
+        return profileDAO.getTerritoryabc(no);
+    }
+    @Override
+    public List<ExpertPortfolioImageDTO> findPortfolioImgs(int portfolio_num) {
+        return profileDAO.findPortfolioImgs(portfolio_num);
     }
 }

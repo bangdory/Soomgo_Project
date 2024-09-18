@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.soomgo.soomgo_project.domain.category.CategoryDTO;
 import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO;
+import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioImageDTO;
 import org.soomgo.soomgo_project.domain.territory.TerritoryDTO;
 import org.soomgo.soomgo_project.domain.user.UserDTO;
 import org.soomgo.soomgo_project.domain.user.UserProfileDTO;
@@ -58,16 +59,17 @@ public class ProfileController {
 
         if (user != null) {
             ExpertDTO expertIntro = profileService.getExpertProfile(user.getUser_num());
-
-
             List<ExpertPortfolioDTO> expertPortfolios = profileService.getExpertPortfolios(expertIntro.getExpertNum());
-            log.info(expertPortfolios);
+
+            TerritoryDTO territoryDTO = profileService.getTerritoryabc(expertIntro.getRegion());
+
 
             model.addAttribute("user", user);
             model.addAttribute("userprofile", userprofile);
             model.addAttribute("expertIntro", expertIntro);
-
             model.addAttribute("expertPortfolios", expertPortfolios);
+            model.addAttribute("territoryDTO", territoryDTO);
+
             return "user/profile";
         }
 
@@ -266,16 +268,27 @@ public class ProfileController {
 
 
 
-
     @GetMapping("/portfolio/{portfolio_num}")
     @ResponseBody
-    public ResponseEntity<ExpertPortfolioDTO> getPortfolioDetails(@PathVariable("portfolio_num") int portfolio_num) {
-        ExpertPortfolioDTO portfolioDetails = profileService.findPortfolioDetails(portfolio_num);
-        if (portfolioDetails != null) {
-            return ResponseEntity.ok(portfolioDetails);
+    public ExpertPortfolioDTO getPortfolioDetails(@PathVariable("portfolio_num") int portfolio_num) {
+        ExpertPortfolioDTO portfolio = profileService.findPortfolioDetails(portfolio_num);
+        List<ExpertPortfolioImageDTO> images = profileService.findPortfolioImgs(portfolio_num);
+
+        if (portfolio != null) {
+            // 이미지 URL을 `imagePaths` 리스트에 추가
+            for (ExpertPortfolioImageDTO image : images) {
+                portfolio.addImage(image.getImage_url());
+            }
+            return portfolio;
         } else {
-            return ResponseEntity.notFound().build();
+            // 포트폴리오를 찾지 못한 경우 빈 DTO를 반환할 수 있습니다.
+            return new ExpertPortfolioDTO();
         }
     }
+
+
+
+
+
 
 }

@@ -27,80 +27,100 @@
     <div>
 
     </div>
+
     <div class="container">
         <div class="container1">
-
-            <div class="profile">
-                <div class="profile-img">
-                    <div>
-                        <img src="${pageContext.request.contextPath}/resources/static${empty userprofile.profile_img ? '/img/default.png' : userprofile.profile_img}"
-                             alt="Profile Image">
-                        <button onclick="showModal()" class="btn">
-                            <i class="fa fa-camera"></i> <!-- Font Awesome 아이콘 -->
-                        </button>
-                    </div>
-
-                </div>
-
-                <div class="profile-details">
-                    <div class="nickname-intro-container">
+            <div class="profileContainer">
+                <div class="profile">
+                    <div class="profile-img">
                         <div>
-                            <div id="nicknameDisplay"><strong>${userprofile.user_nickname}</strong></div>
-                            <div id="introDisplay">${expertIntro.introduce}</div>
-                        </div>
-                        <div class="edit-button">
-                            <button onclick="showModal2()">내소개편집</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
-            <div class="container2">
-                <div>
-
-                    <div class="signup-gosu-item-container userForm-items">
-                        <label>지역</label>
-                        <div class="place-modal-container">
-                       <span id="place-choice" class="-place-choice">
-                           ${expertIntro.region}
-                       </span>
-
-                            <button type="button" class="btn btn-primary modal-icon-opener">
-                                <i class="bi bi-geo-alt alt-icon"></i>
+                            <img src="${pageContext.request.contextPath}/resources/static${empty userprofile.profile_img ? '/img/default.png' : userprofile.profile_img}"
+                                 alt="Profile Image">
+                            <button onclick="showModal()" class="btn">
+                                <i class="fa fa-camera"></i> <!-- Font Awesome 아이콘 -->
                             </button>
-                            <input type="hidden" name="region" value="" id="region">
                         </div>
+
                     </div>
-                    <div class="yearDisplayContainer">
-                    <div id="yearsDisplay" style="display: ${expertIntro.experienceYears >= 1 ? 'block' : 'none'};">
-                        경력 : ${expertIntro.experienceYears}년
-                    </div>
-                    <button onclick="showModal3()">등록</button>
-                    </div>
-                    <div id="portfolios">
-                        <div>포트폴리오 목록   <button onclick="showModal4()">포트폴리오 등록</button> </div>
-                        <c:forEach var="portfolio" items="${expertPortfolios}">
-                            <div class="portfolio-item">
-                                <button data-portfolio-num="${portfolio.portfolio_num}" onclick="fetchPortfolioDetails(this)">
-                                        ${portfolio.title}
-                                </button>
+
+                    <div class="profile-details">
+                        <div class="nickname-intro-container">
+                            <div>
+                                <div id="nicknameDisplay"><strong>${userprofile.user_nickname}</strong></div>
+                                <div id="introDisplay">${expertIntro.introduce}</div>
                             </div>
-                        </c:forEach>
+                            <div class="edit-button">
+
+                            </div>
+                        </div>
+
                     </div>
-
-                    <!-- 포트폴리오 세부 정보가 표시될 곳 -->
-                    <div id="portfolioDetails"></div>
-
 
                 </div>
-
+                <div>
+                    <button class="Modal2_btn" onclick="showModal2()">내소개편집</button>
+                </div>
             </div>
         </div>
+        <div class="container1.5"></div>
+        <div class="container2">
+            <div>
+
+                <div class="signup-gosu-item-container userForm-items">
+                    <label>지역</label>
+                    <div class="place-modal-container">
+                       <span id="place-choice" class="-place-choice">
+                           ${territoryDTO.state} ${territoryDTO.district}
+                       </span>
+
+                        <button type="button" class="btn btn-primary modal-icon-opener">
+                            <i class="bi bi-geo-alt alt-icon"></i>
+                        </button>
+                        <input type="hidden" name="region" value="" id="region">
+                    </div>
+                </div>
+                <div class="yearDisplayContainer">
+                    <div id="yearsDisplay" style="display: ${expertIntro.experienceYears >= 1 ? 'block' : 'none'};">
+                        경력 : ${expertIntro.experienceYears}년
+
+                    </div>
+                    <div class="yearButton">
+                        <button onclick="showModal3()">등록</button>
+                    </div>
+                </div>
+                <!-- HTML 버튼 예시 -->
+                <div id="portfolios">
+                    <div>포트폴리오 목록
+                        <button onclick="showModal4()">포트폴리오 등록</button>
+                    </div>
+
+                    <!-- 포트폴리오 버튼과 모달 컨테이너 -->
+
+                    <c:forEach var="portfolio" items="${expertPortfolios}">
+                        <div class="portfolio-item">
+                            <!-- 포트폴리오 버튼 -->
+                            <button data-portfolio-num="${portfolio.portfolio_num}" onclick="openModal(${portfolio.portfolio_num})">
+                                <c:out value="${portfolio.title}" />
+                            </button>
+                        </div>
+                    </c:forEach>
+
+                    <!-- 모달 컨테이너 -->
+                    <div id="modalContainer"></div>
 
 
+                </div>
+                <!-- 포트폴리오 세부 정보가 표시될 곳 -->
+
+
+
+
+            </div>
+
+        </div>
     </div>
+
+
 </main>
 </body>
 
@@ -120,6 +140,7 @@
 <div id="Modal2" class="intro_modal">
     <div class="intro">
         <span class="close" onclick="closeModal2()">&times;</span>
+        <div><h2>소개 편집</h2></div>
         <form>
             <input type="text" id="newNickname" name="newNickname" value="${userprofile.user_nickname}" required>
             <input type="text" id="newIntro" name="newIntro" value="${expertIntro.introduce}" required>
@@ -153,16 +174,18 @@
             <div class="file-upload-container">
                 <label for="newThumbnail" class="file-upload-label">
                     <i class="bi bi-plus" aria-hidden="true"></i>
-                    <input class="port-thumbnail" type="file" id="newThumbnail" name="newThumbnail" accept="image/*" onchange="previewThumbnail(event)" required>
+                    <input class="port-thumbnail" type="file" id="newThumbnail" name="newThumbnail" accept="image/*"
+                           onchange="previewThumbnail(event)" required>
                 </label>
             </div>
-            <img  id="thumbnailPreview" src="#" alt="Thumbnail Preview"
+            <img id="thumbnailPreview" src="#" alt="Thumbnail Preview"
                  style="max-width: 200px; max-height: 200px; display:none;">
             <div>이미지파일</div>
             <div class="file-upload-container">
                 <label for="newImg" class="file-upload-label">
                     <i class="bi bi-plus" aria-hidden="true"></i>
-                    <input class="port-img" type="file" id="newImg" name="newImg" accept="image/*" multiple onchange="addFiles(event)">
+                    <input class="port-img" type="file" id="newImg" name="newImg" accept="image/*" multiple
+                           onchange="addFiles(event)">
                 </label>
             </div>
             <div id="imagePreviewContainer"></div>
@@ -175,6 +198,10 @@
         </form>
     </div>
 </div>
+
+
+
+
 
 <div id="toast" class="toast">닉네임이 성공적으로 변경되었습니다.</div>
 <script>
@@ -257,7 +284,7 @@
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ region })
+            body: JSON.stringify({region})
         })
             .then(response => {
                 if (!response.ok) {
@@ -272,8 +299,6 @@
                 console.error('Error:', error);
             });
     }
-
-
 
 
     function showModal() {
@@ -380,7 +405,7 @@
     }
 
     function showModal3() {
-        const numbers = Array.from({ length: 40 }, (_, i) => i + 1);
+        const numbers = Array.from({length: 40}, (_, i) => i + 1);
         const dropdown = document.getElementById('numberDropdown');
         const noExperienceOption = document.createElement('option');
         noExperienceOption.value = null;
@@ -401,7 +426,7 @@
     }
 
     // 저장된 경력 정보가 있으면 표시
-    window.onload = function() {
+    window.onload = function () {
         const savedExperience = localStorage.getItem('experienceYears');
         if (savedExperience) {
             document.getElementById('yearsDisplay').innerText = savedExperience + '년';
@@ -587,43 +612,74 @@
             toast.className = toast.className.replace('show', '');
         }, 3000); // 3초 후 토스트 사라짐
     }
-    function fetchPortfolioDetails(button) {
-        const portfolio_num = button.getAttribute('data-portfolio-num');
-        console.log('portfolio_num:', portfolio_num); // 디버깅용 로그 추가
 
-        if (!portfolio_num) {
-            console.error('portfolio_num is missing');
-            return;
+
+
+        function openModal(portfolioNum) {
+            fetch('/profile/portfolio/' + portfolioNum)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        // 모달의 HTML을 동적으로 생성
+                        const imageHtml = data.imagePaths.map(image =>
+                            `<img src="/resources/static${image}" alt="Img" class="portfolio-img">`
+                        ).join('');
+                        console.log(data)
+                        console.log(data.portfolio_num)
+                        const modalHtml = `
+                <div id="modal-${data.portfolio_num}" class="portfolio-modal" style="display:block;">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal(${data.portfolio_num})">&times;</span>
+                        <p>${data.title}</p>
+                        <div class="thumbnail-container">
+                            <img src="/resources/static${data.thumbnail}" alt="Thumbnail" class="thumbnail-img">
+                        </div>
+                        <div class="img-container">
+                            ${imageHtml}
+                        </div>
+                        <p>가격: ${data.total_price}</p>
+                        <p>작업 기간: ${data.duration} ${data.duration_value}</p>
+                        <p>설명: ${data.description}</p>
+                    </div>
+                </div>
+            `;
+                        console.log(modalHtml)
+                        // 모달 컨테이너에 HTML 삽입
+                        const modalContainer = document.getElementById('modalContainer');
+                        modalContainer.innerHTML = modalHtml;
+
+                        // 모달 표시
+                        const modal = document.getElementById('modal-' + data.portfolio_num);
+                        if (modal) {
+                            modal.style.display = 'block';
+                            document.body.style.overflow = 'hidden'; // 페이지 스크롤 비활성화
+                        }
+
+                        // 닫기 버튼 기능 추가
+                        const closeButton = modal.querySelector('.close');
+                        closeButton.onclick = function() {
+                            closeModal(data.portfolio_num);
+                        };
+                    } else {
+                        console.error('No data received for portfolio number:', portfolioNum);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading modal:', error);
+                });
         }
 
-        // URL에 portfolio_num을 제대로 추가
-        fetch(`/profile/portfolio/${portfolio_num}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('포트폴리오를 가져오는 데 실패했습니다.');
-                }
-                return response.json();
-            })
-            .then(data => {
-                displayPortfolioDetails(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
+        function closeModal(portfolioNum) {
+            const modal = document.getElementById('modal-' + portfolioNum);
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // 페이지 스크롤 다시 활성화
+            }
+        }
 
 
 
-    function displayPortfolioDetails(portfolio) {
-        const portfolioDetailsDiv = document.getElementById('portfolioDetails');
-        portfolioDetailsDiv.innerHTML = `
-        <h3>${portfolio.title}</h3>
-        <p>${portfolio.description}</p>
-        <p>가격: ${portfolio.total_price}</p>
-        <p>작업 기간: ${portfolio.duration}</p>
-        <p>카테고리 번호: ${portfolio.category_num}</p>
-    `;
-    }
+
 
 
 </script>

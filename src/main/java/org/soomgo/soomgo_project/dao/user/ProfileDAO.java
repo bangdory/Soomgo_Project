@@ -2,6 +2,8 @@ package org.soomgo.soomgo_project.dao.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioImageDTO;
+import org.soomgo.soomgo_project.domain.territory.TerritoryDTO;
 import org.soomgo.soomgo_project.mappers.user.ProfileMapper;
 import org.soomgo.soomgo_project.domain.expert.ExpertDTO;
 import org.soomgo.soomgo_project.domain.expert.ExpertPortfolioDTO;
@@ -52,5 +54,11 @@ public class ProfileDAO {
 
     public void updateRegion(ExpertDTO expertDTO) {
         profileMapper.updateRegion(expertDTO);
+    }
+    public TerritoryDTO getTerritoryabc(int no) {
+        return profileMapper.getTerritoryabc(no);
+    }
+    public List<ExpertPortfolioImageDTO> findPortfolioImgs(int portfolio_num){
+        return profileMapper.findPortfolioImgs(portfolio_num);
     }
 }

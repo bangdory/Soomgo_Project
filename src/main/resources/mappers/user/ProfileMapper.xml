@@ -17,7 +17,12 @@
         <result property="contact_end" column="contact_end"/>
         <result property="employees" column="employees"/>
     </resultMap>
-
+    <resultMap id="TerritoryResultMap" type="org.soomgo.soomgo_project.domain.territory.TerritoryDTO">
+        <id property="no" column="no"/>
+        <result property="id" column="id"/>
+        <result property="state" column="state"/>
+        <result property="district" column="district"/>
+    </resultMap>
     <select id="findExpertProfile" resultMap="ExpertProfileResultMap">
         SELECT expert_num, user_num, category_num, experience_years, education, rating, region, introduce, contact_start, contact_end, employees
         FROM expert
@@ -89,5 +94,14 @@
         SET region = #{region}
         WHERE user_num = #{userNum}
     </update>
-
+    <select id="getTerritoryabc" resultMap="TerritoryResultMap">
+        SELECT no, id, state, district
+        FROM territory
+        WHERE no = #{no}
+    </select>
+    <select id="findPortfolioImgs" parameterType="int" resultType="org.soomgo.soomgo_project.domain.expert.ExpertPortfolioImageDTO">
+        SELECT image_url FROM
+        expert_pf_images
+        WHERE portfolio_num = #{portfolio_num}
+    </select>
 </mapper>
