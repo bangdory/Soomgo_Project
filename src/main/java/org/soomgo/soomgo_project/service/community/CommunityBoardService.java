@@ -19,6 +19,8 @@ public interface CommunityBoardService {
 
     List<CommunityBoardDTO> listByBoardNo(int board_no);
 
+    List<CommunityBoardDTO> bestCommunity();
+
     List<CommunityBoardDTO> communitySearch(Map<String, Object> params);
 
     boolean isLiked(Map<String, Object> params);

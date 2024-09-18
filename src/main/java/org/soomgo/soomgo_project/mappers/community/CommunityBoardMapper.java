@@ -23,6 +23,10 @@ public interface CommunityBoardMapper {
 
     List<CommunityBoardDTO> communitySearch(Map<String, Object> params);
 
+//    void updateCurrentViews();
+
+    List<CommunityBoardDTO> bestCommunity();
+
     boolean isLiked(Map<String, Object> params);
 
     void increaseLike(Map<String, Object> params);

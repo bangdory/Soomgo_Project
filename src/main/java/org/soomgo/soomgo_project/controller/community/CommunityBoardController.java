@@ -47,6 +47,7 @@ public class CommunityBoardController {
     private final CommunityBoardServiceImpl service;
     private final ServletContext servletContext;
     private final CommunityReplyService replyService;
+    private final CommunityBoardServiceImpl communityBoardServiceImpl;
 
     /*
     @Autowired
@@ -289,16 +290,21 @@ public class CommunityBoardController {
             model.addAttribute("CategoryList", CategoryList);
             model.addAttribute("TerritoryList", TerritoryList);
 
+            log.info("boards",boards);
+
             return "community/listAll";
         } else {
             List<CategoryDTO> CategoryList = categoryService.getCategoryNotZero();
             List<TerritoryDTO> TerritoryList = territoryService.getTerritory();
             List<CommunityBoardDTO> boards = communityBoardService.listAll();
+            List<CommunityBoardDTO> bestCommunity = communityBoardService.bestCommunity();
 
+            model.addAttribute("bestCommunity", bestCommunity);
             model.addAttribute("boards", boards);
             model.addAttribute("board_no", board_no);
             model.addAttribute("CategoryList", CategoryList);
             model.addAttribute("TerritoryList", TerritoryList);
+
 
             return "community/listAll";
         }
@@ -414,6 +420,9 @@ public class CommunityBoardController {
         board.setCategoryNum(categoryNum);
         board.setCb_addr(cb_addr);
         board.setUser_num(userNum);
+
+        log.info("주소!!!!!!!!", board.getCb_addr());
+        log.info("카테고리!!!!!!!!", board.getCategoryNum());
 
         communityBoardService.update(board);
         return "redirect:/community/read?cb_no=" + board.getCb_no();

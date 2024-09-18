@@ -155,13 +155,20 @@
 
             <div class="categoryNRegion">
                 <div class="category" id="service-modal-open">
-                    서비스
+                    ${board.categoryName}
                     <input type="hidden" id="categoryNum" name="categoryNum" value="${board.categoryNum}">
                     <%--                    <input type="hidden" id="categoryNum" name="categoryNum" value=1>--%>
                     <i class="bi bi-chevron-down"></i>
                 </div>
                 <div class="region" id="place-modal-open">
-                    지역
+                    <c:choose>
+                        <c:when test="${board.district != null && !board.district.isEmpty()}">
+                            ${board.state} ${board.district}
+                        </c:when>
+                        <c:otherwise>
+                            ${board.state}
+                        </c:otherwise>
+                    </c:choose>
                     <input type="hidden" id="cb_addr" name="cb_addr" value="${board.cb_addr}">
                     <%--                    <input type="hidden" id="cb_addr" name="cb_addr" value="서울시">--%>
                     <i class="bi bi-chevron-down"></i>
