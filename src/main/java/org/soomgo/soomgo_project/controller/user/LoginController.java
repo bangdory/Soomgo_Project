@@ -87,7 +87,7 @@ public class LoginController {
 
             HttpSession session = request.getSession();
             UserDTO userDTO = userDetails.getUser();
-
+            UserProfileDTO userProfileDTO = userService.getUserProfileByUserNum(userDTO.getUser_num());
             if(userDTO != null) {
                 session.setAttribute("user", userDTO);
             }
@@ -95,6 +95,8 @@ public class LoginController {
             session.setAttribute("sess_user_name", userDTO.getUser_name());
             session.setAttribute("sess_user_num" , userDTO.getUser_num());
             session.setAttribute("sess_user_type", userDTO.getUser_type());
+            session.setAttribute("sess_user_nickname", userProfileDTO.getUser_nickname());
+            session.setAttribute("sess_user_profileImg", userProfileDTO.getProfile_img());
 
 
 

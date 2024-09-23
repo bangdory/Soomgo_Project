@@ -90,35 +90,38 @@
                 </div>
                 <!-- HTML 버튼 예시 -->
                 <div id="portfolios">
-                    <div>포트폴리오 목록
-                        <button onclick="showModal4()">포트폴리오 등록</button>
+                    <div class="portfolioDisplay">
+                        <div>포트폴리오 목록
+                            </div>
+                                <div>
+                                    <button onclick="showModal4()">포트폴리오 등록</button>
+                                </div>
+                            </div>
+
+                            <!-- 포트폴리오 버튼과 모달 컨테이너 -->
+
+                            <c:forEach var="portfolio" items="${expertPortfolios}">
+                                <div class="portfolio-item">
+                                    <!-- 포트폴리오 버튼 -->
+                                    <button data-portfolio-num="${portfolio.portfolio_num}"
+                                            onclick="openModal(${portfolio.portfolio_num})">
+                                        <c:out value="${portfolio.title}"/>
+                                    </button>
+                                </div>
+                            </c:forEach>
+
+                            <!-- 모달 컨테이너 -->
+                            <div id="modalContainer"></div>
+
+
+                        </div>
+                        <!-- 포트폴리오 세부 정보가 표시될 곳 -->
+
+
                     </div>
 
-                    <!-- 포트폴리오 버튼과 모달 컨테이너 -->
-
-                    <c:forEach var="portfolio" items="${expertPortfolios}">
-                        <div class="portfolio-item">
-                            <!-- 포트폴리오 버튼 -->
-                            <button data-portfolio-num="${portfolio.portfolio_num}" onclick="openModal(${portfolio.portfolio_num})">
-                                <c:out value="${portfolio.title}" />
-                            </button>
-                        </div>
-                    </c:forEach>
-
-                    <!-- 모달 컨테이너 -->
-                    <div id="modalContainer"></div>
-
-
                 </div>
-                <!-- 포트폴리오 세부 정보가 표시될 곳 -->
-
-
-
-
             </div>
-
-        </div>
-    </div>
 
 
 </main>
@@ -142,11 +145,11 @@
         <span class="close" onclick="closeModal2()">&times;</span>
         <div><h2>소개 편집</h2></div>
         <form>
-            <input type="text" id="newNickname" name="newNickname" value="${userprofile.user_nickname}" required>
-            <input type="text" id="newIntro" name="newIntro" value="${expertIntro.introduce}" required>
-            <input type="text" id="newCon_S" name="newCon_S" value="${expertIntro.contact_start}" required>
-            <input type="text" id="newCon_E" name="newCon_E" value="${expertIntro.contact_end}" required>
-            <input type="text" id="newEmpl" name="newEmpl" value="${expertIntro.employees}" required>
+            <input type="text" id="newNickname" name="newNickname" value="${userprofile.user_nickname}" placeholder="닉네임">
+            <input type="text" id="newIntro" name="newIntro" value="${expertIntro.introduce}" placeholder="한줄소개">
+            <input type="text" id="newCon_S" name="newCon_S" value="${expertIntro.contact_start}" placeholder="연락가능 시작시간">
+            <input type="text" id="newCon_E" name="newCon_E" value="${expertIntro.contact_end}" placeholder="연락가능 끝시간">
+            <input type="text" id="newEmpl" name="newEmpl" value="${expertIntro.employees}" placeholder="직원수">
             <button type="button" onclick="saveIntro()">저장</button>
         </form>
     </div>
@@ -198,9 +201,6 @@
         </form>
     </div>
 </div>
-
-
-
 
 
 <div id="toast" class="toast">닉네임이 성공적으로 변경되었습니다.</div>
@@ -614,7 +614,6 @@
     }
 
 
-
     function openModal(portfolioNum) {
         fetch('/profile/portfolio/' + portfolioNum)
             .then(response => response.json())
@@ -663,7 +662,7 @@
                     // 닫기 버튼 기능 추가
                     const closeButton = modal.querySelector('.close');
                     if (closeButton) {
-                        closeButton.onclick = function() {
+                        closeButton.onclick = function () {
                             closeModal(data.portfolio_num);
                         };
                     } else {
@@ -679,20 +678,13 @@
     }
 
 
-
-
-
     function closeModal(portfolioNum) {
-            const modal = document.getElementById('modal-' + portfolioNum);
-            if (modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto'; // 페이지 스크롤 다시 활성화
-            }
+        const modal = document.getElementById('modal-' + portfolioNum);
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // 페이지 스크롤 다시 활성화
         }
-
-
-
-
+    }
 
 
 </script>
