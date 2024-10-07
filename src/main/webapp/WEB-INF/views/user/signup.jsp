@@ -579,6 +579,8 @@
 
                 const target = event.target;
 
+                console.log(target)
+
                 if (target.classList.contains('modal-toggle-btn')) {
                     const item = target.closest('.place-modal-item');
                     const isExpanded = item.getAttribute('data-expanded') === 'true';

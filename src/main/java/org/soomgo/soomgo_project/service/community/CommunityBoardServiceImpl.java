@@ -57,6 +57,13 @@ public class CommunityBoardServiceImpl implements CommunityBoardService {
         return communityBoardDAO.communitySearch(params);
     }
 
+//    @Scheduled(cron = "0 0 0 * * *") //매일 자정에 실행
+//    public void updateCurrentViews() {
+//        communityBoardMapper.updateCurrentViews(); // 스케쥴러가 호출할 메소드
+//    }
+    @Override
+    public List<CommunityBoardDTO> bestCommunity() { return communityBoardDAO.bestCommunity(); }
+
     @Override
     public boolean isLiked(Map<String, Object> params){
         return communityBoardDAO.isLiked(params);

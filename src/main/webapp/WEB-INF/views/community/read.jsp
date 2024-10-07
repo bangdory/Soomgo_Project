@@ -366,7 +366,7 @@
                         <%--                    </div>--%>
                 </div>
                 <div class="icon">
-                    <i class="bi bi-three-dots-vertical" id="image-to-click-reply"></i>
+                    <i class="bi bi-three-dots-vertical" id="image-to-click-re0ply"></i>
                     <div class="context-menu-reply" id="context-menu-reply">
                         <ul>
                             <li class="update-btn" id="update-reply" data-no=`${reply.cr_no}`>수정하기</li>
@@ -434,10 +434,17 @@
         document.querySelectorAll('.update-btn').forEach(button => {
             button.addEventListener('click', function (event) {
 
+                const replyItem = event.currentTarget.closest('.reply-item');
                 // 클릭된 버튼을 가져옴
                 const clickedButton = event.currentTarget;
                 // data-no 속성 값을 가져옴
                 const dataNo = clickedButton.getAttribute('data-no');
+                const icon = replyItem.querySelector('.icon');
+                icon.style.display = 'none';
+                // const modifingIcon = document.getElementById('image-to-click-reply');
+                // const modifingContextMenu = document.getElementById('context-menu-reply');
+                // modifingIcon.style.display='none';
+                // modifingContextMenu.style.display='none';
 
                 // dataNo 값을 콘솔에 출력
                 console.log('클릭된 버튼의 data-no:', dataNo);
@@ -465,27 +472,33 @@
                 document.querySelectorAll('.save-modify').forEach(button =>{
                     button.addEventListener('click', function (event) {
                         const replyItem = event.currentTarget.closest('.reply-item');
+                        const resultContent = replyItem.querySelector('.community-reply-originContent');
                         const dataNo = replyItem.querySelector('input[name="cr_no"]').value;
-                        const modifyContent = replyItem.querySelector('.community-reply-modifyContent').value;
+                        var cr_no = parseInt(dataNo);
+                        const modifyTextArea = replyItem.querySelector('.community-reply-modifyContent');
+                        const modifyContent = modifyTextArea.value;
 
-                        fetch('/reply/modify', {
+                        console.log("dataNo에 cr_no가 제대로 들어갔나요?!?!?!?", cr_no);
+                        console.log("modifyContent : " + modifyContent)
+
+                        fetch('/reply/api/modify', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({
-                                cr_no: dataNo,
+                                cr_no: cr_no,
                                 cr_content: modifyContent
                             })
                         }).then(response => response.json())
                             .then(data =>{
                             if (data.success) {
-                                replyItem.content.textContent = modifyContent;
+                                resultContent.textContent = data.cr_content;
 
-                                replyItem.content.style.display = 'block';
-                                replyItem.icon.style.display = 'block';
+                                replyItem.querySelector('.community-reply-originContent').style.display = 'block';
+                                replyItem.querySelector('.icon').style.display = 'block';
                                 replyItem.querySelector('.community-reply-modifyContent').style.display = 'none';
-                                replyItem.button.style.display = 'none';
+                                replyItem.querySelector('.modifiyCancel').style.display = 'none';
                             } else {
                                 alert('댓글을 수정할 수 없습니다.');
                             }
@@ -498,10 +511,10 @@
                     button.addEventListener('click', function (event) {
                         const replyItem = event.currentTarget.closest('.reply-item');
 
-                        replyItem.content.style.display='none';
-                        replyItem.icon.style.display='none';
-                        replyItem.modifyContent.style.display='block';
-                        replyItem.button.style.display='block';
+                        replyItem.querySelector('.community-reply-originContent').style.display = 'block';
+                        replyItem.querySelector('.icon').style.display = 'block';
+                        replyItem.querySelector('.community-reply-modifyContent').style.display = 'none';
+                        replyItem.querySelector('.modifiyCancel').style.display = 'none';
                     })
                 })
 
@@ -596,7 +609,6 @@
 
     document.addEventListener('DOMContentLoaded', function () {
 
-        const likeButton = document.getElementById('like-button');
         const likeIcon = document.getElementById('like-icon');
         const likeCount = document.getElementById('like-count')
         const cb_no = document.getElementById('cb_no').value;
@@ -604,7 +616,7 @@
         // fetch로 no값을 던져줬을 때 checkLike로 리턴을 받을 때 true or false
 
 
-        likeButton.addEventListener('click', function () {
+        likeIcon.addEventListener('click', function () {
             // 로그인 상태 확인
             fetch('user/isLoggedIn')
                 .then(response => response.json())

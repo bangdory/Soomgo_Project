@@ -38,7 +38,7 @@ html, body, main {
 
 /* 모달 항목 */
 
-.service-modal-item {
+.service-modal-item, #reset-service-modal {
     height: 30px;
     padding: 10px;
     cursor: pointer; /* 클릭 가능한 아이콘 */
@@ -55,6 +55,7 @@ html, body, main {
 }
 
 .service-modal-item:hover,
+#reset-service-modal,
 .place-modal-item:hover {
     background: #e9ecef; /* 마우스 오버 시 배경색 변경 */
 }

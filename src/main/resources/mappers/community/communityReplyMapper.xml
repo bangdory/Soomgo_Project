@@ -65,6 +65,24 @@
             cr_file = #{cr_file}
         where cr_no = #{cr_no}
     </update>
+    <select id="getReplyUpdate" parameterType="map" resultType="org.soomgo.soomgo_project.domain.community.CommunityReplyDTO">
+        select
+            cr.cb_no,
+            cr.cr_no,
+            cr.cr_content,
+            cr.cr_file,
+            u.user_num,
+            u.user_name,
+            CASE
+                WHEN 24 > TIMESTAMPDIFF(HOUR, cr.cr_regdate, NOW()) THEN
+                CONCAT(TIMESTAMPDIFF(HOUR, cr.cr_regdate, NOW()), '시간 전')
+            ELSE
+                DATE_FORMAT(cr.cr_regdate, '%Y. %m. %d')
+            END AS cr_regdate
+        from community_reply cr
+        join user u on cr.user_num = u.user_num
+        where cr.cr_no = #{cr_no}
+    </select>
     <delete id="delete">
         delete from community_reply where cr_no = #{cr_no}
     </delete>

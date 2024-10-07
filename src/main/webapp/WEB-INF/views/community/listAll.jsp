@@ -11,7 +11,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../header/header.jsp" %>
 <%@ include file="../header/headerModal.jsp"%>
-<%@include file="communityListModal.jsp" %>
+<%@ include file="communityListModal.jsp" %>
 <html>
 <head>
     <title>Title</title>
@@ -37,7 +37,7 @@
             align-items: center;
 
         }
-        .community-board-content {
+        .community-board-content, .community-recomended-board {
             border: rgb(0,0,0,0%);
             cursor: pointer;
             text-align: center;
@@ -45,6 +45,16 @@
             padding: 20px;
             width: 100%;
             font-size: 14px;
+        }
+
+        .community-recomended-board {
+            background-color: #fddcdc;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .bi-fire{
+            color: #df3212;
         }
 
         ul {
@@ -104,6 +114,7 @@
             align-items: center;
             gap: 10px;
             padding-bottom: 30px;
+            padding-top: 30px;
         }
         .board1234{
             cursor: pointer;
@@ -142,8 +153,22 @@
                 <li><div class="board1234" onclick="location.href='/community/listAll?board_no=4'">고수소식</div></li>
             </ul>
         </div>
-        <div class="communityList-container">
+        <div class="communityList-container" data-board-no="${board_no}">
             <div class="community-list">
+                <div class="community-recommended">
+                    <div>
+                        <p>
+                            지금 가장 뜨거운 숨고픽 <i class="bi bi-fire"></i>
+                        </p>
+                    </div>
+                    <c:forEach items="${bestCommunity}" var="best">
+                        <div class="community-recomended-board" onclick="location.href='/community/read?cb_no=${best.cb_no}">
+                            <div style="font-weight: bold">${best.cb_title}</div>
+                            <div>${best.cb_content}</div>
+                            <div>${best.state} ${best.district}</div>
+                        </div>
+                    </c:forEach>
+                </div>
                 <div class="community-filter">
                     <div class="community-service-modal" id="community-service-modal">
                         <div id="service-modal-open" class="service-modal-opener">
@@ -156,7 +181,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="community-list-container" id="community-list" >
+                <div class="community-list-container" id="community-list">
                     <c:forEach items="${boards}" var="board">
                         <div class="community-board-content" onclick="location.href='/community/read?cb_no=${board.cb_no}'">
 

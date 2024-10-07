@@ -15,20 +15,16 @@ public interface CommunityReplyMapper {
 
     void update(CommunityReplyDTO reply);
 
+    CommunityReplyDTO getReplyUpdate(Map<String, Object> params);
+
     void delete(Integer cr_no);
 
     List<CommunityReplyDTO> read(Integer cb_no);
 
+
     boolean isLiked(Integer cr_no, Integer user_num);
 
-    void increaseLike(Integer cr_no, Integer user_num);
 
-    void updateLikeCount(Integer cr_no);
 
-    void removeLike(Integer cr_no, Integer user_num);
-
-    void decreaseLikeCount(Integer cr_no);
-
-    int getLikeCount(Integer cr_no);
 
 }

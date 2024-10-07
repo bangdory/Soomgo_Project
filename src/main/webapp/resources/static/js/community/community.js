@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 지역 모달 전체보기 클릭 시 모달 창 리셋
     document.getElementById('reset-place-modal').addEventListener('click', function () {
-        const url = '/community/listAll'
+        const boardNo = document.querySelector('.communityList-container').getAttribute('data-board-no');
+        const url = `/community/communitySearch?board_no=`+ encodeURIComponent(boardNo)
         fetchData(url, fetchProcessing);
         document.getElementById('place-modal-base-container').style.display = 'none';
         document.getElementById('place-modal').style.display = 'none';
@@ -81,7 +82,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 서비스 모달 전체보기 클릭 시 모달 창 리셋
     document.getElementById('reset-service-modal').addEventListener('click', function () {
-        const url = '/community/listAll'
+        const boardNo = document.querySelector('.communityList-container').getAttribute('data-board-no');
+        const url = `/community/communitySearch?board_no=`+ encodeURIComponent(boardNo)
         fetchData(url, fetchProcessing);
         document.getElementById('service-modal-base-container').style.display = 'none';
         document.getElementById('service-modal').style.display = 'none';
@@ -106,19 +108,33 @@ document.addEventListener('DOMContentLoaded', function () {
             serviceModalOpen.setAttribute('data-value', categoryNum);
 
             const place = document.getElementById('place-modal-open');
-
             const placeValue = place.getAttribute('data-value');
 
-            console.log(placeValue)
+            const boardNo = document.querySelector('.communityList-container').getAttribute('data-board-no');
 
-            if (placeValue !== null) {
-                const url = '/community/communitySearch?categoryNum=' + encodeURIComponent(categoryNum) + '&no=' + encodeURIComponent(placeValue);
-                console.log(url);
-                fetchData(url, fetchProcessing);
-            } else {
-                const url = '/community/communitySearch?categoryNum=' + encodeURIComponent(categoryNum);
-                console.log(url);
-                fetchData(url, fetchProcessing);
+            console.log(placeValue)
+            console.log("board_no!!!!! 지금 보고있는 게시판!!!", boardNo)
+
+            if (boardNo !== null && boardNo !== 0) {
+                if (placeValue !== null) {
+                    const url = '/community/communitySearch?board_no='+ encodeURIComponent(boardNo) +'&categoryNum=' + encodeURIComponent(categoryNum) + '&no=' + encodeURIComponent(placeValue);
+                    console.log(url);
+                    fetchData(url, fetchProcessing);
+                } else {
+                    const url = '/community/communitySearch?board_no='+ encodeURIComponent(boardNo) +'&categoryNum=' + encodeURIComponent(categoryNum);
+                    console.log(url);
+                    fetchData(url, fetchProcessing);
+                }
+            }else {
+                if (placeValue !== null) {
+                    const url = '/community/communitySearch?categoryNum=' + encodeURIComponent(categoryNum) + '&no=' + encodeURIComponent(placeValue);
+                    console.log(url);
+                    fetchData(url, fetchProcessing);
+                } else {
+                    const url = '/community/communitySearch?&categoryNum=' + encodeURIComponent(categoryNum);
+                    console.log(url);
+                    fetchData(url, fetchProcessing);
+                }
             }
 
             newItem.innerHTML = categoryName + '<i class="bi bi-chevron-down"></i>';
@@ -192,16 +208,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 const service = document.getElementById('service-modal-open');
 
                 const serviceValue = service.getAttribute('data-value');
+                const boardNo = document.querySelector('.communityList-container').getAttribute('data-board-no');
 
                 console.log('serviceValue: ' + serviceValue);
 
-                if (serviceValue !== null) {
-                    const url = '/community/communitySearch?categoryNum=' + encodeURIComponent(serviceValue) + '&no=' + encodeURIComponent(no);
-                    console.log(url);
-                    fetchData(url, fetchProcessing);
-                } else {
-                    const url = '/community/communitySearch?no=' + encodeURIComponent(no);
-                    fetchData(url, fetchProcessing);
+                if (boardNo !== null && boardNo !== 0) {
+                    if (serviceValue !== null) {
+                        const url = '/community/communitySearch?board_no='+ encodeURIComponent(boardNo) +'&categoryNum=' + encodeURIComponent(serviceValue) + '&no=' + encodeURIComponent(placeValue);
+                        console.log(url);
+                        fetchData(url, fetchProcessing);
+                    } else {
+                        const url = '/community/communitySearch?board_no='+ encodeURIComponent(boardNo) +'&no=' + encodeURIComponent(no);
+                        console.log(url);
+                        fetchData(url, fetchProcessing);
+                    }
+                }else {
+                    if (serviceValue !== null) {
+                        const url = '/community/communitySearch?categoryNum=' + encodeURIComponent(serviceValue) + '&no=' + encodeURIComponent(no);
+                        console.log(url);
+                        fetchData(url, fetchProcessing);
+                    } else {
+                        const url = '/community/communitySearch?&no=' + encodeURIComponent(no);
+                        console.log(url);
+                        fetchData(url, fetchProcessing);
+                    }
                 }
 
 
@@ -271,9 +301,15 @@ function fetchProcessing(response) {
             itemGroupDiv.classList.add('community-board-content');
             itemGroupDiv.setAttribute('data-rating', item.cb_no);
 
+            // onClick 이벤트 핸들러 추가
+            itemGroupDiv.onclick = function() {
+                window.location.href = `/community/read?cb_no=`+item.cb_no;
+            };
+
             //제목 div 생성
             const titleDiv = document.createElement('div');
             titleDiv.classList.add('board-title');
+            titleDiv.style.fontWeight='bold';
             titleDiv.textContent = item.cb_title || '제목없음';
 
             // 내용 div 생성
@@ -283,7 +319,7 @@ function fetchProcessing(response) {
 
             // 작성자와 날짜 div 생성
             const metaDiv = document.createElement('div');
-            metaDiv.classList.add('baord-meta');
+            metaDiv.classList.add('board-meta');
             if (item.district !== null) {
                 metaDiv.textContent = item.state + " " + item.district;
             } else {
@@ -298,6 +334,7 @@ function fetchProcessing(response) {
             console.log('item.id!!!! ',item.cb_no)
             console.log('content!!!! ',item.cb_content)
             console.log('title!!!! ',item.cb_title)
+
 
             // 생성한 div를 community-list에 추가
             communityList.appendChild(itemGroupDiv);

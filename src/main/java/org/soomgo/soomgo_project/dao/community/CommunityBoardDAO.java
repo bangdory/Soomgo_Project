@@ -39,6 +39,8 @@ public class CommunityBoardDAO {
         return communityBoardMapper.listByBoardNo(board_no);
     }
 
+    public List<CommunityBoardDTO> bestCommunity() {return communityBoardMapper.bestCommunity();}
+
     public List<CommunityBoardDTO> communitySearch(Map<String, Object> params){
         return communityBoardMapper.communitySearch(params);
     }
